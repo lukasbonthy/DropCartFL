@@ -1,4 +1,3 @@
-
 /*
   DropcartFL v4 — Employee Login + Customer Login/Signup
   -------------------------------------------------------
@@ -5897,6 +5896,216 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v23 Full Theme Engine
+       Themes now change the whole design, not just the background.
+       ============================================================ */
+
+    body.vibe-twilight {
+      --theme-bg-1:#050711;
+      --theme-bg-2:#090f1e;
+      --theme-surface:rgba(255,255,255,.078);
+      --theme-line:rgba(255,255,255,.14);
+      --theme-line-2:rgba(255,255,255,.22);
+      --theme-text:#f8fafc;
+      --theme-muted:rgba(248,250,252,.66);
+      --theme-a:#7c5cff;
+      --theme-b:#ff4fd8;
+      --theme-c:#35d7ff;
+      --theme-good:#49e6a5;
+      --theme-radius:28px;
+      --theme-radius-lg:44px;
+      --theme-shadow:0 28px 92px rgba(0,0,0,.42);
+      --theme-card:radial-gradient(520px circle at 20% 0%,rgba(255,255,255,.08),transparent 46%),linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.04));
+      --theme-btn:linear-gradient(135deg,#7c5cff 0%,#ff4fd8 58%,#35d7ff 125%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#c9c0ff 24%,#ff7be8 52%,#68e4ff 80%,#fff 100%);
+    }
+
+    body.vibe-ocean {
+      --theme-bg-1:#02111f;
+      --theme-bg-2:#06243d;
+      --theme-surface:rgba(34,211,238,.088);
+      --theme-line:rgba(125,211,252,.19);
+      --theme-line-2:rgba(186,230,253,.32);
+      --theme-text:#effaff;
+      --theme-muted:rgba(239,250,255,.70);
+      --theme-a:#0ea5e9;
+      --theme-b:#22d3ee;
+      --theme-c:#67e8f9;
+      --theme-good:#5eead4;
+      --theme-radius:36px;
+      --theme-radius-lg:60px;
+      --theme-shadow:0 30px 95px rgba(0,35,70,.48);
+      --theme-card:radial-gradient(640px circle at 18% 0%,rgba(34,211,238,.16),transparent 48%),radial-gradient(540px circle at 100% 70%,rgba(14,165,233,.11),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.105),rgba(34,211,238,.035));
+      --theme-btn:linear-gradient(135deg,#0284c7 0%,#22d3ee 55%,#67e8f9 125%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bae6fd 24%,#22d3ee 52%,#67e8f9 80%,#fff 100%);
+    }
+
+    body.vibe-fresh {
+      --theme-bg-1:#06140f;
+      --theme-bg-2:#0f2a1d;
+      --theme-surface:rgba(236,253,245,.09);
+      --theme-line:rgba(167,243,208,.18);
+      --theme-line-2:rgba(209,250,229,.30);
+      --theme-text:#f4fff9;
+      --theme-muted:rgba(244,255,249,.70);
+      --theme-a:#10b981;
+      --theme-b:#49e6a5;
+      --theme-c:#f5d48a;
+      --theme-good:#bbf7d0;
+      --theme-radius:22px;
+      --theme-radius-lg:34px;
+      --theme-shadow:0 28px 92px rgba(0,45,28,.44);
+      --theme-card:radial-gradient(560px circle at 14% 0%,rgba(73,230,165,.15),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(245,212,138,.10),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.10),rgba(73,230,165,.035));
+      --theme-btn:linear-gradient(135deg,#059669 0%,#49e6a5 62%,#f5d48a 135%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bbf7d0 26%,#49e6a5 52%,#f5d48a 80%,#fff 100%);
+    }
+
+    body.vibe-night {
+      --theme-bg-1:#02030a;
+      --theme-bg-2:#070b16;
+      --theme-surface:rgba(148,163,184,.065);
+      --theme-line:rgba(148,163,184,.13);
+      --theme-line-2:rgba(191,219,254,.22);
+      --theme-text:#f8fafc;
+      --theme-muted:rgba(226,232,240,.62);
+      --theme-a:#3b82f6;
+      --theme-b:#6366f1;
+      --theme-c:#94a3b8;
+      --theme-good:#93c5fd;
+      --theme-radius:14px;
+      --theme-radius-lg:22px;
+      --theme-shadow:0 26px 90px rgba(0,0,0,.62);
+      --theme-card:linear-gradient(180deg,rgba(148,163,184,.085),rgba(15,23,42,.52));
+      --theme-btn:linear-gradient(135deg,#1d4ed8 0%,#4f46e5 60%,#94a3b8 140%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bfdbfe 30%,#60a5fa 56%,#cbd5e1 82%,#fff 100%);
+    }
+
+    body.vibe-twilight,
+    body.vibe-ocean,
+    body.vibe-fresh,
+    body.vibe-night {
+      color:var(--theme-text)!important;
+      background:
+        radial-gradient(1100px circle at 10% -10%,color-mix(in srgb,var(--theme-a) 38%,transparent),transparent 45%),
+        radial-gradient(900px circle at 96% 8%,color-mix(in srgb,var(--theme-b) 25%,transparent),transparent 42%),
+        radial-gradient(780px circle at 50% 108%,color-mix(in srgb,var(--theme-c) 18%,transparent),transparent 52%),
+        linear-gradient(180deg,var(--theme-bg-1),var(--theme-bg-2) 46%,var(--theme-bg-1))!important;
+    }
+
+    body.vibe-ocean::before{background-size:84px 42px!important;opacity:.42;transform:skewY(-3deg)}
+    body.vibe-fresh::before{background-size:76px 76px!important;opacity:.38}
+    body.vibe-night::before{background-size:92px 92px!important;opacity:.24;filter:contrast(1.35)}
+
+    body.vibe-ocean .header,body.vibe-ocean .mobileAppTop{background:rgba(2,17,31,.80)!important;border-bottom-color:rgba(125,211,252,.16)!important}
+    body.vibe-fresh .header,body.vibe-fresh .mobileAppTop{background:rgba(6,20,15,.80)!important;border-bottom-color:rgba(167,243,208,.16)!important}
+    body.vibe-night .header,body.vibe-night .mobileAppTop{background:rgba(2,3,10,.88)!important;border-bottom-color:rgba(148,163,184,.13)!important}
+
+    body.vibe-twilight .glass,body.vibe-twilight .soft,body.vibe-twilight .card,body.vibe-twilight .formBox,body.vibe-twilight .hubCard,body.vibe-twilight .final,body.vibe-twilight .device,body.vibe-twilight .screen,body.vibe-twilight .estimateResult,
+    body.vibe-ocean .glass,body.vibe-ocean .soft,body.vibe-ocean .card,body.vibe-ocean .formBox,body.vibe-ocean .hubCard,body.vibe-ocean .final,body.vibe-ocean .device,body.vibe-ocean .screen,body.vibe-ocean .estimateResult,
+    body.vibe-fresh .glass,body.vibe-fresh .soft,body.vibe-fresh .card,body.vibe-fresh .formBox,body.vibe-fresh .hubCard,body.vibe-fresh .final,body.vibe-fresh .device,body.vibe-fresh .screen,body.vibe-fresh .estimateResult,
+    body.vibe-night .glass,body.vibe-night .soft,body.vibe-night .card,body.vibe-night .formBox,body.vibe-night .hubCard,body.vibe-night .final,body.vibe-night .device,body.vibe-night .screen,body.vibe-night .estimateResult{
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.09),var(--theme-shadow),0 0 74px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+    }
+
+    body.vibe-ocean .card,body.vibe-ocean .hubCard,body.vibe-ocean .formBox{backdrop-filter:blur(28px) saturate(1.32)!important;-webkit-backdrop-filter:blur(28px) saturate(1.32)!important}
+    body.vibe-fresh .card,body.vibe-fresh .hubCard,body.vibe-fresh .formBox{backdrop-filter:blur(18px) saturate(1.18)!important;-webkit-backdrop-filter:blur(18px) saturate(1.18)!important}
+    body.vibe-night .card,body.vibe-night .hubCard,body.vibe-night .formBox{backdrop-filter:blur(12px) contrast(1.12)!important;-webkit-backdrop-filter:blur(12px) contrast(1.12)!important}
+
+    body.vibe-ocean .shine,body.vibe-fresh .shine,body.vibe-night .shine,body.vibe-twilight .shine{
+      background:var(--theme-title)!important;background-size:220% auto!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+    }
+
+    body.vibe-ocean .primary,body.vibe-fresh .primary,body.vibe-night .primary,body.vibe-twilight .primary{
+      background:var(--theme-btn)!important;
+      box-shadow:0 20px 68px color-mix(in srgb,var(--theme-a) 36%,transparent),inset 0 1px 0 rgba(255,255,255,.22)!important;
+    }
+
+    body.vibe-ocean .ghost,body.vibe-fresh .ghost,body.vibe-night .ghost,body.vibe-twilight .ghost{
+      background:radial-gradient(220px circle at 30% 0%,color-mix(in srgb,var(--theme-c) 13%,transparent),transparent 48%),var(--theme-surface)!important;
+      border-color:var(--theme-line)!important;
+    }
+
+    body.vibe-ocean .chip,body.vibe-fresh .chip,body.vibe-night .chip,body.vibe-twilight .chip{
+      background:var(--theme-surface)!important;border-color:var(--theme-line)!important;color:var(--theme-muted)!important;
+    }
+
+    body.vibe-ocean .logoIcon,body.vibe-ocean .appIcon,body.vibe-ocean .requestIcon{background:linear-gradient(135deg,#effaff,#bae6fd)!important;box-shadow:0 18px 55px rgba(34,211,238,.28),inset 0 1px 0 rgba(255,255,255,.40)!important}
+    body.vibe-fresh .logoIcon,body.vibe-fresh .appIcon,body.vibe-fresh .requestIcon{background:linear-gradient(135deg,#f4fff9,#bbf7d0)!important;box-shadow:0 18px 55px rgba(73,230,165,.24),inset 0 1px 0 rgba(255,255,255,.40)!important}
+    body.vibe-night .logoIcon,body.vibe-night .appIcon,body.vibe-night .requestIcon{background:linear-gradient(135deg,#f8fafc,#bfdbfe)!important;box-shadow:0 18px 55px rgba(59,130,246,.20),inset 0 1px 0 rgba(255,255,255,.36)!important}
+
+    body.vibe-ocean .sectionTitle::after{background:linear-gradient(90deg,transparent,#22d3ee,#67e8f9,transparent)!important;box-shadow:0 0 32px rgba(34,211,238,.32)!important}
+    body.vibe-fresh .sectionTitle::after{background:linear-gradient(90deg,transparent,#49e6a5,#f5d48a,transparent)!important;box-shadow:0 0 32px rgba(73,230,165,.28)!important}
+    body.vibe-night .sectionTitle::after{background:linear-gradient(90deg,transparent,#3b82f6,#94a3b8,transparent)!important;box-shadow:0 0 24px rgba(59,130,246,.18)!important}
+
+    body.vibe-ocean .field input,body.vibe-ocean .field select,body.vibe-ocean .field textarea,
+    body.vibe-fresh .field input,body.vibe-fresh .field select,body.vibe-fresh .field textarea,
+    body.vibe-night .field input,body.vibe-night .field select,body.vibe-night .field textarea{
+      background:color-mix(in srgb,var(--theme-surface) 72%,transparent)!important;
+      border-color:var(--theme-line)!important;color:var(--theme-text)!important;
+    }
+
+    body.vibe-ocean .field input:focus,body.vibe-ocean .field select:focus,body.vibe-ocean .field textarea:focus,
+    body.vibe-fresh .field input:focus,body.vibe-fresh .field select:focus,body.vibe-fresh .field textarea:focus,
+    body.vibe-night .field input:focus,body.vibe-night .field select:focus,body.vibe-night .field textarea:focus{
+      border-color:var(--theme-b)!important;
+      box-shadow:0 0 0 4px color-mix(in srgb,var(--theme-a) 22%,transparent),0 0 48px color-mix(in srgb,var(--theme-c) 12%,transparent)!important;
+    }
+
+    body.vibe-ocean .appBottomNav,body.vibe-fresh .appBottomNav,body.vibe-night .appBottomNav,body.vibe-twilight .appBottomNav{
+      background:color-mix(in srgb,var(--theme-bg-1) 84%,transparent)!important;
+      border-color:var(--theme-line)!important;
+      box-shadow:0 24px 80px rgba(0,0,0,.52),0 0 44px color-mix(in srgb,var(--theme-a) 16%,transparent)!important;
+    }
+
+    body.vibe-ocean .audioDockPanel,body.vibe-ocean .sensoryPanel,body.vibe-fresh .audioDockPanel,body.vibe-fresh .sensoryPanel,body.vibe-night .audioDockPanel,body.vibe-night .sensoryPanel,body.vibe-twilight .audioDockPanel,body.vibe-twilight .sensoryPanel{
+      background:radial-gradient(460px circle at 0% 0%,color-mix(in srgb,var(--theme-a) 20%,transparent),transparent 48%),color-mix(in srgb,var(--theme-bg-1) 88%,transparent)!important;
+      border-color:var(--theme-line)!important;border-radius:var(--theme-radius)!important;
+    }
+
+    body.vibe-ocean .audioMainButton,body.vibe-ocean .sensoryButton,body.vibe-fresh .audioMainButton,body.vibe-fresh .sensoryButton,body.vibe-night .audioMainButton,body.vibe-night .sensoryButton,body.vibe-twilight .audioMainButton,body.vibe-twilight .sensoryButton{
+      background:var(--theme-btn)!important;box-shadow:0 20px 64px color-mix(in srgb,var(--theme-a) 32%,transparent),inset 0 1px 0 rgba(255,255,255,.18)!important;
+    }
+
+    body.vibe-ocean .v20-showcase{background:radial-gradient(900px circle at 12% 0%,rgba(34,211,238,.30),transparent 46%),radial-gradient(900px circle at 92% 20%,rgba(14,165,233,.20),transparent 44%),linear-gradient(135deg,rgba(255,255,255,.12),rgba(34,211,238,.04))!important;border-radius:58px!important}
+    body.vibe-fresh .v20-showcase{background:radial-gradient(900px circle at 12% 0%,rgba(73,230,165,.26),transparent 46%),radial-gradient(900px circle at 92% 20%,rgba(245,212,138,.12),transparent 44%),linear-gradient(135deg,rgba(255,255,255,.12),rgba(73,230,165,.04))!important;border-radius:38px!important}
+    body.vibe-night .v20-showcase{background:radial-gradient(900px circle at 12% 0%,rgba(59,130,246,.18),transparent 46%),linear-gradient(135deg,rgba(148,163,184,.10),rgba(15,23,42,.45))!important;border-radius:24px!important}
+
+    body.vibe-ocean .v20-showcase::after{background:linear-gradient(90deg,transparent,rgba(34,211,238,.95),rgba(103,232,249,.85),transparent)!important}
+    body.vibe-fresh .v20-showcase::after{background:linear-gradient(90deg,transparent,rgba(73,230,165,.95),rgba(245,212,138,.78),transparent)!important}
+    body.vibe-night .v20-showcase::after{background:linear-gradient(90deg,transparent,rgba(59,130,246,.72),rgba(148,163,184,.55),transparent)!important}
+
+    body.vibe-ocean .personalHero,body.vibe-fresh .personalHero,body.vibe-night .personalHero{background:var(--theme-card)!important;border-color:var(--theme-line)!important;border-radius:var(--theme-radius-lg)!important}
+    body.vibe-ocean .v22-sense-toast,body.vibe-fresh .v22-sense-toast,body.vibe-night .v22-sense-toast,body.vibe-twilight .v22-sense-toast{
+      background:color-mix(in srgb,var(--theme-bg-1) 88%,transparent)!important;border-color:var(--theme-line)!important;
+      box-shadow:0 22px 72px rgba(0,0,0,.42),0 0 44px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+    }
+
+    body.vibe-ocean .sensoryOption.active,body.vibe-fresh .sensoryOption.active,body.vibe-night .sensoryOption.active,body.vibe-twilight .sensoryOption.active{
+      background:linear-gradient(135deg,color-mix(in srgb,var(--theme-a) 52%,transparent),color-mix(in srgb,var(--theme-c) 18%,transparent))!important;
+      border-color:var(--theme-line-2)!important;
+    }
+
+    body.vibe-ocean .btn,body.vibe-ocean .chip,body.vibe-ocean .field input,body.vibe-ocean .field select{border-radius:999px!important}
+    body.vibe-ocean .field textarea{border-radius:28px!important}
+    body.vibe-fresh .btn,body.vibe-fresh .chip{border-radius:18px!important}
+    body.vibe-night .btn,body.vibe-night .chip,body.vibe-night .field input,body.vibe-night .field select,body.vibe-night .field textarea{border-radius:10px!important}
+    body.vibe-night .card,body.vibe-night .hubCard,body.vibe-night .formBox,body.vibe-night .final,body.vibe-night .v20-showcase,body.vibe-night .v20-big-panel,body.vibe-night .v20-route-card{border-radius:18px!important}
+
+    body.vibe-ocean .v19-floating-icons span,body.vibe-ocean .safeFloatDecor span{border-radius:999px!important;color:rgba(186,230,253,.72)!important;border-color:rgba(125,211,252,.18)!important}
+    body.vibe-fresh .v19-floating-icons span,body.vibe-fresh .safeFloatDecor span{color:rgba(209,250,229,.72)!important;border-color:rgba(167,243,208,.18)!important}
+    body.vibe-night .v19-floating-icons span,body.vibe-night .safeFloatDecor span{opacity:.36!important;color:rgba(191,219,254,.48)!important;border-color:rgba(148,163,184,.12)!important}
+
+    @media(max-width:720px){
+      body.vibe-ocean .card,body.vibe-ocean .hubCard,body.vibe-ocean .formBox{border-radius:30px!important}
+      body.vibe-fresh .card,body.vibe-fresh .hubCard,body.vibe-fresh .formBox{border-radius:24px!important}
+      body.vibe-night .card,body.vibe-night .hubCard,body.vibe-night .formBox{border-radius:16px!important}
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -6011,8 +6220,8 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     <div class="sensoryPanel">
       <div class="sensoryTitle">
         <div>
-          <strong>Sensory Mode</strong>
-          <span>Haptics, voice, mood lighting, and celebration effects.</span>
+          <strong>Theme Studio</strong>
+          <span>Change the entire site design, effects, haptics, and voice.</span>
         </div>
         <button id="sensoryClose" class="sensoryMiniButton" type="button" aria-label="Close sensory panel">✕</button>
       </div>
