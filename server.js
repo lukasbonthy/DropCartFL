@@ -7222,8 +7222,65 @@ function employeeBookingCard(req, b) {
   const color = statusColor(b.status);
   const created = new Date(b.createdAt).toLocaleString();
   const updated = b.updatedAt ? new Date(b.updatedAt).toLocaleString() : "—";
+  const statusClass = String(b.status || "new").replace(/[^a-z0-9-]/gi, "").toLowerCase();
   const statusOptions = VALID_STATUSES.map((status) => `<option value="${status}" ${status === b.status ? "selected" : ""}>${status}</option>`).join("");
-  return `<article class="bookingCard glass"><div class="bookingTop"><div><span class="badge ${color}">${escapeHtml(b.status)}</span><h3 class="display" style="margin-top:12px;font-size:30px;letter-spacing:-.05em">${escapeHtml(b.name)}</h3><p style="color:rgba(255,255,255,.58);line-height:1.6;margin-top:6px">${escapeHtml(b.phone)}${b.email ? " · " + escapeHtml(b.email) : ""}${b.customerId ? " · customer account" : " · guest"}</p></div><div style="text-align:right;color:rgba(255,255,255,.45);font-size:12px;font-weight:800">${escapeHtml(b.id)}<br>${escapeHtml(created)}</div></div><div class="bookingMeta"><div class="metaBox"><span>Address</span><strong>${escapeHtml(b.address)}</strong></div><div class="metaBox"><span>ZIP / Area</span><strong>${escapeHtml(b.zip || "—")} · ${escapeHtml(b.area?.status || "unknown")}</strong></div><div class="metaBox"><span>Preferred</span><strong>${escapeHtml(b.date || "Any day")} · ${escapeHtml(b.timeWindow || "Flexible")}</strong></div><div class="metaBox"><span>Estimate</span><strong>${money(b.estimate?.price)} · ${escapeHtml(String(b.estimate?.minutes || "?"))}m</strong></div><div class="metaBox"><span>Bags</span><strong>${escapeHtml(String(b.estimate?.bags || "—"))}</strong></div><div class="metaBox"><span>Stairs</span><strong>${escapeHtml(String(b.estimate?.stairs || "—"))}</strong></div><div class="metaBox"><span>Heavy</span><strong>${escapeHtml(String(b.estimate?.heavy || "—"))}</strong></div><div class="metaBox"><span>Updated</span><strong>${escapeHtml(updated)}</strong></div></div><p style="margin-top:14px;color:rgba(255,255,255,.6);line-height:1.65">${escapeHtml(b.notes || "No notes.")}</p><div class="adminActions"><form method="post" action="/employee/bookings/${encodeURIComponent(b.id)}/status">${csrfField(req)}<select name="status">${statusOptions}</select><button class="btn primary" type="submit">Update</button></form><form method="post" action="/employee/bookings/${encodeURIComponent(b.id)}/delete" onsubmit="return confirm('Delete this booking?')">${csrfField(req)}<button class="btn danger" type="submit">Delete</button></form><a class="btn ghost" href="tel:${escapeHtml(b.phone)}">Call</a><a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${encodeURIComponent("Hey, this is Dropcart. I saw your grocery unload request and wanted to confirm the details.")}">Text</a></div></article>`;
+  const notes = String(b.notes || "");
+  const tags = [];
+  if (b.customerId) tags.push("👤 customer account");
+  else tags.push("👥 guest request");
+  if ((b.estimate?.stairs || 0) > 0) tags.push("🪜 stairs");
+  if ((b.estimate?.heavy || 0) > 0) tags.push("💪 heavy items");
+  if ((b.estimate?.urgency || 0) > 0 || /asap|rush|today/i.test(notes + " " + (b.timeWindow || ""))) tags.push("⚡ time-sensitive");
+  if (/gate|code/i.test(notes)) tags.push("🔐 gate/code");
+  if (/dog|cat|pet/i.test(notes)) tags.push("🐾 pets");
+  if (/garage/i.test(notes)) tags.push("🏠 garage");
+  if (/cold|frozen|fridge|freezer/i.test(notes)) tags.push("🧊 cold items");
+  if ((b.area?.status || "") === "edge") tags.push("📍 edge area");
+  if ((b.area?.status || "") === "outside") tags.push("🗺 verify area");
+  const tagHtml = tags.slice(0, 7).map((tag) => `<span class="employeeTag">${escapeHtml(tag)}</span>`).join("");
+  const smsConfirm = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I saw your grocery unload request and wanted to confirm the details.`);
+  const smsOnWay = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I am on the way for your grocery unload.`);
+  return `<article class="employeeJobCard employee-status-${escapeHtml(statusClass)}">
+    <div class="employeeJobInner">
+      <div class="employeeJobTop">
+        <div class="employeeJobIdentity">
+          <span class="badge ${color}">${escapeHtml(b.status)}</span>
+          <h3 class="employeeJobName">${escapeHtml(b.name)}</h3>
+          <p class="employeeJobContact">${escapeHtml(b.phone)}${b.email ? " · " + escapeHtml(b.email) : ""}</p>
+          <div class="employeeTagRow">${tagHtml}</div>
+        </div>
+        <div class="employeeJobId">${escapeHtml(b.id)}<br>${escapeHtml(created)}<br>Updated: ${escapeHtml(updated)}</div>
+      </div>
+
+      <div class="bookingMeta">
+        <div class="metaBox"><span>Address</span><strong>${escapeHtml(b.address)}</strong></div>
+        <div class="metaBox"><span>ZIP / Area</span><strong>${escapeHtml(b.zip || "—")} · ${escapeHtml(b.area?.status || "unknown")}</strong></div>
+        <div class="metaBox"><span>Preferred</span><strong>${escapeHtml(b.date || "Any day")} · ${escapeHtml(b.timeWindow || "Flexible")}</strong></div>
+        <div class="metaBox"><span>Estimate</span><strong>${money(b.estimate?.price)} · ${escapeHtml(String(b.estimate?.minutes || "?"))}m</strong></div>
+        <div class="metaBox"><span>Bags</span><strong>${escapeHtml(String(b.estimate?.bags || "—"))}</strong></div>
+        <div class="metaBox"><span>Stairs</span><strong>${escapeHtml(String(b.estimate?.stairs || "—"))}</strong></div>
+        <div class="metaBox"><span>Heavy</span><strong>${escapeHtml(String(b.estimate?.heavy || "—"))}</strong></div>
+        <div class="metaBox"><span>Source</span><strong>${escapeHtml(b.source || "website")}</strong></div>
+      </div>
+
+      <div class="employeeJobNotes">${escapeHtml(b.notes || "No notes yet. Ask where cold items, water cases, pantry items, and garage items should go.")}</div>
+
+      <div class="employeeJobActions">
+        <form method="post" action="/employee/bookings/${encodeURIComponent(b.id)}/status">
+          ${csrfField(req)}
+          <select name="status">${statusOptions}</select>
+          <button class="btn primary" type="submit">Update status</button>
+        </form>
+        <a class="btn ghost" href="tel:${escapeHtml(b.phone)}">Call</a>
+        <a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsConfirm}">Text confirm</a>
+        <a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsOnWay}">On my way</a>
+        <form method="post" action="/employee/bookings/${encodeURIComponent(b.id)}/delete" onsubmit="return confirm('Delete this booking?')">
+          ${csrfField(req)}
+          <button class="btn danger" type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+  </article>`;
 }
 
 function homePage(req) {
@@ -7540,10 +7597,119 @@ function employeePage(req) {
   const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const analytics = getAnalytics();
   const customers = readCustomers();
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const activeStatuses = ["new", "contacted", "confirmed"];
+  const todayBookings = bookings.filter((b) => b.date === todayIso || String(b.createdAt || "").slice(0, 10) === todayIso);
+  const activeBookings = bookings.filter((b) => activeStatuses.includes(b.status));
+  const completed = bookings.filter((b) => b.status === "completed");
+  const estimatedRevenue = bookings.reduce((sum, b) => sum + (Number(b.estimate?.price) || 0), 0);
+  const todayRevenue = todayBookings.reduce((sum, b) => sum + (Number(b.estimate?.price) || 0), 0);
   const statusCounts = VALID_STATUSES.reduce((acc, status) => { acc[status] = bookings.filter((b) => b.status === status).length; return acc; }, {});
+  const completionRate = bookings.length ? Math.round((completed.length / bookings.length) * 100) : 0;
+  const missionProgress = Math.max(5, Math.min(100, completionRate || (activeBookings.length ? 38 : 12)));
+  const nextJob = activeBookings[0] || bookings[0];
   const cards = bookings.map((b) => employeeBookingCard(req, b)).join("");
-  const body = `${header(req)}<main class="container section"><div class="accountHeader reveal show"><div><span class="chip">Employee dashboard</span><h1 class="adminTitle" style="margin-top:18px">Booking requests</h1><p class="sectionSub" style="margin-left:0;text-align:left">Employee-only tools for managing customers, guest bookings, statuses, and follow-up.</p></div><form method="post" action="/employee/logout">${csrfField(req)}<button class="btn ghost" type="submit">Employee logout</button></form></div><div class="stats"><div class="stat glass"><div class="statNum">${bookings.length}</div><div class="statLab">total bookings</div></div><div class="stat glass"><div class="statNum">${statusCounts.new || 0}</div><div class="statLab">new</div></div><div class="stat glass"><div class="statNum">${customers.length}</div><div class="statLab">customers</div></div><div class="stat glass"><div class="statNum">${analytics.pageViews}</div><div class="statLab">page views</div></div></div><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px"><a class="btn primary" href="/">Back home</a><a class="btn ghost" href="/api/bookings">View JSON</a><a class="btn ghost" href="/employee/export">Export bookings</a><a class="btn ghost" href="/employee/customers">View customers</a></div><section class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet.</div>`}</section></main>${footer(req)}`;
-  return pageShell({ req, title: `${SERVICE_NAME} — Employee Dashboard`, body });
+
+  const statusBoard = VALID_STATUSES.map((status) => {
+    const items = bookings.filter((b) => b.status === status).slice(0, 4);
+    const itemHtml = items.map((b) => `<div class="employeeMiniJob"><b>${escapeHtml(b.name)}</b><span>${escapeHtml(b.timeWindow || "Flexible")} · ${money(b.estimate?.price)} · ${escapeHtml(b.zip || "no ZIP")}</span></div>`).join("");
+    return `<div class="employeeStatusColumn">
+      <div class="employeeStatusHead"><strong>${escapeHtml(status)}</strong><span class="employeeStatusCount">${statusCounts[status] || 0}</span></div>
+      ${itemHtml || `<div class="employeeEmptyColumn">Nothing here right now.</div>`}
+    </div>`;
+  }).join("");
+
+  const body = `${header(req)}
+  <main class="container employeeCommand">
+    <section class="employeeHero reveal show">
+      <div class="employeeHeroMain">
+        <div class="employeeSignal">
+          <span class="employeeSignalPill"><span class="employeePulseDot"></span>Employee Command Center</span>
+          <span class="employeeSignalPill">Serving ${escapeHtml(CITY)}, ${escapeHtml(STATE)}</span>
+          <span class="employeeSignalPill">${escapeHtml(new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" }))}</span>
+        </div>
+        <h1 class="employeeHeroTitle">You’re part of the <span>Dropcart crew.</span></h1>
+        <p class="employeeHeroText">Every request here is a real person trying to make a grocery day lighter. This dashboard is built like a mission hub so employees can feel the size, trust, and care behind the service.</p>
+        <div class="employeeHeroActions">
+          <a class="btn primary" href="#jobs">Work the board</a>
+          <a class="btn ghost" href="/employee/customers">Customer roster</a>
+          <a class="btn ghost" href="/employee/export">Export bookings</a>
+          <form method="post" action="/employee/logout">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
+        </div>
+      </div>
+
+      <aside class="employeeHeroSide">
+        <div class="employeeMissionCard">
+          <div class="employeeMissionTop">
+            <div class="employeeMissionIcon">🛒</div>
+            <span class="employeeTinyBadge">Mission pulse</span>
+          </div>
+          <h2>${nextJob ? escapeHtml(nextJob.name) : "No active request"}</h2>
+          <p>${nextJob ? `${escapeHtml(nextJob.timeWindow || "Flexible")} · ${escapeHtml(nextJob.address || "Address pending")} · ${money(nextJob.estimate?.price)}` : "When the next request lands, it will show here first."}</p>
+          <div class="employeeProgressTrack"><div class="employeeProgressFill" style="--progress:${missionProgress}%"></div></div>
+        </div>
+        <div class="employeeMotivationStrip">
+          <strong>Small service. Big relief.</strong>
+          <span>Heavy water cases, stairs, tired parents, seniors, busy families — this is where the work becomes helpful.</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="employeeMetricGrid">
+      <div class="employeeMetric"><div class="employeeMetricLabel">Total requests</div><div class="employeeMetricValue">${bookings.length}</div><div class="employeeMetricNote">All website and portal bookings.</div></div>
+      <div class="employeeMetric"><div class="employeeMetricLabel">Active missions</div><div class="employeeMetricValue">${activeBookings.length}</div><div class="employeeMetricNote">New, contacted, or confirmed.</div></div>
+      <div class="employeeMetric"><div class="employeeMetricLabel">Today value</div><div class="employeeMetricValue">${money(todayRevenue)}</div><div class="employeeMetricNote">${todayBookings.length} request${todayBookings.length === 1 ? "" : "s"} touched today.</div></div>
+      <div class="employeeMetric"><div class="employeeMetricLabel">Crew impact</div><div class="employeeMetricValue">${completionRate}%</div><div class="employeeMetricNote">${completed.length} completed · ${customers.length} customer accounts.</div></div>
+    </section>
+
+    <section class="employeeActionWall">
+      <a class="employeeActionCard" href="/"><b>🏠</b><strong>Public site</strong><span>See what customers see before they book.</span></a>
+      <a class="employeeActionCard" href="/api/bookings"><b>📡</b><strong>Live JSON</strong><span>Raw booking data for debugging and exports.</span></a>
+      <a class="employeeActionCard" href="/employee/customers"><b>👥</b><strong>Customers</strong><span>View account customers and saved contacts.</span></a>
+      <a class="employeeActionCard" href="#jobs"><b>⚡</b><strong>Start shift</strong><span>Jump straight into the booking cards.</span></a>
+    </section>
+
+    <section class="employeeCommandGrid">
+      <aside class="employeePanel">
+        <div class="employeePanelHeader">
+          <div>
+            <h2 class="employeePanelTitle">Shift brief</h2>
+            <p class="employeePanelSub">A quick reminder of what makes the service feel premium.</p>
+          </div>
+          <span class="employeeTinyBadge">Crew standard</span>
+        </div>
+        <div class="employeeShiftList">
+          <div class="employeeShiftItem"><div class="employeeShiftIcon">🧊</div><div><strong>Cold items first</strong><span>Ask if frozen/fridge items should go in before anything else.</span></div></div>
+          <div class="employeeShiftItem"><div class="employeeShiftIcon">💬</div><div><strong>Confirm clearly</strong><span>Address, bags, stairs, heavy items, gate code, and preferred placement.</span></div></div>
+          <div class="employeeShiftItem"><div class="employeeShiftIcon">💪</div><div><strong>Notice heavy stuff</strong><span>Water cases, bulk items, and stairs are the reason people book us.</span></div></div>
+          <div class="employeeShiftItem"><div class="employeeShiftIcon">✨</div><div><strong>Leave it better</strong><span>Make the moment feel smooth, respectful, and surprisingly easy.</span></div></div>
+        </div>
+      </aside>
+
+      <section class="employeePanel">
+        <div class="employeePanelHeader">
+          <div>
+            <h2 class="employeePanelTitle">Status board</h2>
+            <p class="employeePanelSub">A fast view of where every booking sits right now.</p>
+          </div>
+          <span class="employeeTinyBadge">${activeBookings.length} active</span>
+        </div>
+        <div class="employeeStatusBoard">${statusBoard}</div>
+      </section>
+    </section>
+
+    <section id="jobs" class="employeeBookingHeader">
+      <div>
+        <h2>Booking command board</h2>
+        <p>Every card has customer info, risk tags, estimate details, SMS shortcuts, and status controls. Make every unload feel like someone trusted the right crew.</p>
+      </div>
+      <span class="employeeTinyBadge">${money(estimatedRevenue)} total estimated value</span>
+    </section>
+
+    <section class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet. When someone sends a request, this command board wakes up.</div>`}</section>
+  </main>
+  ${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Employee Command Center`, body });
 }
 
 function customersPage(req) {
