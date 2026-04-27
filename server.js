@@ -15,35 +15,56 @@
 
   Pages:
     /                       customer landing page
-    /admin?pin=1234          admin dashboard
+    /login                  secure admin login
+    /admin                  protected admin dashboard
     /api/estimate            estimate API
     /api/area                service area checker
     /api/availability        sample availability slots
     /health                  uptime check
 
   Environment variables you can set on Render:
-    ADMIN_PIN=change-this
+    ADMIN_USER=admin
+    ADMIN_PASSWORD=make-this-long-and-private
+    SESSION_SECRET=make-this-random-and-private
     BUSINESS_PHONE=+13525551234
     DISPLAY_PHONE=(352) 555-1234
     BUSINESS_EMAIL=hello@dropcart.example
     SERVICE_NAME=Dropcart
+
+  Security notes:
+    - No admin PIN in URLs.
+    - Passwords are hashed with Node crypto.scrypt.
+    - Sessions use httpOnly cookies.
+    - Admin POST actions use CSRF tokens.
+    - Login attempts are rate-limited in memory.
 */
 
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const session = require("express-session");
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 const SERVICE_NAME = process.env.SERVICE_NAME || "Dropcart";
-const ADMIN_PIN = process.env.ADMIN_PIN || "1234";
+const ADMIN_USER = process.env.ADMIN_USER || "admin";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "change-me-now";
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(48).toString("hex");
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || makePasswordHash(ADMIN_PASSWORD);
 const BUSINESS_PHONE = process.env.BUSINESS_PHONE || "+13525551234";
 const DISPLAY_PHONE = process.env.DISPLAY_PHONE || "(352) 555-1234";
 const BUSINESS_EMAIL = process.env.BUSINESS_EMAIL || "hello@dropcart.example";
 const CITY = process.env.CITY || "Inverness";
 const STATE = process.env.STATE || "FL";
+
+if (!process.env.SESSION_SECRET) {
+  console.warn("SECURITY WARNING: SESSION_SECRET is not set. Add one in Render environment variables.");
+}
+if (!process.env.ADMIN_PASSWORD && !process.env.ADMIN_PASSWORD_HASH) {
+  console.warn("SECURITY WARNING: Using default admin password. Set ADMIN_PASSWORD or ADMIN_PASSWORD_HASH in Render.");
+}
 
 const DATA_DIR = path.join(__dirname, "data");
 const BOOKINGS_FILE = path.join(DATA_DIR, "bookings.json");
@@ -55,8 +76,26 @@ const SERVICE_ZIPS = new Set(["34450", "34452", "34453"]);
 const EDGE_ZIPS = new Set(["34446", "34442", "34461", "34465", "34429"]);
 
 app.disable("x-powered-by");
+app.set("trust proxy", 1);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "1mb" }));
+
+app.use(
+  session({
+    name: "dropcart.sid",
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60 * 8,
+    },
+  })
+);
 
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
@@ -64,6 +103,96 @@ app.use((req, res, next) => {
   res.setHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()");
   next();
 });
+
+
+function makePasswordHash(password) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const hash = crypto.scryptSync(String(password), salt, 64).toString("hex");
+  return `scrypt:${salt}:${hash}`;
+}
+
+function verifyPassword(password, storedHash) {
+  try {
+    const [scheme, salt, hash] = String(storedHash || "").split(":");
+    if (scheme !== "scrypt" || !salt || !hash) return false;
+    const attempted = crypto.scryptSync(String(password), salt, 64);
+    const saved = Buffer.from(hash, "hex");
+    return saved.length === attempted.length && crypto.timingSafeEqual(saved, attempted);
+  } catch {
+    return false;
+  }
+}
+
+function getCsrfToken(req) {
+  if (!req.session.csrfToken) {
+    req.session.csrfToken = crypto.randomBytes(32).toString("hex");
+  }
+  return req.session.csrfToken;
+}
+
+function csrfField(req) {
+  return `<input type="hidden" name="_csrf" value="${escapeHtml(getCsrfToken(req))}" />`;
+}
+
+function requireCsrf(req, res, next) {
+  const sent = String(req.body._csrf || "");
+  const saved = String(req.session.csrfToken || "");
+  if (!sent || !saved || sent !== saved) {
+    return res.status(403).send(
+      pageShell({
+        title: `${SERVICE_NAME} — Security Check Failed`,
+        body: `${header()}<main class="container section"><div class="glass" style="padding:42px;border-radius:38px"><span class="chip">Security check</span><h1 class="adminTitle" style="margin-top:18px">CSRF token mismatch.</h1><p class="sectionSub" style="margin-left:0;text-align:left">Refresh the page and try again.</p><a class="btn primary" style="margin-top:24px" href="/admin">Back to admin</a></div></main>${footer()}`,
+      })
+    );
+  }
+  next();
+}
+
+function requireAdmin(req, res, next) {
+  if (req.session && req.session.admin === true) return next();
+  const nextPath = encodeURIComponent(req.originalUrl || "/admin");
+  return res.redirect(`/login?next=${nextPath}`);
+}
+
+const LOGIN_ATTEMPTS = new Map();
+const MAX_LOGIN_ATTEMPTS = 8;
+const LOGIN_WINDOW_MS = 10 * 60 * 1000;
+
+function loginAttemptKey(req) {
+  return req.ip || req.headers["x-forwarded-for"] || "unknown";
+}
+
+function checkLoginRateLimit(req, res, next) {
+  const key = loginAttemptKey(req);
+  const now = Date.now();
+  const current = LOGIN_ATTEMPTS.get(key) || { count: 0, resetAt: now + LOGIN_WINDOW_MS };
+  if (current.resetAt < now) {
+    current.count = 0;
+    current.resetAt = now + LOGIN_WINDOW_MS;
+  }
+  if (current.count >= MAX_LOGIN_ATTEMPTS) {
+    const mins = Math.ceil((current.resetAt - now) / 60000);
+    return res.status(429).send(loginPage(req, `Too many login attempts. Try again in about ${mins} minute(s).`));
+  }
+  LOGIN_ATTEMPTS.set(key, current);
+  next();
+}
+
+function recordFailedLogin(req) {
+  const key = loginAttemptKey(req);
+  const now = Date.now();
+  const current = LOGIN_ATTEMPTS.get(key) || { count: 0, resetAt: now + LOGIN_WINDOW_MS };
+  if (current.resetAt < now) {
+    current.count = 0;
+    current.resetAt = now + LOGIN_WINDOW_MS;
+  }
+  current.count += 1;
+  LOGIN_ATTEMPTS.set(key, current);
+}
+
+function clearLoginAttempts(req) {
+  LOGIN_ATTEMPTS.delete(loginAttemptKey(req));
+}
 
 function ensureFiles() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -321,7 +450,7 @@ function statusColor(status) {
 }
 
 function adminAuthed(req) {
-  return req.query.pin === ADMIN_PIN || req.body.pin === ADMIN_PIN;
+  return Boolean(req.session && req.session.admin === true);
 }
 
 function pageShell({ title = SERVICE_NAME, description = "Local grocery unloading in Inverness, Florida.", body = "" }) {
@@ -549,7 +678,7 @@ function footer() {
         <a href="/#area">Area</a>
         <a href="/#faq">FAQ</a>
         <a href="/#contact">Contact</a>
-        <a href="/admin?pin=${encodeURIComponent(ADMIN_PIN)}">Admin</a>
+        <a href="/admin">Admin</a>
       </div>
     </div>
   </footer>`;
@@ -572,7 +701,7 @@ function homePage() {
           <a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn primary">Call ${escapeHtml(DISPLAY_PHONE)}</a>
           <a href="#estimate" class="btn ghost">Get a quick estimate</a>
         </div>
-        <p class="heroNote">Set ADMIN_PIN, BUSINESS_PHONE, DISPLAY_PHONE, and BUSINESS_EMAIL in Render environment variables.</p>
+        <p class="heroNote">Set ADMIN_USER, ADMIN_PASSWORD, SESSION_SECRET, BUSINESS_PHONE, DISPLAY_PHONE, and BUSINESS_EMAIL in Render environment variables.</p>
         <div class="stats">
           <div class="stat soft reveal d1"><div class="statNum">$29+</div><div class="statLab">starting unload price</div></div>
           <div class="stat soft reveal d2"><div class="statNum">${escapeHtml(String(pending))}</div><div class="statLab">active saved requests</div></div>
@@ -595,7 +724,7 @@ function homePage() {
                 <div class="miniGrid"><div class="mini"><div class="miniLabel">Estimated price</div><div class="miniValue">$<span id="livePrice">29</span></div></div><div class="mini"><div class="miniLabel">Estimated time</div><div class="miniValue"><span id="liveTime">45</span>m</div></div></div>
               </div>
               <div class="taskGrid"><div class="task"><div class="taskEmoji">🛒</div><div class="taskText">Unload</div></div><div class="task"><div class="taskEmoji">📍</div><div class="taskText">Area check</div></div><div class="task"><div class="taskEmoji">💾</div><div class="taskText">Saved</div></div></div>
-              <div class="ready"><div><h4>Backend included</h4><p>Bookings save into data/bookings.json.</p></div><a class="btn primary" href="/admin?pin=${encodeURIComponent(ADMIN_PIN)}">Admin</a></div>
+              <div class="ready"><div><h4>Backend included</h4><p>Bookings save into data/bookings.json.</p></div><a class="btn primary" href="/admin">Admin</a></div>
             </div>
           </div>
         </div>
@@ -704,13 +833,13 @@ function homePage() {
       <div class="sectionHeader reveal"><span class="chip">FAQ</span><h2 class="sectionTitle">Quick answers.</h2></div>
       <div class="faq">
         <details class="card glass reveal"><summary>Do you buy the groceries too?<span class="plus">+</span></summary><p>No. ${escapeHtml(SERVICE_NAME)} is focused on unloading and carrying groceries after they are already bought or delivered.</p></details>
-        <details class="card glass reveal d1"><summary>Where do bookings go?<span class="plus">+</span></summary><p>This Node.js version saves requests in data/bookings.json and shows them on /admin?pin=${escapeHtml(ADMIN_PIN)}.</p></details>
+        <details class="card glass reveal d1"><summary>Where do bookings go?<span class="plus">+</span></summary><p>This Node.js version saves requests in data/bookings.json and shows them on /admin after login.</p></details>
         <details class="card glass reveal d2"><summary>Is this production ready?<span class="plus">+</span></summary><p>It is a strong prototype. Before real launch, add real login, SMS/email notifications, legal terms, and maybe a real database.</p></details>
         <details class="card glass reveal d3"><summary>Can you put groceries away?<span class="plus">+</span></summary><p>Yes. The idea is cold items first, then pantry/garage/kitchen placement as requested.</p></details>
       </div>
     </section>
 
-    <section class="container section" style="padding-top:30px"><div class="final glass reveal"><div class="finalGrid"><div><span class="chip">Ready to launch?</span><h2 class="finalTitle">More than a landing page now.</h2><p class="finalText">You now have a landing page, estimate API, service-area API, availability API, booking endpoint, lead endpoint, admin dashboard, analytics, export, and booking status controls.</p></div><div class="finalActions"><a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn primary">Call ${escapeHtml(SERVICE_NAME)}</a><a href="/admin?pin=${encodeURIComponent(ADMIN_PIN)}" class="btn ghost">View admin</a></div></div></div></section>
+    <section class="container section" style="padding-top:30px"><div class="final glass reveal"><div class="finalGrid"><div><span class="chip">Ready to launch?</span><h2 class="finalTitle">More than a landing page now.</h2><p class="finalText">You now have a landing page, estimate API, service-area API, availability API, booking endpoint, lead endpoint, admin dashboard, analytics, export, and booking status controls.</p></div><div class="finalActions"><a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn primary">Call ${escapeHtml(SERVICE_NAME)}</a><a href="/admin" class="btn ghost">View admin</a></div></div></div></section>
   </main>
   ${footer()}
   <div class="mobileSticky"><a class="btn ghost" href="#estimate">Estimate</a><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div>`;
@@ -722,13 +851,48 @@ function homePage() {
   });
 }
 
+function loginPage(req, error = "") {
+  const nextPath = cleanText(req.query.next || req.body.next || "/admin", 300);
+  const body = `${header()}<main class="container section">
+    <div class="twoCol">
+      <section class="glass reveal show" style="padding:42px;border-radius:38px">
+        <span class="chip">Secure admin</span>
+        <h1 class="adminTitle" style="margin-top:18px">Log in to manage Dropcart.</h1>
+        <p class="sectionSub" style="margin-left:0;text-align:left">Admin access is protected with a username, password, httpOnly session cookie, rate limiting, and CSRF checks. No more admin PIN in the URL.</p>
+        <div class="adminStats">
+          <div class="stat glass"><div class="statNum">8h</div><div class="statLab">session lifetime</div></div>
+          <div class="stat glass"><div class="statNum">CSRF</div><div class="statLab">form protection</div></div>
+          <div class="stat glass"><div class="statNum">scrypt</div><div class="statLab">password hashing</div></div>
+          <div class="stat glass"><div class="statNum">Limit</div><div class="statLab">login attempts</div></div>
+        </div>
+      </section>
+      <form class="formBox glass reveal show" method="post" action="/login">
+        ${csrfField(req)}
+        <input type="hidden" name="next" value="${escapeHtml(nextPath)}" />
+        <span class="chip">Admin login</span>
+        <h2 class="sectionTitle" style="font-size:42px">Welcome back.</h2>
+        ${error ? `<div class="status error" style="margin:14px 0">${escapeHtml(error)}</div>` : ""}
+        <div class="formGrid">
+          <div class="field full">
+            <label for="username">Username</label>
+            <input id="username" name="username" autocomplete="username" placeholder="admin" required />
+          </div>
+          <div class="field full">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your admin password" required />
+          </div>
+        </div>
+        <button class="btn primary" style="margin-top:18px;width:100%" type="submit">Log in securely</button>
+        <p class="fine" style="margin-top:14px">Default demo username is <strong>admin</strong>. Set ADMIN_PASSWORD in Render before sharing this site.</p>
+      </form>
+    </div>
+  </main>${footer()}`;
+
+  return pageShell({ title: `${SERVICE_NAME} — Admin Login`, body });
+}
+
 function adminPage(req) {
-  if (!adminAuthed(req)) {
-    return pageShell({
-      title: `${SERVICE_NAME} Admin Locked`,
-      body: `${header()}<main class="container section"><div class="glass" style="padding:42px;border-radius:38px"><span class="chip">Admin locked</span><h1 class="adminTitle" style="margin-top:18px">Wrong or missing PIN.</h1><p class="sectionSub" style="margin-left:0;text-align:left">Use <strong>/admin?pin=1234</strong> for the demo, or set ADMIN_PIN in Render.</p><a class="btn primary" style="margin-top:24px" href="/">Back home</a></div></main>${footer()}`,
-    });
-  }
+  const csrf = csrfField(req);
 
   const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const analytics = getAnalytics();
@@ -767,11 +931,13 @@ function adminPage(req) {
         </div>
         <p style="margin-top:14px;color:rgba(255,255,255,.6);line-height:1.65">${escapeHtml(b.notes || "No notes.")}</p>
         <div class="adminActions">
-          <form method="post" action="/admin/bookings/${encodeURIComponent(b.id)}/status?pin=${encodeURIComponent(ADMIN_PIN)}">
+          <form method="post" action="/admin/bookings/${encodeURIComponent(b.id)}/status">
+            ${csrf}
             <select name="status">${statusOptions}</select>
             <button class="btn primary" type="submit">Update</button>
           </form>
-          <form method="post" action="/admin/bookings/${encodeURIComponent(b.id)}/delete?pin=${encodeURIComponent(ADMIN_PIN)}" onsubmit="return confirm('Delete this booking?')">
+          <form method="post" action="/admin/bookings/${encodeURIComponent(b.id)}/delete" onsubmit="return confirm('Delete this booking?')">
+            ${csrf}
             <button class="btn ghost" type="submit">Delete</button>
           </form>
           <a class="btn ghost" href="tel:${escapeHtml(b.phone)}">Call</a>
@@ -794,8 +960,9 @@ function adminPage(req) {
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
         <a class="btn primary" href="/">Back home</a>
-        <a class="btn ghost" href="/api/bookings?pin=${encodeURIComponent(ADMIN_PIN)}">View JSON</a>
-        <a class="btn ghost" href="/admin/export?pin=${encodeURIComponent(ADMIN_PIN)}">Export bookings</a>
+        <a class="btn ghost" href="/api/bookings">View JSON</a>
+        <a class="btn ghost" href="/admin/export">Export bookings</a>
+        <form method="post" action="/logout" style="display:inline-flex">${csrf}<button class="btn ghost" type="submit">Log out</button></form>
       </div>
     </div>
     <section class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet. Submit the homepage form first.</div>`}</section>
@@ -806,6 +973,49 @@ function adminPage(req) {
 
 app.get("/", (req, res) => {
   res.send(homePage());
+});
+
+
+app.get("/login", (req, res) => {
+  if (adminAuthed(req)) return res.redirect("/admin");
+  res.send(loginPage(req));
+});
+
+app.post("/login", checkLoginRateLimit, (req, res) => {
+  const sentToken = String(req.body._csrf || "");
+  const savedToken = String(req.session.csrfToken || "");
+  const username = cleanText(req.body.username, 80);
+  const password = String(req.body.password || "");
+  const nextPath = cleanText(req.body.next || "/admin", 300);
+
+  if (!sentToken || !savedToken || sentToken !== savedToken) {
+    return res.status(403).send(loginPage(req, "Security check failed. Refresh and try again."));
+  }
+
+  const usernameOk = username === ADMIN_USER;
+  const passwordOk = verifyPassword(password, ADMIN_PASSWORD_HASH);
+
+  if (!usernameOk || !passwordOk) {
+    recordFailedLogin(req);
+    return res.status(401).send(loginPage(req, "Invalid username or password."));
+  }
+
+  clearLoginAttempts(req);
+  req.session.regenerate((err) => {
+    if (err) return res.status(500).send("Could not start session.");
+    req.session.admin = true;
+    req.session.adminUser = ADMIN_USER;
+    req.session.csrfToken = crypto.randomBytes(32).toString("hex");
+    const safeNext = nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/admin";
+    res.redirect(safeNext);
+  });
+});
+
+app.post("/logout", requireAdmin, requireCsrf, (req, res) => {
+  req.session.destroy(() => {
+    res.clearCookie("dropcart.sid");
+    res.redirect("/login");
+  });
 });
 
 app.get("/health", (req, res) => {
@@ -893,25 +1103,22 @@ app.post("/api/bookings", (req, res) => {
   res.status(201).json({ ok: true, message: "Booking request saved.", booking });
 });
 
-app.get("/api/bookings", (req, res) => {
-  if (!adminAuthed(req)) return res.status(401).json({ ok: false, message: "Unauthorized. Add ?pin=YOUR_PIN." });
+app.get("/api/bookings", requireAdmin, (req, res) => {
   res.json({ ok: true, bookings: readBookings(), analytics: getAnalytics() });
 });
 
-app.get("/admin", (req, res) => {
+app.get("/admin", requireAdmin, (req, res) => {
   res.send(adminPage(req));
 });
 
-app.get("/admin/export", (req, res) => {
-  if (!adminAuthed(req)) return res.status(401).send("Unauthorized");
+app.get("/admin/export", requireAdmin, (req, res) => {
   const bookings = readBookings();
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Content-Disposition", `attachment; filename="${SERVICE_NAME.toLowerCase()}-bookings.json"`);
   res.send(JSON.stringify(bookings, null, 2));
 });
 
-app.post("/admin/bookings/:id/status", (req, res) => {
-  if (!adminAuthed(req)) return res.status(401).send("Unauthorized");
+app.post("/admin/bookings/:id/status", requireAdmin, requireCsrf, (req, res) => {
 
   const status = cleanText(req.body.status, 40);
   if (!VALID_STATUSES.includes(status)) return res.status(400).send("Invalid status");
@@ -924,17 +1131,16 @@ app.post("/admin/bookings/:id/status", (req, res) => {
   booking.updatedAt = new Date().toISOString();
   saveBookings(bookings);
 
-  res.redirect(`/admin?pin=${encodeURIComponent(ADMIN_PIN)}`);
+  res.redirect("/admin");
 });
 
-app.post("/admin/bookings/:id/delete", (req, res) => {
-  if (!adminAuthed(req)) return res.status(401).send("Unauthorized");
+app.post("/admin/bookings/:id/delete", requireAdmin, requireCsrf, (req, res) => {
 
   const bookings = readBookings();
   const next = bookings.filter((item) => item.id !== req.params.id);
   saveBookings(next);
 
-  res.redirect(`/admin?pin=${encodeURIComponent(ADMIN_PIN)}`);
+  res.redirect("/admin");
 });
 
 app.use((req, res) => {
@@ -950,5 +1156,5 @@ ensureFiles();
 
 app.listen(PORT, () => {
   console.log(`${SERVICE_NAME} running at http://localhost:${PORT}`);
-  console.log(`Admin page: http://localhost:${PORT}/admin?pin=${ADMIN_PIN}`);
+  console.log(`Admin page: http://localhost:${PORT}/admin`);
 });
