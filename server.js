@@ -827,6 +827,290 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ===== v15 4K / Ultra-Wide Visual Upgrade ===== */
+    @media (min-width: 1440px){
+      :root{--shadow:0 34px 110px rgba(0,0,0,.48);--glow:0 28px 95px rgba(124,92,255,.38);}
+      .container{width:min(1380px,calc(100% - 72px));}
+      .hero{gap:72px;padding:86px 0 76px;}
+      .heroTitle{font-size:clamp(86px,7.2vw,142px);}
+      .heroDesc{max-width:760px;font-size:22px;line-height:1.78;}
+      .section{padding:108px 0;}
+      .sectionTitle{font-size:clamp(58px,4.5vw,82px);}
+      .sectionSub{font-size:20px;max-width:820px;}
+      .card{padding:30px;border-radius:34px;}
+      .formBox{padding:34px;border-radius:44px;}
+      .grid4,.grid3,.grid2,.priceCards{gap:22px;}
+      .deviceShell{width:min(100%,610px);}
+      .device{padding:22px;border-radius:50px;}
+      .screen{padding:26px;border-radius:40px;}
+      .requestTitle{font-size:36px;}
+      .requestCard{padding:24px;border-radius:32px;}
+      .miniValue{font-size:34px;}
+      .final{padding:58px;border-radius:54px;}
+      .finalTitle{font-size:clamp(70px,4.8vw,104px);}
+    }
+
+    @media (min-width: 1800px){
+      body{
+        background:
+          radial-gradient(1200px circle at 8% -12%,rgba(124,92,255,.42),transparent 45%),
+          radial-gradient(1100px circle at 96% 8%,rgba(255,79,216,.28),transparent 42%),
+          radial-gradient(900px circle at 50% 106%,rgba(53,215,255,.2),transparent 50%),
+          linear-gradient(180deg,var(--bg) 0%,var(--bg2) 45%,var(--bg) 100%);
+      }
+      body:before{background-size:90px 90px;opacity:.9;}
+      .container{width:min(1620px,calc(100% - 96px));}
+      .nav{min-height:86px;}
+      .logoIcon{width:52px;height:52px;border-radius:20px;}
+      .logoTitle{font-size:28px;}
+      .logoSub{font-size:13px;}
+      .navLink{font-size:15px;padding:13px 16px;}
+      .btn{min-height:54px;padding:15px 24px;border-radius:20px;font-size:15px;}
+      .hero{min-height:calc(100svh - 86px);grid-template-columns:1fr .98fr;}
+      .hero:before{width:62vw;height:62vw;max-width:1180px;max-height:1180px;filter:blur(28px);opacity:.92;}
+      .heroTitle{font-size:clamp(112px,6.6vw,174px);letter-spacing:-.082em;}
+      .heroDesc{font-size:24px;max-width:860px;}
+      .heroActions{gap:16px;margin-top:34px;}
+      .stats{gap:18px;margin-top:42px;}
+      .stat{padding:24px;border-radius:30px;}
+      .statNum{font-size:36px;}
+      .statLab{font-size:13px;}
+      .deviceShell{width:min(100%,720px);}
+      .deviceShell:before{filter:blur(24px);opacity:.95;}
+      .device{padding:28px;border-radius:58px;}
+      .screen{padding:32px;border-radius:46px;}
+      .phoneBar{width:104px;height:8px;margin-bottom:28px;}
+      .requestIcon{width:64px;height:64px;border-radius:24px;}
+      .requestInfo h3{font-size:22px;}
+      .requestInfo p{font-size:16px;}
+      .task{padding:18px 12px;border-radius:24px;}
+      .taskEmoji{font-size:29px;}
+      .taskText{font-size:13px;}
+      .ready{padding:18px;border-radius:28px;}
+      .section{padding:128px 0;}
+      .sectionHeader{max-width:980px;margin-bottom:58px;}
+      .sectionTitle{font-size:clamp(72px,4.2vw,104px);}
+      .sectionSub{font-size:22px;}
+      .card h3{font-size:29px;}
+      .card p{font-size:16px;}
+      .icon{width:60px;height:60px;border-radius:24px;font-size:29px;}
+      .stepNum{width:56px;height:56px;border-radius:22px;font-size:25px;}
+      .priceName{font-size:38px;}
+      .priceAmount{font-size:92px;}
+      .checks li{font-size:16px;}
+      .field label{font-size:12px;}
+      .field input,.field select,.field textarea{min-height:58px;border-radius:22px;font-size:16px;}
+      .estimatePrice{font-size:96px;}
+      .estimateSide{font-size:16px;}
+      .footer{padding-top:38px;}
+    }
+
+    @media (min-width: 2200px){
+      .container{width:min(1880px,calc(100% - 128px));}
+      .hero{gap:110px;}
+      .heroTitle{font-size:clamp(138px,6vw,210px);}
+      .heroDesc{font-size:26px;max-width:940px;}
+      .deviceShell{width:min(100%,820px);}
+      .card{padding:38px;border-radius:40px;}
+      .final{padding:72px;}
+    }
+
+    @media (min-width: 2600px){
+      .container{width:min(2080px,calc(100% - 160px));}
+      .heroTitle{font-size:220px;}
+      .heroDesc{font-size:28px;}
+      .sectionTitle{font-size:118px;}
+      .deviceShell{width:min(100%,920px);}
+    }
+
+    @media (min-resolution: 2dppx){
+      .glass,.soft,.card,.formBox,.final{border-color:rgba(255,255,255,.145);}
+      .logoIcon,.requestIcon,.pin,.appIcon{box-shadow:0 20px 70px rgba(124,92,255,.34);}
+    }
+
+
+    /* ===== v16 High-DPI / 4K Phone Quality Upgrade ===== */
+    @media (max-width: 720px) and (min-resolution: 2dppx){
+      html{
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        text-rendering:geometricPrecision;
+      }
+      body{
+        background:
+          radial-gradient(720px circle at 50% -12%,rgba(124,92,255,.36),transparent 58%),
+          radial-gradient(580px circle at 100% 14%,rgba(255,79,216,.16),transparent 48%),
+          radial-gradient(620px circle at 0% 92%,rgba(53,215,255,.12),transparent 50%),
+          linear-gradient(180deg,#050812 0%,#090f1e 45%,#050711 100%)!important;
+      }
+      body:before{
+        background-size:52px 52px!important;
+        opacity:.55;
+      }
+      body:after{
+        opacity:.045!important;
+      }
+      .glass,.soft,.card,.formBox,.final,.hubCard,.personalHero,.estimateResult,.mobileAppTop,.appBottomNav{
+        border-color:rgba(255,255,255,.16)!important;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.105),
+          0 18px 58px rgba(0,0,0,.34)!important;
+      }
+      .glass,.soft,.mobileAppTop,.appBottomNav{
+        backdrop-filter:blur(26px) saturate(1.28)!important;
+        -webkit-backdrop-filter:blur(26px) saturate(1.28)!important;
+      }
+      .heroTitle,.sectionTitle,.personalGreeting,.hubCardTitle,.finalTitle{
+        text-shadow:0 0 1px rgba(255,255,255,.08),0 24px 70px rgba(124,92,255,.16);
+      }
+      .shine{
+        background-size:180% auto!important;
+        filter:saturate(1.08);
+      }
+      .chip{
+        border-color:rgba(255,255,255,.16)!important;
+        background:rgba(255,255,255,.082)!important;
+      }
+      .logoIcon,.appIcon,.requestIcon,.stepNum,.pin{
+        box-shadow:
+          0 18px 54px rgba(124,92,255,.25),
+          inset 0 1px 0 rgba(255,255,255,.16)!important;
+      }
+      .hero{
+        padding-top:20px!important;
+      }
+      .heroTitle{
+        letter-spacing:-.073em!important;
+      }
+      .heroDesc{
+        color:rgba(248,250,252,.72)!important;
+      }
+      .deviceShell{
+        width:min(100%,365px)!important;
+      }
+      .deviceShell:before{
+        filter:blur(14px)!important;
+        opacity:.72!important;
+      }
+      .device{
+        background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))!important;
+      }
+      .screen{
+        background:
+          radial-gradient(420px circle at var(--mx,50%) var(--my,20%),rgba(255,255,255,.15),transparent 48%),
+          linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.04))!important;
+      }
+      .requestCard,.mini,.task,.ready,.metaBox,.portalFeature,.tinyPerk,.comfort,.profileLine{
+        border-color:rgba(255,255,255,.13)!important;
+        background:rgba(255,255,255,.062)!important;
+      }
+      .btn{
+        box-shadow:
+          0 18px 50px rgba(0,0,0,.26),
+          inset 0 1px 0 rgba(255,255,255,.13)!important;
+      }
+      .primary{
+        background:linear-gradient(135deg,#7c5cff 0%,#b554ff 42%,#168cff 100%)!important;
+        box-shadow:
+          0 20px 62px rgba(124,92,255,.34),
+          0 10px 34px rgba(53,215,255,.13),
+          inset 0 1px 0 rgba(255,255,255,.22)!important;
+      }
+      .field input,.field select,.field textarea{
+        border-color:rgba(255,255,255,.155)!important;
+        background:rgba(255,255,255,.075)!important;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.065);
+      }
+      .field input:focus,.field select:focus,.field textarea:focus{
+        border-color:rgba(124,92,255,.55)!important;
+        box-shadow:0 0 0 4px rgba(124,92,255,.2),0 0 42px rgba(53,215,255,.1)!important;
+      }
+      .appBottomNav{
+        background:rgba(6,9,18,.88)!important;
+      }
+      .appBottomNav a,.appBottomNav button{
+        text-shadow:0 1px 0 rgba(0,0,0,.18);
+      }
+      .quickSheetPanel{
+        background:
+          radial-gradient(480px circle at 50% -10%,rgba(124,92,255,.18),transparent 55%),
+          #070a12!important;
+        border-color:rgba(255,255,255,.16)!important;
+      }
+    }
+
+    @media (max-width: 720px) and (min-resolution: 3dppx){
+      body:before{
+        background-size:44px 44px!important;
+        opacity:.42;
+      }
+      .glass,.soft,.card,.formBox,.final,.hubCard,.personalHero,.estimateResult{
+        border-width:.75px;
+      }
+      .heroTitle{
+        font-size:clamp(50px,15.5vw,76px)!important;
+      }
+      .sectionTitle{
+        font-size:clamp(36px,11.2vw,58px)!important;
+      }
+      .personalGreeting{
+        font-size:clamp(39px,12.5vw,62px)!important;
+      }
+      .hubCardTitle{
+        font-size:clamp(30px,9vw,42px)!important;
+      }
+      .deviceShell{
+        width:min(100%,378px)!important;
+      }
+      .appIcon,.appCircleBtn{
+        transform:translateZ(0);
+      }
+    }
+
+    @media (max-width: 430px) and (min-resolution: 2dppx){
+      .container{
+        width:min(100% - 24px,1240px)!important;
+      }
+      .mobileAppTop{
+        padding-left:12px!important;
+        padding-right:12px!important;
+      }
+      .heroTitle{
+        font-size:clamp(47px,15vw,68px)!important;
+      }
+      .heroDesc{
+        font-size:16px!important;
+      }
+      .card,.hubCard,.formBox{
+        border-radius:26px!important;
+      }
+      .appBottomNav{
+        left:10px!important;
+        right:10px!important;
+        border-radius:27px!important;
+      }
+    }
+
+    @media (max-width: 390px) and (min-resolution: 2dppx){
+      .heroTitle{
+        font-size:45px!important;
+      }
+      .sectionTitle{
+        font-size:34px!important;
+      }
+      .appBrandText strong{
+        font-size:17px!important;
+      }
+      .appBottomNav a,.appBottomNav button{
+        min-height:53px!important;
+        font-size:9.5px!important;
+      }
+      .deviceShell{
+        width:min(100%,330px)!important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
