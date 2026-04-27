@@ -1,7 +1,7 @@
 {
-  "name": "dropcartfl",
-  "version": "2.0.0",
-  "description": "DropCartFL Render-ready Node.js + Express app",
+  "name": "dropcartfl-secure",
+  "version": "3.0.0",
+  "description": "DropCartFL Render-ready Node.js app with secure admin login",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -11,6 +11,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
   }
 }
