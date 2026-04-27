@@ -929,10 +929,3934 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .logoIcon,.requestIcon,.pin,.appIcon{box-shadow:0 20px 70px rgba(124,92,255,.34);}
     }
 
+
+    /* ===== v16 High-DPI / 4K Phone Quality Upgrade ===== */
+    @media (max-width: 720px) and (min-resolution: 2dppx){
+      html{
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        text-rendering:geometricPrecision;
+      }
+      body{
+        background:
+          radial-gradient(720px circle at 50% -12%,rgba(124,92,255,.36),transparent 58%),
+          radial-gradient(580px circle at 100% 14%,rgba(255,79,216,.16),transparent 48%),
+          radial-gradient(620px circle at 0% 92%,rgba(53,215,255,.12),transparent 50%),
+          linear-gradient(180deg,#050812 0%,#090f1e 45%,#050711 100%)!important;
+      }
+      body:before{
+        background-size:52px 52px!important;
+        opacity:.55;
+      }
+      body:after{
+        opacity:.045!important;
+      }
+      .glass,.soft,.card,.formBox,.final,.hubCard,.personalHero,.estimateResult,.mobileAppTop,.appBottomNav{
+        border-color:rgba(255,255,255,.16)!important;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.105),
+          0 18px 58px rgba(0,0,0,.34)!important;
+      }
+      .glass,.soft,.mobileAppTop,.appBottomNav{
+        backdrop-filter:blur(26px) saturate(1.28)!important;
+        -webkit-backdrop-filter:blur(26px) saturate(1.28)!important;
+      }
+      .heroTitle,.sectionTitle,.personalGreeting,.hubCardTitle,.finalTitle{
+        text-shadow:0 0 1px rgba(255,255,255,.08),0 24px 70px rgba(124,92,255,.16);
+      }
+      .shine{
+        background-size:180% auto!important;
+        filter:saturate(1.08);
+      }
+      .chip{
+        border-color:rgba(255,255,255,.16)!important;
+        background:rgba(255,255,255,.082)!important;
+      }
+      .logoIcon,.appIcon,.requestIcon,.stepNum,.pin{
+        box-shadow:
+          0 18px 54px rgba(124,92,255,.25),
+          inset 0 1px 0 rgba(255,255,255,.16)!important;
+      }
+      .hero{
+        padding-top:20px!important;
+      }
+      .heroTitle{
+        letter-spacing:-.073em!important;
+      }
+      .heroDesc{
+        color:rgba(248,250,252,.72)!important;
+      }
+      .deviceShell{
+        width:min(100%,365px)!important;
+      }
+      .deviceShell:before{
+        filter:blur(14px)!important;
+        opacity:.72!important;
+      }
+      .device{
+        background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))!important;
+      }
+      .screen{
+        background:
+          radial-gradient(420px circle at var(--mx,50%) var(--my,20%),rgba(255,255,255,.15),transparent 48%),
+          linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.04))!important;
+      }
+      .requestCard,.mini,.task,.ready,.metaBox,.portalFeature,.tinyPerk,.comfort,.profileLine{
+        border-color:rgba(255,255,255,.13)!important;
+        background:rgba(255,255,255,.062)!important;
+      }
+      .btn{
+        box-shadow:
+          0 18px 50px rgba(0,0,0,.26),
+          inset 0 1px 0 rgba(255,255,255,.13)!important;
+      }
+      .primary{
+        background:linear-gradient(135deg,#7c5cff 0%,#b554ff 42%,#168cff 100%)!important;
+        box-shadow:
+          0 20px 62px rgba(124,92,255,.34),
+          0 10px 34px rgba(53,215,255,.13),
+          inset 0 1px 0 rgba(255,255,255,.22)!important;
+      }
+      .field input,.field select,.field textarea{
+        border-color:rgba(255,255,255,.155)!important;
+        background:rgba(255,255,255,.075)!important;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.065);
+      }
+      .field input:focus,.field select:focus,.field textarea:focus{
+        border-color:rgba(124,92,255,.55)!important;
+        box-shadow:0 0 0 4px rgba(124,92,255,.2),0 0 42px rgba(53,215,255,.1)!important;
+      }
+      .appBottomNav{
+        background:rgba(6,9,18,.88)!important;
+      }
+      .appBottomNav a,.appBottomNav button{
+        text-shadow:0 1px 0 rgba(0,0,0,.18);
+      }
+      .quickSheetPanel{
+        background:
+          radial-gradient(480px circle at 50% -10%,rgba(124,92,255,.18),transparent 55%),
+          #070a12!important;
+        border-color:rgba(255,255,255,.16)!important;
+      }
+    }
+
+    @media (max-width: 720px) and (min-resolution: 3dppx){
+      body:before{
+        background-size:44px 44px!important;
+        opacity:.42;
+      }
+      .glass,.soft,.card,.formBox,.final,.hubCard,.personalHero,.estimateResult{
+        border-width:.75px;
+      }
+      .heroTitle{
+        font-size:clamp(50px,15.5vw,76px)!important;
+      }
+      .sectionTitle{
+        font-size:clamp(36px,11.2vw,58px)!important;
+      }
+      .personalGreeting{
+        font-size:clamp(39px,12.5vw,62px)!important;
+      }
+      .hubCardTitle{
+        font-size:clamp(30px,9vw,42px)!important;
+      }
+      .deviceShell{
+        width:min(100%,378px)!important;
+      }
+      .appIcon,.appCircleBtn{
+        transform:translateZ(0);
+      }
+    }
+
+    @media (max-width: 430px) and (min-resolution: 2dppx){
+      .container{
+        width:min(100% - 24px,1240px)!important;
+      }
+      .mobileAppTop{
+        padding-left:12px!important;
+        padding-right:12px!important;
+      }
+      .heroTitle{
+        font-size:clamp(47px,15vw,68px)!important;
+      }
+      .heroDesc{
+        font-size:16px!important;
+      }
+      .card,.hubCard,.formBox{
+        border-radius:26px!important;
+      }
+      .appBottomNav{
+        left:10px!important;
+        right:10px!important;
+        border-radius:27px!important;
+      }
+    }
+
+    @media (max-width: 390px) and (min-resolution: 2dppx){
+      .heroTitle{
+        font-size:45px!important;
+      }
+      .sectionTitle{
+        font-size:34px!important;
+      }
+      .appBrandText strong{
+        font-size:17px!important;
+      }
+      .appBottomNav a,.appBottomNav button{
+        min-height:53px!important;
+        font-size:9.5px!important;
+      }
+      .deviceShell{
+        width:min(100%,330px)!important;
+      }
+    }
+
+
+    /* ===== v18 Safe Visual Upgrade: stable, no layout-breaking effects ===== */
+    .safeGlowLayer{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .safeGlowLayer::before,
+    .safeGlowLayer::after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      filter:blur(64px);
+      opacity:.18;
+      background:radial-gradient(circle,rgba(124,92,255,.75),rgba(255,79,216,.22) 45%,transparent 70%);
+    }
+    .safeGlowLayer::before{
+      width:520px;
+      height:520px;
+      left:-160px;
+      top:20vh;
+    }
+    .safeGlowLayer::after{
+      width:460px;
+      height:460px;
+      right:-160px;
+      bottom:10vh;
+      background:radial-gradient(circle,rgba(53,215,255,.58),rgba(124,92,255,.18) 45%,transparent 70%);
+    }
+
+    .safeFloatDecor{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .safeFloatDecor span{
+      position:absolute;
+      display:grid;
+      place-items:center;
+      width:38px;
+      height:38px;
+      border-radius:16px;
+      color:rgba(255,255,255,.42);
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.075);
+      box-shadow:0 14px 38px rgba(0,0,0,.18);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    .safeFloatDecor span:nth-child(1){left:5%;top:18%}
+    .safeFloatDecor span:nth-child(2){right:6%;top:23%}
+    .safeFloatDecor span:nth-child(3){left:10%;bottom:18%}
+    .safeFloatDecor span:nth-child(4){right:10%;bottom:16%}
+
+    .primary{
+      background:linear-gradient(135deg,#7c5cff 0%,#b554ff 45%,#35d7ff 115%)!important;
+      box-shadow:0 20px 62px rgba(124,92,255,.32), inset 0 1px 0 rgba(255,255,255,.22)!important;
+    }
+    .glass,.card,.formBox,.hubCard,.final{
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 24px 78px rgba(0,0,0,.34)!important;
+    }
+    .card,.hubCard,.formBox,.final,.glass{
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    @media(pointer:fine){
+      .card:hover,.hubCard:hover{
+        transform:translateY(-3px);
+        border-color:rgba(255,255,255,.22)!important;
+      }
+    }
+    .sectionTitle::after{
+      content:"";
+      display:block;
+      width:min(120px,36%);
+      height:3px;
+      margin:16px auto 0;
+      border-radius:999px;
+      background:linear-gradient(90deg,transparent,#7c5cff,#35d7ff,transparent);
+      opacity:.58;
+    }
+    .twoCol .sectionTitle::after,
+    .grid2 .sectionTitle::after,
+    .hubCard .sectionTitle::after,
+    .card .sectionTitle::after{
+      margin-left:0;
+    }
+    .requestCard{
+      border-color:rgba(255,255,255,.14)!important;
+      background:rgba(0,0,0,.21)!important;
+    }
+    .mini,.task,.comfort,.metaBox,.portalFeature,.tinyPerk{
+      border-color:rgba(255,255,255,.11)!important;
+    }
+    @media(max-width:720px){
+      .safeFloatDecor span:nth-child(n+3){
+        display:none;
+      }
+      .safeGlowLayer::before,.safeGlowLayer::after{
+        opacity:.12;
+        filter:blur(48px);
+      }
+      .sectionTitle::after{
+        margin-left:0;
+        margin-right:auto;
+      }
+      .card:hover,.hubCard:hover{
+        transform:none;
+      }
+    }
+
+
+    /* ============================================================
+       v19 MAX VISUAL SYSTEM — stable CSS-only visual upgrade
+       ============================================================ */
+
+    :root {
+      --v19-bg-ink: #050711;
+      --v19-bg-mid: #090f1e;
+      --v19-glass: rgba(255,255,255,.075);
+      --v19-glass-strong: rgba(255,255,255,.115);
+      --v19-line: rgba(255,255,255,.14);
+      --v19-line-strong: rgba(255,255,255,.23);
+      --v19-purple: #7c5cff;
+      --v19-purple-2: #a56cff;
+      --v19-pink: #ff4fd8;
+      --v19-cyan: #35d7ff;
+      --v19-blue: #168cff;
+      --v19-green: #49e6a5;
+      --v19-cream: #fff8ef;
+      --v19-shadow-deep: 0 30px 100px rgba(0,0,0,.42);
+      --v19-shadow-soft: 0 22px 72px rgba(0,0,0,.32);
+      --v19-glow-purple: 0 0 70px rgba(124,92,255,.28);
+      --v19-glow-cyan: 0 0 70px rgba(53,215,255,.18);
+      --v19-ring: linear-gradient(135deg, rgba(124,92,255,.9), rgba(255,79,216,.5), rgba(53,215,255,.65));
+    }
+
+    body {
+      background:
+        radial-gradient(1000px circle at 10% -5%, rgba(124,92,255,.34), transparent 42%),
+        radial-gradient(900px circle at 95% 8%, rgba(255,79,216,.20), transparent 42%),
+        radial-gradient(820px circle at 50% 108%, rgba(53,215,255,.16), transparent 52%),
+        linear-gradient(180deg, var(--v19-bg-ink), var(--v19-bg-mid) 42%, var(--v19-bg-ink)) !important;
+    }
+
+    .v19-premium-field {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
+      overflow: hidden;
+      contain: strict;
+    }
+
+    .v19-premium-field::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      opacity: .22;
+      background:
+        conic-gradient(from 180deg at 50% 50%,
+          transparent 0deg,
+          rgba(124,92,255,.34) 65deg,
+          transparent 130deg,
+          rgba(53,215,255,.22) 210deg,
+          rgba(255,79,216,.20) 280deg,
+          transparent 360deg);
+      filter: blur(80px);
+      transform: translateZ(0);
+      animation: v19AuroraSpin 36s linear infinite;
+    }
+
+    .v19-premium-field::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.08) 12%, transparent 26%),
+        linear-gradient(300deg, transparent 0%, rgba(53,215,255,.07) 20%, transparent 36%);
+      background-size: 160% 160%;
+      animation: v19LightSweep 18s ease-in-out infinite;
+    }
+
+    @keyframes v19AuroraSpin {
+      to {
+        transform: rotate(360deg) scale(1.05);
+      }
+    }
+
+    @keyframes v19LightSweep {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .v19-orb {
+      position: fixed;
+      z-index: -4;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(58px);
+      opacity: .24;
+      transform: translateZ(0);
+      animation: v19OrbMove 20s ease-in-out infinite;
+    }
+
+    .v19-orb.one {
+      width: 420px;
+      height: 420px;
+      left: -120px;
+      top: 24%;
+      background: rgba(124,92,255,.8);
+    }
+
+    .v19-orb.two {
+      width: 380px;
+      height: 380px;
+      right: -120px;
+      top: 16%;
+      background: rgba(255,79,216,.5);
+      animation-delay: -6s;
+    }
+
+    .v19-orb.three {
+      width: 360px;
+      height: 360px;
+      left: 34%;
+      bottom: -130px;
+      background: rgba(53,215,255,.45);
+      animation-delay: -12s;
+    }
+
+    @keyframes v19OrbMove {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      35% {
+        transform: translate3d(34px, -26px, 0) scale(1.08);
+      }
+      70% {
+        transform: translate3d(-20px, 28px, 0) scale(.96);
+      }
+    }
+
+    .v19-dust {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: .55;
+    }
+
+    .v19-dust span {
+      position: absolute;
+      display: block;
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.5);
+      box-shadow: 0 0 18px rgba(255,255,255,.26);
+      animation: v19DustFloat 12s ease-in-out infinite;
+    }
+
+    .v19-dust span:nth-child(1) { left: 9%; top: 17%; animation-delay: -1s; }
+    .v19-dust span:nth-child(2) { left: 18%; top: 58%; animation-delay: -4s; }
+    .v19-dust span:nth-child(3) { left: 27%; top: 30%; animation-delay: -8s; }
+    .v19-dust span:nth-child(4) { left: 44%; top: 14%; animation-delay: -2s; }
+    .v19-dust span:nth-child(5) { left: 61%; top: 72%; animation-delay: -6s; }
+    .v19-dust span:nth-child(6) { left: 79%; top: 22%; animation-delay: -9s; }
+    .v19-dust span:nth-child(7) { left: 88%; top: 63%; animation-delay: -3s; }
+    .v19-dust span:nth-child(8) { left: 51%; top: 45%; animation-delay: -7s; }
+
+    @keyframes v19DustFloat {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: .15;
+      }
+      50% {
+        transform: translateY(-22px);
+        opacity: .75;
+      }
+    }
+
+    .v19-floating-icons {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .v19-floating-icons span {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 19px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      color: rgba(255,255,255,.58);
+      box-shadow: 0 18px 52px rgba(0,0,0,.22);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      animation: v19IconFloat 14s ease-in-out infinite;
+    }
+
+    .v19-floating-icons span:nth-child(1) { left: 5%; top: 21%; animation-delay: -2s; }
+    .v19-floating-icons span:nth-child(2) { right: 6%; top: 24%; animation-delay: -7s; }
+    .v19-floating-icons span:nth-child(3) { left: 8%; bottom: 18%; animation-delay: -10s; }
+    .v19-floating-icons span:nth-child(4) { right: 10%; bottom: 19%; animation-delay: -4s; }
+    .v19-floating-icons span:nth-child(5) { left: 50%; top: 10%; animation-delay: -12s; }
+    .v19-floating-icons span:nth-child(6) { left: 64%; bottom: 10%; animation-delay: -5s; }
+
+    @keyframes v19IconFloat {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(-4deg);
+        opacity: .32;
+      }
+      50% {
+        transform: translate3d(16px, -22px, 0) rotate(7deg);
+        opacity: .68;
+      }
+    }
+
+    .v19-premium-border {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .v19-premium-border::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: var(--v19-ring);
+      opacity: .35;
+      filter: blur(0px);
+      pointer-events: none;
+    }
+
+    .v19-premium-border::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: rgba(7,10,18,.68);
+      pointer-events: none;
+    }
+
+    .header {
+      box-shadow: 0 20px 70px rgba(0,0,0,.22);
+    }
+
+    .logoIcon,
+    .appIcon {
+      background:
+        radial-gradient(circle at 30% 15%, rgba(255,255,255,1), rgba(255,255,255,.82) 45%, rgba(226,242,255,.78));
+      box-shadow:
+        0 18px 54px rgba(124,92,255,.30),
+        0 8px 22px rgba(53,215,255,.16),
+        inset 0 1px 0 rgba(255,255,255,.42) !important;
+    }
+
+    .hero {
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 7%;
+      width: min(760px, 80vw);
+      height: 120px;
+      transform: translateX(-50%);
+      z-index: -1;
+      opacity: .22;
+      border-radius: 999px;
+      background: radial-gradient(ellipse, rgba(124,92,255,.55), transparent 68%);
+      filter: blur(34px);
+      pointer-events: none;
+    }
+
+    .heroTitle,
+    .personalGreeting,
+    .finalTitle {
+      text-shadow:
+        0 0 1px rgba(255,255,255,.10),
+        0 22px 70px rgba(124,92,255,.20),
+        0 10px 40px rgba(0,0,0,.18);
+    }
+
+    .shine {
+      filter: drop-shadow(0 18px 42px rgba(124,92,255,.18));
+    }
+
+    .chip {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chip::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 58%);
+      transform: translateX(-130%);
+      animation: v19ChipSweep 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes v19ChipSweep {
+      0%, 72%, 100% {
+        transform: translateX(-130%);
+      }
+      84% {
+        transform: translateX(130%);
+      }
+    }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .0;
+      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,.24), transparent 48%);
+      transition: opacity .2s ease;
+    }
+
+    .btn:hover::after {
+      opacity: .85;
+    }
+
+    .primary {
+      background:
+        linear-gradient(135deg, #7c5cff 0%, #b554ff 38%, #ff4fd8 58%, #35d7ff 122%) !important;
+      background-size: 180% 180% !important;
+      box-shadow:
+        0 22px 66px rgba(124,92,255,.36),
+        0 12px 34px rgba(53,215,255,.12),
+        inset 0 1px 0 rgba(255,255,255,.24) !important;
+      animation: v19PrimaryFlow 8s ease-in-out infinite;
+    }
+
+    @keyframes v19PrimaryFlow {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .ghost {
+      background:
+        radial-gradient(220px circle at 30% 0%, rgba(255,255,255,.11), transparent 46%),
+        rgba(255,255,255,.066) !important;
+    }
+
+    .glass,
+    .card,
+    .formBox,
+    .hubCard,
+    .final,
+    .device,
+    .screen,
+    .estimateResult {
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 24px 86px rgba(0,0,0,.36) !important;
+    }
+
+    .card,
+    .hubCard,
+    .formBox,
+    .final,
+    .device,
+    .screen {
+      background-image:
+        radial-gradient(520px circle at 20% 0%, rgba(255,255,255,.075), transparent 46%),
+        linear-gradient(180deg, rgba(255,255,255,.094), rgba(255,255,255,.038)) !important;
+    }
+
+    .card:hover,
+    .hubCard:hover {
+      border-color: rgba(255,255,255,.22) !important;
+    }
+
+    .stat,
+    .hubStat,
+    .mini,
+    .task,
+    .metaBox,
+    .comfort,
+    .moodTile,
+    .portalFeature,
+    .tinyPerk {
+      background:
+        radial-gradient(260px circle at 20% 0%, rgba(255,255,255,.085), transparent 46%),
+        rgba(255,255,255,.056) !important;
+      border-color: rgba(255,255,255,.105) !important;
+    }
+
+    .requestCard {
+      background:
+        radial-gradient(460px circle at 20% 0%, rgba(124,92,255,.13), transparent 48%),
+        rgba(0,0,0,.22) !important;
+      border-color: rgba(255,255,255,.13) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.075),
+        0 20px 64px rgba(0,0,0,.25) !important;
+    }
+
+    .requestIcon {
+      background:
+        linear-gradient(135deg, #ffffff, #e8f3ff) !important;
+      box-shadow:
+        0 20px 58px rgba(255,255,255,.12),
+        0 10px 32px rgba(124,92,255,.22) !important;
+    }
+
+    .sectionTitle {
+      position: relative;
+    }
+
+    .sectionTitle::after {
+      content: "";
+      display: block;
+      width: min(150px, 38%);
+      height: 4px;
+      margin: 18px auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--v19-purple), var(--v19-cyan), transparent);
+      opacity: .72;
+      box-shadow: 0 0 34px rgba(124,92,255,.35);
+    }
+
+    .twoCol .sectionTitle::after,
+    .grid2 .sectionTitle::after,
+    .hubCard .sectionTitle::after,
+    .card .sectionTitle::after {
+      margin-left: 0;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background:
+        radial-gradient(240px circle at 20% 0%, rgba(255,255,255,.08), transparent 45%),
+        rgba(255,255,255,.064) !important;
+      border-color: rgba(255,255,255,.13) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(124,92,255,.55) !important;
+      box-shadow:
+        0 0 0 4px rgba(124,92,255,.18),
+        0 0 44px rgba(53,215,255,.10) !important;
+    }
+
+    .estimatePrice,
+    .priceAmount,
+    .statNum,
+    .miniValue {
+      text-shadow:
+        0 0 1px rgba(255,255,255,.12),
+        0 18px 48px rgba(124,92,255,.16);
+    }
+
+    .personalHero {
+      background:
+        radial-gradient(700px circle at 18% 0%, rgba(73,230,165,.14), transparent 44%),
+        radial-gradient(700px circle at 90% 10%, rgba(124,92,255,.20), transparent 46%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.038)) !important;
+    }
+
+    .todayCard {
+      background:
+        radial-gradient(500px circle at 50% 0%, rgba(53,215,255,.12), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.038)) !important;
+    }
+
+    .ring {
+      box-shadow:
+        0 0 44px rgba(73,230,165,.20),
+        0 18px 54px rgba(0,0,0,.25) !important;
+    }
+
+    .memoryCard {
+      background:
+        radial-gradient(520px circle at 20% 0%, rgba(124,92,255,.12), transparent 48%),
+        linear-gradient(180deg, rgba(255,255,255,.082), rgba(255,255,255,.035)) !important;
+    }
+
+    .memoryStep.done {
+      box-shadow: 0 0 28px rgba(73,230,165,.12);
+    }
+
+    .memoryStep.active {
+      box-shadow: 0 0 28px rgba(124,92,255,.20);
+    }
+
+    .appBottomNav {
+      box-shadow:
+        0 24px 80px rgba(0,0,0,.54),
+        inset 0 1px 0 rgba(255,255,255,.10) !important;
+    }
+
+    .quickSheetPanel {
+      background:
+        radial-gradient(520px circle at 50% -10%, rgba(124,92,255,.18), transparent 55%),
+        #070a12 !important;
+    }
+
+    @media (hover:hover) and (pointer:fine) {
+      .card,
+      .hubCard,
+      .formBox,
+      .final {
+        transition:
+          transform .22s ease,
+          border-color .22s ease,
+          background .22s ease,
+          box-shadow .22s ease;
+      }
+
+      .card:hover,
+      .hubCard:hover,
+      .formBox:hover,
+      .final:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.11),
+          0 34px 110px rgba(0,0,0,.42),
+          0 0 60px rgba(124,92,255,.08) !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .v19-premium-field::before,
+      .v19-premium-field::after {
+        animation: none;
+        opacity: .12;
+      }
+
+      .v19-orb {
+        opacity: .14;
+        filter: blur(44px);
+      }
+
+      .v19-floating-icons span {
+        width: 34px;
+        height: 34px;
+        border-radius: 14px;
+        opacity: .45;
+      }
+
+      .v19-floating-icons span:nth-child(n+4) {
+        display: none;
+      }
+
+      .v19-dust {
+        opacity: .28;
+      }
+
+      .sectionTitle::after {
+        width: 110px;
+        height: 3px;
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      .chip::after {
+        display: none;
+      }
+
+      .primary {
+        animation: none;
+      }
+
+      .card:hover,
+      .hubCard:hover,
+      .formBox:hover,
+      .final:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .v19-premium-field::before,
+      .v19-premium-field::after,
+      .v19-orb,
+      .v19-dust span,
+      .v19-floating-icons span,
+      .chip::after,
+      .primary {
+        animation: none !important;
+      }
+    }
+
+
+    /* ===== v19 Generated Premium Utility + FX Classes ===== */
+    .v19-depth-card-1 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.100);
+      background: radial-gradient(420px circle at 11% 0%, rgba(255,255,255,0.050), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 41px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-1 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-1::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(121deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(11px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-2 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.110);
+      background: radial-gradient(420px circle at 12% 0%, rgba(255,255,255,0.060), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 42px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-2 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-2::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(122deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(12px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-3 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.120);
+      background: radial-gradient(420px circle at 13% 0%, rgba(255,255,255,0.070), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 43px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-3 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-3::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(123deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(13px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-4 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.130);
+      background: radial-gradient(420px circle at 14% 0%, rgba(255,255,255,0.080), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 44px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-4 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-4::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(124deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(14px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-5 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.140);
+      background: radial-gradient(420px circle at 15% 0%, rgba(255,255,255,0.090), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 45px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-5 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-5::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(125deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(15px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-6 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.150);
+      background: radial-gradient(420px circle at 16% 0%, rgba(255,255,255,0.100), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 46px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-6 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-6::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(126deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(16px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-7 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.160);
+      background: radial-gradient(420px circle at 17% 0%, rgba(255,255,255,0.110), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 47px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-7 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-7::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(127deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(17px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-8 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.170);
+      background: radial-gradient(420px circle at 18% 0%, rgba(255,255,255,0.120), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 48px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-8 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-8::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(128deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(18px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-9 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.180);
+      background: radial-gradient(420px circle at 19% 0%, rgba(255,255,255,0.130), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 49px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-9 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-9::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(129deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(19px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-10 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.190);
+      background: radial-gradient(420px circle at 20% 0%, rgba(255,255,255,0.140), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 50px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-10 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-10::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(130deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(20px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-11 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.200);
+      background: radial-gradient(420px circle at 21% 0%, rgba(255,255,255,0.150), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 51px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-11 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-11::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(131deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(21px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-12 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.210);
+      background: radial-gradient(420px circle at 22% 0%, rgba(255,255,255,0.160), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 52px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-12 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-12::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(132deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(22px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-13 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,0.220);
+      background: radial-gradient(420px circle at 23% 0%, rgba(255,255,255,0.170), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 53px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-13 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-13::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(133deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(23px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-14 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.230);
+      background: radial-gradient(420px circle at 24% 0%, rgba(255,255,255,0.180), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 54px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-14 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-14::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(134deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(24px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-15 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 29px;
+      border: 1px solid rgba(255,255,255,0.240);
+      background: radial-gradient(420px circle at 25% 0%, rgba(255,255,255,0.190), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 55px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-15 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-15::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(25px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-16 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.250);
+      background: radial-gradient(420px circle at 26% 0%, rgba(255,255,255,0.200), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 56px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-16 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-16::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(136deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(26px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-17 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 31px;
+      border: 1px solid rgba(255,255,255,0.260);
+      background: radial-gradient(420px circle at 27% 0%, rgba(255,255,255,0.210), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 57px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-17 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-17::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(137deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(27px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-18 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.270);
+      background: radial-gradient(420px circle at 28% 0%, rgba(255,255,255,0.220), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 58px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-18 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-18::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(138deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(28px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-19 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.280);
+      background: radial-gradient(420px circle at 29% 0%, rgba(255,255,255,0.230), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 59px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-19 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-19::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(139deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(29px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-20 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.090);
+      background: radial-gradient(420px circle at 30% 0%, rgba(255,255,255,0.040), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 60px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-20 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-20::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(140deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(30px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-21 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.100);
+      background: radial-gradient(420px circle at 31% 0%, rgba(255,255,255,0.050), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 61px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-21 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-21::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(141deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(31px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-22 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.110);
+      background: radial-gradient(420px circle at 32% 0%, rgba(255,255,255,0.060), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 62px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-22 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-22::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(142deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(32px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-23 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.120);
+      background: radial-gradient(420px circle at 33% 0%, rgba(255,255,255,0.070), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 63px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-23 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-23::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(143deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(33px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-24 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.130);
+      background: radial-gradient(420px circle at 34% 0%, rgba(255,255,255,0.080), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 64px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-24 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-24::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(144deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(10px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-25 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.140);
+      background: radial-gradient(420px circle at 35% 0%, rgba(255,255,255,0.090), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 65px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-25 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-25::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(11px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-26 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.150);
+      background: radial-gradient(420px circle at 36% 0%, rgba(255,255,255,0.100), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 66px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-26 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-26::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(146deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(12px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-27 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.160);
+      background: radial-gradient(420px circle at 37% 0%, rgba(255,255,255,0.110), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 67px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-27 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-27::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(147deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(13px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-28 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.170);
+      background: radial-gradient(420px circle at 38% 0%, rgba(255,255,255,0.120), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 68px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-28 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-28::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(148deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(14px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-29 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.180);
+      background: radial-gradient(420px circle at 39% 0%, rgba(255,255,255,0.130), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 69px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-29 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-29::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(149deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(15px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-30 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.190);
+      background: radial-gradient(420px circle at 40% 0%, rgba(255,255,255,0.140), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 70px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-30 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-30::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(150deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(16px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-31 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,0.200);
+      background: radial-gradient(420px circle at 41% 0%, rgba(255,255,255,0.150), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 71px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-31 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-31::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(151deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(17px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-32 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.210);
+      background: radial-gradient(420px circle at 42% 0%, rgba(255,255,255,0.160), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 72px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-32 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-32::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(152deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(18px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-33 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 29px;
+      border: 1px solid rgba(255,255,255,0.220);
+      background: radial-gradient(420px circle at 43% 0%, rgba(255,255,255,0.170), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 73px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-33 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-33::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(153deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(19px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-34 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.230);
+      background: radial-gradient(420px circle at 44% 0%, rgba(255,255,255,0.180), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 74px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-34 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-34::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(154deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(20px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-35 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 31px;
+      border: 1px solid rgba(255,255,255,0.240);
+      background: radial-gradient(420px circle at 45% 0%, rgba(255,255,255,0.190), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 75px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-35 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-35::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(155deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(21px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-36 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.250);
+      background: radial-gradient(420px circle at 46% 0%, rgba(255,255,255,0.200), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 76px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-36 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-36::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(156deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(22px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-37 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.260);
+      background: radial-gradient(420px circle at 47% 0%, rgba(255,255,255,0.210), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 77px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-37 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-37::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(157deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(23px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-38 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.270);
+      background: radial-gradient(420px circle at 48% 0%, rgba(255,255,255,0.220), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 78px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-38 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-38::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(158deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(24px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-39 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.280);
+      background: radial-gradient(420px circle at 49% 0%, rgba(255,255,255,0.230), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 79px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-39 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-39::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(159deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(25px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-40 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.090);
+      background: radial-gradient(420px circle at 50% 0%, rgba(255,255,255,0.040), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-40 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-40::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(160deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(26px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-41 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.100);
+      background: radial-gradient(420px circle at 51% 0%, rgba(255,255,255,0.050), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 41px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-41 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-41::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(161deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(27px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-42 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.110);
+      background: radial-gradient(420px circle at 52% 0%, rgba(255,255,255,0.060), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 42px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-42 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-42::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(162deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(28px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-43 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.120);
+      background: radial-gradient(420px circle at 53% 0%, rgba(255,255,255,0.070), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 43px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-43 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-43::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(163deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(29px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-44 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.130);
+      background: radial-gradient(420px circle at 54% 0%, rgba(255,255,255,0.080), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 44px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-44 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-44::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(164deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(30px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-45 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.140);
+      background: radial-gradient(420px circle at 55% 0%, rgba(255,255,255,0.090), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 45px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-45 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-45::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(165deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(31px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-46 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.150);
+      background: radial-gradient(420px circle at 56% 0%, rgba(255,255,255,0.100), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 46px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-46 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-46::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(166deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(32px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-47 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.160);
+      background: radial-gradient(420px circle at 57% 0%, rgba(255,255,255,0.110), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 47px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-47 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-47::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(167deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(33px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-48 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.170);
+      background: radial-gradient(420px circle at 58% 0%, rgba(255,255,255,0.120), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 48px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-48 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-48::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(168deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(10px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-49 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,0.180);
+      background: radial-gradient(420px circle at 59% 0%, rgba(255,255,255,0.130), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 49px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-49 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-49::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(169deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(11px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-50 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.190);
+      background: radial-gradient(420px circle at 60% 0%, rgba(255,255,255,0.140), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 50px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-50 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-50::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(170deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(12px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-51 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 29px;
+      border: 1px solid rgba(255,255,255,0.200);
+      background: radial-gradient(420px circle at 61% 0%, rgba(255,255,255,0.150), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 51px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-51 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-51::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(171deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(13px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-52 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.210);
+      background: radial-gradient(420px circle at 62% 0%, rgba(255,255,255,0.160), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 52px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-52 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-52::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(172deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(14px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-53 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 31px;
+      border: 1px solid rgba(255,255,255,0.220);
+      background: radial-gradient(420px circle at 63% 0%, rgba(255,255,255,0.170), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 53px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-53 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-53::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(173deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(15px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-54 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.230);
+      background: radial-gradient(420px circle at 64% 0%, rgba(255,255,255,0.180), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 54px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-54 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-54::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(174deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(16px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-55 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.240);
+      background: radial-gradient(420px circle at 65% 0%, rgba(255,255,255,0.190), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 55px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-55 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-55::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(175deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(17px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-56 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.250);
+      background: radial-gradient(420px circle at 66% 0%, rgba(255,255,255,0.200), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 56px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-56 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-56::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(176deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(18px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-57 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.260);
+      background: radial-gradient(420px circle at 67% 0%, rgba(255,255,255,0.210), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 57px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-57 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-57::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(177deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(19px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-58 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.270);
+      background: radial-gradient(420px circle at 68% 0%, rgba(255,255,255,0.220), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 58px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-58 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-58::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(178deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(20px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-59 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.280);
+      background: radial-gradient(420px circle at 69% 0%, rgba(255,255,255,0.230), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 59px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-59 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-59::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(179deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(21px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-60 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.090);
+      background: radial-gradient(420px circle at 10% 0%, rgba(255,255,255,0.040), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 60px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-60 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-60::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(22px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-61 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.100);
+      background: radial-gradient(420px circle at 11% 0%, rgba(255,255,255,0.050), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 61px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-61 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-61::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(181deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(23px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-62 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.110);
+      background: radial-gradient(420px circle at 12% 0%, rgba(255,255,255,0.060), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 62px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-62 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-62::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(182deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(24px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-63 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.120);
+      background: radial-gradient(420px circle at 13% 0%, rgba(255,255,255,0.070), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 63px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-63 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-63::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(183deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(25px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-64 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.130);
+      background: radial-gradient(420px circle at 14% 0%, rgba(255,255,255,0.080), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 64px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-64 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-64::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(184deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(26px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-65 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.140);
+      background: radial-gradient(420px circle at 15% 0%, rgba(255,255,255,0.090), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 65px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-65 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-65::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(185deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(27px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-66 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.150);
+      background: radial-gradient(420px circle at 16% 0%, rgba(255,255,255,0.100), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 66px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-66 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-66::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(186deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(28px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-67 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,0.160);
+      background: radial-gradient(420px circle at 17% 0%, rgba(255,255,255,0.110), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 67px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-67 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-67::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(187deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(29px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-68 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.170);
+      background: radial-gradient(420px circle at 18% 0%, rgba(255,255,255,0.120), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 68px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-68 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-68::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(188deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(30px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-69 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 29px;
+      border: 1px solid rgba(255,255,255,0.180);
+      background: radial-gradient(420px circle at 19% 0%, rgba(255,255,255,0.130), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 69px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-69 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-69::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(189deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(31px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-70 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.190);
+      background: radial-gradient(420px circle at 20% 0%, rgba(255,255,255,0.140), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 70px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-70 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-70::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(190deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(32px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-71 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 31px;
+      border: 1px solid rgba(255,255,255,0.200);
+      background: radial-gradient(420px circle at 21% 0%, rgba(255,255,255,0.150), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 71px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-71 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-71::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(191deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(33px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-72 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.210);
+      background: radial-gradient(420px circle at 22% 0%, rgba(255,255,255,0.160), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 72px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-72 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-72::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(192deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(10px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-73 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.220);
+      background: radial-gradient(420px circle at 23% 0%, rgba(255,255,255,0.170), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 73px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-73 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-73::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(193deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(11px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-74 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.230);
+      background: radial-gradient(420px circle at 24% 0%, rgba(255,255,255,0.180), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 74px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-74 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-74::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(194deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(12px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-75 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.240);
+      background: radial-gradient(420px circle at 25% 0%, rgba(255,255,255,0.190), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 75px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-75 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-75::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(195deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(13px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-76 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.250);
+      background: radial-gradient(420px circle at 26% 0%, rgba(255,255,255,0.200), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 76px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-76 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-76::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(196deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(14px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-77 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.260);
+      background: radial-gradient(420px circle at 27% 0%, rgba(255,255,255,0.210), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 77px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-77 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-77::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(197deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(15px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-78 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.270);
+      background: radial-gradient(420px circle at 28% 0%, rgba(255,255,255,0.220), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 78px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-78 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-78::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(198deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(16px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-79 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.280);
+      background: radial-gradient(420px circle at 29% 0%, rgba(255,255,255,0.230), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 79px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-79 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-79::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(199deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(17px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-80 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.090);
+      background: radial-gradient(420px circle at 30% 0%, rgba(255,255,255,0.040), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-80 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-80::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(200deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(18px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-81 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.100);
+      background: radial-gradient(420px circle at 31% 0%, rgba(255,255,255,0.050), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 41px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-81 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-81::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(201deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(19px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-82 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.110);
+      background: radial-gradient(420px circle at 32% 0%, rgba(255,255,255,0.060), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 42px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-82 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-82::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(202deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(20px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-83 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.120);
+      background: radial-gradient(420px circle at 33% 0%, rgba(255,255,255,0.070), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 43px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-83 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-83::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(203deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(21px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-84 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.130);
+      background: radial-gradient(420px circle at 34% 0%, rgba(255,255,255,0.080), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 44px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-84 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-84::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(204deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(22px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-85 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,0.140);
+      background: radial-gradient(420px circle at 35% 0%, rgba(255,255,255,0.090), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 45px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-85 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-85::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(205deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(23px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-86 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.150);
+      background: radial-gradient(420px circle at 36% 0%, rgba(255,255,255,0.100), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 46px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-86 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-86::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(206deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(24px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-87 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 29px;
+      border: 1px solid rgba(255,255,255,0.160);
+      background: radial-gradient(420px circle at 37% 0%, rgba(255,255,255,0.110), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 47px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-87 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-87::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(207deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(25px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-88 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.170);
+      background: radial-gradient(420px circle at 38% 0%, rgba(255,255,255,0.120), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 48px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-88 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-88::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(208deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(26px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-89 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 31px;
+      border: 1px solid rgba(255,255,255,0.180);
+      background: radial-gradient(420px circle at 39% 0%, rgba(255,255,255,0.130), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 49px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-89 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-89::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(209deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(27px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-90 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.190);
+      background: radial-gradient(420px circle at 40% 0%, rgba(255,255,255,0.140), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 50px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-90 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-90::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(210deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(28px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-91 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.200);
+      background: radial-gradient(420px circle at 41% 0%, rgba(255,255,255,0.150), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 51px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-91 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-91::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(211deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(29px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-92 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.210);
+      background: radial-gradient(420px circle at 42% 0%, rgba(255,255,255,0.160), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 52px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-92 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-92::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(212deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(30px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-93 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.220);
+      background: radial-gradient(420px circle at 43% 0%, rgba(255,255,255,0.170), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 53px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-93 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-93::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(213deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(31px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-94 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.230);
+      background: radial-gradient(420px circle at 44% 0%, rgba(255,255,255,0.180), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 54px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-94 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-94::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(214deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(32px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-95 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.240);
+      background: radial-gradient(420px circle at 45% 0%, rgba(255,255,255,0.190), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 55px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-95 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-95::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(215deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(33px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-96 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.250);
+      background: radial-gradient(420px circle at 46% 0%, rgba(255,255,255,0.200), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 56px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-96 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-96::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(216deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(10px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-97 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.260);
+      background: radial-gradient(420px circle at 47% 0%, rgba(255,255,255,0.210), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 57px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-97 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-97::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(217deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(11px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-98 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.270);
+      background: radial-gradient(420px circle at 48% 0%, rgba(255,255,255,0.220), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 58px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-98 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-98::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(218deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(12px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-99 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.280);
+      background: radial-gradient(420px circle at 49% 0%, rgba(255,255,255,0.230), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 59px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-99 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-99::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(219deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(13px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-100 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.090);
+      background: radial-gradient(420px circle at 50% 0%, rgba(255,255,255,0.040), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 60px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-100 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-100::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(220deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(14px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-101 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.100);
+      background: radial-gradient(420px circle at 51% 0%, rgba(255,255,255,0.050), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 61px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-101 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-101::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(221deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(15px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-102 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.110);
+      background: radial-gradient(420px circle at 52% 0%, rgba(255,255,255,0.060), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 62px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-102 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-102::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(222deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(16px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-103 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,0.120);
+      background: radial-gradient(420px circle at 53% 0%, rgba(255,255,255,0.070), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 63px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-103 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-103::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(223deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(17px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-104 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.130);
+      background: radial-gradient(420px circle at 54% 0%, rgba(255,255,255,0.080), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 64px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-104 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-104::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(224deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(18px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-105 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 29px;
+      border: 1px solid rgba(255,255,255,0.140);
+      background: radial-gradient(420px circle at 55% 0%, rgba(255,255,255,0.090), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 65px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-105 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-105::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(225deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(19px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-106 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.150);
+      background: radial-gradient(420px circle at 56% 0%, rgba(255,255,255,0.100), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 66px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-106 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-106::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(226deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(20px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-107 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 31px;
+      border: 1px solid rgba(255,255,255,0.160);
+      background: radial-gradient(420px circle at 57% 0%, rgba(255,255,255,0.110), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 25px 67px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-107 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-107::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(227deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(21px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-108 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.170);
+      background: radial-gradient(420px circle at 58% 0%, rgba(255,255,255,0.120), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 68px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-108 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-108::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(228deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(22px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-109 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.180);
+      background: radial-gradient(420px circle at 59% 0%, rgba(255,255,255,0.130), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 27px 69px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-109 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-109::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(229deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(23px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-110 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.190);
+      background: radial-gradient(420px circle at 60% 0%, rgba(255,255,255,0.140), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 70px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-110 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-110::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(230deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(24px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .v19-depth-card-111 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.200);
+      background: radial-gradient(420px circle at 61% 0%, rgba(255,255,255,0.150), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 29px 71px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-111 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-111::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(231deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(25px);
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .v19-depth-card-112 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.210);
+      background: radial-gradient(420px circle at 62% 0%, rgba(255,255,255,0.160), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 72px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-112 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-112::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(232deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(26px);
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .v19-depth-card-113 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.220);
+      background: radial-gradient(420px circle at 63% 0%, rgba(255,255,255,0.170), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 17px 73px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-113 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-113::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(233deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(27px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .v19-depth-card-114 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.230);
+      background: radial-gradient(420px circle at 64% 0%, rgba(255,255,255,0.180), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 74px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-114 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-114::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(234deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(28px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .v19-depth-card-115 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,0.240);
+      background: radial-gradient(420px circle at 65% 0%, rgba(255,255,255,0.190), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 19px 75px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-115 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-115::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(235deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(29px);
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    .v19-depth-card-116 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.250);
+      background: radial-gradient(420px circle at 66% 0%, rgba(255,255,255,0.200), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 76px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-116 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-116::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(236deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(30px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .v19-depth-card-117 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      border: 1px solid rgba(255,255,255,0.260);
+      background: radial-gradient(420px circle at 67% 0%, rgba(255,255,255,0.210), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 21px 77px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-117 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-117::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(237deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(31px);
+      opacity: 0.19;
+      pointer-events: none;
+    }
+    .v19-depth-card-118 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.270);
+      background: radial-gradient(420px circle at 68% 0%, rgba(255,255,255,0.220), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 78px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-118 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-118::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(238deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(32px);
+      opacity: 0.20;
+      pointer-events: none;
+    }
+    .v19-depth-card-119 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.280);
+      background: radial-gradient(420px circle at 69% 0%, rgba(255,255,255,0.230), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 23px 79px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-119 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-119::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(239deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(33px);
+      opacity: 0.21;
+      pointer-events: none;
+    }
+    .v19-depth-card-120 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.090);
+      background: radial-gradient(420px circle at 10% 0%, rgba(255,255,255,0.040), transparent 48%), rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .v19-glow-accent-120 {
+      position: relative;
+      isolation: isolate;
+    }
+    .v19-glow-accent-120::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(240deg, rgba(124,92,255,.45), rgba(255,79,216,.16), rgba(53,215,255,.32));
+      filter: blur(10px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+
+    .btn.is-pressing {
+      transform: scale(.975);
+      filter: brightness(1.08) saturate(1.05);
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
   <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div><div id="progress" class="progress"></div>
+  <div class="v19-premium-field" aria-hidden="true"></div>
+  <div class="v19-orb one" aria-hidden="true"></div>
+  <div class="v19-orb two" aria-hidden="true"></div>
+  <div class="v19-orb three" aria-hidden="true"></div>
+  <div class="v19-dust" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="v19-floating-icons" aria-hidden="true">
+    <span>🛒</span><span>🏠</span><span>🥶</span><span>📦</span><span>✨</span><span>🧺</span>
+  </div>
+  <div class="safeGlowLayer" aria-hidden="true"></div>
+  <div class="safeFloatDecor" aria-hidden="true"><span>🛒</span><span>🏠</span><span>🥶</span><span>📦</span></div>
   <div class="mobileAppTop">
     <div class="mobileAppTopInner">
       <a class="appBrand" href="/">
@@ -1118,6 +5042,38 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     }
     closeMobileOverlays();
     window.addEventListener('pageshow', closeMobileOverlays);
+
+
+    // v19 safe visual class enhancer
+    (function applyV19VisualClasses(){
+      const premiumTargets = $$('.card,.hubCard,.formBox,.final,.device,.screen,.estimateResult');
+      premiumTargets.forEach((el, index) => {
+        if (!el.classList.contains('v19-premium-border') && index % 3 === 0) {
+          el.classList.add('v19-premium-border');
+        }
+        const depthClass = 'v19-depth-card-' + ((index % 120) + 1);
+        if (index % 5 === 0 && !el.classList.contains(depthClass)) {
+          el.classList.add(depthClass);
+        }
+        const glowClass = 'v19-glow-accent-' + ((index % 120) + 1);
+        if (index % 7 === 0 && !el.classList.contains(glowClass)) {
+          el.classList.add(glowClass);
+        }
+      });
+    })();
+
+    // v19 safe tap feedback: class only, no DOM mutation
+    $$('.btn').forEach((btn) => {
+      btn.addEventListener('pointerdown', () => {
+        btn.classList.add('is-pressing');
+      }, { passive: true });
+      btn.addEventListener('pointerup', () => {
+        btn.classList.remove('is-pressing');
+      }, { passive: true });
+      btn.addEventListener('pointerleave', () => {
+        btn.classList.remove('is-pressing');
+      }, { passive: true });
+    });
 
   </script>
 </body>
@@ -1644,3 +5600,4 @@ app.listen(PORT, () => {
   console.log(`Customer signup: http://localhost:${PORT}/signup`);
   console.log(`Employee login: http://localhost:${PORT}/employee/login`);
 });
+
