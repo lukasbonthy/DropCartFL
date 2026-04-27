@@ -7024,6 +7024,36 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v28 HQ Dispatch Device Route Fix
+       ============================================================ */
+    .hqDevicePage{min-height:100svh;padding-top:20px;padding-bottom:120px}
+    .hqDeviceShell{display:grid;gap:16px}
+    .hqTopbar{position:sticky;top:10px;z-index:900;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px;border-radius:28px;background:radial-gradient(700px circle at 0% 0%,color-mix(in srgb,var(--theme-a,#7c5cff) 18%,transparent),transparent 46%),rgba(7,10,18,.82);border:1px solid rgba(255,255,255,.13);box-shadow:0 22px 72px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .hqBrand{display:flex;align-items:center;gap:12px;min-width:0}
+    .hqBrandIcon{display:grid;place-items:center;flex:0 0 auto;width:52px;height:52px;border-radius:20px;color:#070a12;background:linear-gradient(135deg,#fff,color-mix(in srgb,var(--theme-c,#35d7ff) 22%,#fff));box-shadow:0 18px 44px color-mix(in srgb,var(--theme-a,#7c5cff) 24%,transparent);font-size:25px}
+    .hqBrandText{min-width:0}.hqBrandText strong{display:block;font-family:"Space Grotesk",Inter,sans-serif;font-size:25px;line-height:.95;letter-spacing:-.055em;font-weight:900}.hqBrandText span{display:block;margin-top:4px;color:rgba(255,255,255,.52);font-size:12px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hqTopActions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .hqPill{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.66);font-size:12px;font-weight:950}
+    .hqLiveDot{width:8px;height:8px;border-radius:999px;background:var(--theme-good,#49e6a5);box-shadow:0 0 24px color-mix(in srgb,var(--theme-good,#49e6a5) 60%,transparent)}
+    .hqHero{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    .hqHeroCard,.hqNextCard{position:relative;overflow:hidden;padding:24px;border-radius:34px;background:radial-gradient(900px circle at 5% 0%,color-mix(in srgb,var(--theme-a,#7c5cff) 26%,transparent),transparent 46%),radial-gradient(760px circle at 100% 20%,color-mix(in srgb,var(--theme-c,#35d7ff) 16%,transparent),transparent 48%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 24px 86px rgba(0,0,0,.30)}
+    .hqKicker{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.64);font-size:11px;font-weight:950;letter-spacing:.10em;text-transform:uppercase}
+    .hqTitle{margin-top:18px;max-width:850px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(46px,6vw,92px);line-height:.84;letter-spacing:-.078em;font-weight:900;text-wrap:balance}.hqTitle span{background:var(--theme-title,linear-gradient(90deg,#fff,#c9c0ff,#ff7be8,#68e4ff,#fff));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hqSub{margin-top:16px;max-width:780px;color:rgba(255,255,255,.62);font-size:16px;line-height:1.65}.hqActionRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .hqNextTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.hqNextTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:30px;line-height:.95;letter-spacing:-.055em;font-weight:900}.hqNextName{margin-top:12px;font-family:"Space Grotesk",Inter,sans-serif;font-size:38px;line-height:.92;letter-spacing:-.065em;font-weight:900}.hqNextDetails{margin-top:10px;color:rgba(255,255,255,.56);font-size:14px;line-height:1.55}
+    .hqStatGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.hqStat{position:relative;overflow:hidden;min-height:118px;padding:16px;border-radius:26px;background:radial-gradient(360px circle at 20% 0%,rgba(255,255,255,.09),transparent 48%),rgba(255,255,255,.052);border:1px solid rgba(255,255,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 58px rgba(0,0,0,.24)}.hqStat span{display:block;color:rgba(255,255,255,.48);font-size:11px;font-weight:950;letter-spacing:.10em;text-transform:uppercase}.hqStat strong{display:block;margin-top:12px;font-family:"Space Grotesk",Inter,sans-serif;font-size:42px;line-height:.85;letter-spacing:-.07em}.hqStat small{display:block;margin-top:9px;color:rgba(255,255,255,.44);font-size:12px;line-height:1.35;font-weight:750}
+    .hqControls{position:sticky;top:94px;z-index:800;display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:12px;border-radius:26px;background:rgba(7,10,18,.78);border:1px solid rgba(255,255,255,.11);box-shadow:0 20px 72px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+    .hqSearch,.hqSelect{min-height:50px;padding:12px 14px;border-radius:18px;color:white;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.10);outline:none;font-size:15px}
+    .hqBoard{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:12px;align-items:start;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}.hqColumn{min-height:360px;padding:12px;border-radius:26px;background:radial-gradient(420px circle at 10% 0%,rgba(255,255,255,.065),transparent 46%),rgba(0,0,0,.17);border:1px solid rgba(255,255,255,.09)}.hqColumnHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;padding:4px 2px}.hqColumnHead strong{font-size:12px;font-weight:950;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.68)}.hqCount{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);font-size:12px;font-weight:950}
+    .hqJob{position:relative;overflow:hidden;display:grid;gap:10px;padding:14px;margin-bottom:10px;border-radius:22px;background:radial-gradient(320px circle at 20% 0%,rgba(255,255,255,.08),transparent 46%),rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 12px 42px rgba(0,0,0,.20)}.hqJob::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--job-color,var(--theme-a,#7c5cff));box-shadow:0 0 26px color-mix(in srgb,var(--job-color,#7c5cff) 46%,transparent)}.hq-status-new{--job-color:#c9c0ff}.hq-status-contacted{--job-color:#ffd166}.hq-status-confirmed{--job-color:#5aa7ff}.hq-status-completed{--job-color:#49e6a5}
+    .hqJobTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.hqJobName{padding-left:3px;font-family:"Space Grotesk",Inter,sans-serif;font-size:23px;line-height:.98;letter-spacing:-.045em;font-weight:900}.hqJobMeta{color:rgba(255,255,255,.48);font-size:11px;line-height:1.35;font-weight:800;text-align:right;white-space:nowrap}.hqJobLine{color:rgba(255,255,255,.58);font-size:12px;line-height:1.45;font-weight:750;overflow-wrap:anywhere}.hqJobNotes{padding:10px;border-radius:16px;background:rgba(0,0,0,.16);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.54);font-size:12px;line-height:1.45;max-height:88px;overflow:auto}.hqTagRow{display:flex;flex-wrap:wrap;gap:6px}.hqTag{display:inline-flex;align-items:center;min-height:24px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.58);font-size:10.5px;font-weight:850}
+    .hqQuickActions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.hqQuickActions .btn{min-height:40px;padding:9px 10px;border-radius:14px;font-size:11px;width:100%}.hqStatusButtons{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.hqStatusButtons form{margin:0}.hqStatusButtons button{min-height:38px;width:100%;border:0;border-radius:13px;color:white;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.10);font-size:10.5px;font-weight:950}.hqEmpty{padding:20px 12px;border-radius:18px;border:1px dashed rgba(255,255,255,.11);color:rgba(255,255,255,.36);text-align:center;font-size:12px;line-height:1.45}.hqHidden{display:none!important}
+    .hqFullscreenMode .header,.hqFullscreenMode .footer,.hqFullscreenMode .mobileAppTop,.hqFullscreenMode .appBottomNav,.hqFullscreenMode #audioDock,.hqFullscreenMode #sensoryDock{display:none!important}
+    @media(max-width:1200px){.hqHero{grid-template-columns:1fr}.hqStatGrid{grid-template-columns:repeat(2,1fr)}.hqBoard{grid-template-columns:repeat(4,minmax(260px,1fr))}}
+    @media(max-width:720px){.hqDevicePage{padding-top:12px}.hqTopbar{position:relative;top:auto;display:grid;border-radius:24px}.hqTopActions{justify-content:flex-start}.hqHeroCard,.hqNextCard{padding:18px;border-radius:26px}.hqTitle{font-size:42px}.hqStatGrid{grid-template-columns:1fr}.hqControls{position:relative;top:auto;grid-template-columns:1fr}.hqBoard{grid-template-columns:1fr;overflow-x:visible}.hqColumn{min-height:auto}.hqQuickActions,.hqStatusButtons{grid-template-columns:1fr}}
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -7850,7 +7880,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     })();
 
 
-    // v27 HQ Dispatch Device filters, clock, kiosk mode, auto-refresh
+    // v28 HQ dispatch filters, clock, kiosk mode, auto-refresh
     (function initHQDispatchDevice(){
       const search = $('#hqSearch');
       const filter = $('#hqFilter');
@@ -7859,45 +7889,33 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       const clock = $('#hqClock');
       const refreshToggle = $('#hqRefreshToggle');
       const fullscreen = $('#hqFullscreen');
-
       if (!search && !filter && !clock && !refreshToggle && !fullscreen) return;
 
-      function tickClock(){
-        if (!clock) return;
-        clock.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-      }
+      function tickClock(){ if (clock) clock.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); }
       tickClock();
       setInterval(tickClock, 10000);
 
       function applyHQFilters(){
         const q = (search?.value || '').trim().toLowerCase();
         const status = filter?.value || 'all';
-
         cards.forEach((card) => {
           const matchesSearch = !q || (card.dataset.search || '').includes(q);
           const matchesStatus = status === 'all' || card.dataset.status === status;
           card.classList.toggle('hqHidden', !(matchesSearch && matchesStatus));
         });
-
-        columns.forEach((column) => {
-          const colStatus = column.dataset.column;
-          column.classList.toggle('hqHidden', status !== 'all' && colStatus !== status);
-        });
+        columns.forEach((column) => column.classList.toggle('hqHidden', status !== 'all' && column.dataset.column !== status));
       }
-
       search?.addEventListener('input', applyHQFilters);
       filter?.addEventListener('change', applyHQFilters);
 
       let autoRefresh = localStorage.getItem('dropcartHQAutoRefresh') !== 'off';
       let refreshTimer = null;
-
       function setRefreshButton(){
         if (!refreshToggle) return;
         refreshToggle.textContent = autoRefresh ? 'Auto-refresh on' : 'Auto-refresh off';
         refreshToggle.classList.toggle('primary', autoRefresh);
         refreshToggle.classList.toggle('ghost', !autoRefresh);
       }
-
       function scheduleRefresh(){
         clearInterval(refreshTimer);
         if (!autoRefresh) return;
@@ -7907,14 +7925,12 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
           if (!typing && window.location.pathname === '/hq') window.location.reload();
         }, 45000);
       }
-
       refreshToggle?.addEventListener('click', () => {
         autoRefresh = !autoRefresh;
         localStorage.setItem('dropcartHQAutoRefresh', autoRefresh ? 'on' : 'off');
         setRefreshButton();
         scheduleRefresh();
       });
-
       fullscreen?.addEventListener('click', async () => {
         document.body.classList.toggle('hqFullscreenMode');
         if (document.fullscreenElement) {
@@ -7925,14 +7941,12 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         await document.documentElement.requestFullscreen?.().catch(() => {});
         fullscreen.textContent = document.fullscreenElement ? 'Exit kiosk' : 'Kiosk mode';
       });
-
       document.addEventListener('fullscreenchange', () => {
         if (!document.fullscreenElement) {
           document.body.classList.remove('hqFullscreenMode');
           if (fullscreen) fullscreen.textContent = 'Kiosk mode';
         }
       });
-
       setRefreshButton();
       scheduleRefresh();
       applyHQFilters();
@@ -8385,7 +8399,7 @@ function employeePage(req) {
           </div>
         </div>
         <div class="opsTopActions">
-          <a class="btn primary" href="#jobs">View jobs</a>
+          <a class="btn primary" href="#jobs">View jobs</a><a class="btn ghost" href="/hq">HQ Device</a>
           <a class="btn ghost" href="/employee/customers">Customers</a>
           <a class="btn ghost" href="/employee/export">Export</a>
           <form method="post" action="/employee/logout">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
@@ -8451,6 +8465,73 @@ function employeePage(req) {
   </main>
   ${footer(req)}`;
   return pageShell({ req, title: `${SERVICE_NAME} — Employee Operations HQ`, body });
+}
+
+
+function hqJobCard(req, b) {
+  const statusClass = String(b.status || "new").replace(/[^a-z0-9-]/gi, "").toLowerCase();
+  const notes = String(b.notes || "");
+  const tags = [];
+  if (b.customerId) tags.push("customer"); else tags.push("guest");
+  if ((b.estimate?.stairs || 0) > 0) tags.push("stairs");
+  if ((b.estimate?.heavy || 0) > 0) tags.push("heavy");
+  if ((b.estimate?.urgency || 0) > 0 || /asap|rush|today/i.test(notes + " " + (b.timeWindow || ""))) tags.push("rush");
+  if (/gate|code/i.test(notes)) tags.push("gate/code");
+  if (/dog|cat|pet/i.test(notes)) tags.push("pets");
+  if (/cold|frozen|fridge|freezer/i.test(notes)) tags.push("cold");
+  if ((b.area?.status || "") === "outside") tags.push("verify area");
+  const tagHtml = tags.slice(0, 6).map((tag) => `<span class="hqTag">${escapeHtml(tag)}</span>`).join("");
+  const smsConfirm = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I saw your grocery unload request and wanted to confirm the details.`);
+  const smsOnWay = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I am on the way for your grocery unload.`);
+  const searchable = `${b.name || ""} ${b.phone || ""} ${b.email || ""} ${b.address || ""} ${b.zip || ""} ${b.status || ""} ${notes}`.toLowerCase();
+  const shortAddress = b.address ? String(b.address).slice(0, 70) : "Address pending";
+  const statusButtons = ["contacted", "confirmed", "completed", "cancelled"].map((status) => `
+    <form method="post" action="/hq/bookings/${encodeURIComponent(b.id)}/status">
+      ${csrfField(req)}
+      <input type="hidden" name="status" value="${status}" />
+      <button type="submit">${escapeHtml(status)}</button>
+    </form>
+  `).join("");
+
+  return `<article class="hqJob hq-status-${escapeHtml(statusClass)}" data-status="${escapeHtml(b.status || "")}" data-search="${escapeHtml(searchable)}">
+    <div class="hqJobTop"><div><span class="badge ${statusColor(b.status)}">${escapeHtml(b.status)}</span><div class="hqJobName">${escapeHtml(b.name)}</div></div><div class="hqJobMeta">${escapeHtml(b.id)}<br>${money(b.estimate?.price)} · ${escapeHtml(String(b.estimate?.minutes || "?"))}m</div></div>
+    <div class="hqJobLine">📍 ${escapeHtml(shortAddress)}${b.zip ? " · " + escapeHtml(b.zip) : ""}</div>
+    <div class="hqJobLine">🕒 ${escapeHtml(b.date || "Any day")} · ${escapeHtml(b.timeWindow || "Flexible")}</div>
+    <div class="hqJobLine">📞 ${escapeHtml(b.phone)}${b.email ? " · " + escapeHtml(b.email) : ""}</div>
+    <div class="hqTagRow">${tagHtml}</div>
+    <div class="hqJobNotes">${escapeHtml(b.notes || "No notes. Confirm cold items, stairs, water cases, and placement.")}</div>
+    <div class="hqQuickActions"><a class="btn ghost" href="tel:${escapeHtml(b.phone)}">Call</a><a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsConfirm}">Confirm</a><a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsOnWay}">On way</a><a class="btn ghost" href="/employee#jobs">Full view</a></div>
+    <div class="hqStatusButtons">${statusButtons}</div>
+  </article>`;
+}
+
+function hqPage(req) {
+  const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const customers = readCustomers();
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const activeStatuses = ["new", "contacted", "confirmed"];
+  const hqStatuses = ["new", "contacted", "confirmed", "completed"];
+  const activeBookings = bookings.filter((b) => activeStatuses.includes(b.status));
+  const todayBookings = bookings.filter((b) => b.date === todayIso || String(b.createdAt || "").slice(0, 10) === todayIso);
+  const completedToday = todayBookings.filter((b) => b.status === "completed");
+  const nextJob = activeBookings[0] || bookings[0];
+  const todayValue = todayBookings.reduce((sum, b) => sum + (Number(b.estimate?.price) || 0), 0);
+  const statusCounts = hqStatuses.reduce((acc, status) => { acc[status] = bookings.filter((b) => b.status === status).length; return acc; }, {});
+
+  const columns = hqStatuses.map((status) => {
+    const items = bookings.filter((b) => b.status === status).slice(0, status === "completed" ? 8 : 20);
+    return `<section class="hqColumn" data-column="${escapeHtml(status)}"><div class="hqColumnHead"><strong>${escapeHtml(status)}</strong><span class="hqCount">${items.length}</span></div>${items.length ? items.map((b) => hqJobCard(req, b)).join("") : `<div class="hqEmpty">No ${escapeHtml(status)} jobs.</div>`}</section>`;
+  }).join("");
+
+  const body = `${header(req)}
+  <main class="container hqDevicePage"><div class="hqDeviceShell">
+    <section class="hqTopbar"><div class="hqBrand"><div class="hqBrandIcon">📱</div><div class="hqBrandText"><strong>HQ Dispatch Device</strong><span>Touch-first operations screen for the shop, office, or headquarters.</span></div></div><div class="hqTopActions"><span class="hqPill"><span class="hqLiveDot"></span>Live queue</span><span class="hqPill" id="hqClock">${escapeHtml(new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }))}</span><button class="btn ghost" id="hqFullscreen" type="button">Kiosk mode</button><a class="btn ghost" href="/employee">Employee HQ</a></div></section>
+    <section class="hqHero"><div class="hqHeroCard"><span class="hqKicker">HQ station</span><h1 class="hqTitle">One device to <span>run the whole queue.</span></h1><p class="hqSub">Set this on a phone, tablet, or office screen. Employees can see new requests, call/text customers, update statuses, and keep every grocery unload moving.</p><div class="hqActionRow"><a class="btn primary" href="#hqBoard">Open queue</a><a class="btn ghost" href="/employee/customers">Customers</a><a class="btn ghost" href="/employee/export">Export</a></div></div><aside class="hqNextCard"><div class="hqNextTop"><div><div class="hqKicker">Next focus</div><h2 class="hqNextTitle">Front of queue</h2></div><span class="hqPill">${activeBookings.length} active</span></div><div class="hqNextName">${nextJob ? escapeHtml(nextJob.name) : "No active job"}</div><div class="hqNextDetails">${nextJob ? `${escapeHtml(nextJob.timeWindow || "Flexible")} · ${money(nextJob.estimate?.price)}<br>${escapeHtml(nextJob.address || "Address pending")}` : "New requests will appear here when the page refreshes."}</div></aside></section>
+    <section class="hqStatGrid"><div class="hqStat"><span>New</span><strong>${statusCounts.new || 0}</strong><small>Needs first contact.</small></div><div class="hqStat"><span>Active</span><strong>${activeBookings.length}</strong><small>New, contacted, confirmed.</small></div><div class="hqStat"><span>Today</span><strong>${todayBookings.length}</strong><small>${money(todayValue)} estimated value.</small></div><div class="hqStat"><span>Complete</span><strong>${completedToday.length}</strong><small>${customers.length} customer accounts.</small></div></section>
+    <section class="hqControls"><input id="hqSearch" class="hqSearch" type="search" placeholder="Search customer, phone, address, ZIP, notes..." /><select id="hqFilter" class="hqSelect"><option value="all">All statuses</option>${hqStatuses.map((status) => `<option value="${status}">${status}</option>`).join("")}</select><button id="hqRefreshToggle" class="btn ghost" type="button">Auto-refresh on</button></section>
+    <section id="hqBoard" class="hqBoard">${columns}</section>
+  </div></main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — HQ Dispatch Device`, body });
 }
 
 function customersPage(req) {
@@ -8664,6 +8745,24 @@ app.post("/employee/bookings/:id/delete", requireEmployee, verifyCsrf, (req, res
   res.redirect("/employee");
 });
 
+
+// HQ dispatch device routes
+app.get("/hq", requireEmployee, (req, res) => res.send(hqPage(req)));
+app.get("/employee/hq", requireEmployee, (req, res) => res.send(hqPage(req)));
+app.get("/api/hq/ping", requireEmployee, (req, res) => res.json({ ok: true, route: "hq", time: new Date().toISOString() }));
+
+app.post("/hq/bookings/:id/status", requireEmployee, verifyCsrf, (req, res) => {
+  const status = cleanText(req.body.status, 40);
+  if (!VALID_STATUSES.includes(status)) return res.status(400).send("Invalid status");
+  const bookings = readBookings();
+  const booking = bookings.find((item) => item.id === req.params.id);
+  if (!booking) return res.status(404).send("Booking not found");
+  booking.status = status;
+  booking.updatedAt = new Date().toISOString();
+  saveBookings(bookings);
+  res.redirect("/hq#hqBoard");
+});
+
 app.use((req, res) => {
   res.status(404).send(pageShell({ req, title: `${SERVICE_NAME} — Not Found`, body: `${header(req)}<main class="container section"><div class="glass" style="padding:42px;border-radius:38px"><span class="chip">404</span><h1 class="adminTitle" style="margin-top:18px">Page not found.</h1><p class="sectionSub" style="margin-left:0;text-align:left">That route does not exist.</p><a class="btn primary" style="margin-top:24px" href="/">Back home</a></div></main>${footer(req)}` }));
 });
@@ -8674,4 +8773,5 @@ app.listen(PORT, () => {
   console.log(`Customer login: http://localhost:${PORT}/login`);
   console.log(`Customer signup: http://localhost:${PORT}/signup`);
   console.log(`Employee login: http://localhost:${PORT}/employee/login`);
+  console.log(`HQ dispatch device: http://localhost:${PORT}/hq`);
 });
