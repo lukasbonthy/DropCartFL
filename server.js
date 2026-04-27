@@ -6106,6 +6106,282 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       body.vibe-night .card,body.vibe-night .hubCard,body.vibe-night .formBox{border-radius:16px!important}
     }
 
+
+    /* ============================================================
+       v24 Expanded Theme Studio
+       More themes + deeper design details per theme.
+       ============================================================ */
+
+    body.vibe-luxury {
+      --theme-bg-1:#050403;
+      --theme-bg-2:#15100a;
+      --theme-surface:rgba(255,222,138,.075);
+      --theme-line:rgba(255,222,138,.18);
+      --theme-line-2:rgba(255,241,190,.32);
+      --theme-text:#fff9ed;
+      --theme-muted:rgba(255,249,237,.68);
+      --theme-a:#d6a84f;
+      --theme-b:#fff1be;
+      --theme-c:#3b2a16;
+      --theme-good:#f6d98d;
+      --theme-radius:18px;
+      --theme-radius-lg:30px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.64);
+      --theme-card:radial-gradient(620px circle at 18% 0%,rgba(255,222,138,.13),transparent 48%),linear-gradient(180deg,rgba(255,241,190,.085),rgba(15,10,5,.50));
+      --theme-btn:linear-gradient(135deg,#6f4e1f 0%,#d6a84f 42%,#fff1be 82%,#8a641f 132%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fff1be 25%,#d6a84f 55%,#fff9ed 82%,#fff 100%);
+      --theme-pattern-opacity:.18;
+      --theme-card-filter:blur(18px) contrast(1.08) saturate(1.06);
+    }
+
+    body.vibe-sunset {
+      --theme-bg-1:#130617;
+      --theme-bg-2:#32111e;
+      --theme-surface:rgba(255,158,107,.085);
+      --theme-line:rgba(255,183,134,.18);
+      --theme-line-2:rgba(255,226,190,.30);
+      --theme-text:#fff7f0;
+      --theme-muted:rgba(255,247,240,.69);
+      --theme-a:#ff7a59;
+      --theme-b:#ff4fd8;
+      --theme-c:#ffd166;
+      --theme-good:#ffd166;
+      --theme-radius:32px;
+      --theme-radius-lg:52px;
+      --theme-shadow:0 28px 96px rgba(54,9,29,.52);
+      --theme-card:radial-gradient(620px circle at 10% 0%,rgba(255,122,89,.20),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(255,79,216,.16),transparent 48%),linear-gradient(180deg,rgba(255,255,255,.105),rgba(255,122,89,.035));
+      --theme-btn:linear-gradient(135deg,#ff7a59 0%,#ff4fd8 55%,#ffd166 128%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ffd6c7 22%,#ff7a59 45%,#ff4fd8 70%,#fff 100%);
+      --theme-pattern-opacity:.28;
+      --theme-card-filter:blur(24px) saturate(1.28);
+    }
+
+    body.vibe-ice {
+      --theme-bg-1:#041018;
+      --theme-bg-2:#0c2635;
+      --theme-surface:rgba(232,249,255,.105);
+      --theme-line:rgba(232,249,255,.24);
+      --theme-line-2:rgba(255,255,255,.36);
+      --theme-text:#f6fdff;
+      --theme-muted:rgba(246,253,255,.72);
+      --theme-a:#a7f3ff;
+      --theme-b:#7dd3fc;
+      --theme-c:#e0faff;
+      --theme-good:#c8fbff;
+      --theme-radius:12px;
+      --theme-radius-lg:22px;
+      --theme-shadow:0 30px 95px rgba(0,26,42,.50);
+      --theme-card:linear-gradient(135deg,rgba(255,255,255,.16),rgba(167,243,255,.052)),radial-gradient(540px circle at 30% 0%,rgba(224,250,255,.18),transparent 48%);
+      --theme-btn:linear-gradient(135deg,#38bdf8 0%,#a7f3ff 54%,#ffffff 132%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#e0faff 28%,#7dd3fc 56%,#fff 82%,#fff 100%);
+      --theme-pattern-opacity:.20;
+      --theme-card-filter:blur(30px) saturate(1.16);
+    }
+
+    body.vibe-market {
+      --theme-bg-1:#081006;
+      --theme-bg-2:#1e2510;
+      --theme-surface:rgba(255,244,205,.082);
+      --theme-line:rgba(255,244,205,.18);
+      --theme-line-2:rgba(245,212,138,.32);
+      --theme-text:#fffbea;
+      --theme-muted:rgba(255,251,234,.68);
+      --theme-a:#84cc16;
+      --theme-b:#f97316;
+      --theme-c:#facc15;
+      --theme-good:#bef264;
+      --theme-radius:20px;
+      --theme-radius-lg:38px;
+      --theme-shadow:0 28px 92px rgba(9,29,8,.48);
+      --theme-card:radial-gradient(560px circle at 18% 0%,rgba(132,204,22,.15),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(249,115,22,.11),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.095),rgba(132,204,22,.035));
+      --theme-btn:linear-gradient(135deg,#65a30d 0%,#84cc16 45%,#f97316 105%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ecfccb 25%,#84cc16 50%,#facc15 72%,#fff 100%);
+      --theme-pattern-opacity:.32;
+      --theme-card-filter:blur(18px) saturate(1.20);
+    }
+
+    body.vibe-mono {
+      --theme-bg-1:#030303;
+      --theme-bg-2:#111111;
+      --theme-surface:rgba(255,255,255,.060);
+      --theme-line:rgba(255,255,255,.16);
+      --theme-line-2:rgba(255,255,255,.30);
+      --theme-text:#ffffff;
+      --theme-muted:rgba(255,255,255,.64);
+      --theme-a:#ffffff;
+      --theme-b:#a3a3a3;
+      --theme-c:#525252;
+      --theme-good:#ffffff;
+      --theme-radius:6px;
+      --theme-radius-lg:10px;
+      --theme-shadow:0 26px 90px rgba(0,0,0,.72);
+      --theme-card:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+      --theme-btn:linear-gradient(135deg,#ffffff 0%,#a3a3a3 100%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#d4d4d4 45%,#737373 65%,#fff 100%);
+      --theme-pattern-opacity:.16;
+      --theme-card-filter:blur(8px) contrast(1.20);
+    }
+
+    body.vibe-candy {
+      --theme-bg-1:#12051f;
+      --theme-bg-2:#270d3b;
+      --theme-surface:rgba(255,255,255,.10);
+      --theme-line:rgba(255,255,255,.18);
+      --theme-line-2:rgba(255,255,255,.34);
+      --theme-text:#fff7ff;
+      --theme-muted:rgba(255,247,255,.70);
+      --theme-a:#ff4fd8;
+      --theme-b:#8b5cf6;
+      --theme-c:#35d7ff;
+      --theme-good:#f9a8d4;
+      --theme-radius:42px;
+      --theme-radius-lg:70px;
+      --theme-shadow:0 28px 96px rgba(46,10,80,.54);
+      --theme-card:radial-gradient(600px circle at 18% 0%,rgba(255,79,216,.22),transparent 48%),radial-gradient(560px circle at 96% 22%,rgba(53,215,255,.18),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.045));
+      --theme-btn:linear-gradient(135deg,#ff4fd8 0%,#8b5cf6 52%,#35d7ff 126%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fbcfe8 24%,#ff4fd8 48%,#8b5cf6 72%,#fff 100%);
+      --theme-pattern-opacity:.34;
+      --theme-card-filter:blur(26px) saturate(1.42);
+    }
+
+    body.vibe-luxury,
+    body.vibe-sunset,
+    body.vibe-ice,
+    body.vibe-market,
+    body.vibe-mono,
+    body.vibe-candy {
+      color:var(--theme-text)!important;
+      background:
+        radial-gradient(1120px circle at 10% -10%,color-mix(in srgb,var(--theme-a) 38%,transparent),transparent 45%),
+        radial-gradient(900px circle at 96% 8%,color-mix(in srgb,var(--theme-b) 25%,transparent),transparent 42%),
+        radial-gradient(780px circle at 50% 108%,color-mix(in srgb,var(--theme-c) 18%,transparent),transparent 52%),
+        linear-gradient(180deg,var(--theme-bg-1),var(--theme-bg-2) 46%,var(--theme-bg-1))!important;
+    }
+
+    body.vibe-luxury::before,
+    body.vibe-sunset::before,
+    body.vibe-ice::before,
+    body.vibe-market::before,
+    body.vibe-mono::before,
+    body.vibe-candy::before {
+      opacity:var(--theme-pattern-opacity)!important;
+    }
+
+    body.vibe-luxury .header,body.vibe-luxury .mobileAppTop,
+    body.vibe-sunset .header,body.vibe-sunset .mobileAppTop,
+    body.vibe-ice .header,body.vibe-ice .mobileAppTop,
+    body.vibe-market .header,body.vibe-market .mobileAppTop,
+    body.vibe-mono .header,body.vibe-mono .mobileAppTop,
+    body.vibe-candy .header,body.vibe-candy .mobileAppTop {
+      background:color-mix(in srgb,var(--theme-bg-1) 84%,transparent)!important;
+      border-bottom-color:var(--theme-line)!important;
+      box-shadow:0 22px 72px rgba(0,0,0,.28),0 0 42px color-mix(in srgb,var(--theme-a) 12%,transparent)!important;
+    }
+
+    body.vibe-luxury .glass,body.vibe-luxury .soft,body.vibe-luxury .card,body.vibe-luxury .formBox,body.vibe-luxury .hubCard,body.vibe-luxury .final,body.vibe-luxury .device,body.vibe-luxury .screen,body.vibe-luxury .estimateResult,
+    body.vibe-sunset .glass,body.vibe-sunset .soft,body.vibe-sunset .card,body.vibe-sunset .formBox,body.vibe-sunset .hubCard,body.vibe-sunset .final,body.vibe-sunset .device,body.vibe-sunset .screen,body.vibe-sunset .estimateResult,
+    body.vibe-ice .glass,body.vibe-ice .soft,body.vibe-ice .card,body.vibe-ice .formBox,body.vibe-ice .hubCard,body.vibe-ice .final,body.vibe-ice .device,body.vibe-ice .screen,body.vibe-ice .estimateResult,
+    body.vibe-market .glass,body.vibe-market .soft,body.vibe-market .card,body.vibe-market .formBox,body.vibe-market .hubCard,body.vibe-market .final,body.vibe-market .device,body.vibe-market .screen,body.vibe-market .estimateResult,
+    body.vibe-mono .glass,body.vibe-mono .soft,body.vibe-mono .card,body.vibe-mono .formBox,body.vibe-mono .hubCard,body.vibe-mono .final,body.vibe-mono .device,body.vibe-mono .screen,body.vibe-mono .estimateResult,
+    body.vibe-candy .glass,body.vibe-candy .soft,body.vibe-candy .card,body.vibe-candy .formBox,body.vibe-candy .hubCard,body.vibe-candy .final,body.vibe-candy .device,body.vibe-candy .screen,body.vibe-candy .estimateResult {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.09),var(--theme-shadow),0 0 74px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+      backdrop-filter:var(--theme-card-filter)!important;
+      -webkit-backdrop-filter:var(--theme-card-filter)!important;
+    }
+
+    body.vibe-luxury .primary,body.vibe-sunset .primary,body.vibe-ice .primary,body.vibe-market .primary,body.vibe-mono .primary,body.vibe-candy .primary {
+      background:var(--theme-btn)!important;
+      color:color-mix(in srgb,var(--theme-bg-1) 70%,white)!important;
+      box-shadow:0 20px 68px color-mix(in srgb,var(--theme-a) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.28)!important;
+    }
+
+    body.vibe-mono .primary { color:#050505!important; }
+
+    body.vibe-luxury .shine,body.vibe-sunset .shine,body.vibe-ice .shine,body.vibe-market .shine,body.vibe-mono .shine,body.vibe-candy .shine {
+      background:var(--theme-title)!important;
+      background-size:240% auto!important;
+      -webkit-background-clip:text!important;
+      background-clip:text!important;
+      color:transparent!important;
+    }
+
+    body.vibe-luxury .ghost,body.vibe-sunset .ghost,body.vibe-ice .ghost,body.vibe-market .ghost,body.vibe-mono .ghost,body.vibe-candy .ghost,
+    body.vibe-luxury .chip,body.vibe-sunset .chip,body.vibe-ice .chip,body.vibe-market .chip,body.vibe-mono .chip,body.vibe-candy .chip {
+      background:var(--theme-surface)!important;
+      border-color:var(--theme-line)!important;
+      color:var(--theme-muted)!important;
+    }
+
+    body.vibe-luxury .field input,body.vibe-luxury .field select,body.vibe-luxury .field textarea,
+    body.vibe-sunset .field input,body.vibe-sunset .field select,body.vibe-sunset .field textarea,
+    body.vibe-ice .field input,body.vibe-ice .field select,body.vibe-ice .field textarea,
+    body.vibe-market .field input,body.vibe-market .field select,body.vibe-market .field textarea,
+    body.vibe-mono .field input,body.vibe-mono .field select,body.vibe-mono .field textarea,
+    body.vibe-candy .field input,body.vibe-candy .field select,body.vibe-candy .field textarea {
+      background:color-mix(in srgb,var(--theme-surface) 72%,transparent)!important;
+      border-color:var(--theme-line)!important;
+      color:var(--theme-text)!important;
+      border-radius:calc(var(--theme-radius) - 6px)!important;
+    }
+
+    body.vibe-luxury .appBottomNav,body.vibe-sunset .appBottomNav,body.vibe-ice .appBottomNav,body.vibe-market .appBottomNav,body.vibe-mono .appBottomNav,body.vibe-candy .appBottomNav,
+    body.vibe-luxury .audioDockPanel,body.vibe-luxury .sensoryPanel,body.vibe-sunset .audioDockPanel,body.vibe-sunset .sensoryPanel,body.vibe-ice .audioDockPanel,body.vibe-ice .sensoryPanel,body.vibe-market .audioDockPanel,body.vibe-market .sensoryPanel,body.vibe-mono .audioDockPanel,body.vibe-mono .sensoryPanel,body.vibe-candy .audioDockPanel,body.vibe-candy .sensoryPanel {
+      background:color-mix(in srgb,var(--theme-bg-1) 88%,transparent)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:0 24px 80px rgba(0,0,0,.52),0 0 48px color-mix(in srgb,var(--theme-a) 16%,transparent)!important;
+    }
+
+    body.vibe-luxury .audioMainButton,body.vibe-luxury .sensoryButton,
+    body.vibe-sunset .audioMainButton,body.vibe-sunset .sensoryButton,
+    body.vibe-ice .audioMainButton,body.vibe-ice .sensoryButton,
+    body.vibe-market .audioMainButton,body.vibe-market .sensoryButton,
+    body.vibe-mono .audioMainButton,body.vibe-mono .sensoryButton,
+    body.vibe-candy .audioMainButton,body.vibe-candy .sensoryButton {
+      background:var(--theme-btn)!important;
+      color:color-mix(in srgb,var(--theme-bg-1) 70%,white)!important;
+    }
+
+    body.vibe-luxury .sectionTitle::after{background:linear-gradient(90deg,transparent,#d6a84f,#fff1be,transparent)!important;box-shadow:0 0 32px rgba(214,168,79,.32)!important}
+    body.vibe-sunset .sectionTitle::after{background:linear-gradient(90deg,transparent,#ff7a59,#ff4fd8,#ffd166,transparent)!important;box-shadow:0 0 36px rgba(255,79,216,.26)!important}
+    body.vibe-ice .sectionTitle::after{background:linear-gradient(90deg,transparent,#a7f3ff,#ffffff,#7dd3fc,transparent)!important;box-shadow:0 0 36px rgba(167,243,255,.24)!important}
+    body.vibe-market .sectionTitle::after{background:linear-gradient(90deg,transparent,#84cc16,#f97316,#facc15,transparent)!important;box-shadow:0 0 32px rgba(132,204,22,.26)!important}
+    body.vibe-mono .sectionTitle::after{background:linear-gradient(90deg,transparent,#fff,#737373,transparent)!important;box-shadow:0 0 20px rgba(255,255,255,.16)!important}
+    body.vibe-candy .sectionTitle::after{background:linear-gradient(90deg,transparent,#ff4fd8,#8b5cf6,#35d7ff,transparent)!important;box-shadow:0 0 38px rgba(255,79,216,.26)!important}
+
+    body.vibe-luxury .logoIcon,body.vibe-luxury .appIcon,body.vibe-luxury .requestIcon{background:linear-gradient(135deg,#fff9ed,#d6a84f)!important}
+    body.vibe-sunset .logoIcon,body.vibe-sunset .appIcon,body.vibe-sunset .requestIcon{background:linear-gradient(135deg,#fff7f0,#ff7a59)!important}
+    body.vibe-ice .logoIcon,body.vibe-ice .appIcon,body.vibe-ice .requestIcon{background:linear-gradient(135deg,#fff,#a7f3ff)!important}
+    body.vibe-market .logoIcon,body.vibe-market .appIcon,body.vibe-market .requestIcon{background:linear-gradient(135deg,#fffbea,#84cc16)!important}
+    body.vibe-mono .logoIcon,body.vibe-mono .appIcon,body.vibe-mono .requestIcon{background:linear-gradient(135deg,#fff,#a3a3a3)!important}
+    body.vibe-candy .logoIcon,body.vibe-candy .appIcon,body.vibe-candy .requestIcon{background:linear-gradient(135deg,#fff,#fbcfe8,#bfdbfe)!important}
+
+    body.vibe-luxury .v20-showcase,body.vibe-sunset .v20-showcase,body.vibe-ice .v20-showcase,body.vibe-market .v20-showcase,body.vibe-mono .v20-showcase,body.vibe-candy .v20-showcase {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius-lg)!important;
+      box-shadow:var(--theme-shadow),0 0 90px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+    }
+
+    body.vibe-luxury .v20-showcase::after{background:linear-gradient(90deg,transparent,#d6a84f,#fff1be,transparent)!important}
+    body.vibe-sunset .v20-showcase::after{background:linear-gradient(90deg,transparent,#ff7a59,#ff4fd8,#ffd166,transparent)!important}
+    body.vibe-ice .v20-showcase::after{background:linear-gradient(90deg,transparent,#a7f3ff,#fff,#7dd3fc,transparent)!important}
+    body.vibe-market .v20-showcase::after{background:linear-gradient(90deg,transparent,#84cc16,#f97316,#facc15,transparent)!important}
+    body.vibe-mono .v20-showcase::after{background:linear-gradient(90deg,transparent,#fff,#525252,transparent)!important}
+    body.vibe-candy .v20-showcase::after{background:linear-gradient(90deg,transparent,#ff4fd8,#8b5cf6,#35d7ff,transparent)!important}
+
+    body.vibe-luxury .sensoryOption.active,body.vibe-sunset .sensoryOption.active,body.vibe-ice .sensoryOption.active,body.vibe-market .sensoryOption.active,body.vibe-mono .sensoryOption.active,body.vibe-candy .sensoryOption.active{
+      background:linear-gradient(135deg,color-mix(in srgb,var(--theme-a) 52%,transparent),color-mix(in srgb,var(--theme-c) 20%,transparent))!important;
+      border-color:var(--theme-line-2)!important;
+    }
+
+    body.vibe-mono .card,body.vibe-mono .hubCard,body.vibe-mono .formBox,body.vibe-mono .final,body.vibe-mono .v20-showcase{filter:grayscale(1) contrast(1.08)}
+    body.vibe-candy .btn,body.vibe-candy .chip{border-radius:999px!important}
+    body.vibe-ice .card,body.vibe-ice .hubCard,body.vibe-ice .formBox{border-width:1.5px!important}
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -6231,6 +6507,12 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         <button class="sensoryOption" data-vibe="ocean" type="button"><b>🌊</b><strong>Ocean</strong><span>Cool blue and calm energy</span></button>
         <button class="sensoryOption" data-vibe="fresh" type="button"><b>🍃</b><strong>Fresh</strong><span>Green, clean, grocery-day feel</span></button>
         <button class="sensoryOption" data-vibe="night" type="button"><b>🌙</b><strong>Night</strong><span>Darker low-light mode</span></button>
+        <button class="sensoryOption" data-vibe="luxury" type="button"><b>💎</b><strong>Luxury</strong><span>Black, gold, concierge feel</span></button>
+        <button class="sensoryOption" data-vibe="sunset" type="button"><b>🌅</b><strong>Sunset</strong><span>Warm pink-orange glow</span></button>
+        <button class="sensoryOption" data-vibe="ice" type="button"><b>🧊</b><strong>Ice</strong><span>Frozen clean glass style</span></button>
+        <button class="sensoryOption" data-vibe="market" type="button"><b>🥕</b><strong>Market</strong><span>Local farm stand colors</span></button>
+        <button class="sensoryOption" data-vibe="mono" type="button"><b>◼</b><strong>Mono</strong><span>Sharp black and white mode</span></button>
+        <button class="sensoryOption" data-vibe="candy" type="button"><b>🍬</b><strong>Candy</strong><span>Fun bright social look</span></button>
       </div>
 
       <div class="sensoryActions">
