@@ -351,6 +351,8 @@ function statusColor(status) {
 function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unloading in Inverness, Florida.", body = "" }) {
   const customer = req ? currentCustomer(req) : null;
   const employee = req ? isEmployee(req) : false;
+  const deviceMode = req ? getRequestedView(req) : "desktop";
+  const mobileClass = deviceMode === "mobile" ? "is-mobile-device" : "is-desktop-device";
   return `<!doctype html>
 <html lang="en" class="${mobileClass}">
 <head>
