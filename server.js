@@ -385,6 +385,19 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     .repeatCard{margin-top:16px;padding:18px;border-radius:26px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.09)}
     .emptyPortal{padding:36px;border-radius:32px;text-align:center;background:rgba(255,255,255,.055);border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.64)}
 
+
+    /* ===== PERSONAL CUSTOMER DASHBOARD V7 ===== */
+    body.portalMode{background:radial-gradient(850px circle at 14% -8%,rgba(73,230,165,.18),transparent 46%),radial-gradient(800px circle at 90% 10%,rgba(124,92,255,.22),transparent 42%),radial-gradient(760px circle at 45% 102%,rgba(255,209,102,.11),transparent 50%),linear-gradient(180deg,#06100d 0%,#0a111d 46%,#070a12 100%)}
+    .customerShell{padding-top:34px}.hubTopbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.hubMiniNav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.hubMiniNav a,.hubMiniNav button{min-height:40px;padding:10px 13px;border-radius:15px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055);color:rgba(255,255,255,.72)}.hubMiniNav a:hover,.hubMiniNav button:hover{background:rgba(255,255,255,.1);color:white}
+    .personalHero{position:relative;overflow:hidden;border-radius:46px;padding:30px;background:radial-gradient(800px circle at 4% 0%,rgba(73,230,165,.18),transparent 42%),radial-gradient(820px circle at 96% 5%,rgba(124,92,255,.2),transparent 45%),linear-gradient(180deg,rgba(255,255,255,.105),rgba(255,255,255,.038))}.personalHero:before{content:"";position:absolute;inset:18px;border-radius:34px;border:1px solid rgba(255,255,255,.07);pointer-events:none}.personalHeroGrid{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}.personalGreeting{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,6vw,82px);line-height:.88;font-weight:800;letter-spacing:-.075em;margin-top:16px;text-wrap:balance}.personalSub{max-width:760px;margin-top:16px;color:rgba(255,255,255,.66);font-size:17px;line-height:1.75}
+    .todayCard{position:relative;overflow:hidden;padding:22px;border-radius:34px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.055));border:1px solid rgba(255,255,255,.13);box-shadow:var(--shadow)}.todayCard:after{content:"";position:absolute;right:-70px;bottom:-80px;width:220px;height:220px;border-radius:999px;background:rgba(73,230,165,.16);filter:blur(20px)}.todayCard>*{position:relative;z-index:1}.todayLabel{color:rgba(255,255,255,.45);font-size:11px;font-weight:950;letter-spacing:.16em;text-transform:uppercase}.todayMain{margin-top:8px;font-family:"Space Grotesk";font-size:34px;line-height:.95;font-weight:800;letter-spacing:-.06em}.todayText{margin-top:12px;color:rgba(255,255,255,.62);line-height:1.65;font-size:14px}
+    .hubStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}.hubStat{padding:16px;border-radius:24px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.09)}.hubStat strong{display:block;font-family:"Space Grotesk";font-size:28px;line-height:1;letter-spacing:-.06em}.hubStat span{display:block;margin-top:7px;color:rgba(255,255,255,.44);font-size:11px;font-weight:850}
+    .hubLayout{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px;margin-top:18px;align-items:start}.hubSidebar{display:grid;gap:14px;position:sticky;top:92px}.hubMain{display:grid;gap:14px}.hubCard{padding:22px;border-radius:32px;background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 22px 70px rgba(0,0,0,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}.hubCardTitle{font-family:"Space Grotesk";font-size:28px;line-height:.98;font-weight:800;letter-spacing:-.055em;margin-top:14px}.hubMuted{margin-top:9px;color:rgba(255,255,255,.58);font-size:14px;line-height:1.65}
+    .profileStack{display:grid;gap:10px;margin-top:16px}.profileLine{display:flex;justify-content:space-between;gap:16px;padding:13px;border-radius:18px;background:rgba(255,255,255,.052);border:1px solid rgba(255,255,255,.075)}.profileLine span{color:rgba(255,255,255,.42);font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase}.profileLine strong{color:rgba(255,255,255,.82);font-size:13px;text-align:right}.rewardRing{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-top:16px}.ring{--p:0;display:grid;place-items:center;width:98px;height:98px;border-radius:999px;background:conic-gradient(var(--green) calc(var(--p)*1%),rgba(255,255,255,.09) 0);box-shadow:0 0 40px rgba(73,230,165,.16)}.ringInner{display:grid;place-items:center;width:76px;height:76px;border-radius:999px;background:#081014;border:1px solid rgba(255,255,255,.1);font-family:"Space Grotesk";font-size:23px;font-weight:850;letter-spacing:-.06em}.homeMood{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}.moodTile{padding:14px 10px;border-radius:20px;text-align:center;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.moodTile b{display:block;font-size:22px}.moodTile span{display:block;margin-top:7px;font-size:11px;font-weight:850;color:rgba(255,255,255,.55)}
+    .personalForm{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}.personalForm .full{grid-column:1/-1}.comfortStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.comfort{padding:14px;border-radius:20px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08)}.comfort span{display:block;color:rgba(255,255,255,.42);font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase}.comfort strong{display:block;margin-top:6px;color:rgba(255,255,255,.82);font-size:14px}.nextUnloadFocus{display:grid;grid-template-columns:.95fr 1.05fr;gap:14px;align-items:stretch}.focusPanel{padding:20px;border-radius:28px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08)}.focusPanel h3{font-family:"Space Grotesk";font-size:28px;letter-spacing:-.055em;line-height:.98}.focusPanel p{margin-top:10px;color:rgba(255,255,255,.58);line-height:1.65;font-size:14px}
+    .bookingMemories{display:grid;gap:12px;margin-top:14px}.memoryCard{padding:18px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.1)}.memoryTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.memoryTitle{font-family:"Space Grotesk";font-size:25px;line-height:1;letter-spacing:-.055em;margin-top:9px}.memoryText{margin-top:7px;color:rgba(255,255,255,.58);line-height:1.62;font-size:14px}.memoryTimeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.memoryStep{padding:10px 8px;border-radius:15px;text-align:center;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.36);font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.06em}.memoryStep.done{color:var(--green);background:rgba(73,230,165,.09);border-color:rgba(73,230,165,.18)}.memoryStep.active{color:white;background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.28)}.emptyHome{padding:26px;border-radius:28px;text-align:left;background:rgba(255,255,255,.052);border:1px dashed rgba(255,255,255,.17);color:rgba(255,255,255,.66);line-height:1.7}.tinyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.tinyActions .btn{min-height:42px;padding:10px 14px;font-size:12px;border-radius:15px}
+    @media(max-width:1050px){.personalHeroGrid,.hubLayout,.nextUnloadFocus{grid-template-columns:1fr}.hubSidebar{position:relative;top:auto}.hubStats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:720px){.hubTopbar,.memoryTop{flex-direction:column;align-items:flex-start}.hubMiniNav{width:100%}.hubMiniNav a,.hubMiniNav button{flex:1;justify-content:center}.personalHero{padding:22px;border-radius:32px}.hubStats,.personalForm,.comfortStrip,.memoryTimeline{grid-template-columns:1fr}.rewardRing{grid-template-columns:1fr}.homeMood{grid-template-columns:repeat(3,1fr)}.todayMain{font-size:27px}.hubCard{border-radius:26px;padding:18px}}
     .authWrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;min-height:calc(100svh - 72px);padding:64px 0}.authTitle{font-family:"Space Grotesk";font-size:clamp(46px,7vw,84px);line-height:.88;letter-spacing:-.075em}.authCard{padding:28px;border-radius:38px}.accountHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.bookingGrid{display:grid;gap:14px;margin-top:28px}.bookingCard{padding:20px;border-radius:28px}.bookingTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.bookingMeta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metaBox{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.metaBox span{display:block;color:rgba(255,255,255,.4);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.metaBox strong{display:block;margin-top:5px;color:rgba(255,255,255,.78);font-size:14px}.badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07)}.badge.green{color:var(--green);background:rgba(73,230,165,.12);border-color:rgba(73,230,165,.2)}.badge.red{color:var(--red);background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.2)}.badge.amber{color:var(--amber);background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.2)}.badge.blue{color:var(--blue);background:rgba(90,167,255,.12);border-color:rgba(90,167,255,.2)}.badge.purple{color:#c9c0ff;background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.2)}.adminActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.adminActions form{display:flex;gap:8px;align-items:center}.adminActions select{min-height:42px;padding:10px;border-radius:14px;color:white;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adminTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,6vw,82px);line-height:.9;font-weight:800;letter-spacing:-.07em}.empty{padding:48px;text-align:center;color:rgba(255,255,255,.56)}.slots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.slotDay{padding:14px;border-radius:22px}.slotDay h4{font-family:"Space Grotesk";font-size:18px;letter-spacing:-.04em}.slotList{display:grid;gap:7px;margin-top:12px}.slot{padding:8px 9px;border-radius:12px;font-size:11px;font-weight:850;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05)}.slot.open{color:var(--green);border-color:rgba(73,230,165,.18);background:rgba(73,230,165,.09)}.slot.limited{color:var(--amber);border-color:rgba(255,209,102,.18);background:rgba(255,209,102,.08)}.slot.busy{color:rgba(255,255,255,.38)}.faq{display:grid;gap:12px;max-width:860px;margin:0 auto}details.card{padding:0}summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px;padding:22px 24px;cursor:pointer;list-style:none;font-weight:900;letter-spacing:-.02em}summary::-webkit-details-marker{display:none}.plus{display:grid;place-items:center;width:31px;height:31px;flex-shrink:0;border-radius:12px;color:white;background:rgba(255,255,255,.08);transition:transform .18s ease}details[open] .plus{transform:rotate(45deg)}details.card p{padding:0 24px 24px;margin:0;color:rgba(255,255,255,.58);line-height:1.65}.final{padding:42px;border-radius:44px;overflow:hidden;background:radial-gradient(800px circle at 12% 0%,rgba(124,92,255,.22),transparent 42%),radial-gradient(800px circle at 90% 20%,rgba(255,79,216,.16),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))}.finalGrid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.finalTitle{max-width:820px;margin-top:14px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,5vw,78px);line-height:.88;font-weight:800;letter-spacing:-.075em}.finalText{max-width:650px;margin-top:18px;color:rgba(255,255,255,.62);font-size:18px;line-height:1.65}.finalActions{display:grid;gap:12px;min-width:220px}.footer{padding:28px 0 calc(28px + var(--safe-bottom));border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.22)}.foot{display:flex;align-items:center;justify-content:space-between;gap:22px}.footTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:800;letter-spacing:-.045em}.footCopy{margin-top:4px;color:rgba(255,255,255,.42);font-size:12px;font-weight:700}.footLinks{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.48);font-size:13px;font-weight:800}.footLinks a:hover{color:white}.mobileSticky{display:none}.toast{position:fixed;right:18px;bottom:18px;z-index:1600;display:none;max-width:360px;padding:16px 18px;border-radius:22px;background:rgba(7,10,18,.86);border:1px solid rgba(255,255,255,.14);box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:rgba(255,255,255,.78);font-size:14px;line-height:1.5;font-weight:750}.toast.show{display:block;animation:toastIn .26s ease both}@keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}.reveal{opacity:0;transform:translateY(20px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}.reveal.show{opacity:1;transform:translateY(0)}.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
     @media(max-width:1050px){.desktopNav{display:none}.menuBtn{display:inline-flex}.hero,.twoCol,.grid2,.authWrap{grid-template-columns:1fr}.hero{min-height:auto;padding-top:48px}.deviceShell{margin-inline:auto}.stats{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.grid4,.grid3,.priceCards,.bookingMeta{grid-template-columns:repeat(2,1fr)}.finalGrid{grid-template-columns:1fr}.finalActions{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.container{width:min(100% - 26px,1240px)}.nav{min-height:66px}.logoIcon{width:40px;height:40px;border-radius:16px}.logoTitle{font-size:20px}.logoSub{display:none}.hero{padding:34px 0;gap:34px}.heroTitle{font-size:clamp(51px,16vw,74px);letter-spacing:-.069em}.heroDesc{font-size:16px;line-height:1.7}.heroActions,.stats,.miniGrid,.taskGrid,.formGrid,.formActions,.mobileActions,.grid4,.grid3,.priceCards,.slots,.bookingMeta,.finalActions{grid-template-columns:1fr}.available{display:none}.section{padding:64px 0}.sectionHeader{margin-bottom:28px}.card,.formBox,.final,.authCard{border-radius:26px;padding:20px}.estimateRow{align-items:flex-start;flex-direction:column}.estimateSide{text-align:left}.estimatePrice,.priceAmount{font-size:58px}.foot{flex-direction:column;text-align:center}.footLinks{justify-content:center;flex-wrap:wrap}.mobileSticky{position:fixed;left:12px;right:12px;bottom:calc(12px + var(--safe-bottom));z-index:1200;display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobileSticky .btn{min-height:50px}.toast{left:12px;right:12px;bottom:calc(82px + var(--safe-bottom));max-width:none}.bookingTop,.accountHeader{flex-direction:column}.adminActions form{width:100%;flex-direction:column;align-items:stretch}.adminActions .btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
   </style>
@@ -558,92 +571,95 @@ function accountPage(req) {
   const bookings = getCustomerBookings(customer);
   const activeBookings = bookings.filter((b) => ["new", "contacted", "confirmed"].includes(b.status));
   const completedBookings = bookings.filter((b) => b.status === "completed");
-  const latestActive = activeBookings[0];
+  const cancelledBookings = bookings.filter((b) => b.status === "cancelled");
+  const latestActive = activeBookings[0] || null;
+  const lastBooking = bookings[0] || null;
   const tier = getCustomerTier(bookings);
   const points = completedBookings.length * 120 + activeBookings.length * 25 + bookings.length * 10;
   const savedAddress = customer.defaultAddress || "";
   const savedZip = customer.defaultZip || "";
   const favoriteWindow = customer.favoriteWindow || "ASAP / flexible";
   const defaultNotes = customer.deliveryNotes || "";
-  const portalCards = bookings.map((b) => customerPortalBookingCard(b)).join("");
+  const firstName = customer.name.split(" ")[0] || customer.name;
+  const progress = Math.max(4, Math.min(100, tier.progress || 0));
+  const nextBookingText = latestActive
+    ? `${getPortalStatusLabel(latestActive.status)} · ${latestActive.date || "Flexible day"} · ${latestActive.timeWindow || "Flexible time"}`
+    : savedAddress
+      ? "Your saved home is ready for a fast rebook."
+      : "Add your home details to unlock faster bookings.";
+  const groceryDay = favoriteWindow.includes("ASAP") ? "Flexible grocery day" : favoriteWindow;
+  const comfortScore = savedAddress && customer.phone ? "Ready" : "Needs setup";
+  const memoryCards = bookings.map((b) => {
+    const flow = ["new", "contacted", "confirmed", "completed"];
+    const currentIndex = b.status === "cancelled" ? -1 : Math.max(0, flow.indexOf(b.status));
+    const created = b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "—";
+    const timeline = b.status === "cancelled"
+      ? `<div class="memoryStep active" style="grid-column:1/-1;color:var(--red);background:rgba(255,107,107,.1);border-color:rgba(255,107,107,.22)">Cancelled</div>`
+      : flow.map((status, index) => {
+          const state = index < currentIndex ? "done" : index === currentIndex ? "active" : "";
+          return `<div class="memoryStep ${state}">${escapeHtml(getPortalStatusLabel(status))}</div>`;
+        }).join("");
+    return `<article class="memoryCard">
+      <div class="memoryTop">
+        <div>
+          <span class="badge ${statusColor(b.status)}">${escapeHtml(getPortalStatusLabel(b.status))}</span>
+          <div class="memoryTitle">${escapeHtml(b.date || "Flexible day")} · ${escapeHtml(b.timeWindow || "Flexible time")}</div>
+          <p class="memoryText">${escapeHtml(b.address || "Address not listed")}</p>
+        </div>
+        <div style="text-align:right;color:rgba(255,255,255,.42);font-size:12px;font-weight:850">${escapeHtml(b.id)}<br>${escapeHtml(created)}</div>
+      </div>
+      <div class="memoryTimeline">${timeline}</div>
+      <div class="comfortStrip">
+        <div class="comfort"><span>Estimate</span><strong>${money(b.estimate?.price)} · ${escapeHtml(String(b.estimate?.minutes || "?"))}m</strong></div>
+        <div class="comfort"><span>Bags</span><strong>${escapeHtml(String(b.estimate?.bags || "—"))}</strong></div>
+        <div class="comfort"><span>Area</span><strong>${escapeHtml(b.area?.status || "unknown")}</strong></div>
+      </div>
+      ${b.notes ? `<p class="memoryText">${escapeHtml(b.notes)}</p>` : ""}
+      <div class="tinyActions">
+        <a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call</a>
+        <a class="btn ghost" href="sms:${escapeHtml(BUSINESS_PHONE)}?body=${encodeURIComponent(`Hey Dropcart, I have a question about booking ${b.id}.`)}">Text</a>
+      </div>
+    </article>`;
+  }).join("");
 
   const body = `${header(req)}
-  <main class="container section">
-    <section class="portalHero reveal show">
-      <div class="portalHeroGrid">
+  <script>document.body.classList.add('portalMode');</script>
+  <main class="container customerShell">
+    <div class="hubTopbar reveal show">
+      <div><span class="chip">${tier.emoji} ${escapeHtml(tier.name)} · Home Hub</span></div>
+      <div class="hubMiniNav">
+        <a href="#next-unload">Next unload</a><a href="#home-profile">Home profile</a><a href="#history">History</a>
+        <form method="post" action="/logout">${csrfField(req)}<button type="submit">Logout</button></form>
+      </div>
+    </div>
+    <section class="personalHero reveal show">
+      <div class="personalHeroGrid">
         <div>
-          <span class="chip">${tier.emoji} ${escapeHtml(tier.name)} customer portal</span>
-          <h1 class="portalTitle">Welcome back, <span class="shine">${escapeHtml(customer.name.split(" ")[0] || customer.name)}.</span></h1>
-          <p class="portalText">Your Dropcart Home Hub keeps your grocery unloads, saved home details, reward progress, and repeat booking shortcuts in one place.</p>
-          <div class="portalActions">
-            <a class="btn primary" href="#quick-book">Book again</a>
-            <a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a>
-            <form method="post" action="/logout" style="display:inline">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
-          </div>
+          <span class="chip"><span class="dot"></span>Your personal grocery-unload hub</span>
+          <h1 class="personalGreeting">Hey ${escapeHtml(firstName)}, your home base is ready.</h1>
+          <p class="personalSub">This page is built around your home, your usual unload preferences, and your request history. Save the details once, then future grocery days become a lot easier.</p>
+          <div class="hubStats"><div class="hubStat"><strong>${escapeHtml(String(activeBookings.length))}</strong><span>active requests</span></div><div class="hubStat"><strong>${escapeHtml(String(completedBookings.length))}</strong><span>completed unloads</span></div><div class="hubStat"><strong>${escapeHtml(String(points))}</strong><span>pantry points</span></div><div class="hubStat"><strong>${escapeHtml(comfortScore)}</strong><span>home profile</span></div></div>
+          <div class="portalActions"><a class="btn primary" href="#quick-book">Book your usual unload</a><a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a></div>
         </div>
-        <div class="portalScore glass">
-          <div class="kicker">Pantry points</div>
-          <div class="portalScoreNum">${escapeHtml(String(points))}</div>
-          <p style="margin-top:10px;color:rgba(255,255,255,.6);line-height:1.6">${escapeHtml(tier.next)}</p>
-          <div class="rewardTrack"><div class="rewardFill" style="width:${escapeHtml(String(tier.progress))}%"></div></div>
-        </div>
+        <aside class="todayCard"><div class="todayLabel">Today's Dropcart focus</div><div class="todayMain">${escapeHtml(nextBookingText)}</div><p class="todayText">${latestActive ? "We will update your request as it moves forward. You can call or text if anything changes." : "No active unload right now. Your saved preferences make your next request faster."}</p><div class="rewardRing"><div class="ring" style="--p:${escapeHtml(String(progress))}"><div class="ringInner">${escapeHtml(String(progress))}%</div></div><div><strong style="font-family:'Space Grotesk';font-size:24px;letter-spacing:-.05em">${escapeHtml(tier.name)}</strong><p class="hubMuted">${escapeHtml(tier.next)}</p></div></div></aside>
       </div>
     </section>
-
-    <section class="portalGrid">
-      <article class="portalPanel glass reveal show">
-        <span class="chip">Home profile</span>
-        <h2 style="margin-top:16px">Make rebooking faster.</h2>
-        <p style="margin-top:10px;color:rgba(255,255,255,.6);line-height:1.65">Save your usual unload details so next time you do not have to type everything again.</p>
-        <form class="profileForm" method="post" action="/account/profile">
-          ${csrfField(req)}
-          <div class="field"><label>Name</label><input name="name" value="${escapeHtml(customer.name)}" required /></div>
-          <div class="field"><label>Phone</label><input name="phone" value="${escapeHtml(customer.phone || "")}" required /></div>
-          <div class="field full"><label>Default address</label><input name="defaultAddress" value="${escapeHtml(savedAddress)}" placeholder="Street, apartment, neighborhood" /></div>
-          <div class="field"><label>Default ZIP</label><input name="defaultZip" value="${escapeHtml(savedZip)}" placeholder="34450" /></div>
-          <div class="field"><label>Favorite window</label><select name="favoriteWindow">
-            ${["ASAP / flexible", "8:00 AM – 10:00 AM", "10:30 AM – 12:30 PM", "1:00 PM – 3:00 PM", "3:30 PM – 5:30 PM", "6:00 PM – 8:00 PM"].map((window) => `<option ${favoriteWindow === window ? "selected" : ""}>${escapeHtml(window)}</option>`).join("")}
-          </select></div>
-          <div class="field full"><label>Unload notes</label><textarea name="deliveryNotes" placeholder="Gate code, stairs, where cold items go, etc.">${escapeHtml(defaultNotes)}</textarea></div>
-          <button class="btn primary full" type="submit">Save home profile</button>
-        </form>
-      </article>
-
-      <article id="quick-book" class="portalPanel glass reveal show">
-        <span class="chip">One-tap style rebooking</span>
-        <h2 style="margin-top:16px">Repeat your usual unload.</h2>
-        <p style="margin-top:10px;color:rgba(255,255,255,.6);line-height:1.65">This uses your saved home profile and lets you adjust the basics.</p>
-        <div class="quickTiles">
-          <div class="quickTile"><span>Saved address</span><strong>${savedAddress ? escapeHtml(savedAddress) : "Add one first"}</strong></div>
-          <div class="quickTile"><span>Favorite time</span><strong>${escapeHtml(favoriteWindow)}</strong></div>
-          <div class="quickTile"><span>Active requests</span><strong>${escapeHtml(String(activeBookings.length))}</strong></div>
-        </div>
-        <form class="profileForm" method="post" action="/account/quick-book">
-          ${csrfField(req)}
-          <div class="field"><label>Bags</label><input name="bags" type="number" min="1" max="120" value="12" /></div>
-          <div class="field"><label>Stairs</label><select name="stairs"><option value="0">0 flights</option><option value="1">1 flight</option><option value="2">2 flights</option><option value="3">3+ flights</option></select></div>
-          <div class="field"><label>Heavy items</label><select name="heavy"><option value="0">None</option><option value="1">A few cases</option><option value="2">Lots of heavy stuff</option><option value="3">Very heavy / bulk</option></select></div>
-          <div class="field"><label>Placement</label><select name="placement"><option value="1">Fridge + pantry</option><option value="0">Kitchen only</option><option value="2">Full sorting help</option></select></div>
-          <div class="field"><label>Preferred date</label><input name="date" type="date" /></div>
-          <div class="field"><label>Time window</label><input name="timeWindow" value="${escapeHtml(favoriteWindow)}" /></div>
-          <div class="field full"><label>Extra notes</label><textarea name="notes" placeholder="Anything different for this unload?"></textarea></div>
-          <button class="btn primary full" type="submit" ${savedAddress ? "" : "disabled"}>${savedAddress ? "Request repeat unload" : "Save address before rebooking"}</button>
-        </form>
-      </article>
-    </section>
-
-    <section class="section" style="padding-top:44px">
-      <div class="sectionHeader">
-        <span class="chip">Your command center</span>
-        <h2 class="sectionTitle">${latestActive ? "Current unload tracker." : "Your request history."}</h2>
-        <p class="sectionSub">${latestActive ? "Follow the progress of your active grocery unloads." : "Once you book, your requests will show up here with a status timeline."}</p>
-      </div>
-      <div class="bookingGrid">${bookings.length ? portalCards : `<div class="emptyPortal">No requests yet. Save your home profile above, then use the repeat booking card to send your first request.</div>`}</div>
+    <section class="hubLayout">
+      <aside class="hubSidebar">
+        <article class="hubCard"><span class="chip">Your saved home</span><h2 class="hubCardTitle">Unload comfort profile</h2><p class="hubMuted">These details are used to make repeat bookings feel personal.</p><div class="profileStack"><div class="profileLine"><span>Address</span><strong>${savedAddress ? escapeHtml(savedAddress) : "Not saved yet"}</strong></div><div class="profileLine"><span>ZIP</span><strong>${savedZip ? escapeHtml(savedZip) : "Not saved"}</strong></div><div class="profileLine"><span>Favorite time</span><strong>${escapeHtml(groceryDay)}</strong></div><div class="profileLine"><span>Notes</span><strong>${defaultNotes ? escapeHtml(defaultNotes.slice(0, 60)) : "No default notes"}</strong></div></div></article>
+        <article class="hubCard"><span class="chip">Rewards</span><h2 class="hubCardTitle">Pantry Points</h2><div class="rewardRing"><div class="ring" style="--p:${escapeHtml(String(progress))}"><div class="ringInner">${escapeHtml(String(points))}</div></div><div><p class="hubMuted">Keep using Dropcart to move up tiers and unlock better perks later.</p></div></div><div class="homeMood"><div class="moodTile"><b>🛒</b><span>Easy trips</span></div><div class="moodTile"><b>🥶</b><span>Cold first</span></div><div class="moodTile"><b>🏠</b><span>Home ready</span></div></div></article>
+      </aside>
+      <section class="hubMain">
+        <article id="next-unload" class="hubCard"><span class="chip">Next unload</span><div class="nextUnloadFocus"><div class="focusPanel"><h3>${latestActive ? "Your current request" : "No active unload yet"}</h3><p>${latestActive ? `${escapeHtml(latestActive.address || "Address not listed")} · ${escapeHtml(getPortalStatusLabel(latestActive.status))}` : "Save your home profile, then send a repeat request in under a minute."}</p><div class="tinyActions"><a class="btn primary" href="#quick-book">Book again</a><a class="btn ghost" href="sms:${escapeHtml(BUSINESS_PHONE)}?body=${encodeURIComponent("Hey Dropcart, I want to request a grocery unload.")}">Text Dropcart</a></div></div><div class="focusPanel"><h3>Your usual setup</h3><p>${savedAddress ? `We have your saved address and preferred window: ${escapeHtml(favoriteWindow)}.` : "Add your address, ZIP, phone, and unload notes to unlock your faster repeat booking card."}</p><div class="comfortStrip"><div class="comfort"><span>Requests</span><strong>${escapeHtml(String(bookings.length))}</strong></div><div class="comfort"><span>Cancelled</span><strong>${escapeHtml(String(cancelledBookings.length))}</strong></div><div class="comfort"><span>Last request</span><strong>${lastBooking ? escapeHtml(new Date(lastBooking.createdAt).toLocaleDateString()) : "None"}</strong></div></div></div></div></article>
+        <article id="quick-book" class="hubCard"><span class="chip">Fast rebook</span><h2 class="hubCardTitle">Request your usual unload.</h2><p class="hubMuted">This uses your saved home details. Adjust the basics and send the request.</p><form class="personalForm" method="post" action="/account/quick-book">${csrfField(req)}<div class="field"><label>Bags</label><input name="bags" type="number" min="1" max="120" value="12" /></div><div class="field"><label>Stairs</label><select name="stairs"><option value="0">0 flights</option><option value="1">1 flight</option><option value="2">2 flights</option><option value="3">3+ flights</option></select></div><div class="field"><label>Heavy items</label><select name="heavy"><option value="0">None</option><option value="1">A few cases</option><option value="2">Lots of heavy stuff</option><option value="3">Very heavy / bulk</option></select></div><div class="field"><label>Placement</label><select name="placement"><option value="1">Fridge + pantry</option><option value="0">Kitchen only</option><option value="2">Full sorting help</option></select></div><div class="field"><label>Preferred date</label><input name="date" type="date" /></div><div class="field"><label>Time window</label><input name="timeWindow" value="${escapeHtml(favoriteWindow)}" /></div><div class="field full"><label>Extra notes</label><textarea name="notes" placeholder="Anything different for this unload?"></textarea></div><button class="btn primary full" type="submit" ${savedAddress ? "" : "disabled"}>${savedAddress ? "Request repeat unload" : "Save address before rebooking"}</button></form></article>
+        <article id="home-profile" class="hubCard"><span class="chip">Home profile</span><h2 class="hubCardTitle">Personalize your unload experience.</h2><p class="hubMuted">Tell Dropcart where to go, when you usually need help, and how you like groceries placed.</p><form class="personalForm" method="post" action="/account/profile">${csrfField(req)}<div class="field"><label>Name</label><input name="name" value="${escapeHtml(customer.name)}" required /></div><div class="field"><label>Phone</label><input name="phone" value="${escapeHtml(customer.phone || "")}" required /></div><div class="field full"><label>Default address</label><input name="defaultAddress" value="${escapeHtml(savedAddress)}" placeholder="Street, apartment, neighborhood" /></div><div class="field"><label>Default ZIP</label><input name="defaultZip" value="${escapeHtml(savedZip)}" placeholder="34450" /></div><div class="field"><label>Favorite window</label><select name="favoriteWindow">${["ASAP / flexible", "8:00 AM – 10:00 AM", "10:30 AM – 12:30 PM", "1:00 PM – 3:00 PM", "3:30 PM – 5:30 PM", "6:00 PM – 8:00 PM"].map((window) => `<option ${favoriteWindow === window ? "selected" : ""}>${escapeHtml(window)}</option>`).join("")}</select></div><div class="field full"><label>Unload notes</label><textarea name="deliveryNotes" placeholder="Gate code, stairs, where cold items go, etc.">${escapeHtml(defaultNotes)}</textarea></div><button class="btn primary full" type="submit">Save my home profile</button></form></article>
+        <article id="history" class="hubCard"><span class="chip">Unload memories</span><h2 class="hubCardTitle">Your request history.</h2><p class="hubMuted">Every saved request becomes part of your Home Hub so you can track progress and rebook faster.</p><div class="bookingMemories">${bookings.length ? memoryCards : `<div class="emptyHome">No requests yet. Fill out your Home Profile, then use Fast Rebook to send your first request.</div>`}</div></article>
+      </section>
     </section>
   </main>
   ${footer(req)}`;
 
-  return pageShell({ req, title: `${SERVICE_NAME} — Home Hub`, body });
+  return pageShell({ req, title: `${SERVICE_NAME} — Personal Home Hub`, body });
 }
 
 
