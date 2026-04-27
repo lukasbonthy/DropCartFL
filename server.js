@@ -53,6 +53,22 @@ const CUSTOMERS_FILE = path.join(DATA_DIR, "customers.json");
 const LEADS_FILE = path.join(DATA_DIR, "leads.json");
 const ANALYTICS_FILE = path.join(DATA_DIR, "analytics.json");
 
+
+function isMobileUserAgent(userAgent = "") {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Silk|Kindle/i.test(String(userAgent));
+}
+
+function getRequestedView(req) {
+  const forced = String(req.query.view || "").toLowerCase();
+  if (forced === "mobile" || forced === "app") return "mobile";
+  if (forced === "desktop" || forced === "full") return "desktop";
+  return isMobileUserAgent(req.headers["user-agent"]) ? "mobile" : "desktop";
+}
+
+function isMobileRequest(req) {
+  return getRequestedView(req) === "mobile";
+}
+
 const VALID_STATUSES = ["new", "contacted", "confirmed", "completed", "cancelled"];
 const SERVICE_ZIPS = new Set(["34450", "34452", "34453"]);
 const EDGE_ZIPS = new Set(["34446", "34442", "34461", "34465", "34429"]);
@@ -336,13 +352,18 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   const customer = req ? currentCustomer(req) : null;
   const employee = req ? isEmployee(req) : false;
   return `<!doctype html>
-<html lang="en">
+<html lang="en" class="${mobileClass}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
   <meta name="theme-color" content="#070a12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dropcart" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -400,15 +421,151 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     @media(max-width:720px){.hubTopbar,.memoryTop{flex-direction:column;align-items:flex-start}.hubMiniNav{width:100%}.hubMiniNav a,.hubMiniNav button{flex:1;justify-content:center}.personalHero{padding:22px;border-radius:32px}.hubStats,.personalForm,.comfortStrip,.memoryTimeline{grid-template-columns:1fr}.rewardRing{grid-template-columns:1fr}.homeMood{grid-template-columns:repeat(3,1fr)}.todayMain{font-size:27px}.hubCard{border-radius:26px;padding:18px}}
     .authWrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;min-height:calc(100svh - 72px);padding:64px 0}.authTitle{font-family:"Space Grotesk";font-size:clamp(46px,7vw,84px);line-height:.88;letter-spacing:-.075em}.authCard{padding:28px;border-radius:38px}.accountHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.bookingGrid{display:grid;gap:14px;margin-top:28px}.bookingCard{padding:20px;border-radius:28px}.bookingTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.bookingMeta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metaBox{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.metaBox span{display:block;color:rgba(255,255,255,.4);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.metaBox strong{display:block;margin-top:5px;color:rgba(255,255,255,.78);font-size:14px}.badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07)}.badge.green{color:var(--green);background:rgba(73,230,165,.12);border-color:rgba(73,230,165,.2)}.badge.red{color:var(--red);background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.2)}.badge.amber{color:var(--amber);background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.2)}.badge.blue{color:var(--blue);background:rgba(90,167,255,.12);border-color:rgba(90,167,255,.2)}.badge.purple{color:#c9c0ff;background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.2)}.adminActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.adminActions form{display:flex;gap:8px;align-items:center}.adminActions select{min-height:42px;padding:10px;border-radius:14px;color:white;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adminTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,6vw,82px);line-height:.9;font-weight:800;letter-spacing:-.07em}.empty{padding:48px;text-align:center;color:rgba(255,255,255,.56)}.slots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.slotDay{padding:14px;border-radius:22px}.slotDay h4{font-family:"Space Grotesk";font-size:18px;letter-spacing:-.04em}.slotList{display:grid;gap:7px;margin-top:12px}.slot{padding:8px 9px;border-radius:12px;font-size:11px;font-weight:850;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05)}.slot.open{color:var(--green);border-color:rgba(73,230,165,.18);background:rgba(73,230,165,.09)}.slot.limited{color:var(--amber);border-color:rgba(255,209,102,.18);background:rgba(255,209,102,.08)}.slot.busy{color:rgba(255,255,255,.38)}.faq{display:grid;gap:12px;max-width:860px;margin:0 auto}details.card{padding:0}summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px;padding:22px 24px;cursor:pointer;list-style:none;font-weight:900;letter-spacing:-.02em}summary::-webkit-details-marker{display:none}.plus{display:grid;place-items:center;width:31px;height:31px;flex-shrink:0;border-radius:12px;color:white;background:rgba(255,255,255,.08);transition:transform .18s ease}details[open] .plus{transform:rotate(45deg)}details.card p{padding:0 24px 24px;margin:0;color:rgba(255,255,255,.58);line-height:1.65}.final{padding:42px;border-radius:44px;overflow:hidden;background:radial-gradient(800px circle at 12% 0%,rgba(124,92,255,.22),transparent 42%),radial-gradient(800px circle at 90% 20%,rgba(255,79,216,.16),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))}.finalGrid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.finalTitle{max-width:820px;margin-top:14px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,5vw,78px);line-height:.88;font-weight:800;letter-spacing:-.075em}.finalText{max-width:650px;margin-top:18px;color:rgba(255,255,255,.62);font-size:18px;line-height:1.65}.finalActions{display:grid;gap:12px;min-width:220px}.footer{padding:28px 0 calc(28px + var(--safe-bottom));border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.22)}.foot{display:flex;align-items:center;justify-content:space-between;gap:22px}.footTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:800;letter-spacing:-.045em}.footCopy{margin-top:4px;color:rgba(255,255,255,.42);font-size:12px;font-weight:700}.footLinks{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.48);font-size:13px;font-weight:800}.footLinks a:hover{color:white}.mobileSticky{display:none}.toast{position:fixed;right:18px;bottom:18px;z-index:1600;display:none;max-width:360px;padding:16px 18px;border-radius:22px;background:rgba(7,10,18,.86);border:1px solid rgba(255,255,255,.14);box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:rgba(255,255,255,.78);font-size:14px;line-height:1.5;font-weight:750}.toast.show{display:block;animation:toastIn .26s ease both}@keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}.reveal{opacity:0;transform:translateY(20px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}.reveal.show{opacity:1;transform:translateY(0)}.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
     @media(max-width:1050px){.desktopNav{display:none}.menuBtn{display:inline-flex}.hero,.twoCol,.grid2,.authWrap{grid-template-columns:1fr}.hero{min-height:auto;padding-top:48px}.deviceShell{margin-inline:auto}.stats{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.grid4,.grid3,.priceCards,.bookingMeta{grid-template-columns:repeat(2,1fr)}.finalGrid{grid-template-columns:1fr}.finalActions{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.container{width:min(100% - 26px,1240px)}.nav{min-height:66px}.logoIcon{width:40px;height:40px;border-radius:16px}.logoTitle{font-size:20px}.logoSub{display:none}.hero{padding:34px 0;gap:34px}.heroTitle{font-size:clamp(51px,16vw,74px);letter-spacing:-.069em}.heroDesc{font-size:16px;line-height:1.7}.heroActions,.stats,.miniGrid,.taskGrid,.formGrid,.formActions,.mobileActions,.grid4,.grid3,.priceCards,.slots,.bookingMeta,.finalActions{grid-template-columns:1fr}.available{display:none}.section{padding:64px 0}.sectionHeader{margin-bottom:28px}.card,.formBox,.final,.authCard{border-radius:26px;padding:20px}.estimateRow{align-items:flex-start;flex-direction:column}.estimateSide{text-align:left}.estimatePrice,.priceAmount{font-size:58px}.foot{flex-direction:column;text-align:center}.footLinks{justify-content:center;flex-wrap:wrap}.mobileSticky{position:fixed;left:12px;right:12px;bottom:calc(12px + var(--safe-bottom));z-index:1200;display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobileSticky .btn{min-height:50px}.toast{left:12px;right:12px;bottom:calc(82px + var(--safe-bottom));max-width:none}.bookingTop,.accountHeader{flex-direction:column}.adminActions form{width:100%;flex-direction:column;align-items:stretch}.adminActions .btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+
+    /* ===== Server-detected Mobile Mode ===== */
+    .is-mobile-device .header{display:none}
+    .is-mobile-device .mobileAppTop{position:sticky;top:0;z-index:1200;display:block;padding:calc(10px + env(safe-area-inset-top,0px)) 13px 10px;background:linear-gradient(180deg,rgba(7,10,18,.96),rgba(7,10,18,.72));backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.09)}
+    .is-mobile-device .appBottomNav{position:fixed;left:10px;right:10px;bottom:calc(10px + var(--safe-bottom));z-index:1400;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:8px;border-radius:26px;background:rgba(8,11,20,.86);border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 70px rgba(0,0,0,.52);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .is-mobile-device{padding-bottom:calc(92px + var(--safe-bottom))}
+    .is-mobile-device .container{width:min(100% - 22px,1240px)}
+    .is-mobile-device .hero{grid-template-columns:1fr;min-height:auto;padding:34px 0;gap:34px}
+    .is-mobile-device .heroTitle{font-size:clamp(48px,15vw,72px);letter-spacing:-.069em}
+    .is-mobile-device .heroDesc,.is-mobile-device .sectionSub{font-size:15.5px}
+    .is-mobile-device .heroActions,.is-mobile-device .stats,.is-mobile-device .miniGrid,.is-mobile-device .taskGrid,.is-mobile-device .formGrid,.is-mobile-device .formActions,.is-mobile-device .mobileActions,.is-mobile-device .grid4,.is-mobile-device .grid3,.is-mobile-device .priceCards,.is-mobile-device .slots,.is-mobile-device .adminStats,.is-mobile-device .bookingMeta,.is-mobile-device .finalActions{grid-template-columns:1fr}
+    .is-mobile-device .twoCol,.is-mobile-device .grid2{grid-template-columns:1fr}
+    .is-mobile-device .section{padding:42px 0}
+    .is-mobile-device .mobileSticky{display:none!important}
+    .is-mobile-device .available{display:none}
+    .is-mobile-device .btn{width:100%}
+    .is-desktop-device .mobileAppTop,.is-desktop-device .appBottomNav,.is-desktop-device .installBanner,.is-desktop-device .mobileQuickSheet{display:none!important}
+
+    /* ===== Mobile App Mode Upgrade ===== */
+    .mobileAppTop,.appBottomNav,.installBanner,.mobileQuickSheet{display:none}
+    .appOnly{display:none}
+    .tapCard{transition:transform .16s ease,background .16s ease,border-color .16s ease}
+    .tapCard:active{transform:scale(.985)}
+    @media(max-width:720px){
+      body{
+        background:
+          radial-gradient(520px circle at 50% -8%,rgba(124,92,255,.42),transparent 58%),
+          linear-gradient(180deg,#070a12 0%,#0b1020 42%,#050711 100%);
+        padding-bottom:calc(92px + var(--safe-bottom));
+      }
+      body:after{opacity:.045}
+      .header{display:none}
+      .desktopOnly{display:none!important}
+      .appOnly{display:initial}
+      .mobileAppTop{
+        position:sticky;top:0;z-index:1200;display:block;padding:calc(10px + env(safe-area-inset-top,0px)) 13px 10px;
+        background:linear-gradient(180deg,rgba(7,10,18,.96),rgba(7,10,18,.72));backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+        border-bottom:1px solid rgba(255,255,255,.09);
+      }
+      .mobileAppTopInner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+      .appBrand{display:flex;align-items:center;gap:10px;min-width:0}
+      .appIcon{display:grid;place-items:center;width:42px;height:42px;border-radius:16px;color:#070a12;background:white;box-shadow:0 15px 40px rgba(124,92,255,.38)}
+      .appBrandText{min-width:0}.appBrandText strong{display:block;font-family:"Space Grotesk";font-size:18px;line-height:1;letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.appBrandText span{display:block;margin-top:3px;font-size:11px;font-weight:850;color:rgba(255,255,255,.42)}
+      .appTopActions{display:flex;align-items:center;gap:8px}.appCircleBtn{display:grid;place-items:center;width:42px;height:42px;border-radius:16px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.07);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+      .container{width:min(100% - 22px,1240px)}
+      .hero{padding-top:22px}
+      .section{padding:42px 0}
+      .sectionTitle{font-size:clamp(34px,11vw,54px)}
+      .heroTitle{font-size:clamp(48px,15vw,72px)}
+      .heroDesc,.sectionSub{font-size:15.5px}
+      .card,.formBox,.final,.glass{box-shadow:inset 0 1px 0 rgba(255,255,255,.075),0 18px 55px rgba(0,0,0,.32)}
+      .card{border-radius:24px}
+      .appBottomNav{
+        position:fixed;left:10px;right:10px;bottom:calc(10px + var(--safe-bottom));z-index:1400;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
+        padding:8px;border-radius:26px;background:rgba(8,11,20,.86);border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 70px rgba(0,0,0,.52);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      }
+      .appBottomNav a,.appBottomNav button{
+        appearance:none;border:0;color:rgba(255,255,255,.58);background:transparent;display:grid;place-items:center;gap:4px;min-height:54px;border-radius:19px;font-size:10px;font-weight:900;letter-spacing:-.01em;
+      }
+      .appBottomNav a span,.appBottomNav button span{font-size:20px;line-height:1}
+      .appBottomNav a.active,.appBottomNav a:active,.appBottomNav button:active{color:white;background:linear-gradient(135deg,rgba(124,92,255,.35),rgba(255,79,216,.16));box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+      .mobileSticky{display:none!important}
+      .installBanner{
+        position:fixed;left:12px;right:12px;bottom:calc(86px + var(--safe-bottom));z-index:1350;padding:14px;border-radius:24px;
+        background:rgba(7,10,18,.9);border:1px solid rgba(255,255,255,.13);box-shadow:0 20px 65px rgba(0,0,0,.48);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+      }
+      .installBanner.show{display:block;animation:toastIn .24s ease both}
+      .installBannerRow{display:flex;align-items:center;gap:12px}.installBannerIcon{display:grid;place-items:center;width:42px;height:42px;border-radius:16px;background:white;color:#070a12;flex:0 0 auto}.installBannerText{min-width:0;flex:1}.installBannerText strong{display:block;font-size:14px}.installBannerText span{display:block;margin-top:2px;color:rgba(255,255,255,.5);font-size:12px;line-height:1.35}.installBannerBtns{display:flex;gap:7px;margin-top:12px}.installBannerBtns .btn{min-height:40px;padding:10px 12px;border-radius:15px;font-size:12px}
+      .mobileQuickSheet{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);align-items:flex-end}
+      .mobileQuickSheet.show{display:flex}
+      .quickSheetPanel{width:100%;padding:16px 14px calc(18px + var(--safe-bottom));border-radius:30px 30px 0 0;background:#080b14;border:1px solid rgba(255,255,255,.12);box-shadow:0 -25px 80px rgba(0,0,0,.55)}
+      .quickHandle{width:54px;height:5px;border-radius:999px;background:rgba(255,255,255,.18);margin:0 auto 14px}
+      .quickGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quickGrid .btn{min-height:58px;border-radius:20px}
+      .toast{bottom:calc(86px + var(--safe-bottom))}
+      input,select,textarea{font-size:16px!important}
+    }
+
   </style>
 </head>
-<body>
+<body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
   <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div><div id="progress" class="progress"></div>
+  <div class="mobileAppTop">
+    <div class="mobileAppTopInner">
+      <a class="appBrand" href="/">
+        <span class="appIcon">🛒</span>
+        <span class="appBrandText"><strong>Dropcart</strong><span id="mobileAppSub">Home help, fast</span></span>
+      </a>
+      <div class="appTopActions">
+        <a class="appCircleBtn" href="/account" aria-label="Account">👤</a>
+        <a class="appCircleBtn" href="tel:${BUSINESS_PHONE}" aria-label="Call">📞</a>
+      </div>
+    </div>
+  </div>
   ${body}
+  <div id="installBanner" class="installBanner">
+    <div class="installBannerRow">
+      <div class="installBannerIcon">📲</div>
+      <div class="installBannerText"><strong>Add Dropcart to your phone</strong><span>Open it like an app from your home screen.</span></div>
+    </div>
+    <div class="installBannerBtns">
+      <button id="installBtn" class="btn primary" type="button">Install</button>
+      <button id="installDismiss" class="btn ghost" type="button">Not now</button>
+    </div>
+  </div>
+  <div id="quickSheet" class="mobileQuickSheet" aria-hidden="true">
+    <div class="quickSheetPanel">
+      <div class="quickHandle"></div>
+      <h3 class="display" style="font-size:28px;letter-spacing:-.05em;margin-bottom:6px">Quick actions</h3>
+      <p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.5;margin-bottom:14px">Book, call, text, or open your Home Hub.</p>
+      <div class="quickGrid">
+        <a class="btn primary" href="/#contact">Book unload</a>
+        <a class="btn ghost" href="tel:${BUSINESS_PHONE}">Call</a>
+        <a class="btn ghost" href="sms:${BUSINESS_PHONE}?body=Hey%20Dropcart%2C%20I%20need%20a%20grocery%20unload.">Text</a>
+        <a class="btn ghost" href="/account">Home Hub</a>
+      </div>
+      <button id="quickClose" class="btn ghost" style="margin-top:10px;width:100%" type="button">Close</button>
+    </div>
+  </div>
+  <nav class="appBottomNav" aria-label="Mobile app navigation">
+    <a href="/" data-tab="home"><span>🏠</span>Home</a>
+    <a href="/#estimate" data-tab="estimate"><span>💸</span>Estimate</a>
+    <button id="quickOpen" type="button"><span>➕</span>Book</button>
+    <a href="/account" data-tab="account"><span>👤</span>Hub</a>
+  </nav>
   <div id="toast" class="toast"></div>
   <script>
     const $ = (s, r=document) => r.querySelector(s);
     const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+    
+    (function detectMobileFallback(){
+      const params = new URLSearchParams(window.location.search);
+      const forced = params.get('view');
+      if (forced === 'desktop') return;
+      const mobileByScreen = window.matchMedia('(max-width: 720px)').matches;
+      const mobileByTouch = navigator.maxTouchPoints > 1 && window.innerWidth <= 900;
+      if ((forced === 'mobile' || mobileByScreen || mobileByTouch) && document.body) {
+        document.documentElement.classList.remove('is-desktop-device');
+        document.documentElement.classList.add('is-mobile-device');
+        document.body.classList.remove('is-desktop-device');
+        document.body.classList.add('is-mobile-device');
+        document.body.dataset.deviceMode = 'mobile';
+      }
+    })();
+
     const progress = $('#progress');
     function updateProgress(){ if(!progress)return; const h=document.documentElement.scrollHeight-window.innerHeight; const p=h>0?window.scrollY/h:0; progress.style.transform='scaleX('+Math.max(0,Math.min(1,p))+')'; }
     updateProgress(); window.addEventListener('scroll',()=>requestAnimationFrame(updateProgress),{passive:true});
@@ -425,6 +582,77 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     loadSlots();
     const areaForm=$('#areaForm'); if(areaForm){ areaForm.addEventListener('submit',async e=>{ e.preventDefault(); const out=$('#areaResult'); const params=new URLSearchParams(new FormData(areaForm)); try{ const res=await fetch('/api/area?'+params.toString()); const data=await res.json(); out.innerHTML='<strong>'+data.message+'</strong><br>Status: '+data.status+(data.fee?' · Possible distance fee: $'+data.fee:''); out.className='areaResult'; }catch(err){ out.textContent='Could not check area.'; out.className='areaResult'; } }); }
     const requestForm=$('#requestForm'); if(requestForm){ requestForm.addEventListener('submit',async e=>{ e.preventDefault(); const status=$('#formStatus'); const data=Object.fromEntries(new FormData(requestForm).entries()); estimateFields.forEach(el=>{ if(el && !data[el.id]) data[el.id]=el.value; }); try{ const res=await fetch('/api/bookings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); const out=await res.json(); if(!res.ok) throw new Error(out.message||'Something went wrong'); status.textContent='Request saved! Booking ID: '+out.booking.id+'.'; status.className='status success'; showToast('Booking request saved.'); requestForm.reset(); updateEstimate(); }catch(err){ status.textContent=err.message; status.className='status error'; showToast(err.message); } }); }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+      });
+    }
+
+    let deferredInstallPrompt = null;
+    const installBanner = $('#installBanner');
+    const installBtn = $('#installBtn');
+    const installDismiss = $('#installDismiss');
+    const installDismissed = localStorage.getItem('dropcartInstallDismissed') === 'yes';
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      if (installBanner && !installDismissed && window.matchMedia('(max-width:720px)').matches) {
+        setTimeout(() => installBanner.classList.add('show'), 1200);
+      }
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) {
+          showToast('Use your browser menu and choose Add to Home Screen.');
+          return;
+        }
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice.catch(() => {});
+        deferredInstallPrompt = null;
+        installBanner?.classList.remove('show');
+      });
+    }
+
+    if (installDismiss) {
+      installDismiss.addEventListener('click', () => {
+        localStorage.setItem('dropcartInstallDismissed', 'yes');
+        installBanner?.classList.remove('show');
+      });
+    }
+
+    const quickOpen = $('#quickOpen');
+    const quickClose = $('#quickClose');
+    const quickSheet = $('#quickSheet');
+    if (quickOpen && quickSheet) {
+      quickOpen.addEventListener('click', () => {
+        quickSheet.classList.add('show');
+        quickSheet.setAttribute('aria-hidden', 'false');
+      });
+    }
+    if (quickClose && quickSheet) {
+      quickClose.addEventListener('click', () => {
+        quickSheet.classList.remove('show');
+        quickSheet.setAttribute('aria-hidden', 'true');
+      });
+      quickSheet.addEventListener('click', (event) => {
+        if (event.target === quickSheet) {
+          quickSheet.classList.remove('show');
+          quickSheet.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    const path = window.location.pathname;
+    $$('.appBottomNav [data-tab]').forEach(link => {
+      const tab = link.getAttribute('data-tab');
+      if ((tab === 'home' && path === '/') || (tab === 'account' && path.startsWith('/account')) || (tab === 'estimate' && window.location.hash === '#estimate')) {
+        link.classList.add('active');
+      }
+    });
+
   </script>
 </body>
 </html>`;
