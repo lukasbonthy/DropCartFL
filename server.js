@@ -501,6 +501,114 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       input,select,textarea{font-size:16px!important}
     }
 
+
+    /* ===== v10 Mobile Dimension Fixes ===== */
+    .is-mobile-device, .is-mobile-device *{max-width:100%}
+    .is-mobile-device{overflow-x:hidden;min-width:0}
+    .is-mobile-device body{overflow-x:hidden}
+    .is-mobile-device main{overflow:hidden}
+    .is-mobile-device .container{width:100%;max-width:100%;padding-left:13px;padding-right:13px;margin-left:auto;margin-right:auto}
+    .is-mobile-device .mobileAppTop{left:0;right:0;width:100%;max-width:100vw}
+    .is-mobile-device .mobileAppTopInner{min-width:0}
+    .is-mobile-device .appBrand{min-width:0;flex:1}
+    .is-mobile-device .appBrandText{min-width:0;overflow:hidden}
+    .is-mobile-device .appTopActions{flex:0 0 auto}
+    .is-mobile-device .appCircleBtn{width:40px;height:40px;border-radius:15px;flex:0 0 40px}
+    .is-mobile-device .appIcon{width:40px;height:40px;border-radius:15px;flex:0 0 40px}
+    .is-mobile-device .hero{width:100%;padding:24px 0 34px;gap:22px}
+    .is-mobile-device .hero:before{width:110vw;height:110vw;min-width:0;min-height:0;max-width:none;max-height:none;top:0}
+    .is-mobile-device .heroTitle{font-size:clamp(42px,13.5vw,64px);line-height:.9;letter-spacing:-.06em;overflow-wrap:break-word}
+    .is-mobile-device .heroDesc{font-size:15px;line-height:1.62}
+    .is-mobile-device .deviceShell{width:100%;max-width:390px;margin:0 auto;border-radius:30px}
+    .is-mobile-device .deviceShell:before{inset:-2px;filter:blur(12px)}
+    .is-mobile-device .device{padding:11px;border-radius:30px}
+    .is-mobile-device .screen{padding:13px;border-radius:23px}
+    .is-mobile-device .phoneBar{width:62px;height:5px;margin-bottom:14px}
+    .is-mobile-device .requestTitle{font-size:23px}
+    .is-mobile-device .requestCard{padding:13px;border-radius:20px;margin-top:14px}
+    .is-mobile-device .requestIcon{width:42px;height:42px;border-radius:16px}
+    .is-mobile-device .miniValue{font-size:24px}
+    .is-mobile-device .task{padding:11px 8px;border-radius:16px}
+    .is-mobile-device .ready{align-items:stretch;flex-direction:column;border-radius:18px}
+    .is-mobile-device .stats{gap:10px}
+    .is-mobile-device .stat{padding:14px;border-radius:20px}
+    .is-mobile-device .statNum{font-size:24px}
+    .is-mobile-device .section{padding:40px 0}
+    .is-mobile-device .sectionHeader{text-align:left;margin-bottom:20px}
+    .is-mobile-device .sectionTitle{font-size:clamp(32px,10vw,46px);line-height:.98;letter-spacing:-.055em}
+    .is-mobile-device .sectionSub{font-size:15px;line-height:1.62}
+    .is-mobile-device .grid4,.is-mobile-device .grid3,.is-mobile-device .grid2,.is-mobile-device .twoCol,.is-mobile-device .priceCards,.is-mobile-device .formGrid,.is-mobile-device .formActions,.is-mobile-device .slots,.is-mobile-device .adminStats,.is-mobile-device .bookingMeta,.is-mobile-device .finalGrid,.is-mobile-device .finalActions{display:grid;grid-template-columns:minmax(0,1fr)!important}
+    .is-mobile-device .card,.is-mobile-device .formBox,.is-mobile-device .final,.is-mobile-device .hubCard,.is-mobile-device .memoryCard,.is-mobile-device .bookingCard{padding:17px;border-radius:22px}
+    .is-mobile-device .btn{min-height:48px;border-radius:16px;padding:12px 14px;white-space:normal;text-align:center}
+    .is-mobile-device input,.is-mobile-device select,.is-mobile-device textarea{width:100%;min-width:0;font-size:16px!important;border-radius:16px}
+    .is-mobile-device .estimateResult{padding:17px;border-radius:22px}
+    .is-mobile-device .estimatePrice,.is-mobile-device .priceAmount{font-size:52px}
+    .is-mobile-device .estimateRow{display:flex;align-items:flex-start;flex-direction:column;gap:10px}
+    .is-mobile-device .estimateSide{text-align:left}
+    .is-mobile-device .slots{gap:10px}
+    .is-mobile-device .slotDay{padding:13px;border-radius:20px}
+    .is-mobile-device .map{min-height:320px;padding:17px;border-radius:22px}
+    .is-mobile-device .rings{width:170px;height:170px}
+    .is-mobile-device .rings:before{width:122px;height:122px}
+    .is-mobile-device .rings:after{width:76px;height:76px}
+    .is-mobile-device .pin{width:50px;height:50px}
+    .is-mobile-device .final{margin-bottom:8px}
+    .is-mobile-device .footer{padding-bottom:calc(104px + var(--safe-bottom))}
+    .is-mobile-device .appBottomNav{left:8px;right:8px;bottom:calc(8px + var(--safe-bottom));width:auto;max-width:calc(100vw - 16px);grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;border-radius:22px}
+    .is-mobile-device .appBottomNav a,.is-mobile-device .appBottomNav button{min-width:0;width:100%;min-height:50px;border-radius:16px;font-size:9.5px;padding:0}
+    .is-mobile-device .appBottomNav a span,.is-mobile-device .appBottomNav button span{font-size:18px}
+    .is-mobile-device .installBanner{left:10px;right:10px;bottom:calc(76px + var(--safe-bottom));border-radius:22px}
+    .is-mobile-device .mobileQuickSheet{width:100vw;max-width:100vw}
+    .is-mobile-device .quickSheetPanel{max-height:82dvh;overflow:auto;border-radius:26px 26px 0 0}
+    .is-mobile-device .quickGrid{grid-template-columns:1fr 1fr!important}
+    .is-mobile-device .toast{left:10px;right:10px;bottom:calc(76px + var(--safe-bottom))}
+    .is-mobile-device .hubTopbar{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:12px}
+    .is-mobile-device .hubMiniNav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .is-mobile-device .hubMiniNav a,.is-mobile-device .hubMiniNav button{width:100%;min-height:38px;text-align:center;justify-content:center}
+    .is-mobile-device .customerShell{padding-top:16px}
+    .is-mobile-device .personalHero{border-radius:26px;padding:18px;margin-top:2px}
+    .is-mobile-device .personalHero:before{display:none}
+    .is-mobile-device .personalHeroGrid{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:14px}
+    .is-mobile-device .personalGreeting{font-size:clamp(34px,10.5vw,48px);line-height:.95;letter-spacing:-.055em}
+    .is-mobile-device .personalSub{font-size:14.5px;line-height:1.62}
+    .is-mobile-device .hubStats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .is-mobile-device .hubStat{padding:13px;border-radius:18px}
+    .is-mobile-device .hubStat strong{font-size:23px}
+    .is-mobile-device .portalActions{display:grid;grid-template-columns:1fr;gap:9px}
+    .is-mobile-device .todayCard{padding:17px;border-radius:23px}
+    .is-mobile-device .todayMain{font-size:26px;line-height:1}
+    .is-mobile-device .rewardRing{grid-template-columns:1fr;justify-items:start;gap:10px}
+    .is-mobile-device .ring{width:82px;height:82px}
+    .is-mobile-device .ringInner{width:64px;height:64px;font-size:18px}
+    .is-mobile-device .hubLayout{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:12px;margin-top:12px}
+    .is-mobile-device .hubSidebar{position:static;display:grid;gap:12px}
+    .is-mobile-device .hubMain{display:grid;gap:12px}
+    .is-mobile-device .hubCardTitle{font-size:24px;line-height:1}
+    .is-mobile-device .profileStack{gap:8px}
+    .is-mobile-device .profileLine{grid-template-columns:1fr;gap:4px}
+    .is-mobile-device .homeMood{grid-template-columns:1fr!important}
+    .is-mobile-device .nextUnloadFocus{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:10px}
+    .is-mobile-device .focusPanel{padding:15px;border-radius:20px}
+    .is-mobile-device .comfortStrip{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:8px}
+    .is-mobile-device .personalForm{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:12px}
+    .is-mobile-device .personalForm .full{grid-column:auto}
+    .is-mobile-device .memoryTop{display:grid;grid-template-columns:1fr;gap:8px}
+    .is-mobile-device .memoryTitle{font-size:22px;line-height:1.05}
+    .is-mobile-device .memoryTimeline{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:7px}
+    .is-mobile-device .memoryStep{min-height:36px}
+    .is-mobile-device .tinyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .is-mobile-device .bookingTop{display:grid;grid-template-columns:1fr;gap:10px}
+    .is-mobile-device .adminActions,.is-mobile-device .adminActions form{display:grid;grid-template-columns:1fr;gap:8px;width:100%}
+    .is-mobile-device .adminActions select{width:100%}
+    @media(max-width:380px){
+      .is-mobile-device .container{padding-left:10px;padding-right:10px}
+      .is-mobile-device .heroTitle{font-size:42px}
+      .is-mobile-device .personalGreeting{font-size:34px}
+      .is-mobile-device .hubStats{grid-template-columns:1fr}
+      .is-mobile-device .quickGrid,.is-mobile-device .tinyActions{grid-template-columns:1fr!important}
+      .is-mobile-device .appBottomNav a,.is-mobile-device .appBottomNav button{font-size:9px}
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
