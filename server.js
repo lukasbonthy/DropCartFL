@@ -6382,6 +6382,648 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     body.vibe-candy .btn,body.vibe-candy .chip{border-radius:999px!important}
     body.vibe-ice .card,body.vibe-ice .hubCard,body.vibe-ice .formBox{border-width:1.5px!important}
 
+
+    /* ============================================================
+       v26 Employee Operations HQ
+       Cleaner, premium, usable employee dashboard.
+       This intentionally tones down the v25 "command center" look.
+       ============================================================ */
+
+    .employeeOps {
+      padding-top: 34px;
+      padding-bottom: 90px;
+    }
+
+    .opsShell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .opsTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      border-radius: 30px;
+      background:
+        radial-gradient(720px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 15%, transparent), transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 22px 72px rgba(0,0,0,.28);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .opsIdentity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .opsMark {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--theme-c, #35d7ff) 20%, #fff));
+      color: #070a12;
+      font-size: 26px;
+      box-shadow: 0 18px 44px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent);
+    }
+
+    .opsKicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 28px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.60);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .opsLiveDot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--theme-good, #49e6a5);
+      box-shadow: 0 0 20px color-mix(in srgb, var(--theme-good, #49e6a5) 55%, transparent);
+    }
+
+    .opsTitle {
+      margin-top: 9px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: .92;
+      letter-spacing: -.065em;
+      font-weight: 900;
+    }
+
+    .opsSub {
+      margin-top: 8px;
+      color: rgba(255,255,255,.55);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 780px;
+    }
+
+    .opsTopActions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .opsTopActions form {
+      margin: 0;
+    }
+
+    .opsStats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .opsStat {
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+      min-height: 118px;
+      border-radius: 26px;
+      background:
+        radial-gradient(360px circle at 15% 0%, rgba(255,255,255,.09), transparent 48%),
+        rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 18px 56px rgba(0,0,0,.24);
+    }
+
+    .opsStat::after {
+      content: "";
+      position: absolute;
+      right: -24px;
+      top: -24px;
+      width: 82px;
+      height: 82px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 30%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent));
+      opacity: .38;
+      transform: rotate(18deg);
+    }
+
+    .opsStatLabel {
+      position: relative;
+      z-index: 2;
+      color: rgba(255,255,255,.46);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .opsStatValue {
+      position: relative;
+      z-index: 2;
+      margin-top: 13px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 42px;
+      line-height: .85;
+      letter-spacing: -.07em;
+      font-weight: 900;
+    }
+
+    .opsStatNote {
+      position: relative;
+      z-index: 2;
+      margin-top: 9px;
+      color: rgba(255,255,255,.48);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 750;
+    }
+
+    .opsMainGrid {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .opsPanel {
+      padding: 18px;
+      border-radius: 28px;
+      background:
+        radial-gradient(520px circle at 0% 0%, rgba(255,255,255,.075), transparent 46%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.032));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 70px rgba(0,0,0,.26);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .opsPanelHead {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .opsPanelTitle {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 26px;
+      line-height: .98;
+      letter-spacing: -.05em;
+      font-weight: 900;
+    }
+
+    .opsPanelText {
+      margin-top: 6px;
+      color: rgba(255,255,255,.50);
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .opsMiniPill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.60);
+      font-size: 11px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .opsBriefList {
+      display: grid;
+      gap: 10px;
+    }
+
+    .opsBriefItem {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 11px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.052);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .opsBriefIcon {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 19px;
+    }
+
+    .opsBriefItem strong {
+      display: block;
+      color: rgba(255,255,255,.84);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .opsBriefItem span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      line-height: 1.42;
+      font-weight: 750;
+    }
+
+    .opsFocusCard {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 13%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 8%, transparent)),
+        rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .opsFocusCard strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 22px;
+      line-height: .98;
+      letter-spacing: -.045em;
+    }
+
+    .opsFocusCard span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(255,255,255,.50);
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 750;
+    }
+
+    .opsBoard {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(180px, 1fr));
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 3px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .opsColumn {
+      min-height: 210px;
+      padding: 12px;
+      border-radius: 22px;
+      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .opsColumnHead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .opsColumnHead strong {
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.68);
+    }
+
+    .opsCount {
+      display: inline-grid;
+      place-items: center;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.09);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .opsMiniJob {
+      display: grid;
+      gap: 5px;
+      padding: 11px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.075);
+      margin-bottom: 8px;
+    }
+
+    .opsMiniJob b {
+      color: rgba(255,255,255,.84);
+      font-size: 13px;
+      line-height: 1.22;
+    }
+
+    .opsMiniJob span {
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .opsEmptyMini {
+      padding: 16px 10px;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.10);
+      color: rgba(255,255,255,.34);
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .opsToolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .opsSearch {
+      flex: 1 1 260px;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      color: white;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.10);
+      outline: none;
+    }
+
+    .opsFilter {
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      color: white;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.10);
+      outline: none;
+    }
+
+    .opsJobsHead {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .opsJobsHead h2 {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: .95;
+      letter-spacing: -.065em;
+      font-weight: 900;
+    }
+
+    .opsJobsHead p {
+      margin-top: 8px;
+      color: rgba(255,255,255,.52);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 780px;
+    }
+
+    .opsJobCard {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background:
+        radial-gradient(620px circle at 0% 0%, rgba(255,255,255,.075), transparent 46%),
+        linear-gradient(180deg, rgba(255,255,255,.072), rgba(255,255,255,.030));
+      border: 1px solid rgba(255,255,255,.11);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 72px rgba(0,0,0,.28);
+    }
+
+    .opsJobCard::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--job-color, var(--theme-a, #7c5cff));
+      box-shadow: 0 0 28px color-mix(in srgb, var(--job-color, #7c5cff) 45%, transparent);
+    }
+
+    .ops-status-new { --job-color: #c9c0ff; }
+    .ops-status-contacted { --job-color: #ffd166; }
+    .ops-status-confirmed { --job-color: #5aa7ff; }
+    .ops-status-completed { --job-color: #49e6a5; }
+    .ops-status-cancelled { --job-color: #ff6b6b; }
+
+    .opsJobInner {
+      padding: 20px 20px 20px 26px;
+    }
+
+    .opsJobTop {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .opsJobName {
+      margin-top: 11px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 30px;
+      line-height: .98;
+      letter-spacing: -.05em;
+      font-weight: 900;
+    }
+
+    .opsJobContact {
+      margin-top: 7px;
+      color: rgba(255,255,255,.56);
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .opsJobId {
+      color: rgba(255,255,255,.42);
+      text-align: right;
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .opsTagRow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .opsTag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 27px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.09);
+      color: rgba(255,255,255,.62);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .opsNotes {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.075);
+      color: rgba(255,255,255,.60);
+      font-size: 13px;
+      line-height: 1.58;
+    }
+
+    .opsActions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .opsActions form {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .opsActions select {
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 15px;
+      color: white;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.10);
+      outline: none;
+    }
+
+    .opsHide {
+      display: none !important;
+    }
+
+    @media (max-width: 1100px) {
+      .opsTop,
+      .opsMainGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .opsTop {
+        display: grid;
+      }
+
+      .opsTopActions {
+        justify-content: flex-start;
+      }
+
+      .opsStats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .opsMainGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .employeeOps {
+        padding-top: 18px;
+      }
+
+      .opsTop {
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .opsIdentity {
+        align-items: flex-start;
+      }
+
+      .opsMark {
+        width: 46px;
+        height: 46px;
+        border-radius: 17px;
+      }
+
+      .opsTitle {
+        font-size: 36px;
+      }
+
+      .opsTopActions,
+      .opsActions,
+      .opsActions form {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+
+      .opsTopActions .btn,
+      .opsTopActions form,
+      .opsTopActions button,
+      .opsActions .btn,
+      .opsActions button,
+      .opsActions select {
+        width: 100%;
+      }
+
+      .opsStats {
+        grid-template-columns: 1fr;
+      }
+
+      .opsPanel {
+        padding: 15px;
+        border-radius: 24px;
+      }
+
+      .opsBoard {
+        grid-template-columns: repeat(5, minmax(210px, 1fr));
+      }
+
+      .opsJobTop {
+        flex-direction: column;
+      }
+
+      .opsJobId {
+        text-align: left;
+      }
+
+      .opsJobName {
+        font-size: 27px;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -7184,6 +7826,29 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       applyState();
     })();
 
+
+    // v26 employee dashboard search/filter
+    (function initOpsFilters(){
+      const search = $('#opsSearch');
+      const filter = $('#opsStatusFilter');
+      const cards = $$('.opsJobCard');
+      if (!cards.length || (!search && !filter)) return;
+
+      function applyFilters(){
+        const q = (search?.value || '').trim().toLowerCase();
+        const status = filter?.value || 'all';
+
+        cards.forEach((card) => {
+          const matchesSearch = !q || (card.dataset.search || '').includes(q);
+          const matchesStatus = status === 'all' || card.dataset.status === status;
+          card.classList.toggle('opsHide', !(matchesSearch && matchesStatus));
+        });
+      }
+
+      search?.addEventListener('input', applyFilters);
+      filter?.addEventListener('change', applyFilters);
+    })();
+
   </script>
 </body>
 </html>`;
@@ -7226,30 +7891,30 @@ function employeeBookingCard(req, b) {
   const statusOptions = VALID_STATUSES.map((status) => `<option value="${status}" ${status === b.status ? "selected" : ""}>${status}</option>`).join("");
   const notes = String(b.notes || "");
   const tags = [];
-  if (b.customerId) tags.push("👤 customer account");
-  else tags.push("👥 guest request");
-  if ((b.estimate?.stairs || 0) > 0) tags.push("🪜 stairs");
-  if ((b.estimate?.heavy || 0) > 0) tags.push("💪 heavy items");
-  if ((b.estimate?.urgency || 0) > 0 || /asap|rush|today/i.test(notes + " " + (b.timeWindow || ""))) tags.push("⚡ time-sensitive");
-  if (/gate|code/i.test(notes)) tags.push("🔐 gate/code");
-  if (/dog|cat|pet/i.test(notes)) tags.push("🐾 pets");
-  if (/garage/i.test(notes)) tags.push("🏠 garage");
-  if (/cold|frozen|fridge|freezer/i.test(notes)) tags.push("🧊 cold items");
-  if ((b.area?.status || "") === "edge") tags.push("📍 edge area");
-  if ((b.area?.status || "") === "outside") tags.push("🗺 verify area");
-  const tagHtml = tags.slice(0, 7).map((tag) => `<span class="employeeTag">${escapeHtml(tag)}</span>`).join("");
+  if (b.customerId) tags.push("customer");
+  else tags.push("guest");
+  if ((b.estimate?.stairs || 0) > 0) tags.push("stairs");
+  if ((b.estimate?.heavy || 0) > 0) tags.push("heavy items");
+  if ((b.estimate?.urgency || 0) > 0 || /asap|rush|today/i.test(notes + " " + (b.timeWindow || ""))) tags.push("time-sensitive");
+  if (/gate|code/i.test(notes)) tags.push("gate/code");
+  if (/dog|cat|pet/i.test(notes)) tags.push("pets");
+  if (/cold|frozen|fridge|freezer/i.test(notes)) tags.push("cold items");
+  if ((b.area?.status || "") === "outside") tags.push("verify area");
+  const tagHtml = tags.slice(0, 7).map((tag) => `<span class="opsTag">${escapeHtml(tag)}</span>`).join("");
   const smsConfirm = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I saw your grocery unload request and wanted to confirm the details.`);
   const smsOnWay = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I am on the way for your grocery unload.`);
-  return `<article class="employeeJobCard employee-status-${escapeHtml(statusClass)}">
-    <div class="employeeJobInner">
-      <div class="employeeJobTop">
-        <div class="employeeJobIdentity">
+  const searchable = `${b.name || ""} ${b.phone || ""} ${b.email || ""} ${b.address || ""} ${b.zip || ""} ${b.status || ""} ${notes}`.toLowerCase();
+
+  return `<article class="opsJobCard ops-status-${escapeHtml(statusClass)}" data-status="${escapeHtml(b.status || "")}" data-search="${escapeHtml(searchable)}">
+    <div class="opsJobInner">
+      <div class="opsJobTop">
+        <div>
           <span class="badge ${color}">${escapeHtml(b.status)}</span>
-          <h3 class="employeeJobName">${escapeHtml(b.name)}</h3>
-          <p class="employeeJobContact">${escapeHtml(b.phone)}${b.email ? " · " + escapeHtml(b.email) : ""}</p>
-          <div class="employeeTagRow">${tagHtml}</div>
+          <h3 class="opsJobName">${escapeHtml(b.name)}</h3>
+          <p class="opsJobContact">${escapeHtml(b.phone)}${b.email ? " · " + escapeHtml(b.email) : ""}</p>
+          <div class="opsTagRow">${tagHtml}</div>
         </div>
-        <div class="employeeJobId">${escapeHtml(b.id)}<br>${escapeHtml(created)}<br>Updated: ${escapeHtml(updated)}</div>
+        <div class="opsJobId">${escapeHtml(b.id)}<br>${escapeHtml(created)}<br>Updated ${escapeHtml(updated)}</div>
       </div>
 
       <div class="bookingMeta">
@@ -7263,16 +7928,16 @@ function employeeBookingCard(req, b) {
         <div class="metaBox"><span>Source</span><strong>${escapeHtml(b.source || "website")}</strong></div>
       </div>
 
-      <div class="employeeJobNotes">${escapeHtml(b.notes || "No notes yet. Ask where cold items, water cases, pantry items, and garage items should go.")}</div>
+      <div class="opsNotes">${escapeHtml(b.notes || "No notes yet. Confirm cold items, water cases, pantry items, garage items, stairs, and gate codes.")}</div>
 
-      <div class="employeeJobActions">
+      <div class="opsActions">
         <form method="post" action="/employee/bookings/${encodeURIComponent(b.id)}/status">
           ${csrfField(req)}
           <select name="status">${statusOptions}</select>
-          <button class="btn primary" type="submit">Update status</button>
+          <button class="btn primary" type="submit">Update</button>
         </form>
         <a class="btn ghost" href="tel:${escapeHtml(b.phone)}">Call</a>
-        <a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsConfirm}">Text confirm</a>
+        <a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsConfirm}">Confirm text</a>
         <a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsOnWay}">On my way</a>
         <form method="post" action="/employee/bookings/${encodeURIComponent(b.id)}/delete" onsubmit="return confirm('Delete this booking?')">
           ${csrfField(req)}
@@ -7606,110 +8271,97 @@ function employeePage(req) {
   const todayRevenue = todayBookings.reduce((sum, b) => sum + (Number(b.estimate?.price) || 0), 0);
   const statusCounts = VALID_STATUSES.reduce((acc, status) => { acc[status] = bookings.filter((b) => b.status === status).length; return acc; }, {});
   const completionRate = bookings.length ? Math.round((completed.length / bookings.length) * 100) : 0;
-  const missionProgress = Math.max(5, Math.min(100, completionRate || (activeBookings.length ? 38 : 12)));
   const nextJob = activeBookings[0] || bookings[0];
   const cards = bookings.map((b) => employeeBookingCard(req, b)).join("");
 
   const statusBoard = VALID_STATUSES.map((status) => {
-    const items = bookings.filter((b) => b.status === status).slice(0, 4);
-    const itemHtml = items.map((b) => `<div class="employeeMiniJob"><b>${escapeHtml(b.name)}</b><span>${escapeHtml(b.timeWindow || "Flexible")} · ${money(b.estimate?.price)} · ${escapeHtml(b.zip || "no ZIP")}</span></div>`).join("");
-    return `<div class="employeeStatusColumn">
-      <div class="employeeStatusHead"><strong>${escapeHtml(status)}</strong><span class="employeeStatusCount">${statusCounts[status] || 0}</span></div>
-      ${itemHtml || `<div class="employeeEmptyColumn">Nothing here right now.</div>`}
+    const items = bookings.filter((b) => b.status === status).slice(0, 3);
+    const itemHtml = items.map((b) => `<div class="opsMiniJob"><b>${escapeHtml(b.name)}</b><span>${escapeHtml(b.timeWindow || "Flexible")} · ${money(b.estimate?.price)} · ${escapeHtml(b.zip || "no ZIP")}</span></div>`).join("");
+    return `<div class="opsColumn">
+      <div class="opsColumnHead"><strong>${escapeHtml(status)}</strong><span class="opsCount">${statusCounts[status] || 0}</span></div>
+      ${itemHtml || `<div class="opsEmptyMini">Nothing here.</div>`}
     </div>`;
   }).join("");
 
   const body = `${header(req)}
-  <main class="container employeeCommand">
-    <section class="employeeHero reveal show">
-      <div class="employeeHeroMain">
-        <div class="employeeSignal">
-          <span class="employeeSignalPill"><span class="employeePulseDot"></span>Employee Command Center</span>
-          <span class="employeeSignalPill">Serving ${escapeHtml(CITY)}, ${escapeHtml(STATE)}</span>
-          <span class="employeeSignalPill">${escapeHtml(new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" }))}</span>
+  <main class="container employeeOps">
+    <div class="opsShell">
+      <section class="opsTop">
+        <div class="opsIdentity">
+          <div class="opsMark">🛒</div>
+          <div>
+            <span class="opsKicker"><span class="opsLiveDot"></span>Employee Operations HQ</span>
+            <h1 class="opsTitle">Clean shift dashboard.</h1>
+            <p class="opsSub">Manage grocery unload requests, contact customers, track statuses, and keep the service feeling smooth without the clutter.</p>
+          </div>
         </div>
-        <h1 class="employeeHeroTitle">You’re part of the <span>Dropcart crew.</span></h1>
-        <p class="employeeHeroText">Every request here is a real person trying to make a grocery day lighter. This dashboard is built like a mission hub so employees can feel the size, trust, and care behind the service.</p>
-        <div class="employeeHeroActions">
-          <a class="btn primary" href="#jobs">Work the board</a>
-          <a class="btn ghost" href="/employee/customers">Customer roster</a>
-          <a class="btn ghost" href="/employee/export">Export bookings</a>
+        <div class="opsTopActions">
+          <a class="btn primary" href="#jobs">View jobs</a>
+          <a class="btn ghost" href="/employee/customers">Customers</a>
+          <a class="btn ghost" href="/employee/export">Export</a>
           <form method="post" action="/employee/logout">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
         </div>
-      </div>
-
-      <aside class="employeeHeroSide">
-        <div class="employeeMissionCard">
-          <div class="employeeMissionTop">
-            <div class="employeeMissionIcon">🛒</div>
-            <span class="employeeTinyBadge">Mission pulse</span>
-          </div>
-          <h2>${nextJob ? escapeHtml(nextJob.name) : "No active request"}</h2>
-          <p>${nextJob ? `${escapeHtml(nextJob.timeWindow || "Flexible")} · ${escapeHtml(nextJob.address || "Address pending")} · ${money(nextJob.estimate?.price)}` : "When the next request lands, it will show here first."}</p>
-          <div class="employeeProgressTrack"><div class="employeeProgressFill" style="--progress:${missionProgress}%"></div></div>
-        </div>
-        <div class="employeeMotivationStrip">
-          <strong>Small service. Big relief.</strong>
-          <span>Heavy water cases, stairs, tired parents, seniors, busy families — this is where the work becomes helpful.</span>
-        </div>
-      </aside>
-    </section>
-
-    <section class="employeeMetricGrid">
-      <div class="employeeMetric"><div class="employeeMetricLabel">Total requests</div><div class="employeeMetricValue">${bookings.length}</div><div class="employeeMetricNote">All website and portal bookings.</div></div>
-      <div class="employeeMetric"><div class="employeeMetricLabel">Active missions</div><div class="employeeMetricValue">${activeBookings.length}</div><div class="employeeMetricNote">New, contacted, or confirmed.</div></div>
-      <div class="employeeMetric"><div class="employeeMetricLabel">Today value</div><div class="employeeMetricValue">${money(todayRevenue)}</div><div class="employeeMetricNote">${todayBookings.length} request${todayBookings.length === 1 ? "" : "s"} touched today.</div></div>
-      <div class="employeeMetric"><div class="employeeMetricLabel">Crew impact</div><div class="employeeMetricValue">${completionRate}%</div><div class="employeeMetricNote">${completed.length} completed · ${customers.length} customer accounts.</div></div>
-    </section>
-
-    <section class="employeeActionWall">
-      <a class="employeeActionCard" href="/"><b>🏠</b><strong>Public site</strong><span>See what customers see before they book.</span></a>
-      <a class="employeeActionCard" href="/api/bookings"><b>📡</b><strong>Live JSON</strong><span>Raw booking data for debugging and exports.</span></a>
-      <a class="employeeActionCard" href="/employee/customers"><b>👥</b><strong>Customers</strong><span>View account customers and saved contacts.</span></a>
-      <a class="employeeActionCard" href="#jobs"><b>⚡</b><strong>Start shift</strong><span>Jump straight into the booking cards.</span></a>
-    </section>
-
-    <section class="employeeCommandGrid">
-      <aside class="employeePanel">
-        <div class="employeePanelHeader">
-          <div>
-            <h2 class="employeePanelTitle">Shift brief</h2>
-            <p class="employeePanelSub">A quick reminder of what makes the service feel premium.</p>
-          </div>
-          <span class="employeeTinyBadge">Crew standard</span>
-        </div>
-        <div class="employeeShiftList">
-          <div class="employeeShiftItem"><div class="employeeShiftIcon">🧊</div><div><strong>Cold items first</strong><span>Ask if frozen/fridge items should go in before anything else.</span></div></div>
-          <div class="employeeShiftItem"><div class="employeeShiftIcon">💬</div><div><strong>Confirm clearly</strong><span>Address, bags, stairs, heavy items, gate code, and preferred placement.</span></div></div>
-          <div class="employeeShiftItem"><div class="employeeShiftIcon">💪</div><div><strong>Notice heavy stuff</strong><span>Water cases, bulk items, and stairs are the reason people book us.</span></div></div>
-          <div class="employeeShiftItem"><div class="employeeShiftIcon">✨</div><div><strong>Leave it better</strong><span>Make the moment feel smooth, respectful, and surprisingly easy.</span></div></div>
-        </div>
-      </aside>
-
-      <section class="employeePanel">
-        <div class="employeePanelHeader">
-          <div>
-            <h2 class="employeePanelTitle">Status board</h2>
-            <p class="employeePanelSub">A fast view of where every booking sits right now.</p>
-          </div>
-          <span class="employeeTinyBadge">${activeBookings.length} active</span>
-        </div>
-        <div class="employeeStatusBoard">${statusBoard}</div>
       </section>
-    </section>
 
-    <section id="jobs" class="employeeBookingHeader">
-      <div>
-        <h2>Booking command board</h2>
-        <p>Every card has customer info, risk tags, estimate details, SMS shortcuts, and status controls. Make every unload feel like someone trusted the right crew.</p>
-      </div>
-      <span class="employeeTinyBadge">${money(estimatedRevenue)} total estimated value</span>
-    </section>
+      <section class="opsStats">
+        <div class="opsStat"><div class="opsStatLabel">Total requests</div><div class="opsStatValue">${bookings.length}</div><div class="opsStatNote">All bookings received.</div></div>
+        <div class="opsStat"><div class="opsStatLabel">Active</div><div class="opsStatValue">${activeBookings.length}</div><div class="opsStatNote">New, contacted, confirmed.</div></div>
+        <div class="opsStat"><div class="opsStatLabel">Today value</div><div class="opsStatValue">${money(todayRevenue)}</div><div class="opsStatNote">${todayBookings.length} touched today.</div></div>
+        <div class="opsStat"><div class="opsStatLabel">Completion</div><div class="opsStatValue">${completionRate}%</div><div class="opsStatNote">${completed.length} completed · ${customers.length} customers.</div></div>
+      </section>
 
-    <section class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet. When someone sends a request, this command board wakes up.</div>`}</section>
+      <section class="opsMainGrid">
+        <aside class="opsPanel">
+          <div class="opsPanelHead">
+            <div>
+              <h2 class="opsPanelTitle">Shift brief</h2>
+              <p class="opsPanelText">Keep it simple, clear, and respectful.</p>
+            </div>
+            <span class="opsMiniPill">${escapeHtml(new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }))}</span>
+          </div>
+
+          <div class="opsBriefList">
+            <div class="opsBriefItem"><div class="opsBriefIcon">🧊</div><div><strong>Ask about cold items</strong><span>Fridge and freezer items should be handled first if requested.</span></div></div>
+            <div class="opsBriefItem"><div class="opsBriefIcon">📍</div><div><strong>Confirm location</strong><span>Address, ZIP, stairs, gate code, and where bags should go.</span></div></div>
+            <div class="opsBriefItem"><div class="opsBriefIcon">💪</div><div><strong>Watch heavy items</strong><span>Water cases, bulk items, and stairs are the main reason people book.</span></div></div>
+          </div>
+
+          <div class="opsFocusCard">
+            <strong>${nextJob ? escapeHtml(nextJob.name) : "No active job"}</strong>
+            <span>${nextJob ? `${escapeHtml(nextJob.timeWindow || "Flexible")} · ${money(nextJob.estimate?.price)} · ${escapeHtml(nextJob.address || "address pending")}` : "New requests will show up here first."}</span>
+          </div>
+        </aside>
+
+        <section class="opsPanel">
+          <div class="opsPanelHead">
+            <div>
+              <h2 class="opsPanelTitle">Status board</h2>
+              <p class="opsPanelText">A quick glance at where requests are sitting.</p>
+            </div>
+            <span class="opsMiniPill">${activeBookings.length} active</span>
+          </div>
+          <div class="opsBoard">${statusBoard}</div>
+        </section>
+      </section>
+
+      <section id="jobs" class="opsJobsHead">
+        <h2>Booking requests</h2>
+        <p>Use search and filters to find requests fast. Each card has contact shortcuts, job details, notes, tags, and status controls.</p>
+        <div class="opsToolbar">
+          <input id="opsSearch" class="opsSearch" type="search" placeholder="Search name, phone, address, ZIP, notes..." />
+          <select id="opsStatusFilter" class="opsFilter">
+            <option value="all">All statuses</option>
+            ${VALID_STATUSES.map((status) => `<option value="${status}">${status}</option>`).join("")}
+          </select>
+          <span class="opsMiniPill">${money(estimatedRevenue)} total estimated</span>
+        </div>
+      </section>
+
+      <section id="opsJobsList" class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet.</div>`}</section>
+    </div>
   </main>
   ${footer(req)}`;
-  return pageShell({ req, title: `${SERVICE_NAME} — Employee Command Center`, body });
+  return pageShell({ req, title: `${SERVICE_NAME} — Employee Operations HQ`, body });
 }
 
 function customersPage(req) {
