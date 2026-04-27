@@ -354,6 +354,37 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     .hero{position:relative;display:grid;grid-template-columns:1.04fr .96fr;align-items:center;gap:48px;min-height:calc(100svh - 72px);padding:64px 0 54px}.heroTitle{margin-top:20px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(58px,8vw,118px);font-weight:800;letter-spacing:-.078em;line-height:.84;text-wrap:balance}.heroDesc{max-width:680px;margin-top:24px;color:var(--muted);font-size:20px;line-height:1.72}.heroActions{display:flex;flex-wrap:wrap;align-items:center;gap:13px;margin-top:28px}.heroNote{margin-top:14px;color:rgba(255,255,255,.42);font-size:13px;font-weight:700}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}.stat{padding:18px;border-radius:24px}.statNum{font-family:"Space Grotesk",Inter,sans-serif;font-size:27px;line-height:1;font-weight:800;letter-spacing:-.05em}.statLab{margin-top:7px;color:rgba(255,255,255,.47);font-size:12px;font-weight:800}.deviceShell{position:relative;width:min(100%,520px);margin-left:auto;border-radius:42px}.deviceShell:before{content:"";position:absolute;inset:-3px;z-index:-2;border-radius:inherit;background:conic-gradient(from 180deg,rgba(124,92,255,.86),rgba(255,79,216,.65),rgba(53,215,255,.55),rgba(124,92,255,.86));filter:blur(18px);opacity:.86;animation:auraSpin 9s linear infinite}@keyframes auraSpin{to{transform:rotate(360deg)}}.device{padding:18px;border-radius:42px}.screen{position:relative;overflow:hidden;padding:20px;border-radius:32px;background:radial-gradient(520px circle at var(--mx,50%) var(--my,20%),rgba(255,255,255,.13),transparent 48%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.1)}.phoneBar{width:78px;height:6px;margin:0 auto 20px;border-radius:999px;background:rgba(255,255,255,.14)}.requestTop{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.kicker{color:rgba(255,255,255,.42);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.requestTitle{margin-top:4px;font-family:"Space Grotesk",Inter,sans-serif;font-size:29px;font-weight:800;letter-spacing:-.055em}.available{display:inline-flex;align-items:center;gap:8px;padding:9px 11px;border-radius:999px;color:var(--green);background:rgba(73,230,165,.13);border:1px solid rgba(73,230,165,.2);font-size:12px;font-weight:900}.requestCard{margin-top:20px;padding:18px;border-radius:26px;border:1px solid rgba(255,255,255,.105);background:rgba(0,0,0,.23)}.requestRow{display:flex;align-items:flex-start;gap:14px}.requestIcon{display:grid;place-items:center;flex-shrink:0;width:50px;height:50px;border-radius:20px;color:#070a12;background:white;box-shadow:0 18px 50px rgba(255,255,255,.12)}.requestInfo h3{font-size:17px;font-weight:900;letter-spacing:-.025em}.requestInfo p{margin-top:5px;color:rgba(255,255,255,.56);font-size:14px;line-height:1.6}.miniGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}.mini{padding:15px;border-radius:22px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1)}.miniLabel{color:rgba(255,255,255,.48);font-size:12px;font-weight:800}.miniValue{margin-top:5px;font-family:"Space Grotesk",Inter,sans-serif;font-size:28px;line-height:1;font-weight:800;letter-spacing:-.06em}.taskGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px}.task{padding:14px 10px;border-radius:20px;text-align:center;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.075)}.taskEmoji{font-size:23px;line-height:1}.taskText{margin-top:8px;color:rgba(255,255,255,.56);font-size:12px;font-weight:900}.ready{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:14px;border-radius:22px;background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.22)}.ready h4{font-size:14px;font-weight:900}.ready p{margin-top:3px;color:rgba(255,255,255,.47);font-size:12px;font-weight:700}
     .section{padding:86px 0}.sectionHeader{max-width:820px;margin:0 auto 42px;text-align:center}.sectionTitle{margin-top:16px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(38px,5vw,64px);line-height:.95;font-weight:800;letter-spacing:-.066em;text-wrap:balance}.sectionSub{max-width:700px;margin:18px auto 0;color:var(--muted);font-size:18px;line-height:1.68}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.twoCol{display:grid;grid-template-columns:.86fr 1.14fr;gap:32px;align-items:start}.card{position:relative;overflow:hidden;padding:24px;border-radius:28px;transition:transform .22s ease,border-color .22s ease,background .22s ease}.card:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px circle at 20% 0%,rgba(255,255,255,.08),transparent 44%);opacity:.75}.card>*{position:relative;z-index:1}.card:hover{transform:translateY(-4px);border-color:var(--border2);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.052))}.icon{display:grid;place-items:center;width:48px;height:48px;border-radius:20px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.1);font-size:23px}.card h3{margin-top:18px;font-family:"Space Grotesk",Inter,sans-serif;font-size:22px;line-height:1.1;font-weight:800;letter-spacing:-.045em}.card p{margin-top:10px;color:rgba(255,255,255,.58);font-size:14px;line-height:1.65}.stepNum{display:grid;place-items:center;width:44px;height:44px;border-radius:18px;color:#070a12;background:white;font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:900;box-shadow:0 16px 40px rgba(255,255,255,.12)}.priceCards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.popular{background:radial-gradient(540px circle at 20% 0%,rgba(124,92,255,.22),transparent 42%),linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.045));border-color:rgba(255,255,255,.2)}.priceTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.priceName{margin:0;font-family:"Space Grotesk",Inter,sans-serif;font-size:29px;font-weight:800;letter-spacing:-.055em}.priceDesc{margin-top:5px;color:rgba(255,255,255,.52);font-size:14px;line-height:1.55}.priceMain{display:flex;align-items:flex-end;gap:8px;margin-top:28px}.priceAmount{font-family:"Space Grotesk",Inter,sans-serif;font-size:70px;line-height:.85;font-weight:800;letter-spacing:-.09em}.priceUnit{padding-bottom:7px;color:rgba(255,255,255,.48);font-size:15px;font-weight:800}.checks{display:grid;gap:12px;margin-top:28px;list-style:none}.checks li{display:flex;align-items:flex-start;gap:10px;color:rgba(255,255,255,.7);font-size:14px;line-height:1.45;font-weight:650}.check{color:var(--green);font-weight:900}.fine{margin-top:12px;color:rgba(255,255,255,.4);font-size:12px;line-height:1.5}
     .formBox{padding:26px;border-radius:38px}.formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.field label{display:block;margin-bottom:8px;color:rgba(255,255,255,.45);font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}.field input,.field select,.field textarea{width:100%;min-height:49px;padding:13px 15px;color:white;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.115);border-radius:18px;outline:none;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}.field textarea{min-height:105px;resize:vertical}.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,.36)}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.09);box-shadow:0 0 0 4px rgba(124,92,255,.19)}.full{grid-column:1/-1}.estimateResult{margin-top:18px;padding:22px;border-radius:27px;background:rgba(0,0,0,.27);border:1px solid rgba(255,255,255,.105)}.estimateRow{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}.estimateLabel{color:rgba(255,255,255,.4);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.estimatePrice{margin-top:4px;font-family:"Space Grotesk",Inter,sans-serif;font-size:72px;line-height:.88;font-weight:800;letter-spacing:-.09em}.estimateSide{color:rgba(255,255,255,.53);font-size:14px;line-height:1.6;text-align:right}.formActions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.status{min-height:24px;margin-top:13px;font-size:14px;font-weight:800}.success{color:var(--green)}.error{color:var(--amber)}.areaResult{margin-top:14px;padding:16px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);line-height:1.55;font-size:14px}.map{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:380px;padding:24px;border-radius:28px;border:1px solid rgba(255,255,255,.105);background:radial-gradient(circle at 24% 18%,rgba(124,92,255,.3),transparent 35%),radial-gradient(circle at 80% 70%,rgba(53,215,255,.22),transparent 38%),linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025))}.rings{position:relative;display:grid;place-items:center;width:220px;height:220px;margin:18px auto;border-radius:50%;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.095)}.rings:before,.rings:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.14)}.rings:before{width:158px;height:158px;border-color:rgba(124,92,255,.5)}.rings:after{width:98px;height:98px;border-color:rgba(53,215,255,.46)}.pin{z-index:2;display:grid;place-items:center;width:58px;height:58px;border-radius:50%;color:#070a12;background:white;box-shadow:0 22px 65px rgba(255,255,255,.13),0 0 50px rgba(124,92,255,.45);font-size:25px}
+
+    .portalHero{position:relative;overflow:hidden;padding:34px;border-radius:44px;background:radial-gradient(900px circle at 5% 0%,rgba(124,92,255,.28),transparent 42%),radial-gradient(780px circle at 88% 20%,rgba(255,79,216,.17),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045));}
+    .portalHeroGrid{display:grid;grid-template-columns:1fr 330px;gap:24px;align-items:center}
+    .portalTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(46px,6vw,86px);line-height:.86;font-weight:800;letter-spacing:-.075em;margin-top:16px}
+    .portalText{max-width:720px;margin-top:18px;color:rgba(255,255,255,.66);font-size:18px;line-height:1.7}
+    .portalScore{padding:22px;border-radius:32px;background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.105)}
+    .portalScoreNum{font-family:"Space Grotesk",Inter,sans-serif;font-size:64px;line-height:.88;font-weight:800;letter-spacing:-.08em}
+    .rewardTrack{height:12px;margin-top:16px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.08)}
+    .rewardFill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan));box-shadow:0 0 28px rgba(255,79,216,.38)}
+    .portalGrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:18px;margin-top:18px}
+    .portalPanel{padding:24px;border-radius:32px}
+    .portalPanel h2,.portalPanel h3{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:-.05em}
+    .portalPanel h2{font-size:34px;line-height:.95}
+    .portalPanel h3{font-size:25px;line-height:1}
+    .quickTiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+    .quickTile{padding:14px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.085)}
+    .quickTile span{display:block;color:rgba(255,255,255,.42);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .quickTile strong{display:block;margin-top:6px;color:rgba(255,255,255,.82);font-size:14px}
+    .portalActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .profileForm{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .portalBooking{padding:22px;border-radius:32px}
+    .portalBookingTop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+    .portalBookingTitle{font-family:"Space Grotesk";font-size:29px;font-weight:800;letter-spacing:-.055em;margin-top:10px}
+    .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:18px}
+    .timelineStep{position:relative;padding:12px 8px;border-radius:16px;text-align:center;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.075);color:rgba(255,255,255,.38);font-size:11px;font-weight:900}
+    .timelineStep.done{color:var(--green);background:rgba(73,230,165,.09);border-color:rgba(73,230,165,.18)}
+    .timelineStep.active{color:white;background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.28);box-shadow:0 0 34px rgba(124,92,255,.16)}
+    .timelineDot{display:block;width:10px;height:10px;border-radius:50%;background:currentColor;margin:0 auto 8px}
+    .repeatCard{margin-top:16px;padding:18px;border-radius:26px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.09)}
+    .emptyPortal{padding:36px;border-radius:32px;text-align:center;background:rgba(255,255,255,.055);border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.64)}
+
     .authWrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;min-height:calc(100svh - 72px);padding:64px 0}.authTitle{font-family:"Space Grotesk";font-size:clamp(46px,7vw,84px);line-height:.88;letter-spacing:-.075em}.authCard{padding:28px;border-radius:38px}.accountHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.bookingGrid{display:grid;gap:14px;margin-top:28px}.bookingCard{padding:20px;border-radius:28px}.bookingTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.bookingMeta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metaBox{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.metaBox span{display:block;color:rgba(255,255,255,.4);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.metaBox strong{display:block;margin-top:5px;color:rgba(255,255,255,.78);font-size:14px}.badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07)}.badge.green{color:var(--green);background:rgba(73,230,165,.12);border-color:rgba(73,230,165,.2)}.badge.red{color:var(--red);background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.2)}.badge.amber{color:var(--amber);background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.2)}.badge.blue{color:var(--blue);background:rgba(90,167,255,.12);border-color:rgba(90,167,255,.2)}.badge.purple{color:#c9c0ff;background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.2)}.adminActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.adminActions form{display:flex;gap:8px;align-items:center}.adminActions select{min-height:42px;padding:10px;border-radius:14px;color:white;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adminTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,6vw,82px);line-height:.9;font-weight:800;letter-spacing:-.07em}.empty{padding:48px;text-align:center;color:rgba(255,255,255,.56)}.slots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.slotDay{padding:14px;border-radius:22px}.slotDay h4{font-family:"Space Grotesk";font-size:18px;letter-spacing:-.04em}.slotList{display:grid;gap:7px;margin-top:12px}.slot{padding:8px 9px;border-radius:12px;font-size:11px;font-weight:850;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05)}.slot.open{color:var(--green);border-color:rgba(73,230,165,.18);background:rgba(73,230,165,.09)}.slot.limited{color:var(--amber);border-color:rgba(255,209,102,.18);background:rgba(255,209,102,.08)}.slot.busy{color:rgba(255,255,255,.38)}.faq{display:grid;gap:12px;max-width:860px;margin:0 auto}details.card{padding:0}summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px;padding:22px 24px;cursor:pointer;list-style:none;font-weight:900;letter-spacing:-.02em}summary::-webkit-details-marker{display:none}.plus{display:grid;place-items:center;width:31px;height:31px;flex-shrink:0;border-radius:12px;color:white;background:rgba(255,255,255,.08);transition:transform .18s ease}details[open] .plus{transform:rotate(45deg)}details.card p{padding:0 24px 24px;margin:0;color:rgba(255,255,255,.58);line-height:1.65}.final{padding:42px;border-radius:44px;overflow:hidden;background:radial-gradient(800px circle at 12% 0%,rgba(124,92,255,.22),transparent 42%),radial-gradient(800px circle at 90% 20%,rgba(255,79,216,.16),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))}.finalGrid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.finalTitle{max-width:820px;margin-top:14px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,5vw,78px);line-height:.88;font-weight:800;letter-spacing:-.075em}.finalText{max-width:650px;margin-top:18px;color:rgba(255,255,255,.62);font-size:18px;line-height:1.65}.finalActions{display:grid;gap:12px;min-width:220px}.footer{padding:28px 0 calc(28px + var(--safe-bottom));border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.22)}.foot{display:flex;align-items:center;justify-content:space-between;gap:22px}.footTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:800;letter-spacing:-.045em}.footCopy{margin-top:4px;color:rgba(255,255,255,.42);font-size:12px;font-weight:700}.footLinks{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.48);font-size:13px;font-weight:800}.footLinks a:hover{color:white}.mobileSticky{display:none}.toast{position:fixed;right:18px;bottom:18px;z-index:1600;display:none;max-width:360px;padding:16px 18px;border-radius:22px;background:rgba(7,10,18,.86);border:1px solid rgba(255,255,255,.14);box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:rgba(255,255,255,.78);font-size:14px;line-height:1.5;font-weight:750}.toast.show{display:block;animation:toastIn .26s ease both}@keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}.reveal{opacity:0;transform:translateY(20px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}.reveal.show{opacity:1;transform:translateY(0)}.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
     @media(max-width:1050px){.desktopNav{display:none}.menuBtn{display:inline-flex}.hero,.twoCol,.grid2,.authWrap{grid-template-columns:1fr}.hero{min-height:auto;padding-top:48px}.deviceShell{margin-inline:auto}.stats{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.grid4,.grid3,.priceCards,.bookingMeta{grid-template-columns:repeat(2,1fr)}.finalGrid{grid-template-columns:1fr}.finalActions{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.container{width:min(100% - 26px,1240px)}.nav{min-height:66px}.logoIcon{width:40px;height:40px;border-radius:16px}.logoTitle{font-size:20px}.logoSub{display:none}.hero{padding:34px 0;gap:34px}.heroTitle{font-size:clamp(51px,16vw,74px);letter-spacing:-.069em}.heroDesc{font-size:16px;line-height:1.7}.heroActions,.stats,.miniGrid,.taskGrid,.formGrid,.formActions,.mobileActions,.grid4,.grid3,.priceCards,.slots,.bookingMeta,.finalActions{grid-template-columns:1fr}.available{display:none}.section{padding:64px 0}.sectionHeader{margin-bottom:28px}.card,.formBox,.final,.authCard{border-radius:26px;padding:20px}.estimateRow{align-items:flex-start;flex-direction:column}.estimateSide{text-align:left}.estimatePrice,.priceAmount{font-size:58px}.foot{flex-direction:column;text-align:center}.footLinks{justify-content:center;flex-wrap:wrap}.mobileSticky{position:fixed;left:12px;right:12px;bottom:calc(12px + var(--safe-bottom));z-index:1200;display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobileSticky .btn{min-height:50px}.toast{left:12px;right:12px;bottom:calc(82px + var(--safe-bottom));max-width:none}.bookingTop,.accountHeader{flex-direction:column}.adminActions form{width:100%;flex-direction:column;align-items:stretch}.adminActions .btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
   </style>
@@ -458,13 +489,163 @@ function authPage(req, type, message = "") {
   return pageShell({ req, title: `${SERVICE_NAME} — ${title}`, body });
 }
 
+
+function getCustomerBookings(customer) {
+  return readBookings()
+    .filter((b) => b.customerId === customer.id || (b.email && normalizeEmail(b.email) === customer.email))
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+
+function getCustomerTier(bookings) {
+  const completed = bookings.filter((b) => b.status === "completed").length;
+  if (completed >= 12) return { name: "Diamond Cart", emoji: "💎", next: "You unlocked the top tier.", progress: 100 };
+  if (completed >= 6) return { name: "Gold Cart", emoji: "⭐", next: `${12 - completed} more completed unloads to Diamond.`, progress: Math.min(100, Math.round((completed / 12) * 100)) };
+  if (completed >= 2) return { name: "Silver Cart", emoji: "🛒", next: `${6 - completed} more completed unloads to Gold.`, progress: Math.min(100, Math.round((completed / 6) * 100)) };
+  return { name: "Starter Cart", emoji: "🌱", next: `${Math.max(1, 2 - completed)} more completed unloads to Silver.`, progress: Math.min(100, Math.round((completed / 2) * 100)) };
+}
+
+function getPortalStatusLabel(status) {
+  const map = {
+    new: "Requested",
+    contacted: "Contacted",
+    confirmed: "Confirmed",
+    completed: "Completed",
+    cancelled: "Cancelled",
+  };
+  return map[status] || "Requested";
+}
+
+function customerPortalBookingCard(b) {
+  const flow = ["new", "contacted", "confirmed", "completed"];
+  const currentIndex = b.status === "cancelled" ? -1 : Math.max(0, flow.indexOf(b.status));
+  const color = statusColor(b.status);
+  const created = b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "—";
+  const updated = b.updatedAt ? new Date(b.updatedAt).toLocaleDateString() : "—";
+  const timeline = b.status === "cancelled"
+    ? `<div class="timelineStep active" style="grid-column:1/-1;color:var(--red);background:rgba(255,107,107,.1);border-color:rgba(255,107,107,.22)"><span class="timelineDot"></span>Cancelled</div>`
+    : flow.map((status, index) => {
+        const state = index < currentIndex ? "done" : index === currentIndex ? "active" : "";
+        return `<div class="timelineStep ${state}"><span class="timelineDot"></span>${escapeHtml(getPortalStatusLabel(status))}</div>`;
+      }).join("");
+
+  return `<article class="portalBooking glass">
+    <div class="portalBookingTop">
+      <div>
+        <span class="badge ${color}">${escapeHtml(getPortalStatusLabel(b.status))}</span>
+        <div class="portalBookingTitle">${escapeHtml(b.date || "Flexible day")} · ${escapeHtml(b.timeWindow || "Flexible time")}</div>
+        <p style="margin-top:8px;color:rgba(255,255,255,.58);line-height:1.6">${escapeHtml(b.address || "Address not listed")}</p>
+      </div>
+      <div style="text-align:right;color:rgba(255,255,255,.45);font-size:12px;font-weight:850">${escapeHtml(b.id)}<br>Created ${escapeHtml(created)}</div>
+    </div>
+    <div class="timeline">${timeline}</div>
+    <div class="bookingMeta">
+      <div class="metaBox"><span>Estimate</span><strong>${money(b.estimate?.price)} · ${escapeHtml(String(b.estimate?.minutes || "?"))}m</strong></div>
+      <div class="metaBox"><span>Bags</span><strong>${escapeHtml(String(b.estimate?.bags || "—"))}</strong></div>
+      <div class="metaBox"><span>Area</span><strong>${escapeHtml(b.area?.status || "unknown")}</strong></div>
+      <div class="metaBox"><span>Updated</span><strong>${escapeHtml(updated)}</strong></div>
+    </div>
+    ${b.notes ? `<p style="margin-top:14px;color:rgba(255,255,255,.62);line-height:1.65">${escapeHtml(b.notes)}</p>` : ""}
+    <div class="portalActions">
+      <a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call about this</a>
+      <a class="btn ghost" href="sms:${escapeHtml(BUSINESS_PHONE)}?body=${encodeURIComponent(`Hey Dropcart, I have a question about booking ${b.id}.`)}">Text about this</a>
+    </div>
+  </article>`;
+}
+
+
 function accountPage(req) {
   const customer = req.customer;
-  const bookings = readBookings().filter((b) => b.customerId === customer.id || (b.email && normalizeEmail(b.email) === customer.email)).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  const cards = bookings.map((b) => bookingCard(b)).join("");
-  const body = `${header(req)}<main class="container section"><div class="accountHeader reveal show"><div><span class="chip">Customer account</span><h1 class="adminTitle" style="margin-top:18px">Hi, ${escapeHtml(customer.name)}.</h1><p class="sectionSub" style="margin-left:0;text-align:left">Track your grocery unload requests, statuses, estimates, and preferred contact info.</p></div><form method="post" action="/logout">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form></div><div class="stats"><div class="stat glass"><div class="statNum">${bookings.length}</div><div class="statLab">your bookings</div></div><div class="stat glass"><div class="statNum">${bookings.filter((b) => b.status === "confirmed").length}</div><div class="statLab">confirmed</div></div><div class="stat glass"><div class="statNum">${bookings.filter((b) => b.status === "completed").length}</div><div class="statLab">completed</div></div><div class="stat glass"><div class="statNum">${escapeHtml(customer.phone || "—")}</div><div class="statLab">phone on file</div></div></div><section class="section" style="padding-top:44px"><div class="sectionHeader"><span class="chip">Book again</span><h2 class="sectionTitle">Send another request.</h2></div>${contactSection(req, customer)}</section><section class="section" style="padding-top:20px"><div class="sectionHeader"><span class="chip">History</span><h2 class="sectionTitle">Your requests.</h2></div><div class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet. Submit your first request above.</div>`}</div></section></main>${footer(req)}`;
-  return pageShell({ req, title: `${SERVICE_NAME} — Account`, body });
+  const bookings = getCustomerBookings(customer);
+  const activeBookings = bookings.filter((b) => ["new", "contacted", "confirmed"].includes(b.status));
+  const completedBookings = bookings.filter((b) => b.status === "completed");
+  const latestActive = activeBookings[0];
+  const tier = getCustomerTier(bookings);
+  const points = completedBookings.length * 120 + activeBookings.length * 25 + bookings.length * 10;
+  const savedAddress = customer.defaultAddress || "";
+  const savedZip = customer.defaultZip || "";
+  const favoriteWindow = customer.favoriteWindow || "ASAP / flexible";
+  const defaultNotes = customer.deliveryNotes || "";
+  const portalCards = bookings.map((b) => customerPortalBookingCard(b)).join("");
+
+  const body = `${header(req)}
+  <main class="container section">
+    <section class="portalHero reveal show">
+      <div class="portalHeroGrid">
+        <div>
+          <span class="chip">${tier.emoji} ${escapeHtml(tier.name)} customer portal</span>
+          <h1 class="portalTitle">Welcome back, <span class="shine">${escapeHtml(customer.name.split(" ")[0] || customer.name)}.</span></h1>
+          <p class="portalText">Your Dropcart Home Hub keeps your grocery unloads, saved home details, reward progress, and repeat booking shortcuts in one place.</p>
+          <div class="portalActions">
+            <a class="btn primary" href="#quick-book">Book again</a>
+            <a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a>
+            <form method="post" action="/logout" style="display:inline">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
+          </div>
+        </div>
+        <div class="portalScore glass">
+          <div class="kicker">Pantry points</div>
+          <div class="portalScoreNum">${escapeHtml(String(points))}</div>
+          <p style="margin-top:10px;color:rgba(255,255,255,.6);line-height:1.6">${escapeHtml(tier.next)}</p>
+          <div class="rewardTrack"><div class="rewardFill" style="width:${escapeHtml(String(tier.progress))}%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="portalGrid">
+      <article class="portalPanel glass reveal show">
+        <span class="chip">Home profile</span>
+        <h2 style="margin-top:16px">Make rebooking faster.</h2>
+        <p style="margin-top:10px;color:rgba(255,255,255,.6);line-height:1.65">Save your usual unload details so next time you do not have to type everything again.</p>
+        <form class="profileForm" method="post" action="/account/profile">
+          ${csrfField(req)}
+          <div class="field"><label>Name</label><input name="name" value="${escapeHtml(customer.name)}" required /></div>
+          <div class="field"><label>Phone</label><input name="phone" value="${escapeHtml(customer.phone || "")}" required /></div>
+          <div class="field full"><label>Default address</label><input name="defaultAddress" value="${escapeHtml(savedAddress)}" placeholder="Street, apartment, neighborhood" /></div>
+          <div class="field"><label>Default ZIP</label><input name="defaultZip" value="${escapeHtml(savedZip)}" placeholder="34450" /></div>
+          <div class="field"><label>Favorite window</label><select name="favoriteWindow">
+            ${["ASAP / flexible", "8:00 AM – 10:00 AM", "10:30 AM – 12:30 PM", "1:00 PM – 3:00 PM", "3:30 PM – 5:30 PM", "6:00 PM – 8:00 PM"].map((window) => `<option ${favoriteWindow === window ? "selected" : ""}>${escapeHtml(window)}</option>`).join("")}
+          </select></div>
+          <div class="field full"><label>Unload notes</label><textarea name="deliveryNotes" placeholder="Gate code, stairs, where cold items go, etc.">${escapeHtml(defaultNotes)}</textarea></div>
+          <button class="btn primary full" type="submit">Save home profile</button>
+        </form>
+      </article>
+
+      <article id="quick-book" class="portalPanel glass reveal show">
+        <span class="chip">One-tap style rebooking</span>
+        <h2 style="margin-top:16px">Repeat your usual unload.</h2>
+        <p style="margin-top:10px;color:rgba(255,255,255,.6);line-height:1.65">This uses your saved home profile and lets you adjust the basics.</p>
+        <div class="quickTiles">
+          <div class="quickTile"><span>Saved address</span><strong>${savedAddress ? escapeHtml(savedAddress) : "Add one first"}</strong></div>
+          <div class="quickTile"><span>Favorite time</span><strong>${escapeHtml(favoriteWindow)}</strong></div>
+          <div class="quickTile"><span>Active requests</span><strong>${escapeHtml(String(activeBookings.length))}</strong></div>
+        </div>
+        <form class="profileForm" method="post" action="/account/quick-book">
+          ${csrfField(req)}
+          <div class="field"><label>Bags</label><input name="bags" type="number" min="1" max="120" value="12" /></div>
+          <div class="field"><label>Stairs</label><select name="stairs"><option value="0">0 flights</option><option value="1">1 flight</option><option value="2">2 flights</option><option value="3">3+ flights</option></select></div>
+          <div class="field"><label>Heavy items</label><select name="heavy"><option value="0">None</option><option value="1">A few cases</option><option value="2">Lots of heavy stuff</option><option value="3">Very heavy / bulk</option></select></div>
+          <div class="field"><label>Placement</label><select name="placement"><option value="1">Fridge + pantry</option><option value="0">Kitchen only</option><option value="2">Full sorting help</option></select></div>
+          <div class="field"><label>Preferred date</label><input name="date" type="date" /></div>
+          <div class="field"><label>Time window</label><input name="timeWindow" value="${escapeHtml(favoriteWindow)}" /></div>
+          <div class="field full"><label>Extra notes</label><textarea name="notes" placeholder="Anything different for this unload?"></textarea></div>
+          <button class="btn primary full" type="submit" ${savedAddress ? "" : "disabled"}>${savedAddress ? "Request repeat unload" : "Save address before rebooking"}</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="section" style="padding-top:44px">
+      <div class="sectionHeader">
+        <span class="chip">Your command center</span>
+        <h2 class="sectionTitle">${latestActive ? "Current unload tracker." : "Your request history."}</h2>
+        <p class="sectionSub">${latestActive ? "Follow the progress of your active grocery unloads." : "Once you book, your requests will show up here with a status timeline."}</p>
+      </div>
+      <div class="bookingGrid">${bookings.length ? portalCards : `<div class="emptyPortal">No requests yet. Save your home profile above, then use the repeat booking card to send your first request.</div>`}</div>
+    </section>
+  </main>
+  ${footer(req)}`;
+
+  return pageShell({ req, title: `${SERVICE_NAME} — Home Hub`, body });
 }
+
 
 function employeePage(req) {
   const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -499,7 +680,7 @@ app.post("/signup", verifyCsrf, rateLimitLogin("customer-signup"), async (req, r
   if (!name || !email || passwordError) return res.status(400).send(authPage(req, "signup", passwordError || "Name and email are required."));
   const customers = readCustomers();
   if (customers.some((c) => c.email === email)) return res.status(409).send(authPage(req, "signup", "That email already has an account. Try logging in."));
-  const customer = { id: id("CUS"), name, phone, email, passwordRecord: createPasswordRecord(password), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+  const customer = { id: id("CUS"), name, phone, email, defaultAddress: "", defaultZip: "", favoriteWindow: "ASAP / flexible", deliveryNotes: "", passwordRecord: createPasswordRecord(password), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
   customers.push(customer);
   saveCustomers(customers);
   bumpAnalytics("signups");
@@ -545,6 +726,63 @@ app.post("/employee/logout", verifyCsrf, async (req, res) => {
 
 // Protected pages
 app.get("/account", requireCustomer, (req, res) => res.send(accountPage(req)));
+
+app.post("/account/profile", requireCustomer, verifyCsrf, (req, res) => {
+  const customers = readCustomers();
+  const customer = customers.find((c) => c.id === req.customer.id);
+  if (!customer) return res.redirect("/login");
+
+  customer.name = cleanText(req.body.name, 80) || customer.name;
+  customer.phone = cleanText(req.body.phone, 40) || customer.phone;
+  customer.defaultAddress = cleanText(req.body.defaultAddress, 180);
+  customer.defaultZip = digitsOnly(req.body.defaultZip).slice(0, 5);
+  customer.favoriteWindow = cleanText(req.body.favoriteWindow, 80) || "ASAP / flexible";
+  customer.deliveryNotes = cleanText(req.body.deliveryNotes, 900);
+  customer.updatedAt = new Date().toISOString();
+
+  saveCustomers(customers);
+  res.redirect("/account");
+});
+
+app.post("/account/quick-book", requireCustomer, verifyCsrf, (req, res) => {
+  const customer = req.customer;
+  const address = cleanText(customer.defaultAddress, 180);
+  const zip = digitsOnly(customer.defaultZip).slice(0, 5);
+
+  if (!address) return res.status(400).send("Save a default address in your Home Hub before using repeat booking.");
+
+  const date = cleanText(req.body.date, 40);
+  const timeWindow = cleanText(req.body.timeWindow || customer.favoriteWindow, 80);
+  const notes = cleanText([customer.deliveryNotes, req.body.notes].filter(Boolean).join(" | "), 900);
+  const estimate = calculateEstimate(req.body);
+  const area = checkServiceArea({ zip, address });
+  const bookings = readBookings();
+
+  const booking = {
+    id: id("DC"),
+    customerId: customer.id,
+    status: "new",
+    name: customer.name,
+    phone: customer.phone,
+    email: customer.email,
+    address,
+    zip,
+    date,
+    timeWindow,
+    notes,
+    estimate,
+    area,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    source: "customer-home-hub",
+  };
+
+  bookings.push(booking);
+  saveBookings(bookings);
+  bumpAnalytics("bookings");
+  res.redirect("/account");
+});
+
 app.get("/employee", requireEmployee, (req, res) => res.send(employeePage(req)));
 app.get("/employee/customers", requireEmployee, (req, res) => res.send(customersPage(req)));
 
