@@ -1111,10 +1111,169 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ===== v17 Premium Visual Effects Upgrade ===== */
+    .ambientAurora,.spotlightGlow,.floatBits{pointer-events:none;position:fixed;inset:0}
+    .ambientAurora{z-index:-2;overflow:hidden}
+    .ambientAurora:before,.ambientAurora:after{
+      content:"";position:absolute;border-radius:999px;filter:blur(70px);opacity:.22;mix-blend-mode:screen;animation:auroraDrift 18s ease-in-out infinite;
+    }
+    .ambientAurora:before{
+      width:48vw;height:48vw;min-width:420px;min-height:420px;left:-10vw;top:18vh;
+      background:radial-gradient(circle,rgba(124,92,255,.72),rgba(255,79,216,.28) 44%,transparent 68%);
+    }
+    .ambientAurora:after{
+      width:42vw;height:42vw;min-width:380px;min-height:380px;right:-12vw;bottom:4vh;
+      background:radial-gradient(circle,rgba(53,215,255,.55),rgba(124,92,255,.22) 46%,transparent 70%);
+      animation-delay:-8s;
+    }
+    @keyframes auroraDrift{
+      0%,100%{transform:translate3d(0,0,0) scale(1) rotate(0deg)}
+      35%{transform:translate3d(7vw,-4vh,0) scale(1.12) rotate(12deg)}
+      70%{transform:translate3d(-4vw,6vh,0) scale(.94) rotate(-10deg)}
+    }
+
+    .spotlightGlow{
+      z-index:-1;
+      opacity:.58;
+      background:radial-gradient(520px circle at var(--spot-x,50%) var(--spot-y,15%),rgba(255,255,255,.105),rgba(124,92,255,.08) 28%,transparent 62%);
+      transition:opacity .2s ease;
+    }
+
+    .floatBits{z-index:-1;overflow:hidden}
+    .floatBits span{
+      position:absolute;display:grid;place-items:center;width:42px;height:42px;border-radius:18px;
+      color:rgba(255,255,255,.58);background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 18px 48px rgba(0,0,0,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      animation:floatBit 12s ease-in-out infinite;
+    }
+    .floatBits span:nth-child(1){left:5%;top:18%;animation-delay:-1s}
+    .floatBits span:nth-child(2){left:88%;top:22%;animation-delay:-4s}
+    .floatBits span:nth-child(3){left:12%;top:72%;animation-delay:-7s}
+    .floatBits span:nth-child(4){left:82%;top:70%;animation-delay:-2s}
+    .floatBits span:nth-child(5){left:45%;top:12%;animation-delay:-9s}
+    .floatBits span:nth-child(6){left:58%;top:84%;animation-delay:-5s}
+    @keyframes floatBit{
+      0%,100%{transform:translate3d(0,0,0) rotate(-4deg);opacity:.35}
+      45%{transform:translate3d(18px,-22px,0) rotate(7deg);opacity:.7}
+      75%{transform:translate3d(-12px,16px,0) rotate(-9deg);opacity:.48}
+    }
+
+    .glass,.card,.formBox,.hubCard,.final,.device,.screen,.priceCards > *,details.card{
+      position:relative;
+    }
+    .glass:after,.card:after,.formBox:after,.hubCard:after,.final:after{
+      content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+      background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.105) 42%,transparent 58%);
+      transform:translateX(-130%);transition:opacity .18s ease;
+    }
+    .glass:hover:after,.card:hover:after,.formBox:hover:after,.hubCard:hover:after,.final:hover:after{
+      opacity:1;animation:surfaceSweep 1.05s ease;
+    }
+    @keyframes surfaceSweep{to{transform:translateX(130%)}}
+
+    .tiltReady{
+      transform-style:preserve-3d;
+      transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0));
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+      will-change:transform;
+    }
+    .tiltReady:hover{--lift:-3px}
+
+    .btn{
+      isolation:isolate;
+    }
+    .btn .ripple{
+      position:absolute;border-radius:999px;pointer-events:none;z-index:-1;
+      width:12px;height:12px;background:rgba(255,255,255,.32);
+      transform:translate(-50%,-50%) scale(0);animation:ripplePop .62s ease-out forwards;
+    }
+    @keyframes ripplePop{
+      to{transform:translate(-50%,-50%) scale(24);opacity:0}
+    }
+
+    .primary{
+      background-size:180% 180%!important;
+      animation:buttonGradient 7s ease-in-out infinite;
+    }
+    @keyframes buttonGradient{
+      0%,100%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+    }
+
+    .sectionTitle,.heroTitle,.personalGreeting,.finalTitle{
+      position:relative;
+    }
+    .sectionTitle:after{
+      content:"";display:block;width:min(140px,38%);height:4px;margin:18px auto 0;border-radius:999px;
+      background:linear-gradient(90deg,transparent,var(--purple),var(--cyan),transparent);
+      opacity:.7;box-shadow:0 0 28px rgba(124,92,255,.35);
+    }
+    .sectionHeader[style*="text-align:left"] .sectionTitle:after,
+    .pricingCopy .sectionTitle:after,
+    .twoCol .sectionTitle:after,
+    .card .sectionTitle:after,
+    .hubCard .sectionTitle:after{
+      margin-left:0;
+    }
+
+    .stat,.hubStat,.mini,.metaBox,.comfort,.moodTile,.task,.tinyPerk,.portalFeature{
+      position:relative;overflow:hidden;
+    }
+    .stat:before,.hubStat:before,.mini:before,.metaBox:before,.comfort:before,.moodTile:before,.task:before,.tinyPerk:before,.portalFeature:before{
+      content:"";position:absolute;inset:-1px;opacity:.55;pointer-events:none;
+      background:radial-gradient(280px circle at 20% 0%,rgba(255,255,255,.09),transparent 45%);
+    }
+
+    .requestCard{
+      animation:softBreathe 5.5s ease-in-out infinite;
+    }
+    @keyframes softBreathe{
+      0%,100%{box-shadow:0 18px 50px rgba(0,0,0,.2),0 0 0 rgba(124,92,255,0)}
+      50%{box-shadow:0 24px 64px rgba(0,0,0,.26),0 0 42px rgba(124,92,255,.08)}
+    }
+
+    .logoIcon,.appIcon,.requestIcon{
+      animation:iconPulse 6s ease-in-out infinite;
+    }
+    @keyframes iconPulse{
+      0%,100%{filter:saturate(1)}
+      50%{filter:saturate(1.15) brightness(1.04)}
+    }
+
+    .memoryStep.active,.badge.purple,.available{
+      box-shadow:0 0 34px rgba(124,92,255,.18);
+    }
+    .badge.green,.dot{
+      box-shadow:0 0 28px rgba(73,230,165,.28);
+    }
+
+    @media(max-width:720px){
+      .spotlightGlow{display:none}
+      .ambientAurora:before,.ambientAurora:after{filter:blur(48px);opacity:.16}
+      .floatBits span{width:34px;height:34px;border-radius:14px;font-size:13px;opacity:.28}
+      .floatBits span:nth-child(n+4){display:none}
+      .glass:hover:after,.card:hover:after,.formBox:hover:after,.hubCard:hover:after,.final:hover:after{animation:none;opacity:0}
+      .tiltReady,.tiltReady:hover{transform:none!important}
+      .sectionTitle:after{margin-left:0;margin-right:auto;width:110px;height:3px}
+      .requestCard{animation:none}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .ambientAurora:before,.ambientAurora:after,.floatBits span,.primary,.requestCard,.logoIcon,.appIcon,.requestIcon{animation:none!important}
+      .spotlightGlow{display:none!important}
+      .tiltReady{transform:none!important}
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
   <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div><div id="progress" class="progress"></div>
+  <div class="ambientAurora"></div>
+  <div id="spotlightGlow" class="spotlightGlow"></div>
+  <div class="floatBits" aria-hidden="true">
+    <span>🛒</span><span>🏠</span><span>🥶</span><span>📦</span><span>✨</span><span>🧺</span>
+  </div>
   <div class="mobileAppTop">
     <div class="mobileAppTopInner">
       <a class="appBrand" href="/">
@@ -1300,6 +1459,74 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     }
     closeMobileOverlays();
     window.addEventListener('pageshow', closeMobileOverlays);
+
+
+    // v17 premium interaction effects
+    const spotlight = $('#spotlightGlow');
+    if (spotlight && window.matchMedia('(pointer:fine)').matches) {
+      window.addEventListener('pointermove', (event) => {
+        document.documentElement.style.setProperty('--spot-x', event.clientX + 'px');
+        document.documentElement.style.setProperty('--spot-y', event.clientY + 'px');
+      }, { passive: true });
+    }
+
+    if (window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      $$('.card,.hubCard,.formBox,.final,.deviceShell').forEach((el) => {
+        el.classList.add('tiltReady');
+        el.addEventListener('pointermove', (event) => {
+          const rect = el.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+          el.style.setProperty('--ry', (x * 5).toFixed(2) + 'deg');
+          el.style.setProperty('--rx', (-y * 5).toFixed(2) + 'deg');
+        });
+        el.addEventListener('pointerleave', () => {
+          el.style.setProperty('--ry', '0deg');
+          el.style.setProperty('--rx', '0deg');
+        });
+      });
+    }
+
+    $$('.btn').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = (event.clientX - rect.left) + 'px';
+        ripple.style.top = (event.clientY - rect.top) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+      });
+    });
+
+    const countUpObserver = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const raw = el.textContent.trim();
+        const match = raw.match(/^(\$?)(\d+)(.*)$/);
+        if (!match) { countUpObserver.unobserve(el); return; }
+        const prefix = match[1] || '';
+        const target = Number(match[2]);
+        const suffix = match[3] || '';
+        if (!Number.isFinite(target) || target > 9999) { countUpObserver.unobserve(el); return; }
+        const start = performance.now();
+        const duration = 850;
+        const step = (now) => {
+          const progress = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = prefix + Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        countUpObserver.unobserve(el);
+      });
+    }, { threshold: 0.45 }) : null;
+
+    if (countUpObserver) {
+      $$('.statNum,.estimatePrice,.priceAmount').forEach((el) => countUpObserver.observe(el));
+    }
 
   </script>
 </body>
@@ -1826,3 +2053,4 @@ app.listen(PORT, () => {
   console.log(`Customer signup: http://localhost:${PORT}/signup`);
   console.log(`Employee login: http://localhost:${PORT}/employee/login`);
 });
+
