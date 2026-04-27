@@ -7849,6 +7849,95 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       filter?.addEventListener('change', applyFilters);
     })();
 
+
+    // v27 HQ Dispatch Device filters, clock, kiosk mode, auto-refresh
+    (function initHQDispatchDevice(){
+      const search = $('#hqSearch');
+      const filter = $('#hqFilter');
+      const cards = $$('.hqJob');
+      const columns = $$('.hqColumn');
+      const clock = $('#hqClock');
+      const refreshToggle = $('#hqRefreshToggle');
+      const fullscreen = $('#hqFullscreen');
+
+      if (!search && !filter && !clock && !refreshToggle && !fullscreen) return;
+
+      function tickClock(){
+        if (!clock) return;
+        clock.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      }
+      tickClock();
+      setInterval(tickClock, 10000);
+
+      function applyHQFilters(){
+        const q = (search?.value || '').trim().toLowerCase();
+        const status = filter?.value || 'all';
+
+        cards.forEach((card) => {
+          const matchesSearch = !q || (card.dataset.search || '').includes(q);
+          const matchesStatus = status === 'all' || card.dataset.status === status;
+          card.classList.toggle('hqHidden', !(matchesSearch && matchesStatus));
+        });
+
+        columns.forEach((column) => {
+          const colStatus = column.dataset.column;
+          column.classList.toggle('hqHidden', status !== 'all' && colStatus !== status);
+        });
+      }
+
+      search?.addEventListener('input', applyHQFilters);
+      filter?.addEventListener('change', applyHQFilters);
+
+      let autoRefresh = localStorage.getItem('dropcartHQAutoRefresh') !== 'off';
+      let refreshTimer = null;
+
+      function setRefreshButton(){
+        if (!refreshToggle) return;
+        refreshToggle.textContent = autoRefresh ? 'Auto-refresh on' : 'Auto-refresh off';
+        refreshToggle.classList.toggle('primary', autoRefresh);
+        refreshToggle.classList.toggle('ghost', !autoRefresh);
+      }
+
+      function scheduleRefresh(){
+        clearInterval(refreshTimer);
+        if (!autoRefresh) return;
+        refreshTimer = setInterval(() => {
+          const active = document.activeElement;
+          const typing = active && (active.tagName === 'INPUT' || active.tagName === 'SELECT' || active.tagName === 'TEXTAREA');
+          if (!typing && window.location.pathname === '/hq') window.location.reload();
+        }, 45000);
+      }
+
+      refreshToggle?.addEventListener('click', () => {
+        autoRefresh = !autoRefresh;
+        localStorage.setItem('dropcartHQAutoRefresh', autoRefresh ? 'on' : 'off');
+        setRefreshButton();
+        scheduleRefresh();
+      });
+
+      fullscreen?.addEventListener('click', async () => {
+        document.body.classList.toggle('hqFullscreenMode');
+        if (document.fullscreenElement) {
+          await document.exitFullscreen().catch(() => {});
+          fullscreen.textContent = 'Kiosk mode';
+          return;
+        }
+        await document.documentElement.requestFullscreen?.().catch(() => {});
+        fullscreen.textContent = document.fullscreenElement ? 'Exit kiosk' : 'Kiosk mode';
+      });
+
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+          document.body.classList.remove('hqFullscreenMode');
+          if (fullscreen) fullscreen.textContent = 'Kiosk mode';
+        }
+      });
+
+      setRefreshButton();
+      scheduleRefresh();
+      applyHQFilters();
+    })();
+
   </script>
 </body>
 </html>`;
