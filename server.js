@@ -629,7 +629,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     /* ===== v13 Mobile App Polish ===== */
     .mobileGlowDock,.mobilePageHint{display:none}
     .is-mobile-device *{max-width:100%}
-    .is-mobile-device body{overscroll-behavior-y:none}
+    .is-mobile-device body{overscroll-behavior-y:auto}
     .is-mobile-device .mobileAppTop{box-shadow:0 18px 60px rgba(0,0,0,.28)}
     .is-mobile-device .appIcon{background:linear-gradient(135deg,#fff,#dff7ff);box-shadow:0 16px 42px rgba(53,215,255,.18),0 12px 40px rgba(124,92,255,.28)}
     .is-mobile-device .appCircleBtn{transition:transform .14s ease,background .14s ease}
@@ -717,6 +717,116 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .is-mobile-device .appBottomNav a,.is-mobile-device .appBottomNav button{font-size:9px}
     }
 
+
+    /* ===== v14 Mobile Scroll + UI Fix ===== */
+    html.is-mobile-device,
+    body.is-mobile-device{
+      height:auto!important;
+      min-height:100%!important;
+      overflow-x:hidden!important;
+      overflow-y:auto!important;
+      touch-action:pan-y pinch-zoom!important;
+      -webkit-overflow-scrolling:touch!important;
+      overscroll-behavior-y:auto!important;
+    }
+    body.is-mobile-device{
+      position:relative!important;
+      width:100%!important;
+      max-width:100vw!important;
+      padding-bottom:calc(96px + var(--safe-bottom))!important;
+    }
+    .is-mobile-device main,
+    .is-mobile-device .customerShell,
+    .is-mobile-device .section,
+    .is-mobile-device .hero{
+      overflow:visible!important;
+      height:auto!important;
+      min-height:auto!important;
+    }
+    .is-mobile-device .mobileQuickSheet:not(.show),
+    .is-mobile-device .installBanner:not(.show){
+      display:none!important;
+      pointer-events:none!important;
+    }
+    .is-mobile-device .mobileQuickSheet.show{
+      display:flex!important;
+      pointer-events:auto!important;
+      touch-action:auto!important;
+    }
+    .is-mobile-device .quickSheetPanel{
+      max-height:78svh!important;
+      overflow-y:auto!important;
+      -webkit-overflow-scrolling:touch!important;
+      touch-action:pan-y!important;
+    }
+    .is-mobile-device .appBottomNav{
+      left:12px!important;
+      right:12px!important;
+      bottom:calc(12px + var(--safe-bottom))!important;
+      max-width:480px!important;
+      margin-inline:auto!important;
+      transform:none!important;
+    }
+    .is-mobile-device .appBottomNav #quickOpen{
+      transform:none!important;
+      border-radius:20px!important;
+    }
+    .is-mobile-device .appBottomNav #quickOpen:active{
+      transform:scale(.97)!important;
+    }
+    .is-mobile-device .appBottomNav a,
+    .is-mobile-device .appBottomNav button{
+      touch-action:manipulation!important;
+    }
+    .is-mobile-device .mobileAppTop{
+      position:sticky!important;
+      top:0!important;
+    }
+    .is-mobile-device .hubTopbar{
+      position:relative!important;
+      top:auto!important;
+      background:transparent!important;
+      padding-top:0!important;
+    }
+    .is-mobile-device .hubMiniNav{
+      overflow-x:auto!important;
+      overflow-y:hidden!important;
+      -webkit-overflow-scrolling:touch!important;
+      touch-action:pan-x!important;
+      padding-bottom:8px!important;
+    }
+    .is-mobile-device .hubMiniNav a,
+    .is-mobile-device .hubMiniNav button{
+      flex:0 0 auto!important;
+    }
+    .is-mobile-device .mobilePageHint{
+      display:none!important;
+    }
+    .is-mobile-device .personalHero{
+      margin-top:8px!important;
+    }
+    .is-mobile-device .deviceShell{
+      max-width:340px!important;
+    }
+    .is-mobile-device .card:hover{
+      transform:none!important;
+    }
+    .is-mobile-device .footer{
+      display:block!important;
+      padding-bottom:calc(110px + var(--safe-bottom))!important;
+    }
+    @media(max-width:380px){
+      .is-mobile-device .appBottomNav{
+        left:8px!important;
+        right:8px!important;
+        gap:5px!important;
+      }
+      .is-mobile-device .appBottomNav a,
+      .is-mobile-device .appBottomNav button{
+        min-height:52px!important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
@@ -732,11 +842,6 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         <a class="appCircleBtn" href="tel:${BUSINESS_PHONE}" aria-label="Call">📞</a>
       </div>
     </div>
-  </div>
-  
-  <div class="mobilePageHint container">
-    <span>App mode active</span>
-    <span>Swipe less · tap faster</span>
   </div>
   ${body}
   <div id="installBanner" class="installBanner">
@@ -899,6 +1004,18 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         if (navigator.vibrate && document.body?.dataset?.deviceMode === 'mobile') navigator.vibrate(8);
       });
     });
+
+
+    function closeMobileOverlays(){
+      const qs = $('#quickSheet');
+      if(qs && !qs.classList.contains('show')){
+        qs.setAttribute('aria-hidden','true');
+      }
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+    closeMobileOverlays();
+    window.addEventListener('pageshow', closeMobileOverlays);
 
   </script>
 </body>
