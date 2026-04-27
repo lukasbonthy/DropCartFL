@@ -372,7 +372,9 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   <style>
     :root{--bg:#060912;--bg2:#0b1020;--text:#f8fafc;--muted:rgba(248,250,252,.66);--muted2:rgba(248,250,252,.45);--panel:rgba(255,255,255,.078);--panel2:rgba(255,255,255,.118);--border:rgba(255,255,255,.13);--border2:rgba(255,255,255,.22);--purple:#7c5cff;--pink:#ff4fd8;--cyan:#35d7ff;--green:#49e6a5;--amber:#ffd166;--red:#ff6b6b;--blue:#5aa7ff;--shadow:0 28px 90px rgba(0,0,0,.42);--glow:0 22px 75px rgba(124,92,255,.34);--safe-bottom:env(safe-area-inset-bottom,0px)}
     *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{min-height:100vh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(950px circle at 10% -10%,rgba(124,92,255,.38),transparent 45%),radial-gradient(850px circle at 96% 8%,rgba(255,79,216,.24),transparent 42%),radial-gradient(700px circle at 50% 106%,rgba(53,215,255,.17),transparent 50%),linear-gradient(180deg,var(--bg) 0%,var(--bg2) 45%,var(--bg) 100%);overflow-x:hidden}body:before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(circle at 50% 0%,black,transparent 72%)}body:after{content:"";position:fixed;inset:0;z-index:999;opacity:.075;pointer-events:none;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='.7'/%3E%3C/svg%3E")}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.container{width:min(1240px,calc(100% - 32px));margin-inline:auto}.display{font-family:"Space Grotesk",Inter,sans-serif}.orb{position:fixed;z-index:-3;pointer-events:none;border-radius:999px;filter:blur(54px);opacity:.28;animation:orbFloat 18s ease-in-out infinite}.orb.one{top:-120px;left:-140px;width:430px;height:430px;background:var(--purple)}.orb.two{top:22%;right:-160px;width:450px;height:450px;background:var(--pink);animation-delay:-7s}.orb.three{bottom:-170px;left:32%;width:380px;height:380px;background:var(--cyan);animation-delay:-11s}@keyframes orbFloat{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(38px,-24px,0) scale(1.07)}66%{transform:translate3d(-28px,30px,0) scale(.96)}}.progress{position:fixed;top:0;left:0;z-index:1500;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan));box-shadow:0 0 24px rgba(255,79,216,.62)}
-    .glass{background:linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.04));border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}.soft{background:rgba(255,255,255,.058);border:1px solid rgba(255,255,255,.105);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.chip{display:inline-flex;align-items:center;gap:9px;min-height:32px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.76);font-size:12px;font-weight:850;letter-spacing:-.01em;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 16px 45px rgba(0,0,0,.22)}.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 22px rgba(73,230,165,.82)}.btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:13px 20px;border:0;border-radius:18px;font-weight:900;font-size:14px;letter-spacing:-.02em;transition:transform .18s ease,filter .18s ease,background .18s ease,border-color .18s ease;overflow:hidden;user-select:none;white-space:nowrap}.btn:active{transform:scale(.965)}.primary{color:white;background:linear-gradient(135deg,var(--purple) 0%,var(--pink) 55%,var(--cyan) 130%);box-shadow:0 22px 70px rgba(124,92,255,.34),inset 0 1px 0 rgba(255,255,255,.22)}.primary:hover{transform:translateY(-1px);filter:saturate(1.15) brightness(1.08)}.ghost{color:white;background:rgba(255,255,255,.068);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 16px 48px rgba(0,0,0,.22)}.ghost:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.2)}.danger{color:white;background:rgba(255,107,107,.14);border:1px solid rgba(255,107,107,.22)}.shine{background:linear-gradient(90deg,#fff 0%,#c9c0ff 22%,#ff7be8 50%,#68e4ff 78%,#fff 100%);background-size:240% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:textShine 8s ease-in-out infinite;text-shadow:0 0 38px rgba(124,92,255,.16)}@keyframes textShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.04));border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}.soft{background:rgba(255,255,255,.058);border:1px solid rgba(255,255,255,.105);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.chip{display:inline-flex;align-items:center;gap:9px;min-height:32px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.76);font-size:12px;font-weight:850;letter-spacing:-.01em;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 16px 45px rgba(0,0,0,.22)}.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 22px rgba(73,230,165,.82)}.btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:13px 20px;border:0;border-radius:18px;font-weight:900;font-size:14px;letter-spacing:-.02em;transition:transform .18s ease,filter .18s ease,background .18s ease,border-color .18s ease;overflow:hidden;user-select:none;white-space:nowrap}.btn:active{transform:scale(.965)}.primary{color:white;background:linear-gradient(135deg,var(--purple) 0%,var(--pink) 55%,var(--cyan) 130%);box-shadow:0 22px 70px rgba(124,92,255,.34),inset 0 1px 0 rgba(255,255,255,.22)}.primary:hover{transform:translateY(-1px);filter:saturate(1.15) brightness(1.08)}.ghost{color:white;background:rgba(255,255,255,.068);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 16px 48px rgba(0,0,0,.22)}.ghost:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.2)}
+    .authPill{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 20px;border-radius:18px;font-size:14px;font-weight:900;letter-spacing:-.02em;background:rgba(255,255,255,.068);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 16px 48px rgba(0,0,0,.22)}
+    .authPill:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.2)}.danger{color:white;background:rgba(255,107,107,.14);border:1px solid rgba(255,107,107,.22)}.shine{background:linear-gradient(90deg,#fff 0%,#c9c0ff 22%,#ff7be8 50%,#68e4ff 78%,#fff 100%);background-size:240% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:textShine 8s ease-in-out infinite;text-shadow:0 0 38px rgba(124,92,255,.16)}@keyframes textShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
     .header{position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(7,10,18,.72);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3)}.nav{display:flex;align-items:center;justify-content:space-between;min-height:72px}.logo{display:inline-flex;align-items:center;gap:12px}.logoIcon{position:relative;display:grid;place-items:center;width:43px;height:43px;border-radius:17px;color:#070a12;background:white;box-shadow:0 20px 60px rgba(124,92,255,.35)}.logoIcon:after{content:"";position:absolute;inset:-9px;z-index:-1;border-radius:24px;background:var(--purple);filter:blur(18px);opacity:.55}.logoTitle{display:block;font-family:"Space Grotesk",Inter,sans-serif;font-size:22px;line-height:1;font-weight:800;letter-spacing:-.045em}.logoSub{display:block;margin-top:2px;font-size:11px;font-weight:800;color:rgba(255,255,255,.45)}.desktopNav{display:flex;align-items:center;gap:5px}.navLink{padding:11px 13px;border-radius:14px;color:rgba(255,255,255,.66);font-size:14px;font-weight:800;transition:background .18s ease,color .18s ease}.navLink:hover{color:white;background:rgba(255,255,255,.07)}.menuBtn{display:none;width:48px;height:48px;padding:0}.mobileMenu{display:none;padding-bottom:14px}.mobileMenu.open{display:block;animation:mobileDrop .23s ease both}@keyframes mobileDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}.mobilePanel{padding:12px;border-radius:24px}.mobilePanel a,.mobilePanel button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border-radius:16px;color:rgba(255,255,255,.74);font-weight:850;background:none;border:0}.mobilePanel a:hover,.mobilePanel button:hover{background:rgba(255,255,255,.07);color:white}.mobileActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
     .hero{position:relative;display:grid;grid-template-columns:1.04fr .96fr;align-items:center;gap:48px;min-height:calc(100svh - 72px);padding:64px 0 54px}.heroTitle{margin-top:20px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(58px,8vw,118px);font-weight:800;letter-spacing:-.078em;line-height:.84;text-wrap:balance}.heroDesc{max-width:680px;margin-top:24px;color:var(--muted);font-size:20px;line-height:1.72}.heroActions{display:flex;flex-wrap:wrap;align-items:center;gap:13px;margin-top:28px}.heroNote{margin-top:14px;color:rgba(255,255,255,.42);font-size:13px;font-weight:700}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}.stat{padding:18px;border-radius:24px}.statNum{font-family:"Space Grotesk",Inter,sans-serif;font-size:27px;line-height:1;font-weight:800;letter-spacing:-.05em}.statLab{margin-top:7px;color:rgba(255,255,255,.47);font-size:12px;font-weight:800}.deviceShell{position:relative;width:min(100%,520px);margin-left:auto;border-radius:42px}.deviceShell:before{content:"";position:absolute;inset:-3px;z-index:-2;border-radius:inherit;background:conic-gradient(from 180deg,rgba(124,92,255,.86),rgba(255,79,216,.65),rgba(53,215,255,.55),rgba(124,92,255,.86));filter:blur(18px);opacity:.86;animation:auraSpin 9s linear infinite}@keyframes auraSpin{to{transform:rotate(360deg)}}.device{padding:18px;border-radius:42px}.screen{position:relative;overflow:hidden;padding:20px;border-radius:32px;background:radial-gradient(520px circle at var(--mx,50%) var(--my,20%),rgba(255,255,255,.13),transparent 48%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.1)}.phoneBar{width:78px;height:6px;margin:0 auto 20px;border-radius:999px;background:rgba(255,255,255,.14)}.requestTop{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.kicker{color:rgba(255,255,255,.42);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.requestTitle{margin-top:4px;font-family:"Space Grotesk",Inter,sans-serif;font-size:29px;font-weight:800;letter-spacing:-.055em}.available{display:inline-flex;align-items:center;gap:8px;padding:9px 11px;border-radius:999px;color:var(--green);background:rgba(73,230,165,.13);border:1px solid rgba(73,230,165,.2);font-size:12px;font-weight:900}.requestCard{margin-top:20px;padding:18px;border-radius:26px;border:1px solid rgba(255,255,255,.105);background:rgba(0,0,0,.23)}.requestRow{display:flex;align-items:flex-start;gap:14px}.requestIcon{display:grid;place-items:center;flex-shrink:0;width:50px;height:50px;border-radius:20px;color:#070a12;background:white;box-shadow:0 18px 50px rgba(255,255,255,.12)}.requestInfo h3{font-size:17px;font-weight:900;letter-spacing:-.025em}.requestInfo p{margin-top:5px;color:rgba(255,255,255,.56);font-size:14px;line-height:1.6}.miniGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}.mini{padding:15px;border-radius:22px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1)}.miniLabel{color:rgba(255,255,255,.48);font-size:12px;font-weight:800}.miniValue{margin-top:5px;font-family:"Space Grotesk",Inter,sans-serif;font-size:28px;line-height:1;font-weight:800;letter-spacing:-.06em}.taskGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px}.task{padding:14px 10px;border-radius:20px;text-align:center;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.075)}.taskEmoji{font-size:23px;line-height:1}.taskText{margin-top:8px;color:rgba(255,255,255,.56);font-size:12px;font-weight:900}.ready{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:14px;border-radius:22px;background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.22)}.ready h4{font-size:14px;font-weight:900}.ready p{margin-top:3px;color:rgba(255,255,255,.47);font-size:12px;font-weight:700}
     .section{padding:86px 0}.sectionHeader{max-width:820px;margin:0 auto 42px;text-align:center}.sectionTitle{margin-top:16px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(38px,5vw,64px);line-height:.95;font-weight:800;letter-spacing:-.066em;text-wrap:balance}.sectionSub{max-width:700px;margin:18px auto 0;color:var(--muted);font-size:18px;line-height:1.68}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.twoCol{display:grid;grid-template-columns:.86fr 1.14fr;gap:32px;align-items:start}.card{position:relative;overflow:hidden;padding:24px;border-radius:28px;transition:transform .22s ease,border-color .22s ease,background .22s ease}.card:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px circle at 20% 0%,rgba(255,255,255,.08),transparent 44%);opacity:.75}.card>*{position:relative;z-index:1}.card:hover{transform:translateY(-4px);border-color:var(--border2);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.052))}.icon{display:grid;place-items:center;width:48px;height:48px;border-radius:20px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.1);font-size:23px}.card h3{margin-top:18px;font-family:"Space Grotesk",Inter,sans-serif;font-size:22px;line-height:1.1;font-weight:800;letter-spacing:-.045em}.card p{margin-top:10px;color:rgba(255,255,255,.58);font-size:14px;line-height:1.65}.stepNum{display:grid;place-items:center;width:44px;height:44px;border-radius:18px;color:#070a12;background:white;font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:900;box-shadow:0 16px 40px rgba(255,255,255,.12)}.priceCards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.popular{background:radial-gradient(540px circle at 20% 0%,rgba(124,92,255,.22),transparent 42%),linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.045));border-color:rgba(255,255,255,.2)}.priceTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.priceName{margin:0;font-family:"Space Grotesk",Inter,sans-serif;font-size:29px;font-weight:800;letter-spacing:-.055em}.priceDesc{margin-top:5px;color:rgba(255,255,255,.52);font-size:14px;line-height:1.55}.priceMain{display:flex;align-items:flex-end;gap:8px;margin-top:28px}.priceAmount{font-family:"Space Grotesk",Inter,sans-serif;font-size:70px;line-height:.85;font-weight:800;letter-spacing:-.09em}.priceUnit{padding-bottom:7px;color:rgba(255,255,255,.48);font-size:15px;font-weight:800}.checks{display:grid;gap:12px;margin-top:28px;list-style:none}.checks li{display:flex;align-items:flex-start;gap:10px;color:rgba(255,255,255,.7);font-size:14px;line-height:1.45;font-weight:650}.check{color:var(--green);font-weight:900}.fine{margin-top:12px;color:rgba(255,255,255,.4);font-size:12px;line-height:1.5}
@@ -623,6 +625,98 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
     @media(max-width:720px){.bookingStudioTop{display:grid}.bookingPulse{width:100%;height:auto;min-height:78px;display:flex;justify-content:center;gap:10px}.portalTinyGrid,.portalFeatureGrid{grid-template-columns:1fr}.saveDefaultBox{font-size:12px}.personalForm.bookingForm{grid-template-columns:1fr!important}}
 
+
+    /* ===== v13 Mobile App Polish ===== */
+    .mobileGlowDock,.mobilePageHint{display:none}
+    .is-mobile-device *{max-width:100%}
+    .is-mobile-device body{overscroll-behavior-y:none}
+    .is-mobile-device .mobileAppTop{box-shadow:0 18px 60px rgba(0,0,0,.28)}
+    .is-mobile-device .appIcon{background:linear-gradient(135deg,#fff,#dff7ff);box-shadow:0 16px 42px rgba(53,215,255,.18),0 12px 40px rgba(124,92,255,.28)}
+    .is-mobile-device .appCircleBtn{transition:transform .14s ease,background .14s ease}
+    .is-mobile-device .appCircleBtn:active{transform:scale(.94);background:rgba(255,255,255,.12)}
+    .is-mobile-device .mobilePageHint{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px auto 0;padding:10px 12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.55);font-size:12px;font-weight:850}
+    .is-mobile-device .hero{padding-top:18px}
+    .is-mobile-device .hero:before{min-width:0;min-height:0;width:120vw;height:120vw;top:-8%;opacity:.72}
+    .is-mobile-device .heroTitle{line-height:.88;text-wrap:balance}
+    .is-mobile-device .heroDesc{margin-top:18px}
+    .is-mobile-device .heroActions{gap:10px}
+    .is-mobile-device .stats{gap:10px}
+    .is-mobile-device .stat{padding:15px;border-radius:22px;background:rgba(255,255,255,.065)}
+    .is-mobile-device .statNum{font-size:25px}
+    .is-mobile-device .deviceShell{width:min(100%,360px);margin:0 auto;border-radius:32px}
+    .is-mobile-device .deviceShell:before{filter:blur(12px);opacity:.58}
+    .is-mobile-device .device{padding:10px;border-radius:32px}
+    .is-mobile-device .screen{padding:14px;border-radius:24px}
+    .is-mobile-device .requestTitle{font-size:24px}
+    .is-mobile-device .requestCard{padding:14px;border-radius:22px}
+    .is-mobile-device .requestIcon{width:44px;height:44px;border-radius:17px}
+    .is-mobile-device .task{padding:12px 8px;border-radius:18px}
+    .is-mobile-device .ready{align-items:stretch;flex-direction:column}
+    .is-mobile-device .sectionHeader{text-align:left;margin-bottom:20px}
+    .is-mobile-device .chip{max-width:100%;white-space:normal}
+    .is-mobile-device .field input,.is-mobile-device .field select,.is-mobile-device .field textarea{min-height:54px;border-radius:19px}
+    .is-mobile-device .formBox{padding:18px;border-radius:28px}
+    .is-mobile-device .estimateResult{padding:18px;border-radius:24px}
+    .is-mobile-device .estimatePrice{font-size:54px}
+    .is-mobile-device .quickSheetPanel{max-height:82svh;overflow-y:auto}
+    .is-mobile-device .quickGrid{gap:9px}
+    .is-mobile-device .quickGrid .btn{min-height:58px}
+    .is-mobile-device .appBottomNav{grid-template-columns:1fr 1fr 1.12fr 1fr;border-radius:28px;padding:8px}
+    .is-mobile-device .appBottomNav a,.is-mobile-device .appBottomNav button{min-height:56px}
+    .is-mobile-device .appBottomNav #quickOpen{color:white;background:linear-gradient(135deg,var(--purple),var(--pink));box-shadow:0 14px 40px rgba(124,92,255,.32),inset 0 1px 0 rgba(255,255,255,.16);transform:translateY(-8px);border-radius:22px}
+    .is-mobile-device .appBottomNav #quickOpen span{font-size:24px}
+    .is-mobile-device .appBottomNav #quickOpen:active{transform:translateY(-6px) scale(.97)}
+    .is-mobile-device .installBanner{border-radius:26px}
+    .is-mobile-device .installBannerBtns{grid-template-columns:1fr 1fr;display:grid}
+    .is-mobile-device .customerShell{padding-top:12px}
+    .is-mobile-device .portalMode{background:linear-gradient(180deg,#081019,#090d16 42%,#050711)}
+    .is-mobile-device .hubTopbar{position:sticky;top:72px;z-index:900;display:grid;gap:10px;padding:10px 0;background:linear-gradient(180deg,rgba(7,10,18,.96),rgba(7,10,18,.72),transparent)}
+    .is-mobile-device .hubMiniNav{display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+    .is-mobile-device .hubMiniNav::-webkit-scrollbar{display:none}
+    .is-mobile-device .hubMiniNav a,.is-mobile-device .hubMiniNav button{white-space:nowrap;min-height:38px;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.68);font-size:12px;font-weight:900}
+    .is-mobile-device .personalHero{padding:18px;border-radius:30px;background:radial-gradient(480px circle at 15% 0%,rgba(73,230,165,.16),transparent 44%),radial-gradient(520px circle at 100% 10%,rgba(124,92,255,.2),transparent 46%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 70px rgba(0,0,0,.28)}
+    .is-mobile-device .personalHeroGrid{grid-template-columns:1fr;gap:16px}
+    .is-mobile-device .personalGreeting{font-size:clamp(38px,12vw,58px);line-height:.92}
+    .is-mobile-device .personalSub{font-size:14px;line-height:1.62}
+    .is-mobile-device .hubStats{grid-template-columns:repeat(2,1fr);gap:9px}
+    .is-mobile-device .hubStat{border-radius:19px;padding:13px}
+    .is-mobile-device .portalActions{display:grid;grid-template-columns:1fr;gap:9px}
+    .is-mobile-device .todayCard{border-radius:26px;padding:18px}
+    .is-mobile-device .rewardRing{grid-template-columns:1fr;text-align:center;justify-items:center}
+    .is-mobile-device .hubLayout{grid-template-columns:1fr;gap:14px}
+    .is-mobile-device .hubSidebar,.is-mobile-device .hubMain{display:grid;gap:14px}
+    .is-mobile-device .hubCard{border-radius:26px;padding:18px}
+    .is-mobile-device .hubCardTitle{font-size:31px;line-height:.96}
+    .is-mobile-device .profileLine{align-items:flex-start;gap:8px;flex-direction:column}
+    .is-mobile-device .profileLine strong{text-align:left}
+    .is-mobile-device .homeMood,.is-mobile-device .portalTinyGrid,.is-mobile-device .portalFeatureGrid,.is-mobile-device .comfortStrip{grid-template-columns:1fr}
+    .is-mobile-device .nextUnloadFocus{grid-template-columns:1fr}
+    .is-mobile-device .focusPanel{border-radius:22px;padding:16px}
+    .is-mobile-device .focusPanel h3{font-size:25px}
+    .is-mobile-device .personalForm{grid-template-columns:1fr!important;gap:11px}
+    .is-mobile-device .bookingStudioTop{display:grid}
+    .is-mobile-device .bookingPulse{width:100%;height:auto;min-height:76px;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:22px}
+    .is-mobile-device .saveDefaultBox{font-size:12px;border-radius:18px}
+    .is-mobile-device .memoryCard{border-radius:24px;padding:15px}
+    .is-mobile-device .memoryTop{flex-direction:column}
+    .is-mobile-device .memoryTitle{font-size:22px;line-height:1.05}
+    .is-mobile-device .memoryTimeline{grid-template-columns:repeat(2,1fr)}
+    .is-mobile-device .tinyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .is-mobile-device .tinyActions .btn{min-height:44px;padding:10px 12px}
+    .is-mobile-device .bookingTop,.is-mobile-device .accountHeader{flex-direction:column}
+    .is-mobile-device .adminActions form{width:100%;flex-direction:column;align-items:stretch}
+    .is-mobile-device .adminActions .btn{width:100%}
+    .is-mobile-device .footer{display:none}
+    @media(max-width:380px){
+      .is-mobile-device .container{width:min(100% - 18px,1240px)}
+      .is-mobile-device .appBrandText strong{font-size:16px}
+      .is-mobile-device .appCircleBtn{width:38px;height:38px;border-radius:14px}
+      .is-mobile-device .heroTitle{font-size:44px}
+      .is-mobile-device .personalGreeting{font-size:36px}
+      .is-mobile-device .appBottomNav{left:6px;right:6px;gap:5px}
+      .is-mobile-device .appBottomNav a,.is-mobile-device .appBottomNav button{font-size:9px}
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}">
@@ -631,13 +725,18 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     <div class="mobileAppTopInner">
       <a class="appBrand" href="/">
         <span class="appIcon">🛒</span>
-        <span class="appBrandText"><strong>Dropcart</strong><span id="mobileAppSub">Home help, fast</span></span>
+        <span class="appBrandText"><strong>${escapeHtml(SERVICE_NAME)}</strong><span id="mobileAppSub">${customer ? `Hey ${escapeHtml((customer.name || "there").split(" ")[0])} · Home Hub` : "Home help, fast"}</span></span>
       </a>
       <div class="appTopActions">
         <a class="appCircleBtn" href="/account" aria-label="Account">👤</a>
         <a class="appCircleBtn" href="tel:${BUSINESS_PHONE}" aria-label="Call">📞</a>
       </div>
     </div>
+  </div>
+  
+  <div class="mobilePageHint container">
+    <span>App mode active</span>
+    <span>Swipe less · tap faster</span>
   </div>
   ${body}
   <div id="installBanner" class="installBanner">
@@ -769,12 +868,36 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       });
     }
 
-    const path = window.location.pathname;
-    $$('.appBottomNav [data-tab]').forEach(link => {
-      const tab = link.getAttribute('data-tab');
-      if ((tab === 'home' && path === '/') || (tab === 'account' && path.startsWith('/account')) || (tab === 'estimate' && window.location.hash === '#estimate')) {
-        link.classList.add('active');
+    
+    function setMobileActiveTab(){
+      const pathNow = window.location.pathname;
+      const hashNow = window.location.hash;
+      $$('.appBottomNav [data-tab]').forEach(link => link.classList.remove('active'));
+      $$('.appBottomNav [data-tab]').forEach(link => {
+        const tab = link.getAttribute('data-tab');
+        if ((tab === 'home' && pathNow === '/' && !hashNow) ||
+            (tab === 'account' && pathNow.startsWith('/account')) ||
+            (tab === 'estimate' && hashNow === '#estimate')) {
+          link.classList.add('active');
+        }
+      });
+      const sub = $('#mobileAppSub');
+      if(sub && document.body?.dataset?.deviceMode === 'mobile'){
+        if(pathNow.startsWith('/account')) sub.textContent = sub.textContent.includes('Hey') ? sub.textContent : 'Your Home Hub';
+        else if(hashNow === '#estimate') sub.textContent = 'Quick estimate';
+        else if(pathNow.startsWith('/login')) sub.textContent = 'Welcome back';
+        else if(pathNow.startsWith('/signup')) sub.textContent = 'Create your account';
       }
+    }
+    setMobileActiveTab();
+    window.addEventListener('hashchange', setMobileActiveTab);
+
+
+
+    $$('.appBottomNav a,.appBottomNav button,.quickGrid .btn').forEach(el => {
+      el.addEventListener('click', () => {
+        if (navigator.vibrate && document.body?.dataset?.deviceMode === 'mobile') navigator.vibrate(8);
+      });
     });
 
   </script>
@@ -788,7 +911,7 @@ function header(req) {
   const csrf = req ? csrfToken(req) : "";
   const customerLinks = customer
     ? `<a class="navLink" href="/account">Account</a><form method="post" action="/logout" style="display:inline">${csrfField(req)}<button class="navLink" style="border:0;background:transparent;cursor:pointer" type="submit">Logout</button></form>`
-    : `<a class="navLink" href="/login">Login</a><a class="btn ghost" href="/signup">Sign up</a>`;
+    : `<a class="btn ghost" href="/login">Login</a><a class="btn ghost" href="/signup">Sign up</a>`;
   const employeeLink = employee ? `<a class="navLink" href="/employee">Employee</a>` : ``;
   return `<header class="header">
     <div class="container nav">
@@ -800,7 +923,7 @@ function header(req) {
   </header>`;
 }
 function footer(req) {
-  return `<footer class="footer"><div class="container foot"><div><div class="footTitle">${escapeHtml(SERVICE_NAME)}</div><div class="footCopy">© ${new Date().getFullYear()} ${escapeHtml(SERVICE_NAME)}. ${escapeHtml(CITY)}, ${escapeHtml(STATE)}. Grocery unloading made simple.</div></div><div class="footLinks"><a href="/#pricing">Pricing</a><a href="/#area">Area</a><a href="/#contact">Contact</a><a href="/login">Login</a><a href="/signup">Sign up</a></div></div></footer>`;
+  return `<footer class="footer"><div class="container foot"><div><div class="footTitle">${escapeHtml(SERVICE_NAME)}</div><div class="footCopy">© ${new Date().getFullYear()} ${escapeHtml(SERVICE_NAME)}. ${escapeHtml(CITY)}, ${escapeHtml(STATE)}. Grocery unloading made simple.</div></div><div class="footLinks"><a href="/#pricing">Pricing</a><a href="/#area">Area</a><a href="/#contact">Contact</a><a href="/login" class="btn ghost">Login</a><a href="/signup">Sign up</a></div></div></footer>`;
 }
 
 function bookingCard(b, { employeeView = false } = {}) {
