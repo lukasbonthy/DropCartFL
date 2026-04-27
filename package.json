@@ -1,7 +1,7 @@
 {
-  "name": "dropcartfl-secure",
-  "version": "3.0.0",
-  "description": "DropCartFL Render-ready Node.js app with secure admin login",
+  "name": "dropcartfl-employee-customer-auth",
+  "version": "4.0.0",
+  "description": "DropCartFL Render-ready Node.js app with employee login and customer signup/login",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
