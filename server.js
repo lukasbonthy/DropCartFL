@@ -7974,6 +7974,594 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v31 Categorized Theme Gallery + More Effect Themes
+       ============================================================ */
+
+    .themeGalleryPanel {
+      max-height: min(620px, 68svh);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .themeGallery {
+      display: grid;
+      gap: 12px;
+    }
+
+    .themeCategory {
+      padding: 12px;
+      border-radius: 22px;
+      background:
+        radial-gradient(420px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 10%, transparent), transparent 48%),
+        rgba(255,255,255,.040);
+      border: 1px solid rgba(255,255,255,.075);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .themeCategoryHead {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.13);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .themeCategoryHead strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .themeCategoryHead span {
+      display: block;
+      max-width: 230px;
+      color: rgba(255,255,255,.44);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 750;
+      text-align: right;
+    }
+
+    .themeCategoryGrid {
+      max-height: none;
+      overflow: visible;
+      padding-right: 0;
+    }
+
+    .themeCategoryGrid .sensoryOption {
+      min-height: 86px;
+    }
+
+    .themeCategoryGrid .sensoryOption span {
+      min-height: 26px;
+    }
+
+    .themeIdea {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255,255,255,.40);
+      font-size: 10px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    body.vibe-fog {
+      --theme-bg-1:#07111a;
+      --theme-bg-2:#17212b;
+      --theme-surface:rgba(226,232,240,.078);
+      --theme-line:rgba(226,232,240,.16);
+      --theme-line-2:rgba(248,250,252,.28);
+      --theme-text:#f8fafc;
+      --theme-muted:rgba(248,250,252,.66);
+      --theme-a:#94a3b8;
+      --theme-b:#cbd5e1;
+      --theme-c:#e2e8f0;
+      --theme-good:#cbd5e1;
+      --theme-radius:32px;
+      --theme-radius-lg:58px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.54);
+      --theme-card:radial-gradient(760px circle at 16% 0%,rgba(226,232,240,.14),transparent 48%),linear-gradient(180deg,rgba(255,255,255,.095),rgba(148,163,184,.038));
+      --theme-btn:linear-gradient(135deg,#64748b 0%,#cbd5e1 58%,#f8fafc 126%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#e2e8f0 30%,#94a3b8 58%,#fff 82%,#fff 100%);
+      --theme-pattern-opacity:.14;
+      --theme-card-filter:blur(32px) saturate(1.02);
+    }
+
+    body.vibe-desert {
+      --theme-bg-1:#160b05;
+      --theme-bg-2:#3a200c;
+      --theme-surface:rgba(253,186,116,.080);
+      --theme-line:rgba(253,186,116,.18);
+      --theme-line-2:rgba(254,215,170,.32);
+      --theme-text:#fff7ed;
+      --theme-muted:rgba(255,247,237,.68);
+      --theme-a:#f97316;
+      --theme-b:#facc15;
+      --theme-c:#fed7aa;
+      --theme-good:#fdba74;
+      --theme-radius:20px;
+      --theme-radius-lg:34px;
+      --theme-shadow:0 30px 96px rgba(44,18,3,.58);
+      --theme-card:radial-gradient(680px circle at 18% 0%,rgba(249,115,22,.18),transparent 48%),radial-gradient(600px circle at 100% 20%,rgba(250,204,21,.12),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(249,115,22,.035));
+      --theme-btn:linear-gradient(135deg,#c2410c 0%,#f97316 52%,#facc15 125%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fed7aa 28%,#f97316 56%,#facc15 82%,#fff 100%);
+      --theme-pattern-opacity:.26;
+      --theme-card-filter:blur(16px) saturate(1.18);
+    }
+
+    body.vibe-meteor {
+      --theme-bg-1:#02000d;
+      --theme-bg-2:#0b1026;
+      --theme-surface:rgba(96,165,250,.072);
+      --theme-line:rgba(147,197,253,.16);
+      --theme-line-2:rgba(248,250,252,.28);
+      --theme-text:#f8fbff;
+      --theme-muted:rgba(248,251,255,.66);
+      --theme-a:#3b82f6;
+      --theme-b:#f97316;
+      --theme-c:#ffffff;
+      --theme-good:#93c5fd;
+      --theme-radius:18px;
+      --theme-radius-lg:30px;
+      --theme-shadow:0 30px 104px rgba(0,0,0,.66);
+      --theme-card:radial-gradient(720px circle at 16% 0%,rgba(59,130,246,.18),transparent 48%),radial-gradient(640px circle at 100% 20%,rgba(249,115,22,.10),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(15,23,42,.48));
+      --theme-btn:linear-gradient(135deg,#1d4ed8 0%,#3b82f6 52%,#f97316 124%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bfdbfe 28%,#3b82f6 54%,#f97316 78%,#fff 100%);
+      --theme-pattern-opacity:.20;
+      --theme-card-filter:blur(12px) contrast(1.16);
+    }
+
+    body.vibe-autumn {
+      --theme-bg-1:#130b04;
+      --theme-bg-2:#2b1708;
+      --theme-surface:rgba(251,146,60,.080);
+      --theme-line:rgba(251,146,60,.18);
+      --theme-line-2:rgba(253,186,116,.30);
+      --theme-text:#fff7ed;
+      --theme-muted:rgba(255,247,237,.68);
+      --theme-a:#ea580c;
+      --theme-b:#b45309;
+      --theme-c:#f59e0b;
+      --theme-good:#fdba74;
+      --theme-radius:26px;
+      --theme-radius-lg:46px;
+      --theme-shadow:0 30px 96px rgba(45,18,3,.58);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(234,88,12,.18),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(245,158,11,.12),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(234,88,12,.034));
+      --theme-btn:linear-gradient(135deg,#9a3412 0%,#ea580c 56%,#f59e0b 125%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fed7aa 28%,#ea580c 56%,#f59e0b 80%,#fff 100%);
+      --theme-pattern-opacity:.25;
+      --theme-card-filter:blur(18px) saturate(1.14);
+    }
+
+    body.vibe-bubbles {
+      --theme-bg-1:#03131a;
+      --theme-bg-2:#083344;
+      --theme-surface:rgba(103,232,249,.088);
+      --theme-line:rgba(103,232,249,.20);
+      --theme-line-2:rgba(224,242,254,.34);
+      --theme-text:#f0fdff;
+      --theme-muted:rgba(240,253,255,.70);
+      --theme-a:#06b6d4;
+      --theme-b:#67e8f9;
+      --theme-c:#d9f99d;
+      --theme-good:#a7f3d0;
+      --theme-radius:42px;
+      --theme-radius-lg:72px;
+      --theme-shadow:0 28px 96px rgba(0,49,64,.50);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(103,232,249,.18),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(217,249,157,.10),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.12),rgba(103,232,249,.034));
+      --theme-btn:linear-gradient(135deg,#0891b2 0%,#67e8f9 58%,#d9f99d 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#cffafe 28%,#06b6d4 54%,#d9f99d 80%,#fff 100%);
+      --theme-pattern-opacity:.28;
+      --theme-card-filter:blur(26px) saturate(1.22);
+    }
+
+    body.vibe-confetti {
+      --theme-bg-1:#12051f;
+      --theme-bg-2:#2e1065;
+      --theme-surface:rgba(255,255,255,.10);
+      --theme-line:rgba(255,255,255,.18);
+      --theme-line-2:rgba(255,255,255,.34);
+      --theme-text:#fff7ff;
+      --theme-muted:rgba(255,247,255,.70);
+      --theme-a:#ec4899;
+      --theme-b:#8b5cf6;
+      --theme-c:#facc15;
+      --theme-good:#22c55e;
+      --theme-radius:34px;
+      --theme-radius-lg:64px;
+      --theme-shadow:0 28px 96px rgba(46,10,80,.54);
+      --theme-card:radial-gradient(600px circle at 18% 0%,rgba(236,72,153,.22),transparent 48%),radial-gradient(560px circle at 96% 22%,rgba(250,204,21,.16),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.045));
+      --theme-btn:linear-gradient(135deg,#ec4899 0%,#8b5cf6 52%,#facc15 126%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fbcfe8 24%,#ec4899 48%,#8b5cf6 72%,#fff 100%);
+      --theme-pattern-opacity:.34;
+      --theme-card-filter:blur(24px) saturate(1.38);
+    }
+
+    body.vibe-laser {
+      --theme-bg-1:#02030a;
+      --theme-bg-2:#09011f;
+      --theme-surface:rgba(0,255,255,.070);
+      --theme-line:rgba(0,255,255,.20);
+      --theme-line-2:rgba(255,0,200,.30);
+      --theme-text:#f8ffff;
+      --theme-muted:rgba(248,255,255,.66);
+      --theme-a:#00f5ff;
+      --theme-b:#ff00c8;
+      --theme-c:#39ff14;
+      --theme-good:#39ff14;
+      --theme-radius:8px;
+      --theme-radius-lg:12px;
+      --theme-shadow:0 30px 104px rgba(0,0,0,.70);
+      --theme-card:linear-gradient(180deg,rgba(0,245,255,.09),rgba(255,0,200,.035)),radial-gradient(650px circle at 18% 0%,rgba(57,255,20,.08),transparent 48%);
+      --theme-btn:linear-gradient(135deg,#00f5ff 0%,#ff00c8 56%,#39ff14 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#00f5ff 30%,#ff00c8 58%,#39ff14 82%,#fff 100%);
+      --theme-pattern-opacity:.42;
+      --theme-card-filter:blur(8px) contrast(1.25) saturate(1.5);
+    }
+
+    body.vibe-matrix {
+      --theme-bg-1:#000704;
+      --theme-bg-2:#00150a;
+      --theme-surface:rgba(34,197,94,.060);
+      --theme-line:rgba(34,197,94,.18);
+      --theme-line-2:rgba(187,247,208,.30);
+      --theme-text:#f0fff4;
+      --theme-muted:rgba(240,255,244,.62);
+      --theme-a:#22c55e;
+      --theme-b:#16a34a;
+      --theme-c:#bbf7d0;
+      --theme-good:#4ade80;
+      --theme-radius:6px;
+      --theme-radius-lg:10px;
+      --theme-shadow:0 30px 104px rgba(0,0,0,.72);
+      --theme-card:linear-gradient(180deg,rgba(34,197,94,.08),rgba(0,0,0,.46));
+      --theme-btn:linear-gradient(135deg,#14532d 0%,#22c55e 70%,#bbf7d0 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bbf7d0 30%,#22c55e 58%,#16a34a 82%,#fff 100%);
+      --theme-pattern-opacity:.34;
+      --theme-card-filter:blur(6px) contrast(1.26);
+    }
+
+    body.vibe-arcade {
+      --theme-bg-1:#10021f;
+      --theme-bg-2:#250a3d;
+      --theme-surface:rgba(255,255,255,.090);
+      --theme-line:rgba(244,114,182,.18);
+      --theme-line-2:rgba(56,189,248,.30);
+      --theme-text:#fff7ff;
+      --theme-muted:rgba(255,247,255,.68);
+      --theme-a:#f472b6;
+      --theme-b:#38bdf8;
+      --theme-c:#facc15;
+      --theme-good:#a3e635;
+      --theme-radius:14px;
+      --theme-radius-lg:22px;
+      --theme-shadow:0 28px 96px rgba(40,8,70,.56);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(244,114,182,.18),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(56,189,248,.14),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.10),rgba(244,114,182,.034));
+      --theme-btn:linear-gradient(135deg,#f472b6 0%,#38bdf8 58%,#facc15 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#f9a8d4 28%,#38bdf8 54%,#facc15 80%,#fff 100%);
+      --theme-pattern-opacity:.38;
+      --theme-card-filter:blur(12px) saturate(1.34);
+    }
+
+    body.vibe-valentine {
+      --theme-bg-1:#190511;
+      --theme-bg-2:#3a0d22;
+      --theme-surface:rgba(251,207,232,.090);
+      --theme-line:rgba(251,207,232,.19);
+      --theme-line-2:rgba(255,228,230,.32);
+      --theme-text:#fff7fb;
+      --theme-muted:rgba(255,247,251,.70);
+      --theme-a:#ec4899;
+      --theme-b:#fb7185;
+      --theme-c:#fecdd3;
+      --theme-good:#fbcfe8;
+      --theme-radius:42px;
+      --theme-radius-lg:74px;
+      --theme-shadow:0 28px 96px rgba(52,9,34,.54);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(236,72,153,.22),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(251,113,133,.15),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.12),rgba(236,72,153,.035));
+      --theme-btn:linear-gradient(135deg,#ec4899 0%,#fb7185 58%,#fecdd3 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fce7f3 28%,#ec4899 54%,#fb7185 78%,#fff 100%);
+      --theme-pattern-opacity:.30;
+      --theme-card-filter:blur(24px) saturate(1.22);
+    }
+
+    body.vibe-halloween {
+      --theme-bg-1:#0c0502;
+      --theme-bg-2:#1f1005;
+      --theme-surface:rgba(251,146,60,.080);
+      --theme-line:rgba(251,146,60,.18);
+      --theme-line-2:rgba(168,85,247,.30);
+      --theme-text:#fff7ed;
+      --theme-muted:rgba(255,247,237,.68);
+      --theme-a:#f97316;
+      --theme-b:#7c3aed;
+      --theme-c:#facc15;
+      --theme-good:#fdba74;
+      --theme-radius:18px;
+      --theme-radius-lg:30px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.66);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(249,115,22,.18),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(124,58,237,.12),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(249,115,22,.034));
+      --theme-btn:linear-gradient(135deg,#f97316 0%,#7c3aed 58%,#facc15 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fed7aa 28%,#f97316 54%,#7c3aed 78%,#fff 100%);
+      --theme-pattern-opacity:.26;
+      --theme-card-filter:blur(14px) contrast(1.14);
+    }
+
+    body.vibe-patriotic {
+      --theme-bg-1:#020617;
+      --theme-bg-2:#111827;
+      --theme-surface:rgba(239,246,255,.076);
+      --theme-line:rgba(191,219,254,.18);
+      --theme-line-2:rgba(254,226,226,.30);
+      --theme-text:#f8fbff;
+      --theme-muted:rgba(248,251,255,.68);
+      --theme-a:#2563eb;
+      --theme-b:#dc2626;
+      --theme-c:#ffffff;
+      --theme-good:#93c5fd;
+      --theme-radius:18px;
+      --theme-radius-lg:30px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.64);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(37,99,235,.17),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(220,38,38,.10),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(37,99,235,.034));
+      --theme-btn:linear-gradient(135deg,#2563eb 0%,#ffffff 52%,#dc2626 120%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bfdbfe 28%,#2563eb 48%,#dc2626 76%,#fff 100%);
+      --theme-pattern-opacity:.24;
+      --theme-card-filter:blur(16px) saturate(1.10);
+    }
+
+    body.vibe-birthday {
+      --theme-bg-1:#14051f;
+      --theme-bg-2:#2e1065;
+      --theme-surface:rgba(255,255,255,.10);
+      --theme-line:rgba(255,255,255,.18);
+      --theme-line-2:rgba(255,255,255,.34);
+      --theme-text:#fff7ff;
+      --theme-muted:rgba(255,247,255,.70);
+      --theme-a:#f472b6;
+      --theme-b:#a78bfa;
+      --theme-c:#facc15;
+      --theme-good:#22c55e;
+      --theme-radius:36px;
+      --theme-radius-lg:68px;
+      --theme-shadow:0 28px 96px rgba(46,10,80,.54);
+      --theme-card:radial-gradient(600px circle at 18% 0%,rgba(244,114,182,.22),transparent 48%),radial-gradient(560px circle at 96% 22%,rgba(250,204,21,.16),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.045));
+      --theme-btn:linear-gradient(135deg,#f472b6 0%,#a78bfa 52%,#facc15 126%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fbcfe8 24%,#f472b6 48%,#a78bfa 72%,#fff 100%);
+      --theme-pattern-opacity:.34;
+      --theme-card-filter:blur(24px) saturate(1.38);
+    }
+
+    body.vibe-summer {
+      --theme-bg-1:#06121b;
+      --theme-bg-2:#12304a;
+      --theme-surface:rgba(253,186,116,.084);
+      --theme-line:rgba(253,186,116,.18);
+      --theme-line-2:rgba(125,211,252,.30);
+      --theme-text:#fffaf0;
+      --theme-muted:rgba(255,250,240,.70);
+      --theme-a:#f59e0b;
+      --theme-b:#38bdf8;
+      --theme-c:#fde68a;
+      --theme-good:#7dd3fc;
+      --theme-radius:34px;
+      --theme-radius-lg:62px;
+      --theme-shadow:0 28px 96px rgba(0,36,65,.50);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(245,158,11,.17),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(56,189,248,.14),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(245,158,11,.034));
+      --theme-btn:linear-gradient(135deg,#f59e0b 0%,#38bdf8 58%,#fde68a 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fde68a 28%,#f59e0b 54%,#38bdf8 78%,#fff 100%);
+      --theme-pattern-opacity:.30;
+      --theme-card-filter:blur(22px) saturate(1.20);
+    }
+
+    body.vibe-fog,body.vibe-desert,body.vibe-meteor,body.vibe-autumn,body.vibe-bubbles,body.vibe-confetti,body.vibe-laser,body.vibe-matrix,body.vibe-arcade,body.vibe-valentine,body.vibe-halloween,body.vibe-patriotic,body.vibe-birthday,body.vibe-summer {
+      color:var(--theme-text)!important;
+      background:
+        radial-gradient(1120px circle at 10% -10%,color-mix(in srgb,var(--theme-a) 38%,transparent),transparent 45%),
+        radial-gradient(900px circle at 96% 8%,color-mix(in srgb,var(--theme-b) 25%,transparent),transparent 42%),
+        radial-gradient(780px circle at 50% 108%,color-mix(in srgb,var(--theme-c) 18%,transparent),transparent 52%),
+        linear-gradient(180deg,var(--theme-bg-1),var(--theme-bg-2) 46%,var(--theme-bg-1))!important;
+    }
+
+    body.vibe-fog .header,body.vibe-desert .header,body.vibe-meteor .header,body.vibe-autumn .header,body.vibe-bubbles .header,body.vibe-confetti .header,body.vibe-laser .header,body.vibe-matrix .header,body.vibe-arcade .header,body.vibe-valentine .header,body.vibe-halloween .header,body.vibe-patriotic .header,body.vibe-birthday .header,body.vibe-summer .header,
+    body.vibe-fog .mobileAppTop,body.vibe-desert .mobileAppTop,body.vibe-meteor .mobileAppTop,body.vibe-autumn .mobileAppTop,body.vibe-bubbles .mobileAppTop,body.vibe-confetti .mobileAppTop,body.vibe-laser .mobileAppTop,body.vibe-matrix .mobileAppTop,body.vibe-arcade .mobileAppTop,body.vibe-valentine .mobileAppTop,body.vibe-halloween .mobileAppTop,body.vibe-patriotic .mobileAppTop,body.vibe-birthday .mobileAppTop,body.vibe-summer .mobileAppTop {
+      background:color-mix(in srgb,var(--theme-bg-1) 84%,transparent)!important;
+      border-bottom-color:var(--theme-line)!important;
+      box-shadow:0 22px 72px rgba(0,0,0,.28),0 0 42px color-mix(in srgb,var(--theme-a) 12%,transparent)!important;
+    }
+
+    body.vibe-fog .glass,body.vibe-fog .soft,body.vibe-fog .card,body.vibe-fog .formBox,body.vibe-fog .hubCard,body.vibe-fog .final,body.vibe-fog .device,body.vibe-fog .screen,body.vibe-fog .estimateResult,
+    body.vibe-desert .glass,body.vibe-desert .soft,body.vibe-desert .card,body.vibe-desert .formBox,body.vibe-desert .hubCard,body.vibe-desert .final,body.vibe-desert .device,body.vibe-desert .screen,body.vibe-desert .estimateResult,
+    body.vibe-meteor .glass,body.vibe-meteor .soft,body.vibe-meteor .card,body.vibe-meteor .formBox,body.vibe-meteor .hubCard,body.vibe-meteor .final,body.vibe-meteor .device,body.vibe-meteor .screen,body.vibe-meteor .estimateResult,
+    body.vibe-autumn .glass,body.vibe-autumn .soft,body.vibe-autumn .card,body.vibe-autumn .formBox,body.vibe-autumn .hubCard,body.vibe-autumn .final,body.vibe-autumn .device,body.vibe-autumn .screen,body.vibe-autumn .estimateResult,
+    body.vibe-bubbles .glass,body.vibe-bubbles .soft,body.vibe-bubbles .card,body.vibe-bubbles .formBox,body.vibe-bubbles .hubCard,body.vibe-bubbles .final,body.vibe-bubbles .device,body.vibe-bubbles .screen,body.vibe-bubbles .estimateResult,
+    body.vibe-confetti .glass,body.vibe-confetti .soft,body.vibe-confetti .card,body.vibe-confetti .formBox,body.vibe-confetti .hubCard,body.vibe-confetti .final,body.vibe-confetti .device,body.vibe-confetti .screen,body.vibe-confetti .estimateResult,
+    body.vibe-laser .glass,body.vibe-laser .soft,body.vibe-laser .card,body.vibe-laser .formBox,body.vibe-laser .hubCard,body.vibe-laser .final,body.vibe-laser .device,body.vibe-laser .screen,body.vibe-laser .estimateResult,
+    body.vibe-matrix .glass,body.vibe-matrix .soft,body.vibe-matrix .card,body.vibe-matrix .formBox,body.vibe-matrix .hubCard,body.vibe-matrix .final,body.vibe-matrix .device,body.vibe-matrix .screen,body.vibe-matrix .estimateResult,
+    body.vibe-arcade .glass,body.vibe-arcade .soft,body.vibe-arcade .card,body.vibe-arcade .formBox,body.vibe-arcade .hubCard,body.vibe-arcade .final,body.vibe-arcade .device,body.vibe-arcade .screen,body.vibe-arcade .estimateResult,
+    body.vibe-valentine .glass,body.vibe-valentine .soft,body.vibe-valentine .card,body.vibe-valentine .formBox,body.vibe-valentine .hubCard,body.vibe-valentine .final,body.vibe-valentine .device,body.vibe-valentine .screen,body.vibe-valentine .estimateResult,
+    body.vibe-halloween .glass,body.vibe-halloween .soft,body.vibe-halloween .card,body.vibe-halloween .formBox,body.vibe-halloween .hubCard,body.vibe-halloween .final,body.vibe-halloween .device,body.vibe-halloween .screen,body.vibe-halloween .estimateResult,
+    body.vibe-patriotic .glass,body.vibe-patriotic .soft,body.vibe-patriotic .card,body.vibe-patriotic .formBox,body.vibe-patriotic .hubCard,body.vibe-patriotic .final,body.vibe-patriotic .device,body.vibe-patriotic .screen,body.vibe-patriotic .estimateResult,
+    body.vibe-birthday .glass,body.vibe-birthday .soft,body.vibe-birthday .card,body.vibe-birthday .formBox,body.vibe-birthday .hubCard,body.vibe-birthday .final,body.vibe-birthday .device,body.vibe-birthday .screen,body.vibe-birthday .estimateResult,
+    body.vibe-summer .glass,body.vibe-summer .soft,body.vibe-summer .card,body.vibe-summer .formBox,body.vibe-summer .hubCard,body.vibe-summer .final,body.vibe-summer .device,body.vibe-summer .screen,body.vibe-summer .estimateResult {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.09),var(--theme-shadow),0 0 74px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+      backdrop-filter:var(--theme-card-filter)!important;
+      -webkit-backdrop-filter:var(--theme-card-filter)!important;
+    }
+
+    body.vibe-fog .primary,body.vibe-desert .primary,body.vibe-meteor .primary,body.vibe-autumn .primary,body.vibe-bubbles .primary,body.vibe-confetti .primary,body.vibe-laser .primary,body.vibe-matrix .primary,body.vibe-arcade .primary,body.vibe-valentine .primary,body.vibe-halloween .primary,body.vibe-patriotic .primary,body.vibe-birthday .primary,body.vibe-summer .primary {
+      background:var(--theme-btn)!important;
+      box-shadow:0 20px 68px color-mix(in srgb,var(--theme-a) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.28)!important;
+    }
+
+    body.vibe-fog .shine,body.vibe-desert .shine,body.vibe-meteor .shine,body.vibe-autumn .shine,body.vibe-bubbles .shine,body.vibe-confetti .shine,body.vibe-laser .shine,body.vibe-matrix .shine,body.vibe-arcade .shine,body.vibe-valentine .shine,body.vibe-halloween .shine,body.vibe-patriotic .shine,body.vibe-birthday .shine,body.vibe-summer .shine {
+      background:var(--theme-title)!important;
+      background-size:240% auto!important;
+      -webkit-background-clip:text!important;
+      background-clip:text!important;
+      color:transparent!important;
+    }
+
+    body.vibe-fog .ghost,body.vibe-fog .chip,body.vibe-desert .ghost,body.vibe-desert .chip,body.vibe-meteor .ghost,body.vibe-meteor .chip,body.vibe-autumn .ghost,body.vibe-autumn .chip,body.vibe-bubbles .ghost,body.vibe-bubbles .chip,body.vibe-confetti .ghost,body.vibe-confetti .chip,body.vibe-laser .ghost,body.vibe-laser .chip,body.vibe-matrix .ghost,body.vibe-matrix .chip,body.vibe-arcade .ghost,body.vibe-arcade .chip,body.vibe-valentine .ghost,body.vibe-valentine .chip,body.vibe-halloween .ghost,body.vibe-halloween .chip,body.vibe-patriotic .ghost,body.vibe-patriotic .chip,body.vibe-birthday .ghost,body.vibe-birthday .chip,body.vibe-summer .ghost,body.vibe-summer .chip {
+      background:var(--theme-surface)!important;
+      border-color:var(--theme-line)!important;
+      color:var(--theme-muted)!important;
+    }
+
+    .themeFxLayer[data-effect="fog"] .fxParticle {
+      width: var(--s, 300px);
+      height: calc(var(--s, 300px) * .38);
+      left: var(--x, 0%);
+      top: var(--y, 50%);
+      border-radius: 999px;
+      background: radial-gradient(ellipse, rgba(255,255,255,.16), transparent 70%);
+      filter: blur(18px);
+      opacity: var(--o, .4);
+      animation: fxFogDrift var(--d, 18s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxFogDrift {
+      0%,100% { transform: translate3d(-12vw,0,0) scale(1); }
+      50% { transform: translate3d(18vw,-18px,0) scale(1.12); }
+    }
+
+    .themeFxLayer[data-effect="desert"] .fxParticle,
+    .themeFxLayer[data-effect="autumn"] .fxParticle,
+    .themeFxLayer[data-effect="confetti"] .fxParticle,
+    .themeFxLayer[data-effect="birthday"] .fxParticle,
+    .themeFxLayer[data-effect="patriotic"] .fxParticle {
+      width: var(--s, 10px);
+      height: calc(var(--s, 10px) * 1.35);
+      left: var(--x, 50%);
+      top: -10vh;
+      border-radius: 4px;
+      background: var(--c, #facc15);
+      opacity: var(--o, .75);
+      animation: fxPieceFall var(--d, 9s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxPieceFall {
+      0% { transform: translate3d(0,-10vh,0) rotate(0deg); }
+      100% { transform: translate3d(var(--drift, 80px),112vh,0) rotate(760deg); }
+    }
+
+    .themeFxLayer[data-effect="bubbles"] .fxParticle {
+      width: var(--s, 18px);
+      height: var(--s, 18px);
+      left: var(--x, 50%);
+      bottom: -12vh;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.46);
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), rgba(255,255,255,.08) 32%, transparent 72%);
+      opacity: var(--o, .55);
+      animation: fxBubbleRise var(--d, 12s) ease-in infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxBubbleRise {
+      0% { transform: translate3d(0,12vh,0) scale(.6); opacity:0; }
+      16% { opacity:var(--o, .55); }
+      100% { transform: translate3d(var(--drift, 40px),-112vh,0) scale(1.12); opacity:0; }
+    }
+
+    .themeFxLayer[data-effect="laser"] .fxParticle {
+      width: 120vw;
+      height: 2px;
+      left: -10vw;
+      top: var(--y, 50%);
+      background: linear-gradient(90deg, transparent, var(--c, #00f5ff), transparent);
+      box-shadow: 0 0 18px var(--c, #00f5ff);
+      opacity: var(--o, .75);
+      animation: fxLaserScan var(--d, 4s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxLaserScan {
+      0%,100% { transform: translateY(-18px) scaleX(.72); opacity:.08; }
+      50% { transform: translateY(18px) scaleX(1); opacity:.9; }
+    }
+
+    .themeFxLayer[data-effect="matrix"] .fxParticle {
+      width: 2px;
+      height: var(--h, 120px);
+      left: var(--x, 50%);
+      top: -20vh;
+      background: linear-gradient(180deg, rgba(187,247,208,.95), rgba(34,197,94,.30), transparent);
+      box-shadow: 0 0 14px rgba(34,197,94,.6);
+      opacity: var(--o, .8);
+      animation: fxMatrixRain var(--d, 2.4s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxMatrixRain {
+      to { transform: translate3d(0,130vh,0); }
+    }
+
+    .themeFxLayer[data-effect="arcade"] .fxParticle {
+      width: var(--s, 8px);
+      height: var(--s, 8px);
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      border-radius: 2px;
+      background: var(--c, #f472b6);
+      box-shadow: 0 0 18px var(--c, #f472b6);
+      opacity: var(--o, .8);
+      animation: fxArcadePop var(--d, 3.8s) steps(4) infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxArcadePop {
+      0%,100% { transform: translate3d(0,0,0) scale(.7); opacity:.2; }
+      50% { transform: translate3d(var(--drift, 28px),-30px,0) scale(1.25); opacity:1; }
+    }
+
+    .themeFxLayer[data-effect="valentine"] .fxParticle,
+    .themeFxLayer[data-effect="halloween"] .fxParticle,
+    .themeFxLayer[data-effect="summer"] .fxParticle,
+    .themeFxLayer[data-effect="meteor"] .fxParticle {
+      width: var(--s, 18px);
+      height: var(--s, 18px);
+      left: var(--x, 50%);
+      top: -10vh;
+      display: grid;
+      place-items: center;
+      color: var(--c, #fff);
+      font-size: var(--s, 18px);
+      animation: fxEmojiFall var(--d, 10s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .themeFxLayer[data-effect="valentine"] .fxParticle::before { content: "❤"; }
+    .themeFxLayer[data-effect="halloween"] .fxParticle::before { content: "✦"; }
+    .themeFxLayer[data-effect="summer"] .fxParticle::before { content: "☀"; }
+    .themeFxLayer[data-effect="meteor"] .fxParticle::before { content: "✦"; }
+
+    @keyframes fxEmojiFall {
+      0% { transform: translate3d(0,-10vh,0) rotate(0deg); opacity:0; }
+      12% { opacity:var(--o, .85); }
+      100% { transform: translate3d(var(--drift, 80px),112vh,0) rotate(360deg); opacity:0; }
+    }
+
+    @media(max-width:720px){
+      .themeGalleryPanel{max-height:64svh}
+      .themeCategoryHead{display:block}
+      .themeCategoryHead span{text-align:left;max-width:none}
+      .themeFxLayer[data-effect] .fxParticle:nth-child(n+34){display:none}
+      .themeFxLayer[data-effect="rain"] .fxParticle:nth-child(n+42),.themeFxLayer[data-effect="matrix"] .fxParticle:nth-child(n+42){display:none}
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -8112,34 +8700,102 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         <button class="sensoryOption" data-vibe="night" type="button"><b>🌙</b><strong>Night</strong><span>Darker low-light mode</span></button>
       </div>
 
-      <div id="moreThemesPanel" class="moreThemesPanel" hidden>
+      <div id="moreThemesPanel" class="moreThemesPanel themeGalleryPanel" hidden>
         <div class="moreThemesLabel">
-          <strong>Theme library</strong>
-          <span>Extra full-site looks. Each theme changes cards, buttons, forms, nav, panels, and highlights.</span>
+          <strong>Theme Gallery</strong>
+          <span>Grouped by what they change: premium looks, weather effects, nature effects, seasonal moments, and playful energy.</span>
         </div>
-        <div class="sensoryGrid moreThemesGrid">
-          <button class="sensoryOption premiumTheme" data-vibe="luxury" type="button"><b>💎</b><strong>Luxury</strong><span>Black, gold, concierge feel</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="sunset" type="button"><b>🌅</b><strong>Sunset</strong><span>Warm pink-orange glow</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="ice" type="button"><b>🧊</b><strong>Ice</strong><span>Frozen clean glass style</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="market" type="button"><b>🥕</b><strong>Market</strong><span>Local farm stand colors</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="mono" type="button"><b>◼</b><strong>Mono</strong><span>Sharp black and white mode</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="candy" type="button"><b>🍬</b><strong>Candy</strong><span>Fun bright social look</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="aurora" type="button"><b>🟣</b><strong>Aurora</strong><span>Northern lights, dreamy premium glow</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="espresso" type="button"><b>☕</b><strong>Espresso</strong><span>Warm coffee, cream, classy local feel</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="citrus" type="button"><b>🍋</b><strong>Citrus</strong><span>Bright lemon-lime energy</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="lavender" type="button"><b>🪻</b><strong>Lavender</strong><span>Soft purple, calm and friendly</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="cyber" type="button"><b>🧬</b><strong>Cyber</strong><span>Electric arcade dispatch style</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="cozy" type="button"><b>🧺</b><strong>Cozy</strong><span>Warm home, soft cream, comfort</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="mint" type="button"><b>🌿</b><strong>Mint</strong><span>Clean mint, fresh grocery aesthetic</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="royal" type="button"><b>👑</b><strong>Royal</strong><span>Deep violet and premium silver</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="peach" type="button"><b>🍑</b><strong>Peach</strong><span>Friendly peach, cream, soft social vibe</span></button>
-          <button class="sensoryOption premiumTheme" data-vibe="storm" type="button"><b>⛈️</b><strong>Storm</strong><span>Dark blue, lightning, focused ops</span></button>
-          <button class="sensoryOption premiumTheme effectTheme" data-vibe="snow" type="button"><b>❄️</b><strong>Snow</strong><span>Falling snow, frosty winter glass</span></button>
-          <button class="sensoryOption premiumTheme effectTheme" data-vibe="rain" type="button"><b>🌧️</b><strong>Rain</strong><span>Soft rainy window streaks</span></button>
-          <button class="sensoryOption premiumTheme effectTheme" data-vibe="galaxy" type="button"><b>🌌</b><strong>Galaxy</strong><span>Stars, deep space, cosmic glow</span></button>
-          <button class="sensoryOption premiumTheme effectTheme" data-vibe="fireflies" type="button"><b>✨</b><strong>Fireflies</strong><span>Warm glowing floating lights</span></button>
-          <button class="sensoryOption premiumTheme effectTheme" data-vibe="christmas" type="button"><b>🎄</b><strong>Christmas</strong><span>Holiday lights and cozy snow</span></button>
-          <button class="sensoryOption premiumTheme effectTheme" data-vibe="blossom" type="button"><b>🌸</b><strong>Blossom</strong><span>Soft petals and spring air</span></button>
+
+        <div class="themeGallery">
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Premium looks</strong>
+              <span>Full-site style changes without heavy particle effects.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="sensoryOption premiumTheme" data-vibe="luxury" type="button"><b>💎</b><strong>Luxury</strong><span>Black/gold concierge look</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="sunset" type="button"><b>🌅</b><strong>Sunset</strong><span>Warm pink-orange glow</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="ice" type="button"><b>🧊</b><strong>Ice</strong><span>Frozen clean glass style</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="mono" type="button"><b>◼</b><strong>Mono</strong><span>Sharp black/white mode</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="royal" type="button"><b>👑</b><strong>Royal</strong><span>Deep violet and silver</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="espresso" type="button"><b>☕</b><strong>Espresso</strong><span>Coffee, cream, classy local feel</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Weather + atmosphere</strong>
+              <span>These add environmental motion like snow, rain, fog, sand, and sparks.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="snow" type="button"><b>❄️</b><strong>Snow</strong><span>Falling snow + frosty glass</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="rain" type="button"><b>🌧️</b><strong>Rain</strong><span>Rain streaks + moody UI</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="fog" type="button"><b>🌫️</b><strong>Fog</strong><span>Slow fog layers + soft focus</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="desert" type="button"><b>🏜️</b><strong>Desert</strong><span>Sand drift + heat shimmer</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="storm" type="button"><b>⛈️</b><strong>Storm</strong><span>Lightning-style focused ops</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="meteor" type="button"><b>☄️</b><strong>Meteor</strong><span>Shooting streaks + space energy</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Nature + calm</strong>
+              <span>Soft motion for a friendly local service feel.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="fireflies" type="button"><b>✨</b><strong>Fireflies</strong><span>Warm floating lights</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="blossom" type="button"><b>🌸</b><strong>Blossom</strong><span>Falling spring petals</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="autumn" type="button"><b>🍂</b><strong>Autumn</strong><span>Falling leaves + amber cards</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="lavender" type="button"><b>🪻</b><strong>Lavender</strong><span>Calm purple and friendly</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="mint" type="button"><b>🌿</b><strong>Mint</strong><span>Clean mint grocery aesthetic</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="cozy" type="button"><b>🧺</b><strong>Cozy</strong><span>Warm home comfort</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Fun + playful</strong>
+              <span>More personality for social posts, promos, and younger customers.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="sensoryOption premiumTheme" data-vibe="candy" type="button"><b>🍬</b><strong>Candy</strong><span>Bright social-media look</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="citrus" type="button"><b>🍋</b><strong>Citrus</strong><span>Lemon-lime energy</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="bubbles" type="button"><b>🫧</b><strong>Bubbles</strong><span>Rising bubbles + fresh shine</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="confetti" type="button"><b>🎉</b><strong>Confetti</strong><span>Celebration pieces drifting down</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="peach" type="button"><b>🍑</b><strong>Peach</strong><span>Friendly peach social vibe</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="market" type="button"><b>🥕</b><strong>Market</strong><span>Local farm stand colors</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>High-energy / tech</strong>
+              <span>Animated, futuristic looks for the HQ and dispatch side.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="sensoryOption premiumTheme" data-vibe="cyber" type="button"><b>🧬</b><strong>Cyber</strong><span>Electric dispatch style</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="laser" type="button"><b>🔦</b><strong>Laser</strong><span>Neon scan lines + tech glow</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="matrix" type="button"><b>⌨️</b><strong>Matrix</strong><span>Digital rain + dark ops UI</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="arcade" type="button"><b>🕹️</b><strong>Arcade</strong><span>Pixel sparks + playful neon</span></button>
+              <button class="sensoryOption premiumTheme" data-vibe="aurora" type="button"><b>🟣</b><strong>Aurora</strong><span>Northern lights glow</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="galaxy" type="button"><b>🌌</b><strong>Galaxy</strong><span>Stars + cosmic glow</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Seasonal / promo</strong>
+              <span>Great for limited-time promos, holidays, and special events.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="christmas" type="button"><b>🎄</b><strong>Christmas</strong><span>Holiday lights + snow</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="valentine" type="button"><b>💘</b><strong>Valentine</strong><span>Floating hearts + pink glow</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="halloween" type="button"><b>🎃</b><strong>Halloween</strong><span>Pumpkin glow + spooky particles</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="patriotic" type="button"><b>🇺🇸</b><strong>Patriotic</strong><span>Red/white/blue spark trails</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="birthday" type="button"><b>🎂</b><strong>Birthday</strong><span>Balloons + party colors</span></button>
+              <button class="sensoryOption premiumTheme effectTheme" data-vibe="summer" type="button"><b>☀️</b><strong>Summer</strong><span>Sun rays + beachy glow</span></button>
+            </div>
+          </section>
         </div>
       </div>
 
@@ -8695,7 +9351,21 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
           galaxy: { count: 70, effect: 'galaxy' },
           fireflies: { count: 34, effect: 'fireflies' },
           christmas: { count: 64, effect: 'christmas' },
-          blossom: { count: 52, effect: 'blossom' }
+          blossom: { count: 52, effect: 'blossom' },
+          fog: { count: 18, effect: 'fog' },
+          desert: { count: 54, effect: 'desert' },
+          meteor: { count: 38, effect: 'meteor' },
+          autumn: { count: 52, effect: 'autumn' },
+          bubbles: { count: 48, effect: 'bubbles' },
+          confetti: { count: 72, effect: 'confetti' },
+          laser: { count: 18, effect: 'laser' },
+          matrix: { count: 78, effect: 'matrix' },
+          arcade: { count: 54, effect: 'arcade' },
+          valentine: { count: 46, effect: 'valentine' },
+          halloween: { count: 46, effect: 'halloween' },
+          patriotic: { count: 58, effect: 'patriotic' },
+          birthday: { count: 58, effect: 'birthday' },
+          summer: { count: 42, effect: 'summer' }
         };
 
         const config = effectThemes[vibe];
@@ -8708,19 +9378,42 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
         layer.dataset.effect = config.effect;
         const holidayColors = ['#dc2626', '#16a34a', '#fbbf24', '#ffffff', '#38bdf8'];
+        const effectPalettes = {
+          christmas: holidayColors,
+          desert: ['#f97316', '#facc15', '#fed7aa', '#c2410c'],
+          autumn: ['#ea580c', '#b45309', '#f59e0b', '#92400e'],
+          confetti: ['#ec4899', '#8b5cf6', '#facc15', '#22c55e', '#38bdf8'],
+          birthday: ['#f472b6', '#a78bfa', '#facc15', '#22c55e', '#38bdf8'],
+          patriotic: ['#2563eb', '#ffffff', '#dc2626'],
+          laser: ['#00f5ff', '#ff00c8', '#39ff14'],
+          arcade: ['#f472b6', '#38bdf8', '#facc15', '#a3e635'],
+          valentine: ['#ec4899', '#fb7185', '#fecdd3'],
+          halloween: ['#f97316', '#7c3aed', '#facc15'],
+          summer: ['#f59e0b', '#38bdf8', '#fde68a'],
+          meteor: ['#ffffff', '#3b82f6', '#f97316']
+        };
 
         for (let i = 0; i < config.count; i++) {
           const particle = document.createElement('span');
           particle.className = 'fxParticle';
           const x = Math.round(Math.random() * 100);
           const y = Math.round(Math.random() * 100);
-          const size = config.effect === 'rain'
-            ? 2
-            : Math.round(3 + Math.random() * (config.effect === 'blossom' ? 14 : 9));
+          const size =
+            config.effect === 'rain' ? 2 :
+            config.effect === 'fog' ? Math.round(220 + Math.random() * 420) :
+            config.effect === 'matrix' ? 2 :
+            config.effect === 'laser' ? 2 :
+            config.effect === 'bubbles' ? Math.round(10 + Math.random() * 26) :
+            config.effect === 'valentine' || config.effect === 'halloween' || config.effect === 'summer' || config.effect === 'meteor' ? Math.round(13 + Math.random() * 16) :
+            Math.round(3 + Math.random() * (config.effect === 'blossom' ? 14 : 9));
           const duration =
             config.effect === 'rain' ? (0.75 + Math.random() * 0.9) :
+            config.effect === 'matrix' ? (1.8 + Math.random() * 2.3) :
+            config.effect === 'laser' ? (2.4 + Math.random() * 3.4) :
             config.effect === 'galaxy' ? (2 + Math.random() * 4) :
             config.effect === 'fireflies' ? (5 + Math.random() * 8) :
+            config.effect === 'fog' ? (14 + Math.random() * 18) :
+            config.effect === 'bubbles' ? (8 + Math.random() * 11) :
             config.effect === 'christmas' ? (1.3 + Math.random() * 3.8) :
             (7 + Math.random() * 10);
 
@@ -8733,8 +9426,9 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
           particle.style.setProperty('--o', (0.25 + Math.random() * 0.75).toFixed(2));
           particle.style.setProperty('--drift', Math.round(-90 + Math.random() * 180) + 'px');
 
-          if (config.effect === 'christmas') {
-            particle.style.setProperty('--c', holidayColors[i % holidayColors.length]);
+          if (effectPalettes[config.effect]) {
+            const palette = effectPalettes[config.effect];
+            particle.style.setProperty('--c', palette[i % palette.length]);
           }
 
           layer.appendChild(particle);
@@ -8742,7 +9436,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
 
       function applyState(){
-        document.body.classList.remove('vibe-twilight','vibe-ocean','vibe-fresh','vibe-night','vibe-luxury','vibe-sunset','vibe-ice','vibe-market','vibe-mono','vibe-candy','vibe-aurora','vibe-espresso','vibe-citrus','vibe-lavender','vibe-cyber','vibe-cozy','vibe-mint','vibe-royal','vibe-peach','vibe-storm','vibe-snow','vibe-rain','vibe-galaxy','vibe-fireflies','vibe-christmas','vibe-blossom');
+        document.body.classList.remove('vibe-twilight','vibe-ocean','vibe-fresh','vibe-night','vibe-luxury','vibe-sunset','vibe-ice','vibe-market','vibe-mono','vibe-candy','vibe-aurora','vibe-espresso','vibe-citrus','vibe-lavender','vibe-cyber','vibe-cozy','vibe-mint','vibe-royal','vibe-peach','vibe-storm','vibe-snow','vibe-rain','vibe-galaxy','vibe-fireflies','vibe-christmas','vibe-blossom','vibe-fog','vibe-desert','vibe-meteor','vibe-autumn','vibe-bubbles','vibe-confetti','vibe-laser','vibe-matrix','vibe-arcade','vibe-valentine','vibe-halloween','vibe-patriotic','vibe-birthday','vibe-summer');
         document.body.classList.add('vibe-' + vibe);
         document.body.classList.toggle('v22-haptics-on', haptics);
         document.body.classList.toggle('v22-reduced-sensory', reducedSensory);
