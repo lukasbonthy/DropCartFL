@@ -8943,6 +8943,149 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v33 Direct Morph Button
+       Makes Morphism Studio visible without opening Theme Studio.
+       ============================================================ */
+
+    .morphDock {
+      position: fixed;
+      left: 132px;
+      bottom: 18px;
+      z-index: 1702;
+      display: grid;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .morphButton {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 54px;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 22px;
+      color: white;
+      background:
+        radial-gradient(170px circle at 20% 0%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 82%, #111), color-mix(in srgb, var(--theme-c, #35d7ff) 60%, #111));
+      box-shadow:
+        0 20px 64px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        0 12px 42px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.02em;
+    }
+
+    .morphButton span {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.15);
+    }
+
+    .morphDockPanel {
+      display: none;
+      width: min(380px, calc(100vw - 28px));
+      max-height: min(620px, 72svh);
+      overflow-y: auto;
+      padding: 15px;
+      border-radius: 26px;
+      background:
+        radial-gradient(440px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), transparent 48%),
+        radial-gradient(440px circle at 100% 0%, color-mix(in srgb, var(--theme-c, #35d7ff) 14%, transparent), transparent 48%),
+        rgba(7,10,18,.92);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 26px 86px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.09);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      pointer-events: auto;
+    }
+
+    .morphDock.open .morphDockPanel {
+      display: block;
+      animation: sensoryPanelIn .18s ease both;
+    }
+
+    .morphDockTitle {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .morphDockTitle strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 23px;
+      line-height: .95;
+      letter-spacing: -.05em;
+    }
+
+    .morphDockTitle span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,.48);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .morphDockHint {
+      margin-top: 12px;
+      padding: 11px;
+      border-radius: 18px;
+      color: rgba(255,255,255,.48);
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+      font-size: 11px;
+      line-height: 1.42;
+      font-weight: 760;
+    }
+
+    .morphDock .morphismGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .morphDock .morphismOption {
+      min-height: 82px;
+    }
+
+    body.hqFullscreenMode .morphDock {
+      display: none !important;
+    }
+
+    @media (max-width: 720px) {
+      .morphDock {
+        left: auto;
+        right: 12px;
+        bottom: calc(146px + var(--safe-bottom));
+      }
+
+      .morphButton {
+        min-height: 48px;
+        padding: 12px 14px;
+        border-radius: 18px;
+      }
+
+      .morphDockPanel {
+        width: min(380px, calc(100vw - 24px));
+        max-height: 64svh;
+      }
+
+      .morphDock .morphismGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -9052,6 +9195,39 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   
   <div id="v22ConfettiLayer" class="v22-confetti-layer" aria-hidden="true"></div>
   <div id="v22SenseToast" class="v22-sense-toast" aria-live="polite"></div>
+
+  
+  <div id="morphDock" class="morphDock">
+    <div class="morphDockPanel">
+      <div class="morphDockTitle">
+        <div>
+          <strong>Morphism Studio</strong>
+          <span>Choose the shape/depth style. This stacks with any theme.</span>
+        </div>
+        <button id="morphClose" class="sensoryMiniButton" type="button" aria-label="Close morphism panel">✕</button>
+      </div>
+
+      <div class="morphismGrid">
+        <button class="morphismOption" data-morph="none" type="button"><b>◎</b><strong>None</strong><span>Use the regular theme style</span></button>
+        <button class="morphismOption" data-morph="glass" type="button"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
+        <button class="morphismOption" data-morph="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Organic liquid card shapes</span></button>
+        <button class="morphismOption" data-morph="neo" type="button"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
+        <button class="morphismOption" data-morph="clay" type="button"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
+        <button class="morphismOption" data-morph="crystal" type="button"><b>◇</b><strong>Crystal</strong><span>Sharp crystal/glass facets</span></button>
+        <button class="morphismOption" data-morph="holo" type="button"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
+        <button class="morphismOption" data-morph="soft" type="button"><b>☁️</b><strong>Soft</strong><span>Extra soft rounded depth</span></button>
+      </div>
+
+      <p class="morphDockHint">
+        This is separate from themes. Example: Snow theme + Glass morphism, or Galaxy theme + Holo morphism.
+      </p>
+    </div>
+
+    <button id="morphButton" class="morphButton" type="button">
+      <span>◇</span>
+      Morph
+    </button>
+  </div>
 
   <div id="sensoryDock" class="sensoryDock">
     <div class="sensoryPanel">
@@ -10103,6 +10279,31 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       $$('.moreThemesGrid .sensoryOption[data-vibe]').forEach(function(btn){
         btn.addEventListener('click', function(){
           setOpen(false);
+        });
+      });
+    })();
+
+
+    // v33 direct Morph button
+    (function initDirectMorphDock(){
+      const dock = $('#morphDock');
+      const open = $('#morphButton');
+      const close = $('#morphClose');
+      if (!dock || !open) return;
+
+      open.addEventListener('click', function(){
+        dock.classList.toggle('open');
+      });
+
+      close?.addEventListener('click', function(){
+        dock.classList.remove('open');
+      });
+
+      $$('#morphDock .morphismOption[data-morph]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          setTimeout(function(){
+            dock.classList.remove('open');
+          }, 120);
         });
       });
     })();
