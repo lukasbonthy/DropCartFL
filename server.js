@@ -7054,6 +7054,926 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     @media(max-width:1200px){.hqHero{grid-template-columns:1fr}.hqStatGrid{grid-template-columns:repeat(2,1fr)}.hqBoard{grid-template-columns:repeat(4,minmax(260px,1fr))}}
     @media(max-width:720px){.hqDevicePage{padding-top:12px}.hqTopbar{position:relative;top:auto;display:grid;border-radius:24px}.hqTopActions{justify-content:flex-start}.hqHeroCard,.hqNextCard{padding:18px;border-radius:26px}.hqTitle{font-size:42px}.hqStatGrid{grid-template-columns:1fr}.hqControls{position:relative;top:auto;grid-template-columns:1fr}.hqBoard{grid-template-columns:1fr;overflow-x:visible}.hqColumn{min-height:auto}.hqQuickActions,.hqStatusButtons{grid-template-columns:1fr}}
 
+
+    /* ============================================================
+       v29 More Themes + Expandable Theme Library
+       ============================================================ */
+
+    .themeStudioHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 20px;
+      background:
+        radial-gradient(280px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 13%, transparent), transparent 48%),
+        rgba(255,255,255,.052);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .themeStudioHeader strong,
+    .moreThemesLabel strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .themeStudioHeader span,
+    .moreThemesLabel span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,.44);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .themeMoreButton {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 16px;
+      color: white;
+      background:
+        radial-gradient(160px circle at 20% 0%, rgba(255,255,255,.16), transparent 45%),
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 58%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 22%, rgba(255,255,255,.08)));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 14px 38px rgba(0,0,0,.22);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .themeMoreButton span {
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      margin: 0;
+      border-radius: 9px;
+      background: rgba(255,255,255,.14);
+      color: white;
+      font-size: 16px;
+      line-height: 1;
+      transition: transform .18s ease;
+    }
+
+    .themeMoreButton.open span {
+      transform: rotate(45deg);
+    }
+
+    .moreThemesPanel {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 24px;
+      background:
+        radial-gradient(420px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 12%, transparent), transparent 52%),
+        rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .moreThemesPanel[hidden] {
+      display: none !important;
+    }
+
+    .moreThemesPanel.show {
+      display: block;
+      animation: moreThemesIn .2s ease both;
+    }
+
+    @keyframes moreThemesIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px) scale(.99);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .moreThemesLabel {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 11px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .moreThemesGrid {
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .moreThemesGrid::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .moreThemesGrid::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--theme-a, #7c5cff) 45%, rgba(255,255,255,.12));
+    }
+
+    .premiumTheme {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .premiumTheme::after {
+      content: "";
+      position: absolute;
+      right: -28px;
+      top: -28px;
+      width: 76px;
+      height: 76px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 26%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 16%, transparent));
+      transform: rotate(18deg);
+      opacity: .48;
+      pointer-events: none;
+    }
+
+    body.vibe-aurora {
+      --theme-bg-1:#060818;
+      --theme-bg-2:#11113d;
+      --theme-surface:rgba(177,141,255,.088);
+      --theme-line:rgba(194,181,255,.18);
+      --theme-line-2:rgba(209,250,255,.32);
+      --theme-text:#fbfbff;
+      --theme-muted:rgba(251,251,255,.70);
+      --theme-a:#8b5cf6;
+      --theme-b:#2dd4bf;
+      --theme-c:#f0abfc;
+      --theme-good:#99f6e4;
+      --theme-radius:34px;
+      --theme-radius-lg:58px;
+      --theme-shadow:0 30px 100px rgba(16,12,55,.54);
+      --theme-card:radial-gradient(680px circle at 16% 0%,rgba(139,92,246,.24),transparent 48%),radial-gradient(620px circle at 100% 30%,rgba(45,212,191,.16),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.038));
+      --theme-btn:linear-gradient(135deg,#8b5cf6 0%,#2dd4bf 56%,#f0abfc 126%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ddd6fe 25%,#2dd4bf 52%,#f0abfc 78%,#fff 100%);
+      --theme-pattern-opacity:.32;
+      --theme-card-filter:blur(26px) saturate(1.32);
+    }
+
+    body.vibe-espresso {
+      --theme-bg-1:#120a06;
+      --theme-bg-2:#2a160d;
+      --theme-surface:rgba(255,230,196,.078);
+      --theme-line:rgba(255,230,196,.17);
+      --theme-line-2:rgba(255,244,224,.31);
+      --theme-text:#fff7ed;
+      --theme-muted:rgba(255,247,237,.68);
+      --theme-a:#b45309;
+      --theme-b:#f59e0b;
+      --theme-c:#fed7aa;
+      --theme-good:#fdba74;
+      --theme-radius:24px;
+      --theme-radius-lg:40px;
+      --theme-shadow:0 30px 96px rgba(32,14,7,.58);
+      --theme-card:radial-gradient(620px circle at 15% 0%,rgba(245,158,11,.14),transparent 48%),linear-gradient(180deg,rgba(255,237,213,.09),rgba(24,12,6,.46));
+      --theme-btn:linear-gradient(135deg,#7c2d12 0%,#b45309 44%,#f59e0b 92%,#fed7aa 135%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fed7aa 28%,#f59e0b 56%,#fff7ed 82%,#fff 100%);
+      --theme-pattern-opacity:.22;
+      --theme-card-filter:blur(18px) contrast(1.08);
+    }
+
+    body.vibe-citrus {
+      --theme-bg-1:#101300;
+      --theme-bg-2:#293300;
+      --theme-surface:rgba(254,240,138,.088);
+      --theme-line:rgba(254,240,138,.20);
+      --theme-line-2:rgba(236,252,203,.34);
+      --theme-text:#fffff0;
+      --theme-muted:rgba(255,255,240,.70);
+      --theme-a:#a3e635;
+      --theme-b:#facc15;
+      --theme-c:#22c55e;
+      --theme-good:#bef264;
+      --theme-radius:28px;
+      --theme-radius-lg:50px;
+      --theme-shadow:0 28px 92px rgba(27,43,0,.48);
+      --theme-card:radial-gradient(620px circle at 18% 0%,rgba(250,204,21,.20),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(34,197,94,.14),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.105),rgba(163,230,53,.035));
+      --theme-btn:linear-gradient(135deg,#65a30d 0%,#a3e635 45%,#facc15 82%,#22c55e 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ecfccb 26%,#facc15 50%,#a3e635 78%,#fff 100%);
+      --theme-pattern-opacity:.35;
+      --theme-card-filter:blur(20px) saturate(1.32);
+    }
+
+    body.vibe-lavender {
+      --theme-bg-1:#10091b;
+      --theme-bg-2:#211232;
+      --theme-surface:rgba(216,180,254,.088);
+      --theme-line:rgba(216,180,254,.19);
+      --theme-line-2:rgba(245,208,254,.32);
+      --theme-text:#fff7ff;
+      --theme-muted:rgba(255,247,255,.70);
+      --theme-a:#a78bfa;
+      --theme-b:#d8b4fe;
+      --theme-c:#f0abfc;
+      --theme-good:#c4b5fd;
+      --theme-radius:38px;
+      --theme-radius-lg:66px;
+      --theme-shadow:0 30px 96px rgba(38,18,62,.50);
+      --theme-card:radial-gradient(620px circle at 18% 0%,rgba(216,180,254,.19),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(240,171,252,.12),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(216,180,254,.038));
+      --theme-btn:linear-gradient(135deg,#8b5cf6 0%,#d8b4fe 56%,#f0abfc 125%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ede9fe 28%,#d8b4fe 54%,#f0abfc 80%,#fff 100%);
+      --theme-pattern-opacity:.26;
+      --theme-card-filter:blur(24px) saturate(1.24);
+    }
+
+    body.vibe-cyber {
+      --theme-bg-1:#020617;
+      --theme-bg-2:#07111f;
+      --theme-surface:rgba(34,211,238,.072);
+      --theme-line:rgba(0,255,255,.20);
+      --theme-line-2:rgba(0,255,170,.34);
+      --theme-text:#f0fdff;
+      --theme-muted:rgba(240,253,255,.66);
+      --theme-a:#00f5ff;
+      --theme-b:#7c3aed;
+      --theme-c:#39ff14;
+      --theme-good:#39ff14;
+      --theme-radius:10px;
+      --theme-radius-lg:16px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.66);
+      --theme-card:linear-gradient(180deg,rgba(0,245,255,.10),rgba(124,58,237,.035)),radial-gradient(620px circle at 18% 0%,rgba(57,255,20,.10),transparent 48%);
+      --theme-btn:linear-gradient(135deg,#00f5ff 0%,#7c3aed 56%,#39ff14 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#00f5ff 32%,#7c3aed 58%,#39ff14 82%,#fff 100%);
+      --theme-pattern-opacity:.42;
+      --theme-card-filter:blur(10px) contrast(1.28) saturate(1.45);
+    }
+
+    body.vibe-cozy {
+      --theme-bg-1:#150d08;
+      --theme-bg-2:#2a1a0f;
+      --theme-surface:rgba(255,245,225,.080);
+      --theme-line:rgba(255,229,196,.17);
+      --theme-line-2:rgba(255,245,225,.30);
+      --theme-text:#fff8ee;
+      --theme-muted:rgba(255,248,238,.68);
+      --theme-a:#f59e0b;
+      --theme-b:#fb7185;
+      --theme-c:#fde68a;
+      --theme-good:#fcd34d;
+      --theme-radius:30px;
+      --theme-radius-lg:54px;
+      --theme-shadow:0 28px 92px rgba(45,21,7,.52);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(253,230,138,.14),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(251,113,133,.11),transparent 50%),linear-gradient(180deg,rgba(255,248,238,.10),rgba(255,248,238,.035));
+      --theme-btn:linear-gradient(135deg,#b45309 0%,#f59e0b 48%,#fb7185 116%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fde68a 30%,#f59e0b 58%,#fb7185 82%,#fff 100%);
+      --theme-pattern-opacity:.24;
+      --theme-card-filter:blur(20px) saturate(1.12);
+    }
+
+    body.vibe-mint {
+      --theme-bg-1:#02130f;
+      --theme-bg-2:#083328;
+      --theme-surface:rgba(153,246,228,.088);
+      --theme-line:rgba(153,246,228,.19);
+      --theme-line-2:rgba(204,251,241,.32);
+      --theme-text:#effefa;
+      --theme-muted:rgba(239,254,250,.70);
+      --theme-a:#14b8a6;
+      --theme-b:#99f6e4;
+      --theme-c:#5eead4;
+      --theme-good:#ccfbf1;
+      --theme-radius:32px;
+      --theme-radius-lg:56px;
+      --theme-shadow:0 28px 92px rgba(0,49,42,.48);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(153,246,228,.16),transparent 48%),linear-gradient(180deg,rgba(255,255,255,.10),rgba(20,184,166,.035));
+      --theme-btn:linear-gradient(135deg,#0f766e 0%,#14b8a6 52%,#99f6e4 124%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ccfbf1 30%,#14b8a6 58%,#99f6e4 82%,#fff 100%);
+      --theme-pattern-opacity:.26;
+      --theme-card-filter:blur(22px) saturate(1.18);
+    }
+
+    body.vibe-royal {
+      --theme-bg-1:#090617;
+      --theme-bg-2:#1e123d;
+      --theme-surface:rgba(196,181,253,.076);
+      --theme-line:rgba(196,181,253,.18);
+      --theme-line-2:rgba(226,232,240,.30);
+      --theme-text:#faf7ff;
+      --theme-muted:rgba(250,247,255,.68);
+      --theme-a:#6d28d9;
+      --theme-b:#c4b5fd;
+      --theme-c:#e5e7eb;
+      --theme-good:#ddd6fe;
+      --theme-radius:18px;
+      --theme-radius-lg:30px;
+      --theme-shadow:0 30px 100px rgba(24,13,54,.58);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(109,40,217,.20),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(229,231,235,.10),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(109,40,217,.034));
+      --theme-btn:linear-gradient(135deg,#4c1d95 0%,#6d28d9 52%,#c4b5fd 118%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ddd6fe 28%,#6d28d9 55%,#e5e7eb 82%,#fff 100%);
+      --theme-pattern-opacity:.22;
+      --theme-card-filter:blur(18px) contrast(1.10);
+    }
+
+    body.vibe-peach {
+      --theme-bg-1:#180910;
+      --theme-bg-2:#361322;
+      --theme-surface:rgba(255,218,185,.084);
+      --theme-line:rgba(255,218,185,.18);
+      --theme-line-2:rgba(255,241,230,.30);
+      --theme-text:#fff8f3;
+      --theme-muted:rgba(255,248,243,.70);
+      --theme-a:#fb7185;
+      --theme-b:#fdba74;
+      --theme-c:#ffedd5;
+      --theme-good:#fed7aa;
+      --theme-radius:36px;
+      --theme-radius-lg:64px;
+      --theme-shadow:0 28px 94px rgba(60,14,29,.52);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(251,113,133,.18),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(253,186,116,.14),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(251,113,133,.035));
+      --theme-btn:linear-gradient(135deg,#fb7185 0%,#fdba74 60%,#ffedd5 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ffe4e6 28%,#fb7185 54%,#fdba74 78%,#fff 100%);
+      --theme-pattern-opacity:.28;
+      --theme-card-filter:blur(24px) saturate(1.20);
+    }
+
+    body.vibe-storm {
+      --theme-bg-1:#020617;
+      --theme-bg-2:#0f172a;
+      --theme-surface:rgba(148,163,184,.072);
+      --theme-line:rgba(147,197,253,.17);
+      --theme-line-2:rgba(191,219,254,.28);
+      --theme-text:#f8fbff;
+      --theme-muted:rgba(248,251,255,.66);
+      --theme-a:#2563eb;
+      --theme-b:#64748b;
+      --theme-c:#f8fafc;
+      --theme-good:#93c5fd;
+      --theme-radius:12px;
+      --theme-radius-lg:20px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.68);
+      --theme-card:linear-gradient(180deg,rgba(147,197,253,.085),rgba(15,23,42,.55)),radial-gradient(650px circle at 15% 0%,rgba(37,99,235,.14),transparent 48%);
+      --theme-btn:linear-gradient(135deg,#1d4ed8 0%,#2563eb 55%,#f8fafc 135%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bfdbfe 30%,#2563eb 56%,#f8fafc 82%,#fff 100%);
+      --theme-pattern-opacity:.22;
+      --theme-card-filter:blur(10px) contrast(1.18);
+    }
+
+    body.vibe-aurora,
+    body.vibe-espresso,
+    body.vibe-citrus,
+    body.vibe-lavender,
+    body.vibe-cyber,
+    body.vibe-cozy,
+    body.vibe-mint,
+    body.vibe-royal,
+    body.vibe-peach,
+    body.vibe-storm {
+      color:var(--theme-text)!important;
+      background:
+        radial-gradient(1120px circle at 10% -10%,color-mix(in srgb,var(--theme-a) 38%,transparent),transparent 45%),
+        radial-gradient(900px circle at 96% 8%,color-mix(in srgb,var(--theme-b) 25%,transparent),transparent 42%),
+        radial-gradient(780px circle at 50% 108%,color-mix(in srgb,var(--theme-c) 18%,transparent),transparent 52%),
+        linear-gradient(180deg,var(--theme-bg-1),var(--theme-bg-2) 46%,var(--theme-bg-1))!important;
+    }
+
+    body.vibe-aurora::before,
+    body.vibe-espresso::before,
+    body.vibe-citrus::before,
+    body.vibe-lavender::before,
+    body.vibe-cyber::before,
+    body.vibe-cozy::before,
+    body.vibe-mint::before,
+    body.vibe-royal::before,
+    body.vibe-peach::before,
+    body.vibe-storm::before {
+      opacity:var(--theme-pattern-opacity)!important;
+    }
+
+    body.vibe-aurora .header,body.vibe-aurora .mobileAppTop,
+    body.vibe-espresso .header,body.vibe-espresso .mobileAppTop,
+    body.vibe-citrus .header,body.vibe-citrus .mobileAppTop,
+    body.vibe-lavender .header,body.vibe-lavender .mobileAppTop,
+    body.vibe-cyber .header,body.vibe-cyber .mobileAppTop,
+    body.vibe-cozy .header,body.vibe-cozy .mobileAppTop,
+    body.vibe-mint .header,body.vibe-mint .mobileAppTop,
+    body.vibe-royal .header,body.vibe-royal .mobileAppTop,
+    body.vibe-peach .header,body.vibe-peach .mobileAppTop,
+    body.vibe-storm .header,body.vibe-storm .mobileAppTop {
+      background:color-mix(in srgb,var(--theme-bg-1) 84%,transparent)!important;
+      border-bottom-color:var(--theme-line)!important;
+      box-shadow:0 22px 72px rgba(0,0,0,.28),0 0 42px color-mix(in srgb,var(--theme-a) 12%,transparent)!important;
+    }
+
+    body.vibe-aurora .glass,body.vibe-aurora .soft,body.vibe-aurora .card,body.vibe-aurora .formBox,body.vibe-aurora .hubCard,body.vibe-aurora .final,body.vibe-aurora .device,body.vibe-aurora .screen,body.vibe-aurora .estimateResult,
+    body.vibe-espresso .glass,body.vibe-espresso .soft,body.vibe-espresso .card,body.vibe-espresso .formBox,body.vibe-espresso .hubCard,body.vibe-espresso .final,body.vibe-espresso .device,body.vibe-espresso .screen,body.vibe-espresso .estimateResult,
+    body.vibe-citrus .glass,body.vibe-citrus .soft,body.vibe-citrus .card,body.vibe-citrus .formBox,body.vibe-citrus .hubCard,body.vibe-citrus .final,body.vibe-citrus .device,body.vibe-citrus .screen,body.vibe-citrus .estimateResult,
+    body.vibe-lavender .glass,body.vibe-lavender .soft,body.vibe-lavender .card,body.vibe-lavender .formBox,body.vibe-lavender .hubCard,body.vibe-lavender .final,body.vibe-lavender .device,body.vibe-lavender .screen,body.vibe-lavender .estimateResult,
+    body.vibe-cyber .glass,body.vibe-cyber .soft,body.vibe-cyber .card,body.vibe-cyber .formBox,body.vibe-cyber .hubCard,body.vibe-cyber .final,body.vibe-cyber .device,body.vibe-cyber .screen,body.vibe-cyber .estimateResult,
+    body.vibe-cozy .glass,body.vibe-cozy .soft,body.vibe-cozy .card,body.vibe-cozy .formBox,body.vibe-cozy .hubCard,body.vibe-cozy .final,body.vibe-cozy .device,body.vibe-cozy .screen,body.vibe-cozy .estimateResult,
+    body.vibe-mint .glass,body.vibe-mint .soft,body.vibe-mint .card,body.vibe-mint .formBox,body.vibe-mint .hubCard,body.vibe-mint .final,body.vibe-mint .device,body.vibe-mint .screen,body.vibe-mint .estimateResult,
+    body.vibe-royal .glass,body.vibe-royal .soft,body.vibe-royal .card,body.vibe-royal .formBox,body.vibe-royal .hubCard,body.vibe-royal .final,body.vibe-royal .device,body.vibe-royal .screen,body.vibe-royal .estimateResult,
+    body.vibe-peach .glass,body.vibe-peach .soft,body.vibe-peach .card,body.vibe-peach .formBox,body.vibe-peach .hubCard,body.vibe-peach .final,body.vibe-peach .device,body.vibe-peach .screen,body.vibe-peach .estimateResult,
+    body.vibe-storm .glass,body.vibe-storm .soft,body.vibe-storm .card,body.vibe-storm .formBox,body.vibe-storm .hubCard,body.vibe-storm .final,body.vibe-storm .device,body.vibe-storm .screen,body.vibe-storm .estimateResult {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.09),var(--theme-shadow),0 0 74px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+      backdrop-filter:var(--theme-card-filter)!important;
+      -webkit-backdrop-filter:var(--theme-card-filter)!important;
+    }
+
+    body.vibe-aurora .primary,body.vibe-espresso .primary,body.vibe-citrus .primary,body.vibe-lavender .primary,body.vibe-cyber .primary,body.vibe-cozy .primary,body.vibe-mint .primary,body.vibe-royal .primary,body.vibe-peach .primary,body.vibe-storm .primary {
+      background:var(--theme-btn)!important;
+      box-shadow:0 20px 68px color-mix(in srgb,var(--theme-a) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.28)!important;
+    }
+
+    body.vibe-aurora .shine,body.vibe-espresso .shine,body.vibe-citrus .shine,body.vibe-lavender .shine,body.vibe-cyber .shine,body.vibe-cozy .shine,body.vibe-mint .shine,body.vibe-royal .shine,body.vibe-peach .shine,body.vibe-storm .shine {
+      background:var(--theme-title)!important;
+      background-size:240% auto!important;
+      -webkit-background-clip:text!important;
+      background-clip:text!important;
+      color:transparent!important;
+    }
+
+    body.vibe-aurora .ghost,body.vibe-aurora .chip,body.vibe-espresso .ghost,body.vibe-espresso .chip,body.vibe-citrus .ghost,body.vibe-citrus .chip,body.vibe-lavender .ghost,body.vibe-lavender .chip,body.vibe-cyber .ghost,body.vibe-cyber .chip,body.vibe-cozy .ghost,body.vibe-cozy .chip,body.vibe-mint .ghost,body.vibe-mint .chip,body.vibe-royal .ghost,body.vibe-royal .chip,body.vibe-peach .ghost,body.vibe-peach .chip,body.vibe-storm .ghost,body.vibe-storm .chip {
+      background:var(--theme-surface)!important;
+      border-color:var(--theme-line)!important;
+      color:var(--theme-muted)!important;
+    }
+
+    body.vibe-aurora .field input,body.vibe-aurora .field select,body.vibe-aurora .field textarea,
+    body.vibe-espresso .field input,body.vibe-espresso .field select,body.vibe-espresso .field textarea,
+    body.vibe-citrus .field input,body.vibe-citrus .field select,body.vibe-citrus .field textarea,
+    body.vibe-lavender .field input,body.vibe-lavender .field select,body.vibe-lavender .field textarea,
+    body.vibe-cyber .field input,body.vibe-cyber .field select,body.vibe-cyber .field textarea,
+    body.vibe-cozy .field input,body.vibe-cozy .field select,body.vibe-cozy .field textarea,
+    body.vibe-mint .field input,body.vibe-mint .field select,body.vibe-mint .field textarea,
+    body.vibe-royal .field input,body.vibe-royal .field select,body.vibe-royal .field textarea,
+    body.vibe-peach .field input,body.vibe-peach .field select,body.vibe-peach .field textarea,
+    body.vibe-storm .field input,body.vibe-storm .field select,body.vibe-storm .field textarea {
+      background:color-mix(in srgb,var(--theme-surface) 72%,transparent)!important;
+      border-color:var(--theme-line)!important;
+      color:var(--theme-text)!important;
+      border-radius:calc(var(--theme-radius) - 6px)!important;
+    }
+
+    body.vibe-aurora .appBottomNav,body.vibe-espresso .appBottomNav,body.vibe-citrus .appBottomNav,body.vibe-lavender .appBottomNav,body.vibe-cyber .appBottomNav,body.vibe-cozy .appBottomNav,body.vibe-mint .appBottomNav,body.vibe-royal .appBottomNav,body.vibe-peach .appBottomNav,body.vibe-storm .appBottomNav,
+    body.vibe-aurora .audioDockPanel,body.vibe-aurora .sensoryPanel,body.vibe-espresso .audioDockPanel,body.vibe-espresso .sensoryPanel,body.vibe-citrus .audioDockPanel,body.vibe-citrus .sensoryPanel,body.vibe-lavender .audioDockPanel,body.vibe-lavender .sensoryPanel,body.vibe-cyber .audioDockPanel,body.vibe-cyber .sensoryPanel,body.vibe-cozy .audioDockPanel,body.vibe-cozy .sensoryPanel,body.vibe-mint .audioDockPanel,body.vibe-mint .sensoryPanel,body.vibe-royal .audioDockPanel,body.vibe-royal .sensoryPanel,body.vibe-peach .audioDockPanel,body.vibe-peach .sensoryPanel,body.vibe-storm .audioDockPanel,body.vibe-storm .sensoryPanel {
+      background:color-mix(in srgb,var(--theme-bg-1) 88%,transparent)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:0 24px 80px rgba(0,0,0,.52),0 0 48px color-mix(in srgb,var(--theme-a) 16%,transparent)!important;
+    }
+
+    body.vibe-aurora .audioMainButton,body.vibe-aurora .sensoryButton,body.vibe-espresso .audioMainButton,body.vibe-espresso .sensoryButton,body.vibe-citrus .audioMainButton,body.vibe-citrus .sensoryButton,body.vibe-lavender .audioMainButton,body.vibe-lavender .sensoryButton,body.vibe-cyber .audioMainButton,body.vibe-cyber .sensoryButton,body.vibe-cozy .audioMainButton,body.vibe-cozy .sensoryButton,body.vibe-mint .audioMainButton,body.vibe-mint .sensoryButton,body.vibe-royal .audioMainButton,body.vibe-royal .sensoryButton,body.vibe-peach .audioMainButton,body.vibe-peach .sensoryButton,body.vibe-storm .audioMainButton,body.vibe-storm .sensoryButton {
+      background:var(--theme-btn)!important;
+    }
+
+    body.vibe-aurora .sectionTitle::after{background:linear-gradient(90deg,transparent,#8b5cf6,#2dd4bf,#f0abfc,transparent)!important;box-shadow:0 0 36px rgba(45,212,191,.28)!important}
+    body.vibe-espresso .sectionTitle::after{background:linear-gradient(90deg,transparent,#7c2d12,#f59e0b,#fed7aa,transparent)!important;box-shadow:0 0 34px rgba(245,158,11,.24)!important}
+    body.vibe-citrus .sectionTitle::after{background:linear-gradient(90deg,transparent,#a3e635,#facc15,#22c55e,transparent)!important;box-shadow:0 0 36px rgba(163,230,53,.28)!important}
+    body.vibe-lavender .sectionTitle::after{background:linear-gradient(90deg,transparent,#a78bfa,#d8b4fe,#f0abfc,transparent)!important;box-shadow:0 0 36px rgba(216,180,254,.28)!important}
+    body.vibe-cyber .sectionTitle::after{background:linear-gradient(90deg,transparent,#00f5ff,#7c3aed,#39ff14,transparent)!important;box-shadow:0 0 40px rgba(0,245,255,.34)!important}
+    body.vibe-cozy .sectionTitle::after{background:linear-gradient(90deg,transparent,#f59e0b,#fde68a,#fb7185,transparent)!important;box-shadow:0 0 32px rgba(245,158,11,.24)!important}
+    body.vibe-mint .sectionTitle::after{background:linear-gradient(90deg,transparent,#14b8a6,#99f6e4,#5eead4,transparent)!important;box-shadow:0 0 34px rgba(20,184,166,.26)!important}
+    body.vibe-royal .sectionTitle::after{background:linear-gradient(90deg,transparent,#6d28d9,#c4b5fd,#e5e7eb,transparent)!important;box-shadow:0 0 32px rgba(109,40,217,.26)!important}
+    body.vibe-peach .sectionTitle::after{background:linear-gradient(90deg,transparent,#fb7185,#fdba74,#ffedd5,transparent)!important;box-shadow:0 0 34px rgba(251,113,133,.24)!important}
+    body.vibe-storm .sectionTitle::after{background:linear-gradient(90deg,transparent,#2563eb,#64748b,#f8fafc,transparent)!important;box-shadow:0 0 30px rgba(37,99,235,.24)!important}
+
+    body.vibe-aurora .logoIcon,body.vibe-aurora .appIcon,body.vibe-aurora .requestIcon{background:linear-gradient(135deg,#fff,#ddd6fe,#99f6e4)!important}
+    body.vibe-espresso .logoIcon,body.vibe-espresso .appIcon,body.vibe-espresso .requestIcon{background:linear-gradient(135deg,#fff7ed,#fed7aa,#b45309)!important}
+    body.vibe-citrus .logoIcon,body.vibe-citrus .appIcon,body.vibe-citrus .requestIcon{background:linear-gradient(135deg,#fff,#fef08a,#a3e635)!important}
+    body.vibe-lavender .logoIcon,body.vibe-lavender .appIcon,body.vibe-lavender .requestIcon{background:linear-gradient(135deg,#fff,#ede9fe,#d8b4fe)!important}
+    body.vibe-cyber .logoIcon,body.vibe-cyber .appIcon,body.vibe-cyber .requestIcon{background:linear-gradient(135deg,#fff,#00f5ff,#39ff14)!important}
+    body.vibe-cozy .logoIcon,body.vibe-cozy .appIcon,body.vibe-cozy .requestIcon{background:linear-gradient(135deg,#fff8ee,#fde68a,#fb7185)!important}
+    body.vibe-mint .logoIcon,body.vibe-mint .appIcon,body.vibe-mint .requestIcon{background:linear-gradient(135deg,#fff,#ccfbf1,#14b8a6)!important}
+    body.vibe-royal .logoIcon,body.vibe-royal .appIcon,body.vibe-royal .requestIcon{background:linear-gradient(135deg,#fff,#ddd6fe,#6d28d9)!important}
+    body.vibe-peach .logoIcon,body.vibe-peach .appIcon,body.vibe-peach .requestIcon{background:linear-gradient(135deg,#fff,#ffe4e6,#fdba74)!important}
+    body.vibe-storm .logoIcon,body.vibe-storm .appIcon,body.vibe-storm .requestIcon{background:linear-gradient(135deg,#fff,#bfdbfe,#2563eb)!important}
+
+    body.vibe-aurora .v20-showcase,body.vibe-espresso .v20-showcase,body.vibe-citrus .v20-showcase,body.vibe-lavender .v20-showcase,body.vibe-cyber .v20-showcase,body.vibe-cozy .v20-showcase,body.vibe-mint .v20-showcase,body.vibe-royal .v20-showcase,body.vibe-peach .v20-showcase,body.vibe-storm .v20-showcase {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius-lg)!important;
+      box-shadow:var(--theme-shadow),0 0 90px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+    }
+
+    body.vibe-cyber .card,body.vibe-cyber .hubCard,body.vibe-cyber .formBox,body.vibe-cyber .final,body.vibe-cyber .v20-showcase{border-radius:10px!important}
+    body.vibe-storm .card,body.vibe-storm .hubCard,body.vibe-storm .formBox,body.vibe-storm .final,body.vibe-storm .v20-showcase{border-radius:14px!important}
+    body.vibe-citrus .btn,body.vibe-citrus .chip,body.vibe-mint .btn,body.vibe-mint .chip,body.vibe-peach .btn,body.vibe-peach .chip{border-radius:999px!important}
+    body.vibe-cozy .card,body.vibe-cozy .hubCard,body.vibe-cozy .formBox{box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 22px 70px rgba(45,21,7,.38),0 0 50px rgba(245,158,11,.10)!important}
+
+    @media(max-width:720px){
+      .themeStudioHeader{align-items:flex-start}
+      .moreThemesGrid{max-height:56svh}
+      .moreThemesLabel{display:block}
+    }
+
+
+    /* ============================================================
+       v30 Effect Themes
+       Snow / Rain / Galaxy / Fireflies / Christmas / Blossom
+       ============================================================ */
+
+    .effectTheme::before {
+      content: "FX";
+      position: absolute;
+      right: 9px;
+      bottom: 9px;
+      z-index: 3;
+      min-height: 20px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.76);
+      font-size: 9px;
+      font-weight: 950;
+      letter-spacing: .08em;
+    }
+
+    .themeFxLayer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+      contain: strict;
+    }
+
+    .themeFxLayer span {
+      position: absolute;
+      display: block;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    body.vibe-snow {
+      --theme-bg-1:#06111f;
+      --theme-bg-2:#102a43;
+      --theme-surface:rgba(240,249,255,.105);
+      --theme-line:rgba(226,246,255,.22);
+      --theme-line-2:rgba(255,255,255,.38);
+      --theme-text:#f7fcff;
+      --theme-muted:rgba(247,252,255,.72);
+      --theme-a:#bae6fd;
+      --theme-b:#e0f2fe;
+      --theme-c:#ffffff;
+      --theme-good:#dbeafe;
+      --theme-radius:28px;
+      --theme-radius-lg:50px;
+      --theme-shadow:0 30px 96px rgba(0,28,56,.48);
+      --theme-card:radial-gradient(680px circle at 16% 0%,rgba(255,255,255,.18),transparent 48%),radial-gradient(620px circle at 100% 30%,rgba(186,230,253,.16),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.12),rgba(224,242,254,.04));
+      --theme-btn:linear-gradient(135deg,#38bdf8 0%,#bae6fd 52%,#ffffff 128%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#e0f2fe 26%,#7dd3fc 54%,#fff 82%,#fff 100%);
+      --theme-pattern-opacity:.30;
+      --theme-card-filter:blur(28px) saturate(1.10);
+    }
+
+    body.vibe-rain {
+      --theme-bg-1:#030712;
+      --theme-bg-2:#111827;
+      --theme-surface:rgba(147,197,253,.076);
+      --theme-line:rgba(147,197,253,.16);
+      --theme-line-2:rgba(191,219,254,.28);
+      --theme-text:#f3f8ff;
+      --theme-muted:rgba(243,248,255,.66);
+      --theme-a:#60a5fa;
+      --theme-b:#38bdf8;
+      --theme-c:#94a3b8;
+      --theme-good:#93c5fd;
+      --theme-radius:18px;
+      --theme-radius-lg:28px;
+      --theme-shadow:0 30px 100px rgba(0,0,0,.64);
+      --theme-card:linear-gradient(180deg,rgba(147,197,253,.095),rgba(15,23,42,.56)),radial-gradient(650px circle at 18% 0%,rgba(56,189,248,.12),transparent 48%);
+      --theme-btn:linear-gradient(135deg,#1d4ed8 0%,#60a5fa 54%,#38bdf8 120%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#bfdbfe 28%,#60a5fa 56%,#38bdf8 82%,#fff 100%);
+      --theme-pattern-opacity:.18;
+      --theme-card-filter:blur(15px) contrast(1.08);
+    }
+
+    body.vibe-galaxy {
+      --theme-bg-1:#030014;
+      --theme-bg-2:#12052e;
+      --theme-surface:rgba(168,85,247,.086);
+      --theme-line:rgba(216,180,254,.18);
+      --theme-line-2:rgba(244,114,182,.30);
+      --theme-text:#fff8ff;
+      --theme-muted:rgba(255,248,255,.68);
+      --theme-a:#7c3aed;
+      --theme-b:#ec4899;
+      --theme-c:#22d3ee;
+      --theme-good:#c084fc;
+      --theme-radius:34px;
+      --theme-radius-lg:62px;
+      --theme-shadow:0 30px 104px rgba(15,0,36,.62);
+      --theme-card:radial-gradient(720px circle at 16% 0%,rgba(124,58,237,.24),transparent 48%),radial-gradient(640px circle at 100% 25%,rgba(236,72,153,.14),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.10),rgba(124,58,237,.035));
+      --theme-btn:linear-gradient(135deg,#7c3aed 0%,#ec4899 56%,#22d3ee 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ddd6fe 26%,#ec4899 52%,#22d3ee 80%,#fff 100%);
+      --theme-pattern-opacity:.28;
+      --theme-card-filter:blur(24px) saturate(1.34);
+    }
+
+    body.vibe-fireflies {
+      --theme-bg-1:#050f08;
+      --theme-bg-2:#13240e;
+      --theme-surface:rgba(254,240,138,.076);
+      --theme-line:rgba(254,240,138,.16);
+      --theme-line-2:rgba(190,242,100,.30);
+      --theme-text:#ffffef;
+      --theme-muted:rgba(255,255,239,.68);
+      --theme-a:#84cc16;
+      --theme-b:#facc15;
+      --theme-c:#fde68a;
+      --theme-good:#bef264;
+      --theme-radius:30px;
+      --theme-radius-lg:54px;
+      --theme-shadow:0 28px 96px rgba(0,30,9,.54);
+      --theme-card:radial-gradient(650px circle at 12% 0%,rgba(132,204,22,.16),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(250,204,21,.11),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(132,204,22,.035));
+      --theme-btn:linear-gradient(135deg,#3f6212 0%,#84cc16 50%,#facc15 126%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#ecfccb 28%,#84cc16 54%,#facc15 80%,#fff 100%);
+      --theme-pattern-opacity:.22;
+      --theme-card-filter:blur(20px) saturate(1.18);
+    }
+
+    body.vibe-christmas {
+      --theme-bg-1:#07120d;
+      --theme-bg-2:#1a2714;
+      --theme-surface:rgba(254,226,226,.080);
+      --theme-line:rgba(254,226,226,.17);
+      --theme-line-2:rgba(255,255,255,.30);
+      --theme-text:#fffaf5;
+      --theme-muted:rgba(255,250,245,.68);
+      --theme-a:#dc2626;
+      --theme-b:#16a34a;
+      --theme-c:#fbbf24;
+      --theme-good:#bbf7d0;
+      --theme-radius:26px;
+      --theme-radius-lg:46px;
+      --theme-shadow:0 30px 100px rgba(20,0,0,.54);
+      --theme-card:radial-gradient(650px circle at 12% 0%,rgba(220,38,38,.16),transparent 48%),radial-gradient(520px circle at 100% 20%,rgba(22,163,74,.14),transparent 50%),linear-gradient(180deg,rgba(255,255,255,.10),rgba(220,38,38,.034));
+      --theme-btn:linear-gradient(135deg,#b91c1c 0%,#16a34a 58%,#fbbf24 128%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fee2e2 26%,#dc2626 48%,#16a34a 72%,#fff 100%);
+      --theme-pattern-opacity:.30;
+      --theme-card-filter:blur(22px) saturate(1.24);
+    }
+
+    body.vibe-blossom {
+      --theme-bg-1:#160914;
+      --theme-bg-2:#331426;
+      --theme-surface:rgba(251,207,232,.090);
+      --theme-line:rgba(251,207,232,.19);
+      --theme-line-2:rgba(255,228,230,.32);
+      --theme-text:#fff7fb;
+      --theme-muted:rgba(255,247,251,.70);
+      --theme-a:#f472b6;
+      --theme-b:#fb7185;
+      --theme-c:#fecdd3;
+      --theme-good:#fbcfe8;
+      --theme-radius:38px;
+      --theme-radius-lg:68px;
+      --theme-shadow:0 28px 96px rgba(52,9,34,.52);
+      --theme-card:radial-gradient(650px circle at 15% 0%,rgba(244,114,182,.20),transparent 48%),radial-gradient(540px circle at 100% 20%,rgba(251,113,133,.14),transparent 52%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(244,114,182,.035));
+      --theme-btn:linear-gradient(135deg,#f472b6 0%,#fb7185 58%,#fecdd3 130%);
+      --theme-title:linear-gradient(90deg,#fff 0%,#fce7f3 28%,#f472b6 54%,#fb7185 78%,#fff 100%);
+      --theme-pattern-opacity:.30;
+      --theme-card-filter:blur(24px) saturate(1.20);
+    }
+
+    body.vibe-snow,
+    body.vibe-rain,
+    body.vibe-galaxy,
+    body.vibe-fireflies,
+    body.vibe-christmas,
+    body.vibe-blossom {
+      color:var(--theme-text)!important;
+      background:
+        radial-gradient(1120px circle at 10% -10%,color-mix(in srgb,var(--theme-a) 38%,transparent),transparent 45%),
+        radial-gradient(900px circle at 96% 8%,color-mix(in srgb,var(--theme-b) 25%,transparent),transparent 42%),
+        radial-gradient(780px circle at 50% 108%,color-mix(in srgb,var(--theme-c) 18%,transparent),transparent 52%),
+        linear-gradient(180deg,var(--theme-bg-1),var(--theme-bg-2) 46%,var(--theme-bg-1))!important;
+    }
+
+    body.vibe-snow .header,body.vibe-snow .mobileAppTop,
+    body.vibe-rain .header,body.vibe-rain .mobileAppTop,
+    body.vibe-galaxy .header,body.vibe-galaxy .mobileAppTop,
+    body.vibe-fireflies .header,body.vibe-fireflies .mobileAppTop,
+    body.vibe-christmas .header,body.vibe-christmas .mobileAppTop,
+    body.vibe-blossom .header,body.vibe-blossom .mobileAppTop {
+      background:color-mix(in srgb,var(--theme-bg-1) 84%,transparent)!important;
+      border-bottom-color:var(--theme-line)!important;
+      box-shadow:0 22px 72px rgba(0,0,0,.28),0 0 42px color-mix(in srgb,var(--theme-a) 12%,transparent)!important;
+    }
+
+    body.vibe-snow .glass,body.vibe-snow .soft,body.vibe-snow .card,body.vibe-snow .formBox,body.vibe-snow .hubCard,body.vibe-snow .final,body.vibe-snow .device,body.vibe-snow .screen,body.vibe-snow .estimateResult,
+    body.vibe-rain .glass,body.vibe-rain .soft,body.vibe-rain .card,body.vibe-rain .formBox,body.vibe-rain .hubCard,body.vibe-rain .final,body.vibe-rain .device,body.vibe-rain .screen,body.vibe-rain .estimateResult,
+    body.vibe-galaxy .glass,body.vibe-galaxy .soft,body.vibe-galaxy .card,body.vibe-galaxy .formBox,body.vibe-galaxy .hubCard,body.vibe-galaxy .final,body.vibe-galaxy .device,body.vibe-galaxy .screen,body.vibe-galaxy .estimateResult,
+    body.vibe-fireflies .glass,body.vibe-fireflies .soft,body.vibe-fireflies .card,body.vibe-fireflies .formBox,body.vibe-fireflies .hubCard,body.vibe-fireflies .final,body.vibe-fireflies .device,body.vibe-fireflies .screen,body.vibe-fireflies .estimateResult,
+    body.vibe-christmas .glass,body.vibe-christmas .soft,body.vibe-christmas .card,body.vibe-christmas .formBox,body.vibe-christmas .hubCard,body.vibe-christmas .final,body.vibe-christmas .device,body.vibe-christmas .screen,body.vibe-christmas .estimateResult,
+    body.vibe-blossom .glass,body.vibe-blossom .soft,body.vibe-blossom .card,body.vibe-blossom .formBox,body.vibe-blossom .hubCard,body.vibe-blossom .final,body.vibe-blossom .device,body.vibe-blossom .screen,body.vibe-blossom .estimateResult {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius)!important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.09),var(--theme-shadow),0 0 74px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+      backdrop-filter:var(--theme-card-filter)!important;
+      -webkit-backdrop-filter:var(--theme-card-filter)!important;
+    }
+
+    body.vibe-snow .primary,body.vibe-rain .primary,body.vibe-galaxy .primary,body.vibe-fireflies .primary,body.vibe-christmas .primary,body.vibe-blossom .primary {
+      background:var(--theme-btn)!important;
+      box-shadow:0 20px 68px color-mix(in srgb,var(--theme-a) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.28)!important;
+    }
+
+    body.vibe-snow .shine,body.vibe-rain .shine,body.vibe-galaxy .shine,body.vibe-fireflies .shine,body.vibe-christmas .shine,body.vibe-blossom .shine {
+      background:var(--theme-title)!important;
+      background-size:240% auto!important;
+      -webkit-background-clip:text!important;
+      background-clip:text!important;
+      color:transparent!important;
+    }
+
+    body.vibe-snow .ghost,body.vibe-snow .chip,body.vibe-rain .ghost,body.vibe-rain .chip,body.vibe-galaxy .ghost,body.vibe-galaxy .chip,body.vibe-fireflies .ghost,body.vibe-fireflies .chip,body.vibe-christmas .ghost,body.vibe-christmas .chip,body.vibe-blossom .ghost,body.vibe-blossom .chip {
+      background:var(--theme-surface)!important;
+      border-color:var(--theme-line)!important;
+      color:var(--theme-muted)!important;
+    }
+
+    body.vibe-snow .sectionTitle::after{background:linear-gradient(90deg,transparent,#bae6fd,#fff,#7dd3fc,transparent)!important;box-shadow:0 0 36px rgba(186,230,253,.30)!important}
+    body.vibe-rain .sectionTitle::after{background:linear-gradient(90deg,transparent,#60a5fa,#38bdf8,#94a3b8,transparent)!important;box-shadow:0 0 34px rgba(96,165,250,.26)!important}
+    body.vibe-galaxy .sectionTitle::after{background:linear-gradient(90deg,transparent,#7c3aed,#ec4899,#22d3ee,transparent)!important;box-shadow:0 0 40px rgba(236,72,153,.26)!important}
+    body.vibe-fireflies .sectionTitle::after{background:linear-gradient(90deg,transparent,#84cc16,#facc15,#fde68a,transparent)!important;box-shadow:0 0 36px rgba(250,204,21,.26)!important}
+    body.vibe-christmas .sectionTitle::after{background:linear-gradient(90deg,transparent,#dc2626,#16a34a,#fbbf24,transparent)!important;box-shadow:0 0 36px rgba(220,38,38,.24)!important}
+    body.vibe-blossom .sectionTitle::after{background:linear-gradient(90deg,transparent,#f472b6,#fb7185,#fecdd3,transparent)!important;box-shadow:0 0 36px rgba(244,114,182,.26)!important}
+
+    body.vibe-snow .logoIcon,body.vibe-snow .appIcon,body.vibe-snow .requestIcon{background:linear-gradient(135deg,#fff,#e0f2fe,#bae6fd)!important}
+    body.vibe-rain .logoIcon,body.vibe-rain .appIcon,body.vibe-rain .requestIcon{background:linear-gradient(135deg,#fff,#bfdbfe,#60a5fa)!important}
+    body.vibe-galaxy .logoIcon,body.vibe-galaxy .appIcon,body.vibe-galaxy .requestIcon{background:linear-gradient(135deg,#fff,#ddd6fe,#ec4899)!important}
+    body.vibe-fireflies .logoIcon,body.vibe-fireflies .appIcon,body.vibe-fireflies .requestIcon{background:linear-gradient(135deg,#fff,#ecfccb,#facc15)!important}
+    body.vibe-christmas .logoIcon,body.vibe-christmas .appIcon,body.vibe-christmas .requestIcon{background:linear-gradient(135deg,#fff,#fee2e2,#bbf7d0)!important}
+    body.vibe-blossom .logoIcon,body.vibe-blossom .appIcon,body.vibe-blossom .requestIcon{background:linear-gradient(135deg,#fff,#fce7f3,#fecdd3)!important}
+
+    body.vibe-snow .v20-showcase,body.vibe-rain .v20-showcase,body.vibe-galaxy .v20-showcase,body.vibe-fireflies .v20-showcase,body.vibe-christmas .v20-showcase,body.vibe-blossom .v20-showcase {
+      background:var(--theme-card)!important;
+      border-color:var(--theme-line)!important;
+      border-radius:var(--theme-radius-lg)!important;
+      box-shadow:var(--theme-shadow),0 0 90px color-mix(in srgb,var(--theme-a) 18%,transparent)!important;
+    }
+
+    .themeFxLayer[data-effect="snow"] .fxParticle {
+      width: var(--s, 6px);
+      height: var(--s, 6px);
+      left: var(--x, 50%);
+      top: -8vh;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 0 16px rgba(255,255,255,.45);
+      opacity: var(--o, .8);
+      animation: fxSnowFall var(--d, 10s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxSnowFall {
+      0% { transform: translate3d(0,-8vh,0); }
+      100% { transform: translate3d(var(--drift, 24px),112vh,0); }
+    }
+
+    .themeFxLayer[data-effect="rain"] .fxParticle {
+      width: 1.5px;
+      height: var(--h, 54px);
+      left: var(--x, 50%);
+      top: -15vh;
+      border-radius: 999px;
+      background: linear-gradient(180deg, transparent, rgba(191,219,254,.82));
+      opacity: var(--o, .6);
+      transform: rotate(12deg);
+      animation: fxRainFall var(--d, 1.2s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxRainFall {
+      to { transform: translate3d(-80px,120vh,0) rotate(12deg); }
+    }
+
+    .themeFxLayer[data-effect="galaxy"] .fxParticle {
+      width: var(--s, 3px);
+      height: var(--s, 3px);
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 0 18px color-mix(in srgb, var(--theme-c, #22d3ee) 60%, white);
+      opacity: var(--o, .7);
+      animation: fxStarTwinkle var(--d, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .themeFxLayer[data-effect="galaxy"] .fxParticle:nth-child(9n) {
+      width: 82px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
+      animation: fxComet 7s linear infinite;
+    }
+
+    @keyframes fxStarTwinkle {
+      0%,100% { opacity: .18; transform: scale(.9); }
+      50% { opacity: 1; transform: scale(1.45); }
+    }
+
+    @keyframes fxComet {
+      0% { transform: translate3d(-20vw,-10vh,0) rotate(-22deg); opacity:0; }
+      12% { opacity:.9; }
+      35%,100% { transform: translate3d(120vw,70vh,0) rotate(-22deg); opacity:0; }
+    }
+
+    .themeFxLayer[data-effect="fireflies"] .fxParticle {
+      width: var(--s, 7px);
+      height: var(--s, 7px);
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      border-radius: 999px;
+      background: #facc15;
+      box-shadow: 0 0 22px #facc15, 0 0 54px rgba(250,204,21,.42);
+      opacity: .75;
+      animation: fxFirefly var(--d, 8s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxFirefly {
+      0%,100% { transform: translate3d(0,0,0) scale(.75); opacity:.25; }
+      35% { transform: translate3d(var(--drift, 28px),-36px,0) scale(1.2); opacity:1; }
+      70% { transform: translate3d(calc(var(--drift, 28px) * -1),24px,0) scale(.9); opacity:.55; }
+    }
+
+    .themeFxLayer[data-effect="christmas"] .fxParticle {
+      width: var(--s, 10px);
+      height: var(--s, 10px);
+      left: var(--x, 50%);
+      top: var(--y, 16%);
+      border-radius: 999px;
+      background: var(--c, #fbbf24);
+      box-shadow: 0 0 18px var(--c, #fbbf24), 0 0 42px color-mix(in srgb, var(--c, #fbbf24) 55%, transparent);
+      animation: fxHolidayLight var(--d, 2.2s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .themeFxLayer[data-effect="christmas"] .fxParticle:nth-child(n+26) {
+      top: -8vh;
+      background: rgba(255,255,255,.9);
+      animation: fxSnowFall var(--d, 11s) linear infinite;
+    }
+
+    @keyframes fxHolidayLight {
+      0%,100% { opacity:.28; transform: scale(.82); }
+      50% { opacity:1; transform: scale(1.25); }
+    }
+
+    .themeFxLayer[data-effect="blossom"] .fxParticle {
+      width: var(--s, 13px);
+      height: calc(var(--s, 13px) * .72);
+      left: var(--x, 50%);
+      top: -10vh;
+      border-radius: 999px 999px 999px 0;
+      background: rgba(251,207,232,.92);
+      box-shadow: 0 0 16px rgba(251,207,232,.28);
+      opacity: var(--o, .75);
+      transform: rotate(30deg);
+      animation: fxPetalFall var(--d, 11s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fxPetalFall {
+      0% { transform: translate3d(0,-10vh,0) rotate(0deg); }
+      100% { transform: translate3d(var(--drift, 70px),112vh,0) rotate(720deg); }
+    }
+
+    body.v22-reduced-sensory .themeFxLayer { display:none!important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .themeFxLayer { display:none!important; }
+    }
+
+    @media(max-width:720px){
+      .themeFxLayer[data-effect="rain"] .fxParticle:nth-child(n+38),
+      .themeFxLayer[data-effect="snow"] .fxParticle:nth-child(n+34),
+      .themeFxLayer[data-effect="galaxy"] .fxParticle:nth-child(n+40),
+      .themeFxLayer[data-effect="fireflies"] .fxParticle:nth-child(n+24),
+      .themeFxLayer[data-effect="christmas"] .fxParticle:nth-child(n+36),
+      .themeFxLayer[data-effect="blossom"] .fxParticle:nth-child(n+30) {
+        display:none;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -7174,17 +8094,53 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         <button id="sensoryClose" class="sensoryMiniButton" type="button" aria-label="Close sensory panel">✕</button>
       </div>
 
-      <div class="sensoryGrid">
+      <div class="themeStudioHeader">
+        <div>
+          <strong>Featured themes</strong>
+          <span>Pick one fast, or open the full theme library.</span>
+        </div>
+        <button id="moreThemesToggle" class="themeMoreButton" type="button" aria-expanded="false">
+          <span>+</span>
+          More
+        </button>
+      </div>
+
+      <div class="sensoryGrid themePrimaryGrid">
         <button class="sensoryOption" data-vibe="twilight" type="button"><b>🌌</b><strong>Twilight</strong><span>Purple, blue, premium glow</span></button>
         <button class="sensoryOption" data-vibe="ocean" type="button"><b>🌊</b><strong>Ocean</strong><span>Cool blue and calm energy</span></button>
         <button class="sensoryOption" data-vibe="fresh" type="button"><b>🍃</b><strong>Fresh</strong><span>Green, clean, grocery-day feel</span></button>
         <button class="sensoryOption" data-vibe="night" type="button"><b>🌙</b><strong>Night</strong><span>Darker low-light mode</span></button>
-        <button class="sensoryOption" data-vibe="luxury" type="button"><b>💎</b><strong>Luxury</strong><span>Black, gold, concierge feel</span></button>
-        <button class="sensoryOption" data-vibe="sunset" type="button"><b>🌅</b><strong>Sunset</strong><span>Warm pink-orange glow</span></button>
-        <button class="sensoryOption" data-vibe="ice" type="button"><b>🧊</b><strong>Ice</strong><span>Frozen clean glass style</span></button>
-        <button class="sensoryOption" data-vibe="market" type="button"><b>🥕</b><strong>Market</strong><span>Local farm stand colors</span></button>
-        <button class="sensoryOption" data-vibe="mono" type="button"><b>◼</b><strong>Mono</strong><span>Sharp black and white mode</span></button>
-        <button class="sensoryOption" data-vibe="candy" type="button"><b>🍬</b><strong>Candy</strong><span>Fun bright social look</span></button>
+      </div>
+
+      <div id="moreThemesPanel" class="moreThemesPanel" hidden>
+        <div class="moreThemesLabel">
+          <strong>Theme library</strong>
+          <span>Extra full-site looks. Each theme changes cards, buttons, forms, nav, panels, and highlights.</span>
+        </div>
+        <div class="sensoryGrid moreThemesGrid">
+          <button class="sensoryOption premiumTheme" data-vibe="luxury" type="button"><b>💎</b><strong>Luxury</strong><span>Black, gold, concierge feel</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="sunset" type="button"><b>🌅</b><strong>Sunset</strong><span>Warm pink-orange glow</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="ice" type="button"><b>🧊</b><strong>Ice</strong><span>Frozen clean glass style</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="market" type="button"><b>🥕</b><strong>Market</strong><span>Local farm stand colors</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="mono" type="button"><b>◼</b><strong>Mono</strong><span>Sharp black and white mode</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="candy" type="button"><b>🍬</b><strong>Candy</strong><span>Fun bright social look</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="aurora" type="button"><b>🟣</b><strong>Aurora</strong><span>Northern lights, dreamy premium glow</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="espresso" type="button"><b>☕</b><strong>Espresso</strong><span>Warm coffee, cream, classy local feel</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="citrus" type="button"><b>🍋</b><strong>Citrus</strong><span>Bright lemon-lime energy</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="lavender" type="button"><b>🪻</b><strong>Lavender</strong><span>Soft purple, calm and friendly</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="cyber" type="button"><b>🧬</b><strong>Cyber</strong><span>Electric arcade dispatch style</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="cozy" type="button"><b>🧺</b><strong>Cozy</strong><span>Warm home, soft cream, comfort</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="mint" type="button"><b>🌿</b><strong>Mint</strong><span>Clean mint, fresh grocery aesthetic</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="royal" type="button"><b>👑</b><strong>Royal</strong><span>Deep violet and premium silver</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="peach" type="button"><b>🍑</b><strong>Peach</strong><span>Friendly peach, cream, soft social vibe</span></button>
+          <button class="sensoryOption premiumTheme" data-vibe="storm" type="button"><b>⛈️</b><strong>Storm</strong><span>Dark blue, lightning, focused ops</span></button>
+          <button class="sensoryOption premiumTheme effectTheme" data-vibe="snow" type="button"><b>❄️</b><strong>Snow</strong><span>Falling snow, frosty winter glass</span></button>
+          <button class="sensoryOption premiumTheme effectTheme" data-vibe="rain" type="button"><b>🌧️</b><strong>Rain</strong><span>Soft rainy window streaks</span></button>
+          <button class="sensoryOption premiumTheme effectTheme" data-vibe="galaxy" type="button"><b>🌌</b><strong>Galaxy</strong><span>Stars, deep space, cosmic glow</span></button>
+          <button class="sensoryOption premiumTheme effectTheme" data-vibe="fireflies" type="button"><b>✨</b><strong>Fireflies</strong><span>Warm glowing floating lights</span></button>
+          <button class="sensoryOption premiumTheme effectTheme" data-vibe="christmas" type="button"><b>🎄</b><strong>Christmas</strong><span>Holiday lights and cozy snow</span></button>
+          <button class="sensoryOption premiumTheme effectTheme" data-vibe="blossom" type="button"><b>🌸</b><strong>Blossom</strong><span>Soft petals and spring air</span></button>
+        </div>
       </div>
 
       <div class="sensoryActions">
@@ -7201,9 +8157,12 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
     <button id="sensoryButton" class="sensoryButton" type="button">
       <span>✦</span>
-      Vibe
+      Theme
     </button>
   </div>
+
+  
+  <div id="themeFxLayer" class="themeFxLayer" aria-hidden="true"></div>
 
   <div id="toast" class="toast"></div>
   <script>
@@ -7725,11 +8684,69 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         try { navigator.vibrate(pattern); } catch (err) {}
       }
 
+
+      function renderThemeEffects(){
+        const layer = $('#themeFxLayer');
+        if (!layer) return;
+
+        const effectThemes = {
+          snow: { count: 58, effect: 'snow' },
+          rain: { count: 76, effect: 'rain' },
+          galaxy: { count: 70, effect: 'galaxy' },
+          fireflies: { count: 34, effect: 'fireflies' },
+          christmas: { count: 64, effect: 'christmas' },
+          blossom: { count: 52, effect: 'blossom' }
+        };
+
+        const config = effectThemes[vibe];
+        layer.innerHTML = '';
+
+        if (!config || reducedSensory) {
+          layer.removeAttribute('data-effect');
+          return;
+        }
+
+        layer.dataset.effect = config.effect;
+        const holidayColors = ['#dc2626', '#16a34a', '#fbbf24', '#ffffff', '#38bdf8'];
+
+        for (let i = 0; i < config.count; i++) {
+          const particle = document.createElement('span');
+          particle.className = 'fxParticle';
+          const x = Math.round(Math.random() * 100);
+          const y = Math.round(Math.random() * 100);
+          const size = config.effect === 'rain'
+            ? 2
+            : Math.round(3 + Math.random() * (config.effect === 'blossom' ? 14 : 9));
+          const duration =
+            config.effect === 'rain' ? (0.75 + Math.random() * 0.9) :
+            config.effect === 'galaxy' ? (2 + Math.random() * 4) :
+            config.effect === 'fireflies' ? (5 + Math.random() * 8) :
+            config.effect === 'christmas' ? (1.3 + Math.random() * 3.8) :
+            (7 + Math.random() * 10);
+
+          particle.style.setProperty('--x', x + '%');
+          particle.style.setProperty('--y', y + '%');
+          particle.style.setProperty('--s', size + 'px');
+          particle.style.setProperty('--h', Math.round(34 + Math.random() * 70) + 'px');
+          particle.style.setProperty('--d', duration.toFixed(2) + 's');
+          particle.style.setProperty('--delay', (-Math.random() * duration).toFixed(2) + 's');
+          particle.style.setProperty('--o', (0.25 + Math.random() * 0.75).toFixed(2));
+          particle.style.setProperty('--drift', Math.round(-90 + Math.random() * 180) + 'px');
+
+          if (config.effect === 'christmas') {
+            particle.style.setProperty('--c', holidayColors[i % holidayColors.length]);
+          }
+
+          layer.appendChild(particle);
+        }
+      }
+
       function applyState(){
-        document.body.classList.remove('vibe-twilight','vibe-ocean','vibe-fresh','vibe-night');
+        document.body.classList.remove('vibe-twilight','vibe-ocean','vibe-fresh','vibe-night','vibe-luxury','vibe-sunset','vibe-ice','vibe-market','vibe-mono','vibe-candy','vibe-aurora','vibe-espresso','vibe-citrus','vibe-lavender','vibe-cyber','vibe-cozy','vibe-mint','vibe-royal','vibe-peach','vibe-storm','vibe-snow','vibe-rain','vibe-galaxy','vibe-fireflies','vibe-christmas','vibe-blossom');
         document.body.classList.add('vibe-' + vibe);
         document.body.classList.toggle('v22-haptics-on', haptics);
         document.body.classList.toggle('v22-reduced-sensory', reducedSensory);
+        renderThemeEffects();
 
         $$('.sensoryOption[data-vibe]').forEach(function(btn){
           btn.classList.toggle('active', btn.dataset.vibe === vibe);
@@ -7950,6 +8967,36 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       setRefreshButton();
       scheduleRefresh();
       applyHQFilters();
+    })();
+
+
+    // v29 expandable theme library
+    (function initMoreThemesToggle(){
+      const toggle = $('#moreThemesToggle');
+      const panel = $('#moreThemesPanel');
+      if (!toggle || !panel) return;
+
+      function setOpen(open){
+        panel.hidden = !open;
+        panel.classList.toggle('show', open);
+        toggle.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.innerHTML = open ? '<span>+</span>Less' : '<span>+</span>More';
+        localStorage.setItem('dropcartMoreThemesOpen', open ? 'on' : 'off');
+      }
+
+      const savedOpen = localStorage.getItem('dropcartMoreThemesOpen') === 'on';
+      setOpen(savedOpen);
+
+      toggle.addEventListener('click', function(){
+        setOpen(panel.hidden);
+      });
+
+      $$('.moreThemesGrid .sensoryOption[data-vibe]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          setOpen(false);
+        });
+      });
     })();
 
   </script>
