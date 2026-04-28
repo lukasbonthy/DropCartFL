@@ -9383,6 +9383,106 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v35 Morph Button Working Patch
+       Makes Morph obvious and independently clickable.
+       ============================================================ */
+
+    .morphDock {
+      left: auto !important;
+      right: 18px !important;
+      bottom: 92px !important;
+      z-index: 2600 !important;
+    }
+
+    .morphButton {
+      min-height: 48px !important;
+      padding: 11px 15px !important;
+      border-radius: 999px !important;
+      color: #fff !important;
+      background:
+        radial-gradient(140px circle at 18% 0%, rgba(255,255,255,.22), transparent 45%),
+        linear-gradient(135deg, rgba(17,24,39,.86), color-mix(in srgb, var(--theme-a, #7c5cff) 38%, rgba(17,24,39,.84))) !important;
+      border: 1px solid rgba(255,255,255,.18) !important;
+      box-shadow:
+        0 18px 58px rgba(0,0,0,.40),
+        0 0 46px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+      backdrop-filter: blur(20px) saturate(1.16) !important;
+      -webkit-backdrop-filter: blur(20px) saturate(1.16) !important;
+      pointer-events: auto !important;
+    }
+
+    .morphButton::after {
+      content: "Style";
+      display: inline-grid;
+      place-items: center;
+      min-height: 22px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.72);
+      font-size: 10px;
+      font-weight: 950;
+      margin-left: 2px;
+    }
+
+    .morphDockPanel {
+      pointer-events: auto !important;
+      transform-origin: bottom right;
+      right: 0;
+      left: auto;
+    }
+
+    .morphDock.open .morphButton {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 65%, #111827), color-mix(in srgb, var(--theme-c, #35d7ff) 42%, #111827)) !important;
+      border-color: rgba(255,255,255,.28) !important;
+      box-shadow:
+        0 20px 72px rgba(0,0,0,.42),
+        0 0 68px color-mix(in srgb, var(--theme-c, #35d7ff) 30%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.22) !important;
+    }
+
+    .morphDock .morphismOption.active {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 42%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 22%, rgba(255,255,255,.05))) !important;
+      border-color: rgba(255,255,255,.32) !important;
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 68%, white) !important;
+      outline-offset: -2px !important;
+      box-shadow:
+        0 16px 48px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+    }
+
+    body.morph-glass .morphismTestTarget,
+    body.morph-liquid .morphismTestTarget,
+    body.morph-neo .morphismTestTarget,
+    body.morph-clay .morphismTestTarget,
+    body.morph-crystal .morphismTestTarget,
+    body.morph-holo .morphismTestTarget,
+    body.morph-soft .morphismTestTarget {
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 50%, transparent);
+    }
+
+    @media(max-width:720px) {
+      .morphDock {
+        right: 12px !important;
+        left: auto !important;
+        bottom: calc(154px + var(--safe-bottom)) !important;
+      }
+
+      .morphButton::after {
+        display: none;
+      }
+
+      .morphDockPanel {
+        width: min(390px, calc(100vw - 24px)) !important;
+        max-height: 66svh !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -9501,20 +9601,20 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
           <strong>Morphism Studio</strong>
           <span>Choose the shape/depth style. This stacks with any theme.</span>
         </div>
-        <button id="morphClose" class="sensoryMiniButton" type="button" aria-label="Close morphism panel">✕</button>
+        <button id="morphClose" class="sensoryMiniButton" type="button" aria-label="Close morphism panel" onclick="document.getElementById('morphDock')?.classList.remove('open')">✕</button>
       </div>
 
       <div id="morphStatus" class="morphStatus"><strong>Current:</strong> Regular theme style</div>
 
       <div class="morphismGrid">
-        <button class="morphismOption" data-morph="none" type="button"><b>◎</b><strong>None</strong><span>Use the regular theme style</span></button>
-        <button class="morphismOption" data-morph="glass" type="button"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
-        <button class="morphismOption" data-morph="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Organic liquid card shapes</span></button>
-        <button class="morphismOption" data-morph="neo" type="button"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
-        <button class="morphismOption" data-morph="clay" type="button"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
-        <button class="morphismOption" data-morph="crystal" type="button"><b>◇</b><strong>Crystal</strong><span>Sharp crystal/glass facets</span></button>
-        <button class="morphismOption" data-morph="holo" type="button"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
-        <button class="morphismOption" data-morph="soft" type="button"><b>☁️</b><strong>Soft</strong><span>Extra soft rounded depth</span></button>
+        <button class="morphismOption" data-morph="none" data-morph-label="Regular theme style" type="button" onclick="window.DropcartMorph?.set?.(\'none\'); return false;"><b>◎</b><strong>None</strong><span>Use the regular theme style</span></button>
+        <button class="morphismOption" data-morph="glass" data-morph-label="Glassmorphism active" type="button" onclick="window.DropcartMorph?.set?.(\'glass\'); return false;"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
+        <button class="morphismOption" data-morph="liquid" data-morph-label="Liquid morphism active" type="button" onclick="window.DropcartMorph?.set?.(\'liquid\'); return false;"><b>💧</b><strong>Liquid</strong><span>Organic liquid card shapes</span></button>
+        <button class="morphismOption" data-morph="neo" data-morph-label="Neumorphism active" type="button" onclick="window.DropcartMorph?.set?.(\'neo\'); return false;"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
+        <button class="morphismOption" data-morph="clay" data-morph-label="Claymorphism active" type="button" onclick="window.DropcartMorph?.set?.(\'clay\'); return false;"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
+        <button class="morphismOption" data-morph="crystal" data-morph-label="Crystal morphism active" type="button" onclick="window.DropcartMorph?.set?.(\'crystal\'); return false;"><b>◇</b><strong>Crystal</strong><span>Sharp crystal/glass facets</span></button>
+        <button class="morphismOption" data-morph="holo" data-morph-label="Holographic morphism active" type="button" onclick="window.DropcartMorph?.set?.(\'holo\'); return false;"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
+        <button class="morphismOption" data-morph="soft" data-morph-label="Soft depth active" type="button" onclick="window.DropcartMorph?.set?.(\'soft\'); return false;"><b>☁️</b><strong>Soft</strong><span>Extra soft rounded depth</span></button>
       </div>
 
       <p class="morphDockHint">
@@ -9522,11 +9622,96 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       </p>
     </div>
 
-    <button id="morphButton" class="morphButton" type="button">
+    <button id="morphButton" class="morphButton" type="button" onclick="document.getElementById('morphDock')?.classList.toggle('open'); window.DropcartMorph?.refresh?.();">
       <span>◇</span>
       Morph
     </button>
   </div>
+
+
+  <script>
+    window.DropcartMorph = (function(){
+      const classes = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
+      const labels = {
+        none: 'Regular theme style',
+        glass: 'Glassmorphism active',
+        liquid: 'Liquid morphism active',
+        neo: 'Neumorphism active',
+        clay: 'Claymorphism active',
+        crystal: 'Crystal morphism active',
+        holo: 'Holographic morphism active',
+        soft: 'Soft depth active'
+      };
+
+      function get(){
+        return localStorage.getItem('dropcartMorphism') || 'none';
+      }
+
+      function apply(morph){
+        const next = morph || get();
+        document.body.classList.remove.apply(document.body.classList, classes);
+        if (next && next !== 'none') {
+          document.body.classList.add('morph-' + next);
+        }
+
+        document.querySelectorAll('.morphismOption[data-morph]').forEach(function(btn){
+          btn.classList.toggle('active', btn.dataset.morph === next);
+        });
+
+        const status = document.getElementById('morphStatus');
+        if (status) status.innerHTML = '<strong>Current:</strong> ' + (labels[next] || next);
+        const button = document.getElementById('morphButton');
+        if (button) {
+          button.setAttribute('data-current-morph', next);
+          button.title = labels[next] || next;
+        }
+      }
+
+      function set(morph){
+        localStorage.setItem('dropcartMorphism', morph || 'none');
+        apply(morph || 'none');
+        const dock = document.getElementById('morphDock');
+        if (dock) dock.classList.add('open');
+        try { navigator.vibrate && navigator.vibrate(10); } catch(e) {}
+      }
+
+      function toggle(){
+        const dock = document.getElementById('morphDock');
+        if (dock) dock.classList.toggle('open');
+        apply();
+      }
+
+      function close(){
+        const dock = document.getElementById('morphDock');
+        if (dock) dock.classList.remove('open');
+      }
+
+      function refresh(){
+        apply();
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        apply();
+        const dock = document.getElementById('morphDock');
+        const button = document.getElementById('morphButton');
+        const closeBtn = document.getElementById('morphClose');
+        if (button) button.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); toggle(); });
+        if (closeBtn) closeBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); close(); });
+        document.querySelectorAll('.morphismOption[data-morph]').forEach(function(btn){
+          btn.addEventListener('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            set(btn.dataset.morph || 'none');
+          });
+        });
+      });
+
+      apply();
+
+      return { get, set, apply, toggle, close, refresh };
+    })();
+  </script>
+
 
   <div id="sensoryDock" class="sensoryDock">
     <div class="sensoryPanel">
@@ -10579,116 +10764,6 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         btn.addEventListener('click', function(){
           setOpen(false);
         });
-      });
-    })();
-
-
-    // v33 direct Morph button
-    (function initDirectMorphDock(){
-      const dock = $('#morphDock');
-      const open = $('#morphButton');
-      const close = $('#morphClose');
-      if (!dock || !open) return;
-
-      open.addEventListener('click', function(){
-        dock.classList.toggle('open');
-      });
-
-      close?.addEventListener('click', function(){
-        dock.classList.remove('open');
-      });
-
-      $$('#morphDock .morphismOption[data-morph]').forEach(function(btn){
-        btn.addEventListener('click', function(){
-          setTimeout(function(){
-            dock.classList.remove('open');
-          }, 120);
-        });
-      });
-    })();
-
-
-    // v34 independent Morphism Studio logic
-    (function initFixedMorphism(){
-      const dock = document.querySelector('#morphDock');
-      const button = document.querySelector('#morphButton');
-      const close = document.querySelector('#morphClose');
-      const status = document.querySelector('#morphStatus');
-      const options = Array.from(document.querySelectorAll('.morphismOption[data-morph]'));
-      const classes = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
-
-      if (!button || !options.length) return;
-
-      const names = {
-        none: 'Regular theme style',
-        glass: 'Glassmorphism active',
-        liquid: 'Liquid morphism active',
-        neo: 'Neumorphism active',
-        clay: 'Claymorphism active',
-        crystal: 'Crystal morphism active',
-        holo: 'Holographic morphism active',
-        soft: 'Soft depth active'
-      };
-
-      function getMorph(){
-        return localStorage.getItem('dropcartMorphism') || 'none';
-      }
-
-      function applyMorph(next){
-        const morph = next || getMorph();
-        document.body.classList.remove(...classes);
-
-        if (morph && morph !== 'none') {
-          document.body.classList.add('morph-' + morph);
-        }
-
-        options.forEach((option) => {
-          option.classList.toggle('active', option.dataset.morph === morph);
-        });
-
-        if (status) {
-          status.innerHTML = '<strong>Current:</strong> ' + (names[morph] || morph);
-        }
-
-        button.setAttribute('data-current-morph', morph);
-        button.title = names[morph] || morph;
-      }
-
-      options.forEach((option) => {
-        option.addEventListener('click', (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          const morph = option.dataset.morph || 'none';
-          localStorage.setItem('dropcartMorphism', morph);
-          applyMorph(morph);
-
-          if (dock) {
-            dock.classList.add('open');
-          }
-
-          try {
-            navigator.vibrate?.(12);
-          } catch (err) {}
-        });
-      });
-
-      button.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        dock?.classList.toggle('open');
-        applyMorph();
-      });
-
-      close?.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        dock?.classList.remove('open');
-      });
-
-      applyMorph();
-
-      window.addEventListener('storage', (event) => {
-        if (event.key === 'dropcartMorphism') applyMorph();
       });
     })();
 
