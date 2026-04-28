@@ -8562,6 +8562,387 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .themeFxLayer[data-effect="rain"] .fxParticle:nth-child(n+42),.themeFxLayer[data-effect="matrix"] .fxParticle:nth-child(n+42){display:none}
     }
 
+
+    /* ============================================================
+       v32 Morphism Studio
+       A second design layer that can stack with any theme.
+       ============================================================ */
+
+    .morphismPanel {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 22px;
+      background:
+        radial-gradient(380px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 13%, transparent), transparent 48%),
+        rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.085);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
+    }
+
+    .morphismPanelHead {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.13);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .morphismPanelHead strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .morphismPanelHead span {
+      display: block;
+      max-width: 230px;
+      color: rgba(255,255,255,.44);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 750;
+      text-align: right;
+    }
+
+    .morphismGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+    }
+
+    .morphismOption {
+      position: relative;
+      overflow: hidden;
+      min-height: 72px;
+      padding: 12px;
+      border: 0;
+      border-radius: 18px;
+      color: white;
+      text-align: left;
+      background: rgba(255,255,255,.062);
+      border: 1px solid rgba(255,255,255,.095);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .morphismOption::after {
+      content: "";
+      position: absolute;
+      right: -28px;
+      top: -28px;
+      width: 76px;
+      height: 76px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 26%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 16%, transparent));
+      transform: rotate(18deg);
+      opacity: .42;
+      pointer-events: none;
+    }
+
+    .morphismOption b {
+      position: relative;
+      z-index: 2;
+      display: block;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .morphismOption strong {
+      position: relative;
+      z-index: 2;
+      display: block;
+      margin-top: 9px;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .morphismOption span {
+      position: relative;
+      z-index: 2;
+      display: block;
+      margin-top: 3px;
+      color: rgba(255,255,255,.44);
+      font-size: 10.5px;
+      line-height: 1.25;
+      font-weight: 750;
+    }
+
+    .morphismOption.active {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 35%, rgba(255,255,255,.06)), color-mix(in srgb, var(--theme-c, #35d7ff) 14%, rgba(255,255,255,.04)));
+      border-color: rgba(255,255,255,.20);
+      box-shadow: 0 14px 44px color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .morphBlobLayer {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      overflow: hidden;
+      contain: strict;
+      opacity: 0;
+      transition: opacity .24s ease;
+    }
+
+    .morphBlobLayer span {
+      position: absolute;
+      display: block;
+      width: var(--s, 280px);
+      height: var(--s, 280px);
+      left: var(--x, 10%);
+      top: var(--y, 10%);
+      border-radius: 42% 58% 62% 38% / 42% 36% 64% 58%;
+      background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--theme-c, #35d7ff) 34%, white), color-mix(in srgb, var(--theme-a, #7c5cff) 24%, transparent) 40%, transparent 72%);
+      filter: blur(var(--blur, 34px));
+      opacity: var(--o, .24);
+      animation: morphBlobFloat var(--d, 16s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes morphBlobFloat {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        border-radius: 42% 58% 62% 38% / 42% 36% 64% 58%;
+      }
+      33% {
+        transform: translate3d(34px, -28px, 0) rotate(16deg) scale(1.08);
+        border-radius: 62% 38% 44% 56% / 54% 48% 52% 46%;
+      }
+      66% {
+        transform: translate3d(-24px, 32px, 0) rotate(-12deg) scale(.96);
+        border-radius: 48% 52% 36% 64% / 62% 42% 58% 38%;
+      }
+    }
+
+    body.morph-glass .glass,
+    body.morph-glass .soft,
+    body.morph-glass .card,
+    body.morph-glass .formBox,
+    body.morph-glass .hubCard,
+    body.morph-glass .final,
+    body.morph-glass .device,
+    body.morph-glass .screen,
+    body.morph-glass .estimateResult,
+    body.morph-glass .opsPanel,
+    body.morph-glass .opsJobCard,
+    body.morph-glass .hqJob,
+    body.morph-glass .hqHeroCard,
+    body.morph-glass .hqNextCard {
+      background:
+        radial-gradient(700px circle at 20% 0%, rgba(255,255,255,.16), transparent 48%),
+        linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.045)) !important;
+      border-color: rgba(255,255,255,.22) !important;
+      backdrop-filter: blur(34px) saturate(1.35) !important;
+      -webkit-backdrop-filter: blur(34px) saturate(1.35) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -1px 0 rgba(255,255,255,.05),
+        0 30px 100px rgba(0,0,0,.36),
+        0 0 70px color-mix(in srgb, var(--theme-a, #7c5cff) 15%, transparent) !important;
+    }
+
+    body.morph-liquid .morphBlobLayer,
+    body.morph-holo .morphBlobLayer {
+      opacity: 1;
+    }
+
+    body.morph-liquid .card,
+    body.morph-liquid .hubCard,
+    body.morph-liquid .formBox,
+    body.morph-liquid .final,
+    body.morph-liquid .v20-showcase,
+    body.morph-liquid .personalHero,
+    body.morph-liquid .opsPanel,
+    body.morph-liquid .hqHeroCard,
+    body.morph-liquid .hqNextCard {
+      border-radius: 42px 58px 48px 36px / 38px 46px 60px 44px !important;
+      background:
+        radial-gradient(700px circle at 18% 0%, color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent), transparent 46%),
+        radial-gradient(600px circle at 90% 20%, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), transparent 48%),
+        linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04)) !important;
+      animation: liquidCardMorph 9s ease-in-out infinite;
+    }
+
+    @keyframes liquidCardMorph {
+      0%,100% { border-radius: 42px 58px 48px 36px / 38px 46px 60px 44px; }
+      50% { border-radius: 58px 38px 42px 54px / 52px 36px 50px 44px; }
+    }
+
+    body.morph-neo .card,
+    body.morph-neo .hubCard,
+    body.morph-neo .formBox,
+    body.morph-neo .final,
+    body.morph-neo .opsPanel,
+    body.morph-neo .hqHeroCard,
+    body.morph-neo .hqNextCard,
+    body.morph-neo .hqJob {
+      background: color-mix(in srgb, var(--theme-bg-2, #090f1e) 82%, rgba(255,255,255,.12)) !important;
+      border-color: rgba(255,255,255,.06) !important;
+      box-shadow:
+        14px 14px 34px rgba(0,0,0,.38),
+        -10px -10px 26px rgba(255,255,255,.045),
+        inset 1px 1px 0 rgba(255,255,255,.06) !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+    }
+
+    body.morph-neo .btn,
+    body.morph-neo .chip,
+    body.morph-neo .sensoryMiniButton,
+    body.morph-neo .audioSmallBtn {
+      box-shadow:
+        8px 8px 20px rgba(0,0,0,.28),
+        -6px -6px 16px rgba(255,255,255,.045),
+        inset 1px 1px 0 rgba(255,255,255,.07) !important;
+    }
+
+    body.morph-clay .card,
+    body.morph-clay .hubCard,
+    body.morph-clay .formBox,
+    body.morph-clay .final,
+    body.morph-clay .opsPanel,
+    body.morph-clay .hqHeroCard,
+    body.morph-clay .hqNextCard,
+    body.morph-clay .hqJob {
+      border-radius: 34px !important;
+      background:
+        radial-gradient(280px circle at 28% 18%, rgba(255,255,255,.22), transparent 34%),
+        linear-gradient(145deg, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, rgba(255,255,255,.11)), color-mix(in srgb, var(--theme-b, #ff4fd8) 14%, rgba(255,255,255,.045))) !important;
+      border: 1px solid rgba(255,255,255,.12) !important;
+      box-shadow:
+        0 24px 0 color-mix(in srgb, var(--theme-a, #7c5cff) 9%, rgba(0,0,0,.12)),
+        0 34px 80px rgba(0,0,0,.32),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+    }
+
+    body.morph-crystal .card,
+    body.morph-crystal .hubCard,
+    body.morph-crystal .formBox,
+    body.morph-crystal .final,
+    body.morph-crystal .opsPanel,
+    body.morph-crystal .hqHeroCard,
+    body.morph-crystal .hqNextCard,
+    body.morph-crystal .hqJob {
+      clip-path: polygon(0 14px, 14px 0, calc(100% - 22px) 0, 100% 22px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 20px 100%, 0 calc(100% - 20px));
+      border-radius: 0 !important;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04) 42%, rgba(255,255,255,.12) 43%, rgba(255,255,255,.035) 100%) !important;
+      border-color: rgba(255,255,255,.24) !important;
+      backdrop-filter: blur(28px) saturate(1.25) contrast(1.04) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(1.25) contrast(1.04) !important;
+    }
+
+    body.morph-holo .card,
+    body.morph-holo .hubCard,
+    body.morph-holo .formBox,
+    body.morph-holo .final,
+    body.morph-holo .opsPanel,
+    body.morph-holo .hqHeroCard,
+    body.morph-holo .hqNextCard,
+    body.morph-holo .hqJob {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+        conic-gradient(from 160deg at 50% 50%, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 16%, transparent), rgba(255,255,255,.08), color-mix(in srgb, var(--theme-b, #ff4fd8) 14%, transparent), color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent)) !important;
+      border-color: rgba(255,255,255,.22) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        0 28px 92px rgba(0,0,0,.36),
+        0 0 90px color-mix(in srgb, var(--theme-c, #35d7ff) 16%, transparent) !important;
+    }
+
+    body.morph-soft .card,
+    body.morph-soft .hubCard,
+    body.morph-soft .formBox,
+    body.morph-soft .final,
+    body.morph-soft .opsPanel,
+    body.morph-soft .hqHeroCard,
+    body.morph-soft .hqNextCard,
+    body.morph-soft .hqJob {
+      border-radius: 36px !important;
+      background:
+        radial-gradient(620px circle at 15% 0%, rgba(255,255,255,.11), transparent 48%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035)) !important;
+      box-shadow:
+        0 18px 54px rgba(0,0,0,.24),
+        0 8px 24px color-mix(in srgb, var(--theme-a, #7c5cff) 10%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.10) !important;
+      transform: translateZ(0);
+    }
+
+    body.morph-glass .primary,
+    body.morph-liquid .primary,
+    body.morph-holo .primary {
+      box-shadow:
+        0 22px 70px color-mix(in srgb, var(--theme-a, #7c5cff) 38%, transparent),
+        0 8px 28px color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.30) !important;
+    }
+
+    @media(max-width:720px) {
+      .morphismPanelHead {
+        display: block;
+      }
+
+      .morphismPanelHead span {
+        max-width: none;
+        text-align: left;
+      }
+
+      .morphismGrid {
+        grid-template-columns: 1fr;
+      }
+
+      body.morph-liquid .card,
+      body.morph-liquid .hubCard,
+      body.morph-liquid .formBox,
+      body.morph-liquid .final,
+      body.morph-liquid .v20-showcase,
+      body.morph-liquid .personalHero,
+      body.morph-liquid .opsPanel,
+      body.morph-liquid .hqHeroCard,
+      body.morph-liquid .hqNextCard {
+        animation: none;
+        border-radius: 30px !important;
+      }
+
+      body.morph-crystal .card,
+      body.morph-crystal .hubCard,
+      body.morph-crystal .formBox,
+      body.morph-crystal .final,
+      body.morph-crystal .opsPanel,
+      body.morph-crystal .hqHeroCard,
+      body.morph-crystal .hqNextCard,
+      body.morph-crystal .hqJob {
+        clip-path: none;
+        border-radius: 22px !important;
+      }
+    }
+
+    body.v22-reduced-sensory .morphBlobLayer {
+      display: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .morphBlobLayer span,
+      body.morph-liquid .card,
+      body.morph-liquid .hubCard,
+      body.morph-liquid .formBox,
+      body.morph-liquid .final,
+      body.morph-liquid .v20-showcase,
+      body.morph-liquid .personalHero,
+      body.morph-liquid .opsPanel,
+      body.morph-liquid .hqHeroCard,
+      body.morph-liquid .hqNextCard {
+        animation: none !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -8818,6 +9199,13 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   </div>
 
   
+    <div id="morphBlobLayer" class="morphBlobLayer" aria-hidden="true">
+    <span style="--x:4%;--y:12%;--s:360px;--d:18s;--delay:-2s;--o:.24"></span>
+    <span style="--x:64%;--y:8%;--s:300px;--d:16s;--delay:-8s;--o:.20"></span>
+    <span style="--x:22%;--y:62%;--s:420px;--d:22s;--delay:-11s;--o:.18"></span>
+    <span style="--x:72%;--y:58%;--s:340px;--d:20s;--delay:-5s;--o:.20"></span>
+  </div>
+
   <div id="themeFxLayer" class="themeFxLayer" aria-hidden="true"></div>
 
   <div id="toast" class="toast"></div>
@@ -9325,6 +9713,31 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       let haptics = localStorage.getItem('dropcartHaptics') === 'on';
       let reducedSensory = localStorage.getItem('dropcartReducedSensory') === 'on';
 
+      let morphism = localStorage.getItem('dropcartMorphism') || 'none';
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
+
+      function applyMorphism(){
+        document.body.classList.remove(...morphClasses);
+        if (morphism && morphism !== 'none') {
+          document.body.classList.add('morph-' + morphism);
+        }
+
+        $$('.morphismOption[data-morph]').forEach(function(btn){
+          btn.classList.toggle('active', btn.dataset.morph === morphism);
+        });
+      }
+
+      $$('.morphismOption[data-morph]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          morphism = btn.dataset.morph || 'none';
+          localStorage.setItem('dropcartMorphism', morphism);
+          applyMorphism();
+          vibrate(10);
+          sensoryToast(morphism === 'none' ? 'Morphism disabled' : btn.querySelector('strong').textContent + ' morphism active');
+        });
+      });
+
+
       function sensoryToast(message){
         if (!senseToast) return;
         senseToast.textContent = message;
@@ -9441,6 +9854,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         document.body.classList.toggle('v22-haptics-on', haptics);
         document.body.classList.toggle('v22-reduced-sensory', reducedSensory);
         renderThemeEffects();
+        applyMorphism();
 
         $$('.sensoryOption[data-vibe]').forEach(function(btn){
           btn.classList.toggle('active', btn.dataset.vibe === vibe);
