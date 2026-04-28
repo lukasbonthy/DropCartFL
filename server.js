@@ -9553,6 +9553,376 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v37 Expanded Morphism Studio
+       Adds 3D morphs + more depth styles.
+       ============================================================ */
+
+    .morphDock .morphismGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .morphDock .morphismOption {
+      min-height: 92px;
+    }
+
+    .morphDock .morphismOption strong {
+      font-size: 12.5px;
+    }
+
+    .morphDock .morphismOption span {
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    body[class*="morph-"] .v20-showcase,
+    body[class*="morph-"] .v20-big-panel,
+    body[class*="morph-"] .v20-route-card,
+    body[class*="morph-"] .v20-floating-tile,
+    body[class*="morph-"] .v20-homepage-strip,
+    body[class*="morph-"] .requestCard,
+    body[class*="morph-"] .todayCard,
+    body[class*="morph-"] .bookingCard,
+    body[class*="morph-"] .opsTop,
+    body[class*="morph-"] .opsStat,
+    body[class*="morph-"] .opsPanel,
+    body[class*="morph-"] .opsJobCard,
+    body[class*="morph-"] .hqTopbar,
+    body[class*="morph-"] .hqStat,
+    body[class*="morph-"] .hqColumn,
+    body[class*="morph-"] .hqJob,
+    body[class*="morph-"] .card,
+    body[class*="morph-"] .hubCard,
+    body[class*="morph-"] .formBox,
+    body[class*="morph-"] .final,
+    body[class*="morph-"] .personalHero {
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, background .28s ease, border-radius .28s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    @keyframes morphFloatBob {
+      0%,100% { transform: translateY(-8px) translateZ(0); }
+      50% { transform: translateY(-13px) translateZ(0); }
+    }
+
+    body.morph-three-d .v20-showcase,
+    body.morph-three-d .v20-big-panel,
+    body.morph-three-d .v20-route-card,
+    body.morph-three-d .v20-floating-tile,
+    body.morph-three-d .v20-homepage-strip,
+    body.morph-three-d .requestCard,
+    body.morph-three-d .todayCard,
+    body.morph-three-d .bookingCard,
+    body.morph-three-d .opsTop,
+    body.morph-three-d .opsStat,
+    body.morph-three-d .opsPanel,
+    body.morph-three-d .opsJobCard,
+    body.morph-three-d .hqTopbar,
+    body.morph-three-d .hqStat,
+    body.morph-three-d .hqColumn,
+    body.morph-three-d .hqJob,
+    body.morph-three-d .card,
+    body.morph-three-d .hubCard,
+    body.morph-three-d .formBox,
+    body.morph-three-d .final,
+    body.morph-three-d .personalHero {
+      transform: perspective(1300px) translateY(-10px) rotateX(8deg) !important;
+      border-color: rgba(255,255,255,.18) !important;
+      box-shadow: 0 16px 0 rgba(255,255,255,.04), 0 42px 110px rgba(0,0,0,.40), 0 10px 34px color-mix(in srgb, var(--theme-a, #7c5cff) 20%, transparent) !important;
+    }
+
+    body.morph-three-d .primary {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 0 rgba(255,255,255,.08), 0 22px 58px color-mix(in srgb, var(--theme-a, #7c5cff) 30%, transparent) !important;
+    }
+
+    body.morph-three-d-glass .morphBlobLayer { opacity: 1; }
+    body.morph-three-d-glass .v20-showcase,
+    body.morph-three-d-glass .v20-big-panel,
+    body.morph-three-d-glass .v20-route-card,
+    body.morph-three-d-glass .v20-floating-tile,
+    body.morph-three-d-glass .v20-homepage-strip,
+    body.morph-three-d-glass .requestCard,
+    body.morph-three-d-glass .todayCard,
+    body.morph-three-d-glass .bookingCard,
+    body.morph-three-d-glass .opsTop,
+    body.morph-three-d-glass .opsStat,
+    body.morph-three-d-glass .opsPanel,
+    body.morph-three-d-glass .opsJobCard,
+    body.morph-three-d-glass .hqTopbar,
+    body.morph-three-d-glass .hqStat,
+    body.morph-three-d-glass .hqColumn,
+    body.morph-three-d-glass .hqJob,
+    body.morph-three-d-glass .card,
+    body.morph-three-d-glass .hubCard,
+    body.morph-three-d-glass .formBox,
+    body.morph-three-d-glass .final,
+    body.morph-three-d-glass .personalHero {
+      transform: perspective(1400px) translateY(-12px) rotateX(9deg) rotateY(-2deg) !important;
+      background: radial-gradient(680px circle at 14% 0%, rgba(255,255,255,.22), transparent 44%), linear-gradient(135deg, rgba(255,255,255,.17), rgba(255,255,255,.045)) !important;
+      border-color: rgba(255,255,255,.24) !important;
+      backdrop-filter: blur(34px) saturate(1.25) !important;
+      -webkit-backdrop-filter: blur(34px) saturate(1.25) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 18px 0 rgba(255,255,255,.05), 0 46px 118px rgba(0,0,0,.42), 0 0 86px color-mix(in srgb, var(--theme-c, #35d7ff) 20%, transparent) !important;
+    }
+
+    body.morph-isometric .v20-showcase,
+    body.morph-isometric .v20-big-panel,
+    body.morph-isometric .v20-route-card,
+    body.morph-isometric .v20-floating-tile,
+    body.morph-isometric .v20-homepage-strip,
+    body.morph-isometric .requestCard,
+    body.morph-isometric .todayCard,
+    body.morph-isometric .bookingCard,
+    body.morph-isometric .opsTop,
+    body.morph-isometric .opsStat,
+    body.morph-isometric .opsPanel,
+    body.morph-isometric .opsJobCard,
+    body.morph-isometric .hqTopbar,
+    body.morph-isometric .hqStat,
+    body.morph-isometric .hqColumn,
+    body.morph-isometric .hqJob,
+    body.morph-isometric .card,
+    body.morph-isometric .hubCard,
+    body.morph-isometric .formBox,
+    body.morph-isometric .final,
+    body.morph-isometric .personalHero {
+      transform: perspective(1500px) rotateX(14deg) rotateY(-18deg) translateY(-8px) !important;
+      border-color: color-mix(in srgb, var(--theme-c, #35d7ff) 28%, rgba(255,255,255,.14)) !important;
+      box-shadow: 28px 28px 70px rgba(0,0,0,.34), 0 0 64px color-mix(in srgb, var(--theme-a, #7c5cff) 14%, transparent) !important;
+    }
+
+    body.morph-layered .v20-showcase,
+    body.morph-layered .v20-big-panel,
+    body.morph-layered .v20-route-card,
+    body.morph-layered .v20-floating-tile,
+    body.morph-layered .v20-homepage-strip,
+    body.morph-layered .requestCard,
+    body.morph-layered .todayCard,
+    body.morph-layered .bookingCard,
+    body.morph-layered .opsTop,
+    body.morph-layered .opsStat,
+    body.morph-layered .opsPanel,
+    body.morph-layered .opsJobCard,
+    body.morph-layered .hqTopbar,
+    body.morph-layered .hqStat,
+    body.morph-layered .hqColumn,
+    body.morph-layered .hqJob,
+    body.morph-layered .card,
+    body.morph-layered .hubCard,
+    body.morph-layered .formBox,
+    body.morph-layered .final,
+    body.morph-layered .personalHero {
+      transform: translateY(-4px) !important;
+      border-color: rgba(255,255,255,.16) !important;
+      box-shadow: 0 2px 0 rgba(255,255,255,.10), 0 10px 0 color-mix(in srgb, var(--theme-a, #7c5cff) 12%, rgba(0,0,0,.10)), 0 20px 0 color-mix(in srgb, var(--theme-c, #35d7ff) 8%, rgba(0,0,0,.08)), 0 42px 96px rgba(0,0,0,.36) !important;
+    }
+
+    body.morph-pressed .v20-showcase,
+    body.morph-pressed .v20-big-panel,
+    body.morph-pressed .v20-route-card,
+    body.morph-pressed .v20-floating-tile,
+    body.morph-pressed .v20-homepage-strip,
+    body.morph-pressed .requestCard,
+    body.morph-pressed .todayCard,
+    body.morph-pressed .bookingCard,
+    body.morph-pressed .opsTop,
+    body.morph-pressed .opsStat,
+    body.morph-pressed .opsPanel,
+    body.morph-pressed .opsJobCard,
+    body.morph-pressed .hqTopbar,
+    body.morph-pressed .hqStat,
+    body.morph-pressed .hqColumn,
+    body.morph-pressed .hqJob,
+    body.morph-pressed .card,
+    body.morph-pressed .hubCard,
+    body.morph-pressed .formBox,
+    body.morph-pressed .final,
+    body.morph-pressed .personalHero {
+      transform: translateY(1px) !important;
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02)) !important;
+      box-shadow: inset 0 8px 18px rgba(0,0,0,.30), inset 0 -2px 8px rgba(255,255,255,.06), 0 16px 48px rgba(0,0,0,.28) !important;
+      border-color: rgba(255,255,255,.08) !important;
+    }
+
+    body.morph-prism .v20-showcase,
+    body.morph-prism .v20-big-panel,
+    body.morph-prism .v20-route-card,
+    body.morph-prism .v20-floating-tile,
+    body.morph-prism .v20-homepage-strip,
+    body.morph-prism .requestCard,
+    body.morph-prism .todayCard,
+    body.morph-prism .bookingCard,
+    body.morph-prism .opsTop,
+    body.morph-prism .opsStat,
+    body.morph-prism .opsPanel,
+    body.morph-prism .opsJobCard,
+    body.morph-prism .hqTopbar,
+    body.morph-prism .hqStat,
+    body.morph-prism .hqColumn,
+    body.morph-prism .hqJob,
+    body.morph-prism .card,
+    body.morph-prism .hubCard,
+    body.morph-prism .formBox,
+    body.morph-prism .final,
+    body.morph-prism .personalHero {
+      background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04)), conic-gradient(from 180deg at 50% 50%, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent), color-mix(in srgb, var(--theme-b, #ff4fd8) 18%, transparent), color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent)) !important;
+      border-color: rgba(255,255,255,.20) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 30px 100px rgba(0,0,0,.36), 0 0 100px color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent) !important;
+    }
+
+    body.morph-floating .v20-showcase,
+    body.morph-floating .v20-big-panel,
+    body.morph-floating .v20-route-card,
+    body.morph-floating .v20-floating-tile,
+    body.morph-floating .v20-homepage-strip,
+    body.morph-floating .requestCard,
+    body.morph-floating .todayCard,
+    body.morph-floating .bookingCard,
+    body.morph-floating .opsTop,
+    body.morph-floating .opsStat,
+    body.morph-floating .opsPanel,
+    body.morph-floating .opsJobCard,
+    body.morph-floating .hqTopbar,
+    body.morph-floating .hqStat,
+    body.morph-floating .hqColumn,
+    body.morph-floating .hqJob,
+    body.morph-floating .card,
+    body.morph-floating .hubCard,
+    body.morph-floating .formBox,
+    body.morph-floating .final,
+    body.morph-floating .personalHero {
+      transform: translateY(-8px) !important;
+      box-shadow: 0 24px 80px rgba(0,0,0,.30), 0 0 56px color-mix(in srgb, var(--theme-a, #7c5cff) 16%, transparent) !important;
+      animation: morphFloatBob 6.8s ease-in-out infinite;
+    }
+
+    body.morph-frame .v20-showcase,
+    body.morph-frame .v20-big-panel,
+    body.morph-frame .v20-route-card,
+    body.morph-frame .v20-floating-tile,
+    body.morph-frame .v20-homepage-strip,
+    body.morph-frame .requestCard,
+    body.morph-frame .todayCard,
+    body.morph-frame .bookingCard,
+    body.morph-frame .opsTop,
+    body.morph-frame .opsStat,
+    body.morph-frame .opsPanel,
+    body.morph-frame .opsJobCard,
+    body.morph-frame .hqTopbar,
+    body.morph-frame .hqStat,
+    body.morph-frame .hqColumn,
+    body.morph-frame .hqJob,
+    body.morph-frame .card,
+    body.morph-frame .hubCard,
+    body.morph-frame .formBox,
+    body.morph-frame .final,
+    body.morph-frame .personalHero {
+      background: rgba(255,255,255,.015) !important;
+      border: 1.5px solid color-mix(in srgb, var(--theme-c, #35d7ff) 44%, rgba(255,255,255,.18)) !important;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-a, #7c5cff) 26%, transparent), 0 22px 56px rgba(0,0,0,.24) !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+    }
+
+    @media(max-width:720px) {
+      body.morph-three-d .v20-showcase,
+      body.morph-three-d .v20-big-panel,
+      body.morph-three-d .v20-route-card,
+      body.morph-three-d .v20-floating-tile,
+      body.morph-three-d .v20-homepage-strip,
+      body.morph-three-d .requestCard,
+      body.morph-three-d .todayCard,
+      body.morph-three-d .bookingCard,
+      body.morph-three-d .opsTop,
+      body.morph-three-d .opsStat,
+      body.morph-three-d .opsPanel,
+      body.morph-three-d .opsJobCard,
+      body.morph-three-d .hqTopbar,
+      body.morph-three-d .hqStat,
+      body.morph-three-d .hqColumn,
+      body.morph-three-d .hqJob,
+      body.morph-three-d .card,
+      body.morph-three-d .hubCard,
+      body.morph-three-d .formBox,
+      body.morph-three-d .final,
+      body.morph-three-d .personalHero,
+      body.morph-three-d-glass .v20-showcase,
+      body.morph-three-d-glass .v20-big-panel,
+      body.morph-three-d-glass .v20-route-card,
+      body.morph-three-d-glass .v20-floating-tile,
+      body.morph-three-d-glass .v20-homepage-strip,
+      body.morph-three-d-glass .requestCard,
+      body.morph-three-d-glass .todayCard,
+      body.morph-three-d-glass .bookingCard,
+      body.morph-three-d-glass .opsTop,
+      body.morph-three-d-glass .opsStat,
+      body.morph-three-d-glass .opsPanel,
+      body.morph-three-d-glass .opsJobCard,
+      body.morph-three-d-glass .hqTopbar,
+      body.morph-three-d-glass .hqStat,
+      body.morph-three-d-glass .hqColumn,
+      body.morph-three-d-glass .hqJob,
+      body.morph-three-d-glass .card,
+      body.morph-three-d-glass .hubCard,
+      body.morph-three-d-glass .formBox,
+      body.morph-three-d-glass .final,
+      body.morph-three-d-glass .personalHero,
+      body.morph-isometric .v20-showcase,
+      body.morph-isometric .v20-big-panel,
+      body.morph-isometric .v20-route-card,
+      body.morph-isometric .v20-floating-tile,
+      body.morph-isometric .v20-homepage-strip,
+      body.morph-isometric .requestCard,
+      body.morph-isometric .todayCard,
+      body.morph-isometric .bookingCard,
+      body.morph-isometric .opsTop,
+      body.morph-isometric .opsStat,
+      body.morph-isometric .opsPanel,
+      body.morph-isometric .opsJobCard,
+      body.morph-isometric .hqTopbar,
+      body.morph-isometric .hqStat,
+      body.morph-isometric .hqColumn,
+      body.morph-isometric .hqJob,
+      body.morph-isometric .card,
+      body.morph-isometric .hubCard,
+      body.morph-isometric .formBox,
+      body.morph-isometric .final,
+      body.morph-isometric .personalHero {
+        transform: translateY(-3px) !important;
+      }
+
+      body.morph-floating .v20-showcase,
+      body.morph-floating .v20-big-panel,
+      body.morph-floating .v20-route-card,
+      body.morph-floating .v20-floating-tile,
+      body.morph-floating .v20-homepage-strip,
+      body.morph-floating .requestCard,
+      body.morph-floating .todayCard,
+      body.morph-floating .bookingCard,
+      body.morph-floating .opsTop,
+      body.morph-floating .opsStat,
+      body.morph-floating .opsPanel,
+      body.morph-floating .opsJobCard,
+      body.morph-floating .hqTopbar,
+      body.morph-floating .hqStat,
+      body.morph-floating .hqColumn,
+      body.morph-floating .hqJob,
+      body.morph-floating .card,
+      body.morph-floating .hubCard,
+      body.morph-floating .formBox,
+      body.morph-floating .final,
+      body.morph-floating .personalHero {
+        animation: none !important;
+      }
+
+      .morphDock .morphismGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -9679,18 +10049,26 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       <div id="morphStatus" class="morphStatus"><strong>Current:</strong> Regular theme style</div>
 
       <div class="morphismGrid">
-        <button class="morphismOption" data-morph="none" data-morph-label="Regular theme style" type="button" onclick="window.DropcartMorph?.set?.(\'none\'); return false;"><b>◎</b><strong>None</strong><span>Use the regular theme style</span></button>
-        <button class="morphismOption" data-morph="glass" data-morph-label="Glassmorphism active" type="button" onclick="window.DropcartMorph?.set?.(\'glass\'); return false;"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
-        <button class="morphismOption" data-morph="liquid" data-morph-label="Liquid morphism active" type="button" onclick="window.DropcartMorph?.set?.(\'liquid\'); return false;"><b>💧</b><strong>Liquid</strong><span>Organic liquid card shapes</span></button>
-        <button class="morphismOption" data-morph="neo" data-morph-label="Neumorphism active" type="button" onclick="window.DropcartMorph?.set?.(\'neo\'); return false;"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
-        <button class="morphismOption" data-morph="clay" data-morph-label="Claymorphism active" type="button" onclick="window.DropcartMorph?.set?.(\'clay\'); return false;"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
-        <button class="morphismOption" data-morph="crystal" data-morph-label="Crystal morphism active" type="button" onclick="window.DropcartMorph?.set?.(\'crystal\'); return false;"><b>◇</b><strong>Crystal</strong><span>Sharp crystal/glass facets</span></button>
-        <button class="morphismOption" data-morph="holo" data-morph-label="Holographic morphism active" type="button" onclick="window.DropcartMorph?.set?.(\'holo\'); return false;"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
-        <button class="morphismOption" data-morph="soft" data-morph-label="Soft depth active" type="button" onclick="window.DropcartMorph?.set?.(\'soft\'); return false;"><b>☁️</b><strong>Soft</strong><span>Extra soft rounded depth</span></button>
-      </div>
+        <button class="morphismOption" data-morph="none" data-morph-label="Regular theme style" type="button" onclick="window.DropcartMorph?.set?.('none'); return false;"><b>◎</b><strong>None</strong><span>Use the regular theme style</span></button>
+        <button class="morphismOption" data-morph="glass" data-morph-label="Glassmorphism active" type="button" onclick="window.DropcartMorph?.set?.('glass'); return false;"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
+        <button class="morphismOption" data-morph="liquid" data-morph-label="Liquid morphism active" type="button" onclick="window.DropcartMorph?.set?.('liquid'); return false;"><b>💧</b><strong>Liquid</strong><span>Organic liquid card shapes</span></button>
+        <button class="morphismOption" data-morph="neo" data-morph-label="Neumorphism active" type="button" onclick="window.DropcartMorph?.set?.('neo'); return false;"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
+        <button class="morphismOption" data-morph="clay" data-morph-label="Claymorphism active" type="button" onclick="window.DropcartMorph?.set?.('clay'); return false;"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
+        <button class="morphismOption" data-morph="crystal" data-morph-label="Crystal morphism active" type="button" onclick="window.DropcartMorph?.set?.('crystal'); return false;"><b>◇</b><strong>Crystal</strong><span>Sharp crystal/glass facets</span></button>
+        <button class="morphismOption" data-morph="holo" data-morph-label="Holographic morphism active" type="button" onclick="window.DropcartMorph?.set?.('holo'); return false;"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
+        <button class="morphismOption" data-morph="soft" data-morph-label="Soft depth active" type="button" onclick="window.DropcartMorph?.set?.('soft'); return false;"><b>☁️</b><strong>Soft</strong><span>Extra soft rounded depth</span></button>
+        <button class="morphismOption" data-morph="three-d" data-morph-label="3D Lift active" type="button" onclick="window.DropcartMorph?.set?.('three-d'); return false;"><b>🧊</b><strong>3D Lift</strong><span>Lifted cards with cinematic depth</span></button>
+        <button class="morphismOption" data-morph="three-d-glass" data-morph-label="3D Glass active" type="button" onclick="window.DropcartMorph?.set?.('three-d-glass'); return false;"><b>🔮</b><strong>3D Glass</strong><span>Layered glass with deep shadows</span></button>
+        <button class="morphismOption" data-morph="isometric" data-morph-label="Isometric morph active" type="button" onclick="window.DropcartMorph?.set?.('isometric'); return false;"><b>📐</b><strong>Isometric</strong><span>Angled dashboard-card perspective</span></button>
+        <button class="morphismOption" data-morph="layered" data-morph-label="Layered morph active" type="button" onclick="window.DropcartMorph?.set?.('layered'); return false;"><b>🗂️</b><strong>Layered</strong><span>Stacked panel edges and depth</span></button>
+        <button class="morphismOption" data-morph="pressed" data-morph-label="Pressed morph active" type="button" onclick="window.DropcartMorph?.set?.('pressed'); return false;"><b>🫧</b><strong>Pressed</strong><span>Inset pressed-in control surfaces</span></button>
+        <button class="morphismOption" data-morph="prism" data-morph-label="Prism morph active" type="button" onclick="window.DropcartMorph?.set?.('prism'); return false;"><b>💠</b><strong>Prism</strong><span>Iridescent edges and gem depth</span></button>
+        <button class="morphismOption" data-morph="floating" data-morph-label="Floating morph active" type="button" onclick="window.DropcartMorph?.set?.('floating'); return false;"><b>🎈</b><strong>Floating</strong><span>Bobbing cards with airy spacing</span></button>
+        <button class="morphismOption" data-morph="frame" data-morph-label="Frame morph active" type="button" onclick="window.DropcartMorph?.set?.('frame'); return false;"><b>🧿</b><strong>Frame</strong><span>Clean wireframe and outline style</span></button>
+      </div>      </div>
 
       <p class="morphDockHint">
-        This is separate from themes. Example: Snow theme + Glass morphism, or Galaxy theme + Holo morphism.
+        This is separate from themes. Try combos like Snow + 3D Glass, Galaxy + Prism, or Luxury + Isometric.
       </p>
     </div>
 
@@ -9702,7 +10080,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
   <script>
     window.DropcartMorph = (function(){
-      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame'];
       const labels = {
         none: 'Regular theme style',
         glass: 'Glassmorphism active',
@@ -9711,7 +10089,15 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         clay: 'Claymorphism active',
         crystal: 'Crystal morphism active',
         holo: 'Holographic morphism active',
-        soft: 'Soft depth active'
+        soft: 'Soft depth active',
+        'three-d': '3D Lift active',
+        'three-d-glass': '3D Glass active',
+        isometric: 'Isometric morph active',
+        layered: 'Layered morph active',
+        pressed: 'Pressed morph active',
+        prism: 'Prism morph active',
+        floating: 'Floating morph active',
+        frame: 'Frame morph active'
       };
 
       function byId(id) {
@@ -10507,7 +10893,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       let reducedSensory = localStorage.getItem('dropcartReducedSensory') === 'on';
 
       let morphism = localStorage.getItem('dropcartMorphism') || 'none';
-      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame'];
 
       function applyMorphism(){
         document.body.classList.remove(...morphClasses);
