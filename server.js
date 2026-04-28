@@ -9483,6 +9483,76 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v36 Morph Button Final Fix
+       Prevents double-toggle and forces panel visible when open.
+       ============================================================ */
+
+    #morphDock {
+      pointer-events: none !important;
+    }
+
+    #morphDock #morphButton,
+    #morphDock .morphDockPanel {
+      pointer-events: auto !important;
+    }
+
+    #morphDock .morphDockPanel {
+      display: none !important;
+      opacity: 0;
+      transform: translateY(8px) scale(.98);
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    #morphDock.open .morphDockPanel {
+      display: block !important;
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+    }
+
+    #morphButton {
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #morphButton:active {
+      transform: scale(.97);
+    }
+
+    #morphDebugToast {
+      position: fixed;
+      right: 18px;
+      bottom: 154px;
+      z-index: 4000;
+      max-width: min(320px, calc(100vw - 24px));
+      padding: 11px 13px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(7,10,18,.90);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      font-size: 12px;
+      font-weight: 850;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    #morphDebugToast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media(max-width:720px) {
+      #morphDebugToast {
+        right: 12px;
+        bottom: calc(210px + var(--safe-bottom));
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -9594,6 +9664,8 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   <div id="v22SenseToast" class="v22-sense-toast" aria-live="polite"></div>
 
   
+  <div id="morphDebugToast"></div>
+
   <div id="morphDock" class="morphDock">
     <div class="morphDockPanel">
       <div class="morphDockTitle">
@@ -9601,7 +9673,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
           <strong>Morphism Studio</strong>
           <span>Choose the shape/depth style. This stacks with any theme.</span>
         </div>
-        <button id="morphClose" class="sensoryMiniButton" type="button" aria-label="Close morphism panel" onclick="document.getElementById('morphDock')?.classList.remove('open')">✕</button>
+        <button id="morphClose" class="sensoryMiniButton" type="button" aria-label="Close morphism panel">✕</button>
       </div>
 
       <div id="morphStatus" class="morphStatus"><strong>Current:</strong> Regular theme style</div>
@@ -9622,16 +9694,15 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       </p>
     </div>
 
-    <button id="morphButton" class="morphButton" type="button" onclick="document.getElementById('morphDock')?.classList.toggle('open'); window.DropcartMorph?.refresh?.();">
+    <button id="morphButton" class="morphButton" type="button">
       <span>◇</span>
       Morph
     </button>
   </div>
 
-
   <script>
     window.DropcartMorph = (function(){
-      const classes = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
       const labels = {
         none: 'Regular theme style',
         glass: 'Glassmorphism active',
@@ -9643,13 +9714,29 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         soft: 'Soft depth active'
       };
 
-      function get(){
+      function byId(id) {
+        return document.getElementById(id);
+      }
+
+      function getMorph(){
         return localStorage.getItem('dropcartMorphism') || 'none';
       }
 
+      function toast(message) {
+        const el = byId('morphDebugToast');
+        if (!el) return;
+        el.textContent = message;
+        el.classList.add('show');
+        clearTimeout(toast.timer);
+        toast.timer = setTimeout(function(){ el.classList.remove('show'); }, 1200);
+      }
+
       function apply(morph){
-        const next = morph || get();
-        document.body.classList.remove.apply(document.body.classList, classes);
+        const next = morph || getMorph();
+        if (!document.body) return;
+
+        document.body.classList.remove.apply(document.body.classList, morphClasses);
+
         if (next && next !== 'none') {
           document.body.classList.add('morph-' + next);
         }
@@ -9658,59 +9745,105 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
           btn.classList.toggle('active', btn.dataset.morph === next);
         });
 
-        const status = document.getElementById('morphStatus');
+        const status = byId('morphStatus');
         if (status) status.innerHTML = '<strong>Current:</strong> ' + (labels[next] || next);
-        const button = document.getElementById('morphButton');
+
+        const button = byId('morphButton');
         if (button) {
           button.setAttribute('data-current-morph', next);
           button.title = labels[next] || next;
         }
       }
 
-      function set(morph){
-        localStorage.setItem('dropcartMorphism', morph || 'none');
-        apply(morph || 'none');
-        const dock = document.getElementById('morphDock');
-        if (dock) dock.classList.add('open');
-        try { navigator.vibrate && navigator.vibrate(10); } catch(e) {}
-      }
-
-      function toggle(){
-        const dock = document.getElementById('morphDock');
-        if (dock) dock.classList.toggle('open');
+      function open(){
+        const dock = byId('morphDock');
+        if (!dock) {
+          toast('Morph panel missing');
+          return;
+        }
+        dock.classList.add('open');
         apply();
       }
 
       function close(){
-        const dock = document.getElementById('morphDock');
+        const dock = byId('morphDock');
         if (dock) dock.classList.remove('open');
       }
 
-      function refresh(){
+      function toggle(){
+        const dock = byId('morphDock');
+        if (!dock) {
+          toast('Morph panel missing');
+          return;
+        }
+        dock.classList.toggle('open');
         apply();
       }
 
-      document.addEventListener('DOMContentLoaded', function(){
-        apply();
-        const dock = document.getElementById('morphDock');
-        const button = document.getElementById('morphButton');
-        const closeBtn = document.getElementById('morphClose');
-        if (button) button.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); toggle(); });
-        if (closeBtn) closeBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); close(); });
+      function set(morph){
+        const next = morph || 'none';
+        localStorage.setItem('dropcartMorphism', next);
+        apply(next);
+        open();
+        toast(labels[next] || next);
+        try { if (navigator.vibrate) navigator.vibrate(10); } catch(e) {}
+      }
+
+      function bind(){
+        const dock = byId('morphDock');
+        const button = byId('morphButton');
+        const closeBtn = byId('morphClose');
+
+        if (button && !button.dataset.morphBound) {
+          button.dataset.morphBound = 'true';
+          button.addEventListener('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            toggle();
+          }, false);
+        }
+
+        if (closeBtn && !closeBtn.dataset.morphBound) {
+          closeBtn.dataset.morphBound = 'true';
+          closeBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            close();
+          }, false);
+        }
+
         document.querySelectorAll('.morphismOption[data-morph]').forEach(function(btn){
+          if (btn.dataset.morphBound) return;
+          btn.dataset.morphBound = 'true';
           btn.addEventListener('click', function(e){
             e.preventDefault();
             e.stopPropagation();
             set(btn.dataset.morph || 'none');
-          });
+          }, false);
         });
-      });
+
+        // Close only when clicking outside the Morph panel/button.
+        document.addEventListener('click', function(e){
+          if (!dock || !dock.classList.contains('open')) return;
+          if (dock.contains(e.target)) return;
+          close();
+        }, false);
+
+        apply();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bind, { once: true });
+      } else {
+        bind();
+      }
 
       apply();
 
-      return { get, set, apply, toggle, close, refresh };
+      return { get: getMorph, set, apply, open, close, toggle, bind };
     })();
   </script>
+
 
 
   <div id="sensoryDock" class="sensoryDock">
