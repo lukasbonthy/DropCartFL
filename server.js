@@ -9086,6 +9086,303 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v34 Morphism Fix
+       Cleaner button, farther placement, independent-looking morph states.
+       ============================================================ */
+
+    .morphDock {
+      left: 18px !important;
+      bottom: 92px !important;
+      z-index: 1750 !important;
+      justify-items: start !important;
+    }
+
+    .morphButton {
+      min-height: 46px !important;
+      padding: 10px 14px !important;
+      border-radius: 16px !important;
+      gap: 8px !important;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055)) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      box-shadow:
+        0 14px 44px rgba(0,0,0,.32),
+        0 0 34px color-mix(in srgb, var(--theme-a, #7c5cff) 16%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.12) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+      font-size: 13px !important;
+      letter-spacing: -.01em !important;
+    }
+
+    .morphButton span {
+      width: 23px !important;
+      height: 23px !important;
+      border-radius: 8px !important;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.32), transparent 38%),
+        color-mix(in srgb, var(--theme-a, #7c5cff) 34%, rgba(255,255,255,.10)) !important;
+      font-size: 13px !important;
+    }
+
+    .morphButton:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22) !important;
+    }
+
+    .morphDock.open .morphButton {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 42%, rgba(255,255,255,.10)), color-mix(in srgb, var(--theme-c, #35d7ff) 20%, rgba(255,255,255,.08))) !important;
+      border-color: rgba(255,255,255,.22) !important;
+    }
+
+    .morphDockPanel {
+      width: min(420px, calc(100vw - 28px)) !important;
+      border-radius: 24px !important;
+      padding: 14px !important;
+      background:
+        radial-gradient(440px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 15%, transparent), transparent 48%),
+        rgba(7,10,18,.94) !important;
+    }
+
+    .morphDockTitle strong {
+      font-size: 22px !important;
+    }
+
+    .morphStatus {
+      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 16%, transparent), rgba(255,255,255,.045));
+      border: 1px solid rgba(255,255,255,.09);
+      color: rgba(255,255,255,.72);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 850;
+    }
+
+    .morphStatus strong {
+      color: white;
+      font-weight: 950;
+    }
+
+    .morphDock .morphismOption {
+      min-height: 86px !important;
+      border-radius: 18px !important;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .morphDock .morphismOption:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .morphDock .morphismOption.active {
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 65%, white);
+      outline-offset: -2px;
+    }
+
+    body.morph-glass .v20-showcase,
+    body.morph-glass .v20-big-panel,
+    body.morph-glass .v20-route-card,
+    body.morph-glass .v20-floating-tile,
+    body.morph-glass .v20-homepage-strip,
+    body.morph-glass .requestCard,
+    body.morph-glass .todayCard,
+    body.morph-glass .bookingCard,
+    body.morph-glass .opsTop,
+    body.morph-glass .opsStat,
+    body.morph-glass .opsPanel,
+    body.morph-glass .opsJobCard,
+    body.morph-glass .hqTopbar,
+    body.morph-glass .hqStat,
+    body.morph-glass .hqColumn,
+    body.morph-glass .hqJob {
+      background:
+        radial-gradient(720px circle at 12% 0%, rgba(255,255,255,.18), transparent 48%),
+        linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.045)) !important;
+      border-color: rgba(255,255,255,.24) !important;
+      backdrop-filter: blur(34px) saturate(1.35) !important;
+      -webkit-backdrop-filter: blur(34px) saturate(1.35) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        0 30px 100px rgba(0,0,0,.34),
+        0 0 80px color-mix(in srgb, var(--theme-c, #35d7ff) 14%, transparent) !important;
+    }
+
+    body.morph-liquid .v20-showcase,
+    body.morph-liquid .v20-big-panel,
+    body.morph-liquid .v20-route-card,
+    body.morph-liquid .v20-floating-tile,
+    body.morph-liquid .v20-homepage-strip,
+    body.morph-liquid .requestCard,
+    body.morph-liquid .todayCard,
+    body.morph-liquid .bookingCard,
+    body.morph-liquid .opsTop,
+    body.morph-liquid .opsStat,
+    body.morph-liquid .opsPanel,
+    body.morph-liquid .opsJobCard,
+    body.morph-liquid .hqTopbar,
+    body.morph-liquid .hqStat,
+    body.morph-liquid .hqColumn,
+    body.morph-liquid .hqJob {
+      border-radius: 42px 58px 48px 36px / 38px 46px 60px 44px !important;
+      background:
+        radial-gradient(760px circle at 18% 0%, color-mix(in srgb, var(--theme-c, #35d7ff) 20%, transparent), transparent 48%),
+        radial-gradient(680px circle at 88% 16%, color-mix(in srgb, var(--theme-a, #7c5cff) 20%, transparent), transparent 50%),
+        linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.04)) !important;
+      animation: liquidCardMorph 8s ease-in-out infinite !important;
+    }
+
+    body.morph-neo .v20-showcase,
+    body.morph-neo .v20-big-panel,
+    body.morph-neo .v20-route-card,
+    body.morph-neo .v20-floating-tile,
+    body.morph-neo .v20-homepage-strip,
+    body.morph-neo .requestCard,
+    body.morph-neo .todayCard,
+    body.morph-neo .bookingCard,
+    body.morph-neo .opsTop,
+    body.morph-neo .opsStat,
+    body.morph-neo .opsPanel,
+    body.morph-neo .opsJobCard,
+    body.morph-neo .hqTopbar,
+    body.morph-neo .hqStat,
+    body.morph-neo .hqColumn,
+    body.morph-neo .hqJob {
+      background: color-mix(in srgb, var(--theme-bg-2, #090f1e) 78%, rgba(255,255,255,.12)) !important;
+      border-color: rgba(255,255,255,.055) !important;
+      box-shadow:
+        14px 14px 34px rgba(0,0,0,.38),
+        -10px -10px 26px rgba(255,255,255,.045),
+        inset 1px 1px 0 rgba(255,255,255,.07) !important;
+    }
+
+    body.morph-clay .v20-showcase,
+    body.morph-clay .v20-big-panel,
+    body.morph-clay .v20-route-card,
+    body.morph-clay .v20-floating-tile,
+    body.morph-clay .v20-homepage-strip,
+    body.morph-clay .requestCard,
+    body.morph-clay .todayCard,
+    body.morph-clay .bookingCard,
+    body.morph-clay .opsTop,
+    body.morph-clay .opsStat,
+    body.morph-clay .opsPanel,
+    body.morph-clay .opsJobCard,
+    body.morph-clay .hqTopbar,
+    body.morph-clay .hqStat,
+    body.morph-clay .hqColumn,
+    body.morph-clay .hqJob {
+      border-radius: 34px !important;
+      background:
+        radial-gradient(300px circle at 28% 18%, rgba(255,255,255,.24), transparent 35%),
+        linear-gradient(145deg, color-mix(in srgb, var(--theme-a, #7c5cff) 20%, rgba(255,255,255,.12)), color-mix(in srgb, var(--theme-b, #ff4fd8) 15%, rgba(255,255,255,.045))) !important;
+      border: 1px solid rgba(255,255,255,.13) !important;
+      box-shadow:
+        0 18px 0 color-mix(in srgb, var(--theme-a, #7c5cff) 10%, rgba(0,0,0,.13)),
+        0 34px 84px rgba(0,0,0,.34),
+        inset 0 1px 0 rgba(255,255,255,.20) !important;
+    }
+
+    body.morph-crystal .v20-showcase,
+    body.morph-crystal .v20-big-panel,
+    body.morph-crystal .v20-route-card,
+    body.morph-crystal .v20-floating-tile,
+    body.morph-crystal .v20-homepage-strip,
+    body.morph-crystal .requestCard,
+    body.morph-crystal .todayCard,
+    body.morph-crystal .bookingCard,
+    body.morph-crystal .opsTop,
+    body.morph-crystal .opsStat,
+    body.morph-crystal .opsPanel,
+    body.morph-crystal .opsJobCard,
+    body.morph-crystal .hqTopbar,
+    body.morph-crystal .hqStat,
+    body.morph-crystal .hqColumn,
+    body.morph-crystal .hqJob {
+      clip-path: polygon(0 16px, 16px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 22px 100%, 0 calc(100% - 22px)) !important;
+      border-radius: 0 !important;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.04) 42%, rgba(255,255,255,.14) 43%, rgba(255,255,255,.035) 100%) !important;
+      border-color: rgba(255,255,255,.25) !important;
+    }
+
+    body.morph-holo .v20-showcase,
+    body.morph-holo .v20-big-panel,
+    body.morph-holo .v20-route-card,
+    body.morph-holo .v20-floating-tile,
+    body.morph-holo .v20-homepage-strip,
+    body.morph-holo .requestCard,
+    body.morph-holo .todayCard,
+    body.morph-holo .bookingCard,
+    body.morph-holo .opsTop,
+    body.morph-holo .opsStat,
+    body.morph-holo .opsPanel,
+    body.morph-holo .opsJobCard,
+    body.morph-holo .hqTopbar,
+    body.morph-holo .hqStat,
+    body.morph-holo .hqColumn,
+    body.morph-holo .hqJob {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.04)),
+        conic-gradient(from 160deg at 50% 50%, color-mix(in srgb, var(--theme-a, #7c5cff) 20%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent), rgba(255,255,255,.10), color-mix(in srgb, var(--theme-b, #ff4fd8) 16%, transparent), color-mix(in srgb, var(--theme-a, #7c5cff) 20%, transparent)) !important;
+      border-color: rgba(255,255,255,.24) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 30px 100px rgba(0,0,0,.34),
+        0 0 95px color-mix(in srgb, var(--theme-c, #35d7ff) 20%, transparent) !important;
+    }
+
+    body.morph-soft .v20-showcase,
+    body.morph-soft .v20-big-panel,
+    body.morph-soft .v20-route-card,
+    body.morph-soft .v20-floating-tile,
+    body.morph-soft .v20-homepage-strip,
+    body.morph-soft .requestCard,
+    body.morph-soft .todayCard,
+    body.morph-soft .bookingCard,
+    body.morph-soft .opsTop,
+    body.morph-soft .opsStat,
+    body.morph-soft .opsPanel,
+    body.morph-soft .opsJobCard,
+    body.morph-soft .hqTopbar,
+    body.morph-soft .hqStat,
+    body.morph-soft .hqColumn,
+    body.morph-soft .hqJob {
+      border-radius: 38px !important;
+      background:
+        radial-gradient(620px circle at 15% 0%, rgba(255,255,255,.12), transparent 48%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)) !important;
+      box-shadow:
+        0 16px 45px rgba(0,0,0,.22),
+        0 8px 24px color-mix(in srgb, var(--theme-a, #7c5cff) 11%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.12) !important;
+    }
+
+    @media(max-width:720px) {
+      .morphDock {
+        left: 12px !important;
+        right: auto !important;
+        bottom: calc(146px + var(--safe-bottom)) !important;
+      }
+
+      .morphButton {
+        min-height: 44px !important;
+        padding: 10px 12px !important;
+        border-radius: 15px !important;
+        font-size: 12px !important;
+      }
+
+      .morphDockPanel {
+        width: min(390px, calc(100vw - 24px)) !important;
+        max-height: 62svh !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -9206,6 +9503,8 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         </div>
         <button id="morphClose" class="sensoryMiniButton" type="button" aria-label="Close morphism panel">✕</button>
       </div>
+
+      <div id="morphStatus" class="morphStatus"><strong>Current:</strong> Regular theme style</div>
 
       <div class="morphismGrid">
         <button class="morphismOption" data-morph="none" type="button"><b>◎</b><strong>None</strong><span>Use the regular theme style</span></button>
@@ -10305,6 +10604,91 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
             dock.classList.remove('open');
           }, 120);
         });
+      });
+    })();
+
+
+    // v34 independent Morphism Studio logic
+    (function initFixedMorphism(){
+      const dock = document.querySelector('#morphDock');
+      const button = document.querySelector('#morphButton');
+      const close = document.querySelector('#morphClose');
+      const status = document.querySelector('#morphStatus');
+      const options = Array.from(document.querySelectorAll('.morphismOption[data-morph]'));
+      const classes = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft'];
+
+      if (!button || !options.length) return;
+
+      const names = {
+        none: 'Regular theme style',
+        glass: 'Glassmorphism active',
+        liquid: 'Liquid morphism active',
+        neo: 'Neumorphism active',
+        clay: 'Claymorphism active',
+        crystal: 'Crystal morphism active',
+        holo: 'Holographic morphism active',
+        soft: 'Soft depth active'
+      };
+
+      function getMorph(){
+        return localStorage.getItem('dropcartMorphism') || 'none';
+      }
+
+      function applyMorph(next){
+        const morph = next || getMorph();
+        document.body.classList.remove(...classes);
+
+        if (morph && morph !== 'none') {
+          document.body.classList.add('morph-' + morph);
+        }
+
+        options.forEach((option) => {
+          option.classList.toggle('active', option.dataset.morph === morph);
+        });
+
+        if (status) {
+          status.innerHTML = '<strong>Current:</strong> ' + (names[morph] || morph);
+        }
+
+        button.setAttribute('data-current-morph', morph);
+        button.title = names[morph] || morph;
+      }
+
+      options.forEach((option) => {
+        option.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const morph = option.dataset.morph || 'none';
+          localStorage.setItem('dropcartMorphism', morph);
+          applyMorph(morph);
+
+          if (dock) {
+            dock.classList.add('open');
+          }
+
+          try {
+            navigator.vibrate?.(12);
+          } catch (err) {}
+        });
+      });
+
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dock?.classList.toggle('open');
+        applyMorph();
+      });
+
+      close?.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dock?.classList.remove('open');
+      });
+
+      applyMorph();
+
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'dropcartMorphism') applyMorph();
       });
     })();
 
