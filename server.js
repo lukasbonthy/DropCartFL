@@ -10888,6 +10888,592 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v44 Cursor Studio + Wallpaper Studio
+       Adds custom desktop cursors and stackable wallpaper themes.
+       ============================================================ */
+
+    .wallpaperLayer {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .24s ease;
+      overflow: hidden;
+      contain: strict;
+    }
+
+    body[class*="wallpaper-"] .wallpaperLayer {
+      opacity: 1;
+    }
+
+    .wallpaperLayer::before,
+    .wallpaperLayer::after {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      opacity: .9;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    body.wallpaper-aurora .wallpaperLayer::before {
+      background:
+        radial-gradient(720px circle at 15% 15%, rgba(124,92,255,.38), transparent 58%),
+        radial-gradient(720px circle at 85% 18%, rgba(53,215,255,.28), transparent 58%),
+        radial-gradient(820px circle at 50% 100%, rgba(255,79,216,.18), transparent 62%);
+      filter: blur(18px) saturate(1.2);
+      animation: wallpaperDrift 16s ease-in-out infinite;
+    }
+
+    body.wallpaper-grid .wallpaperLayer::before {
+      background:
+        linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px),
+        radial-gradient(720px circle at 50% 10%, color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent), transparent 58%);
+      background-size: 42px 42px, 42px 42px, auto;
+      mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 82%, transparent);
+      animation: wallpaperGridMove 22s linear infinite;
+    }
+
+    body.wallpaper-liquid .wallpaperLayer::before {
+      background:
+        radial-gradient(360px circle at 10% 20%, color-mix(in srgb, var(--theme-a, #7c5cff) 28%, transparent), transparent 68%),
+        radial-gradient(420px circle at 80% 18%, color-mix(in srgb, var(--theme-c, #35d7ff) 20%, transparent), transparent 68%),
+        radial-gradient(520px circle at 50% 90%, color-mix(in srgb, var(--theme-b, #ff4fd8) 16%, transparent), transparent 70%);
+      filter: blur(26px);
+      animation: wallpaperBlobMove 18s ease-in-out infinite;
+    }
+
+    body.wallpaper-linen .wallpaperLayer::before {
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.024) 0 1px, transparent 1px 6px),
+        radial-gradient(800px circle at 40% 20%, color-mix(in srgb, var(--theme-a, #7c5cff) 12%, transparent), transparent 58%);
+      opacity: .64;
+    }
+
+    body.wallpaper-paper .wallpaperLayer::before {
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,.045), transparent 9%),
+        radial-gradient(circle at 80% 35%, rgba(255,255,255,.032), transparent 10%),
+        repeating-linear-gradient(115deg, rgba(255,255,255,.026) 0 1px, transparent 1px 7px);
+      opacity: .72;
+    }
+
+    body.wallpaper-mist .wallpaperLayer::before {
+      background:
+        radial-gradient(620px ellipse at 15% 25%, rgba(255,255,255,.13), transparent 64%),
+        radial-gradient(780px ellipse at 70% 38%, rgba(186,230,253,.10), transparent 68%),
+        radial-gradient(900px ellipse at 45% 92%, rgba(255,255,255,.09), transparent 72%);
+      filter: blur(22px);
+      animation: wallpaperMist 24s ease-in-out infinite;
+    }
+
+    body.wallpaper-waves .wallpaperLayer::before {
+      background:
+        radial-gradient(900px ellipse at 50% 110%, color-mix(in srgb, var(--theme-c, #35d7ff) 24%, transparent), transparent 52%),
+        repeating-radial-gradient(ellipse at 50% 110%, rgba(255,255,255,.08) 0 2px, transparent 2px 34px);
+      animation: wallpaperWaves 14s ease-in-out infinite;
+    }
+
+    body.wallpaper-marble .wallpaperLayer::before {
+      background:
+        linear-gradient(120deg, transparent 0 38%, rgba(255,255,255,.10) 39%, transparent 42%),
+        linear-gradient(45deg, transparent 0 48%, rgba(255,255,255,.06) 49%, transparent 52%),
+        radial-gradient(800px circle at 20% 15%, color-mix(in srgb, var(--theme-a, #7c5cff) 14%, transparent), transparent 60%);
+      filter: contrast(1.1);
+      opacity: .74;
+    }
+
+    body.wallpaper-carbon .wallpaperLayer::before {
+      background:
+        linear-gradient(45deg, rgba(255,255,255,.045) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.045) 75%),
+        linear-gradient(45deg, rgba(255,255,255,.045) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.045) 75%);
+      background-size: 18px 18px;
+      background-position: 0 0, 9px 9px;
+      opacity: .62;
+    }
+
+    body.wallpaper-chrome .wallpaperLayer::before {
+      background:
+        linear-gradient(105deg, transparent 0 20%, rgba(255,255,255,.14) 24%, transparent 30%, rgba(255,255,255,.10) 48%, transparent 62%, rgba(255,255,255,.08) 74%, transparent 100%),
+        radial-gradient(700px circle at 70% 10%, color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent), transparent 62%);
+      animation: wallpaperChrome 16s ease-in-out infinite;
+    }
+
+    body.wallpaper-velvet .wallpaperLayer::before {
+      background:
+        radial-gradient(900px circle at 30% 25%, rgba(124,92,255,.22), transparent 58%),
+        linear-gradient(135deg, rgba(255,255,255,.035), transparent 38%, rgba(0,0,0,.18));
+      filter: blur(6px) saturate(1.2);
+    }
+
+    body.wallpaper-neon .wallpaperLayer::before {
+      background:
+        linear-gradient(115deg, transparent 0 34%, rgba(53,215,255,.24) 36%, transparent 41%, transparent 58%, rgba(255,79,216,.18) 60%, transparent 65%),
+        radial-gradient(620px circle at 15% 90%, rgba(124,92,255,.18), transparent 58%);
+      animation: wallpaperNeon 10s ease-in-out infinite;
+    }
+
+    body.wallpaper-matrix .wallpaperLayer::before {
+      background:
+        repeating-linear-gradient(90deg, rgba(34,197,94,.10) 0 1px, transparent 1px 24px),
+        linear-gradient(180deg, rgba(34,197,94,.14), transparent 18%, transparent 82%, rgba(34,197,94,.08));
+      animation: wallpaperMatrix 2.8s linear infinite;
+      opacity: .54;
+    }
+
+    body.wallpaper-stars .wallpaperLayer::before {
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.55) 0 1px, transparent 2px),
+        radial-gradient(circle at 34% 76%, rgba(255,255,255,.62) 0 1px, transparent 2px),
+        radial-gradient(circle at 90% 82%, rgba(255,255,255,.50) 0 1px, transparent 2px),
+        radial-gradient(circle at 52% 54%, rgba(255,255,255,.42) 0 1px, transparent 2px);
+      background-size: 240px 240px;
+      animation: wallpaperStars 24s linear infinite;
+      opacity: .78;
+    }
+
+    body.wallpaper-sunset .wallpaperLayer::before {
+      background:
+        radial-gradient(840px circle at 50% 100%, rgba(251,146,60,.30), transparent 58%),
+        radial-gradient(660px circle at 15% 12%, rgba(236,72,153,.18), transparent 58%),
+        radial-gradient(660px circle at 86% 14%, rgba(59,130,246,.14), transparent 58%);
+      animation: wallpaperDrift 18s ease-in-out infinite;
+    }
+
+    @keyframes wallpaperDrift {
+      0%,100% { transform: translate3d(0,0,0) scale(1); }
+      50% { transform: translate3d(-2%,2%,0) scale(1.06); }
+    }
+
+    @keyframes wallpaperBlobMove {
+      0%,100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+      50% { transform: translate3d(3%,-2%,0) rotate(8deg) scale(1.08); }
+    }
+
+    @keyframes wallpaperGridMove {
+      to { background-position: 42px 42px, 42px 42px, 0 0; }
+    }
+
+    @keyframes wallpaperMist {
+      0%,100% { transform: translateX(-3%); opacity:.66; }
+      50% { transform: translateX(3%); opacity:.9; }
+    }
+
+    @keyframes wallpaperWaves {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-2%) scale(1.03); }
+    }
+
+    @keyframes wallpaperChrome {
+      0%,100% { transform: translateX(-4%); }
+      50% { transform: translateX(4%); }
+    }
+
+    @keyframes wallpaperNeon {
+      0%,100% { transform: translateX(-5%) skewX(-4deg); opacity:.7; }
+      50% { transform: translateX(5%) skewX(4deg); opacity:1; }
+    }
+
+    @keyframes wallpaperMatrix {
+      to { transform: translateY(24px); }
+    }
+
+    @keyframes wallpaperStars {
+      to { background-position: 240px 240px; }
+    }
+
+    .visualDock {
+      position: fixed;
+      z-index: 1702;
+      display: grid;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .cursorDock {
+      left: 246px;
+      bottom: 18px;
+    }
+
+    .wallpaperDock {
+      left: 358px;
+      bottom: 18px;
+    }
+
+    .visualButton {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 54px;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 22px;
+      color: white;
+      background:
+        radial-gradient(170px circle at 20% 0%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(135deg, rgba(53,215,255,.82), rgba(124,92,255,.84), rgba(255,79,216,.52));
+      box-shadow:
+        0 20px 64px rgba(53,215,255,.18),
+        0 12px 42px rgba(124,92,255,.25),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      cursor: pointer;
+    }
+
+    .visualButton span {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.15);
+    }
+
+    .visualPanel {
+      display: none;
+      width: min(390px, calc(100vw - 28px));
+      max-height: min(720px, 76svh);
+      overflow-y: auto;
+      padding: 15px;
+      border-radius: 28px;
+      color: white;
+      background:
+        radial-gradient(440px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), transparent 48%),
+        radial-gradient(440px circle at 100% 0%, color-mix(in srgb, var(--theme-c, #35d7ff) 14%, transparent), transparent 48%),
+        rgba(7,10,18,.92);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 26px 86px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.09);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      pointer-events: auto;
+    }
+
+    .visualDock.open .visualPanel {
+      display: block;
+      animation: sensoryPanelIn .18s ease both;
+    }
+
+    .visualStatus {
+      margin: 12px 0;
+      padding: 11px;
+      border-radius: 18px;
+      color: rgba(255,255,255,.68);
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .visualHeader {
+      margin-top: 0 !important;
+    }
+
+    .visualGrid {
+      margin-top: 10px;
+    }
+
+    .visualOption.active,
+    .visualOption.sensoryOption.active {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 44%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 20%, rgba(255,255,255,.05))) !important;
+      border-color: rgba(255,255,255,.32) !important;
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 72%, white);
+      outline-offset: -2px;
+      box-shadow:
+        0 18px 58px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+    }
+
+    .visualHint {
+      margin: 13px 0 0;
+      padding: 12px;
+      border-radius: 18px;
+      color: rgba(255,255,255,.50);
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 780;
+    }
+
+    .wallpaperMorePanel[hidden] {
+      display: none !important;
+    }
+
+    .wallpaperMorePanel.show {
+      display: block !important;
+      animation: moreThemesIn .2s ease both !important;
+    }
+
+    .customCursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 2147483644;
+      width: 34px;
+      height: 34px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(-100px,-100px,0);
+      transition: opacity .12s ease;
+      mix-blend-mode: normal;
+    }
+
+    .customCursor .cursorCore,
+    .customCursor .cursorRing,
+    .customCursor .cursorLabel {
+      position: absolute;
+      pointer-events: none;
+      display: block;
+    }
+
+    .customCursor .cursorCore {
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: white;
+      transform: translate(-50%,-50%);
+      box-shadow: 0 0 18px color-mix(in srgb, var(--theme-c, #35d7ff) 65%, white);
+    }
+
+    .customCursor .cursorRing {
+      inset: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.65);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--theme-a, #7c5cff) 36%, transparent);
+    }
+
+    .customCursor .cursorLabel {
+      display: none;
+      left: 28px;
+      top: 24px;
+      min-width: max-content;
+      padding: 5px 8px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(7,10,18,.78);
+      border: 1px solid rgba(255,255,255,.12);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    html.customCursorEnabled,
+    html.customCursorEnabled body,
+    html.customCursorEnabled a,
+    html.customCursorEnabled button,
+    html.customCursorEnabled input,
+    html.customCursorEnabled select,
+    html.customCursorEnabled textarea,
+    html.customCursorEnabled label {
+      cursor: none !important;
+    }
+
+    html.customCursorEnabled .customCursor {
+      opacity: 1;
+    }
+
+    html.cursor-glow .customCursor .cursorRing {
+      border-color: transparent;
+      background: radial-gradient(circle, color-mix(in srgb, var(--theme-c, #35d7ff) 34%, transparent), transparent 60%);
+      filter: blur(1px);
+      transform: scale(1.3);
+    }
+
+    html.cursor-ring .customCursor .cursorCore {
+      width: 4px;
+      height: 4px;
+    }
+
+    html.cursor-cart .customCursor .cursorCore {
+      width: auto;
+      height: auto;
+      background: none;
+      box-shadow: none;
+    }
+
+    html.cursor-cart .customCursor .cursorCore::before {
+      content: "🛒";
+      font-size: 22px;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.35));
+    }
+
+    html.cursor-cart .customCursor .cursorRing {
+      display: none;
+    }
+
+    html.cursor-spark .customCursor .cursorCore {
+      width: auto;
+      height: auto;
+      background: none;
+      box-shadow: none;
+    }
+
+    html.cursor-spark .customCursor .cursorCore::before {
+      content: "✦";
+      color: white;
+      font-size: 22px;
+      text-shadow: 0 0 18px color-mix(in srgb, var(--theme-c, #35d7ff) 72%, white);
+    }
+
+    html.cursor-spark .customCursor .cursorRing {
+      border-style: dashed;
+      animation: cursorSpin 3s linear infinite;
+    }
+
+    html.cursor-crosshair .customCursor .cursorRing {
+      border-radius: 0;
+      border-color: rgba(255,255,255,.55);
+    }
+
+    html.cursor-crosshair .customCursor .cursorRing::before,
+    html.cursor-crosshair .customCursor .cursorRing::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,.68);
+    }
+
+    html.cursor-crosshair .customCursor .cursorRing::before {
+      left: 50%;
+      top: -9px;
+      width: 1px;
+      height: 52px;
+    }
+
+    html.cursor-crosshair .customCursor .cursorRing::after {
+      top: 50%;
+      left: -9px;
+      height: 1px;
+      width: 52px;
+    }
+
+    html.cursor-blob .customCursor .cursorRing {
+      border: 0;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 34%),
+        color-mix(in srgb, var(--theme-a, #7c5cff) 35%, rgba(255,255,255,.10));
+      border-radius: 42% 58% 62% 38% / 42% 36% 64% 58%;
+      animation: cursorBlob 3.4s ease-in-out infinite;
+    }
+
+    html.cursor-halo .customCursor {
+      width: 58px;
+      height: 58px;
+    }
+
+    html.cursor-halo .customCursor .cursorRing {
+      background: radial-gradient(circle, color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent), transparent 68%);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    html.cursor-pixel .customCursor .cursorCore {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      background: white;
+      box-shadow:
+        7px 7px 0 color-mix(in srgb, var(--theme-a, #7c5cff) 70%, white),
+        14px 14px 0 rgba(255,255,255,.18);
+    }
+
+    html.cursor-pixel .customCursor .cursorRing {
+      display: none;
+    }
+
+    html.cursor-snowflake .customCursor .cursorCore {
+      width: auto;
+      height: auto;
+      background: none;
+      box-shadow: none;
+    }
+
+    html.cursor-snowflake .customCursor .cursorCore::before {
+      content: "❄";
+      color: white;
+      font-size: 24px;
+      text-shadow: 0 0 18px #bae6fd;
+    }
+
+    html.cursor-snowflake .customCursor .cursorRing {
+      border-color: rgba(186,230,253,.45);
+    }
+
+    html.customCursorHover .customCursor .cursorRing {
+      transform: scale(1.55);
+      border-color: color-mix(in srgb, var(--theme-c, #35d7ff) 70%, white);
+    }
+
+    html.customCursorHover .customCursor .cursorLabel {
+      display: block;
+    }
+
+    @keyframes cursorSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes cursorBlob {
+      0%,100% { border-radius: 42% 58% 62% 38% / 42% 36% 64% 58%; }
+      50% { border-radius: 62% 38% 44% 56% / 54% 48% 52% 46%; }
+    }
+
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      html.customCursorEnabled,
+      html.customCursorEnabled body,
+      html.customCursorEnabled a,
+      html.customCursorEnabled button,
+      html.customCursorEnabled input,
+      html.customCursorEnabled select,
+      html.customCursorEnabled textarea,
+      html.customCursorEnabled label {
+        cursor: auto !important;
+      }
+
+      .customCursor {
+        display: none !important;
+      }
+
+      .wallpaperLayer::before,
+      .wallpaperLayer::after {
+        animation: none !important;
+      }
+    }
+
+    @media(max-width:1000px) {
+      .cursorDock {
+        left: 12px;
+        bottom: calc(206px + var(--safe-bottom, 0px));
+      }
+
+      .wallpaperDock {
+        left: 12px;
+        bottom: calc(266px + var(--safe-bottom, 0px));
+      }
+
+      .visualButton {
+        min-height: 48px;
+        padding: 12px 14px;
+        border-radius: 18px;
+        font-size: 13px;
+      }
+
+      .visualPanel {
+        width: min(390px, calc(100vw - 24px));
+        max-height: 58svh;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -11489,6 +12075,142 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   </div>
 
   <div id="themeFxLayer" class="themeFxLayer" aria-hidden="true"></div>
+
+  
+  <div id="wallpaperLayer" class="wallpaperLayer" aria-hidden="true"></div>
+  <div id="customCursor" class="customCursor" aria-hidden="true">
+    <span class="cursorCore"></span>
+    <span class="cursorRing"></span>
+    <span class="cursorLabel">Dropcart</span>
+  </div>
+
+  <div id="cursorDock" class="visualDock cursorDock">
+    <div id="cursorPanel" class="visualPanel">
+      <div class="sensoryTitle">
+        <div>
+          <strong>Cursor Studio</strong>
+          <span>Desktop cursor styles that match the site vibe.</span>
+        </div>
+        <button id="cursorClose" class="sensoryMiniButton" type="button" aria-label="Close Cursor Studio">✕</button>
+      </div>
+
+      <div id="cursorStatus" class="visualStatus"><strong>Current:</strong> Default cursor</div>
+
+      <div class="themeStudioHeader visualHeader">
+        <div>
+          <strong>Cursor styles</strong>
+          <span>Works best on desktop or trackpad.</span>
+        </div>
+      </div>
+
+      <div class="sensoryGrid visualGrid">
+        <button class="visualOption cursorOption" data-cursor="default" type="button"><b>↖</b><strong>Default</strong><span>Normal browser cursor</span></button>
+        <button class="visualOption cursorOption" data-cursor="glow" type="button"><b>●</b><strong>Glow Dot</strong><span>Soft glowing pointer</span></button>
+        <button class="visualOption cursorOption" data-cursor="ring" type="button"><b>◎</b><strong>Ring</strong><span>Clean target ring</span></button>
+        <button class="visualOption cursorOption" data-cursor="cart" type="button"><b>🛒</b><strong>Cart</strong><span>Grocery-cart style</span></button>
+        <button class="visualOption cursorOption" data-cursor="spark" type="button"><b>✦</b><strong>Spark</strong><span>Tiny premium sparkle</span></button>
+        <button class="visualOption cursorOption" data-cursor="crosshair" type="button"><b>⊕</b><strong>Crosshair</strong><span>Precision cursor</span></button>
+        <button class="visualOption cursorOption" data-cursor="blob" type="button"><b>◌</b><strong>Blob</strong><span>Liquid morph cursor</span></button>
+        <button class="visualOption cursorOption" data-cursor="halo" type="button"><b>◉</b><strong>Halo</strong><span>Large soft halo</span></button>
+        <button class="visualOption cursorOption" data-cursor="pixel" type="button"><b>▣</b><strong>Pixel</strong><span>Retro pixel block</span></button>
+        <button class="visualOption cursorOption" data-cursor="snowflake" type="button"><b>❄</b><strong>Snow</strong><span>Snowflake cursor</span></button>
+      </div>
+
+      <p class="visualHint">Touch phones usually do not show cursors, so this mostly affects desktop, Chromebook, trackpad, and mouse users.</p>
+    </div>
+
+    <button id="cursorLauncher" class="visualButton cursorLauncher" type="button">
+      <span>⌖</span>
+      Cursor
+    </button>
+  </div>
+
+  <div id="wallpaperDock" class="visualDock wallpaperDock">
+    <div id="wallpaperPanel" class="visualPanel wallpaperPanel">
+      <div class="sensoryTitle">
+        <div>
+          <strong>Wallpaper Studio</strong>
+          <span>Change only the background layer behind every page.</span>
+        </div>
+        <button id="wallpaperClose" class="sensoryMiniButton" type="button" aria-label="Close Wallpaper Studio">✕</button>
+      </div>
+
+      <div id="wallpaperStatus" class="visualStatus"><strong>Current:</strong> Theme background</div>
+
+      <div class="themeStudioHeader visualHeader">
+        <div>
+          <strong>Wallpaper themes</strong>
+          <span>Stack these with themes, morphs, and cursor styles.</span>
+        </div>
+        <button id="moreWallpapersToggle" class="themeMoreButton" type="button" aria-expanded="false">
+          <span>+</span>
+          More
+        </button>
+      </div>
+
+      <div class="sensoryGrid visualGrid">
+        <button class="visualOption wallpaperOption" data-wallpaper="none" type="button"><b>◎</b><strong>Theme</strong><span>Use current theme background</span></button>
+        <button class="visualOption wallpaperOption" data-wallpaper="aurora" type="button"><b>🟣</b><strong>Aurora</strong><span>Moving northern glow</span></button>
+        <button class="visualOption wallpaperOption" data-wallpaper="grid" type="button"><b>▦</b><strong>Grid</strong><span>Subtle tech grid</span></button>
+        <button class="visualOption wallpaperOption" data-wallpaper="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Soft floating blobs</span></button>
+      </div>
+
+      <div id="moreWallpapersPanel" class="moreThemesPanel wallpaperMorePanel" hidden>
+        <div class="moreThemesLabel">
+          <strong>Wallpaper Gallery</strong>
+          <span>Extra backgrounds that do not change buttons or cards.</span>
+        </div>
+
+        <div class="themeGallery wallpaperGallery">
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Calm</strong>
+              <span>Subtle backgrounds for daily use.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="linen" type="button"><b>🧵</b><strong>Linen</strong><span>Soft fabric texture</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="paper" type="button"><b>📄</b><strong>Paper</strong><span>Clean paper grain</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="mist" type="button"><b>🌫️</b><strong>Mist</strong><span>Foggy soft haze</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="waves" type="button"><b>🌊</b><strong>Waves</strong><span>Layered wave glow</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Premium</strong>
+              <span>Luxury backgrounds for a polished brand feel.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="marble" type="button"><b>🪨</b><strong>Marble</strong><span>Dark marble veining</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="carbon" type="button"><b>▦</b><strong>Carbon</strong><span>Carbon fiber pattern</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="chrome" type="button"><b>⚙️</b><strong>Chrome</strong><span>Metallic reflections</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="velvet" type="button"><b>💎</b><strong>Velvet</strong><span>Deep soft luxury</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Energy</strong>
+              <span>More noticeable background motion and color.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="neon" type="button"><b>💡</b><strong>Neon</strong><span>Neon light streaks</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="matrix" type="button"><b>⌨️</b><strong>Matrix</strong><span>Digital rain feel</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="stars" type="button"><b>✨</b><strong>Stars</strong><span>Soft star field</span></button>
+              <button class="visualOption wallpaperOption premiumTheme" data-wallpaper="sunset" type="button"><b>🌅</b><strong>Sunset</strong><span>Warm gradient glow</span></button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <p class="visualHint">Wallpaper themes are background-only, so you can combine them with any Theme, Morph, and Cursor style.</p>
+    </div>
+
+    <button id="wallpaperLauncher" class="visualButton wallpaperLauncher" type="button">
+      <span>▧</span>
+      Wall
+    </button>
+  </div>
 
   <div id="toast" class="toast"></div>
   <script>
@@ -12676,6 +13398,215 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       window.addEventListener('blur', function(){
         document.querySelectorAll('.morph-reacting').forEach(resetElement);
       });
+    })();
+  </script>
+
+
+  <script>
+    (function initCursorAndWallpaperStudio(){
+      const root = document.documentElement;
+      const cursorEl = document.getElementById('customCursor');
+      const cursorDock = document.getElementById('cursorDock');
+      const wallpaperDock = document.getElementById('wallpaperDock');
+
+      const cursorLabels = {
+        default: 'Default cursor',
+        glow: 'Glow Dot cursor',
+        ring: 'Ring cursor',
+        cart: 'Cart cursor',
+        spark: 'Spark cursor',
+        crosshair: 'Crosshair cursor',
+        blob: 'Blob cursor',
+        halo: 'Halo cursor',
+        pixel: 'Pixel cursor',
+        snowflake: 'Snow cursor'
+      };
+
+      const wallpaperLabels = {
+        none: 'Theme background',
+        aurora: 'Aurora wallpaper',
+        grid: 'Grid wallpaper',
+        liquid: 'Liquid wallpaper',
+        linen: 'Linen wallpaper',
+        paper: 'Paper wallpaper',
+        mist: 'Mist wallpaper',
+        waves: 'Waves wallpaper',
+        marble: 'Marble wallpaper',
+        carbon: 'Carbon wallpaper',
+        chrome: 'Chrome wallpaper',
+        velvet: 'Velvet wallpaper',
+        neon: 'Neon wallpaper',
+        matrix: 'Matrix wallpaper',
+        stars: 'Stars wallpaper',
+        sunset: 'Sunset wallpaper'
+      };
+
+      const cursorClasses = Object.keys(cursorLabels).filter((key) => key !== 'default').map((key) => 'cursor-' + key);
+      const wallpaperClasses = Object.keys(wallpaperLabels).filter((key) => key !== 'none').map((key) => 'wallpaper-' + key);
+
+      function getCursor(){
+        return localStorage.getItem('dropcartCursorStyle') || 'default';
+      }
+
+      function getWallpaper(){
+        return localStorage.getItem('dropcartWallpaperStyle') || 'none';
+      }
+
+      function applyCursor(next){
+        const cursor = next || getCursor();
+        root.classList.remove('customCursorEnabled', ...cursorClasses);
+        if (cursor !== 'default') {
+          root.classList.add('customCursorEnabled', 'cursor-' + cursor);
+        }
+
+        document.querySelectorAll('.cursorOption[data-cursor]').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.cursor === cursor);
+        });
+
+        const status = document.getElementById('cursorStatus');
+        if (status) status.innerHTML = '<strong>Current:</strong> ' + (cursorLabels[cursor] || cursor);
+      }
+
+      function applyWallpaper(next){
+        const wallpaper = next || getWallpaper();
+        document.body.classList.remove(...wallpaperClasses);
+        if (wallpaper !== 'none') {
+          document.body.classList.add('wallpaper-' + wallpaper);
+        }
+
+        document.querySelectorAll('.wallpaperOption[data-wallpaper]').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.wallpaper === wallpaper);
+        });
+
+        const status = document.getElementById('wallpaperStatus');
+        if (status) status.innerHTML = '<strong>Current:</strong> ' + (wallpaperLabels[wallpaper] || wallpaper);
+      }
+
+      function bindDock(dock, launcherId, closeId){
+        const launcher = document.getElementById(launcherId);
+        const close = document.getElementById(closeId);
+        if (!dock || !launcher) return;
+
+        launcher.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dock.classList.toggle('open');
+        });
+
+        close?.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dock.classList.remove('open');
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!dock.classList.contains('open')) return;
+          if (dock.contains(event.target)) return;
+          dock.classList.remove('open');
+        });
+      }
+
+      function bindMoreWallpapers(){
+        const toggle = document.getElementById('moreWallpapersToggle');
+        const panel = document.getElementById('moreWallpapersPanel');
+        if (!toggle || !panel) return;
+
+        function setOpen(open){
+          panel.hidden = !open;
+          panel.classList.toggle('show', open);
+          toggle.classList.toggle('open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.innerHTML = open ? '<span>+</span>Less' : '<span>+</span>More';
+          localStorage.setItem('dropcartMoreWallpapersOpen', open ? 'on' : 'off');
+        }
+
+        setOpen(localStorage.getItem('dropcartMoreWallpapersOpen') === 'on');
+
+        toggle.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          setOpen(panel.hidden);
+        });
+
+        panel.querySelectorAll('.wallpaperOption[data-wallpaper]').forEach((btn) => {
+          btn.addEventListener('click', () => setOpen(false));
+        });
+      }
+
+      function bindOptions(){
+        document.querySelectorAll('.cursorOption[data-cursor]').forEach((btn) => {
+          btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const cursor = btn.dataset.cursor || 'default';
+            localStorage.setItem('dropcartCursorStyle', cursor);
+            applyCursor(cursor);
+            try { navigator.vibrate?.(8); } catch(e) {}
+          });
+        });
+
+        document.querySelectorAll('.wallpaperOption[data-wallpaper]').forEach((btn) => {
+          btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const wallpaper = btn.dataset.wallpaper || 'none';
+            localStorage.setItem('dropcartWallpaperStyle', wallpaper);
+            applyWallpaper(wallpaper);
+            try { navigator.vibrate?.(8); } catch(e) {}
+          });
+        });
+      }
+
+      function bindCursorMovement(){
+        if (!cursorEl) return;
+        const hoverOk = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!hoverOk) return;
+
+        let x = -100;
+        let y = -100;
+        let tx = -100;
+        let ty = -100;
+        let raf = null;
+
+        function animate(){
+          x += (tx - x) * 0.32;
+          y += (ty - y) * 0.32;
+          cursorEl.style.transform = 'translate3d(' + (x - cursorEl.offsetWidth / 2) + 'px,' + (y - cursorEl.offsetHeight / 2) + 'px,0)';
+          raf = requestAnimationFrame(animate);
+        }
+
+        document.addEventListener('pointermove', (event) => {
+          tx = event.clientX;
+          ty = event.clientY;
+          if (!raf) raf = requestAnimationFrame(animate);
+
+          const interactive = event.target.closest('a, button, input, select, textarea, label, .card, .hubCard, .morphModalOption, .sensoryOption');
+          root.classList.toggle('customCursorHover', !!interactive);
+        }, { passive: true });
+
+        document.addEventListener('pointerleave', () => {
+          root.classList.remove('customCursorHover');
+        }, { passive: true });
+      }
+
+      bindDock(cursorDock, 'cursorLauncher', 'cursorClose');
+      bindDock(wallpaperDock, 'wallpaperLauncher', 'wallpaperClose');
+      bindMoreWallpapers();
+      bindOptions();
+      bindCursorMovement();
+      applyCursor();
+      applyWallpaper();
+
+      window.DropcartVisuals = {
+        setCursor: (cursor) => {
+          localStorage.setItem('dropcartCursorStyle', cursor || 'default');
+          applyCursor(cursor || 'default');
+        },
+        setWallpaper: (wallpaper) => {
+          localStorage.setItem('dropcartWallpaperStyle', wallpaper || 'none');
+          applyWallpaper(wallpaper || 'none');
+        },
+        applyCursor,
+        applyWallpaper
+      };
     })();
   </script>
 
