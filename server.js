@@ -11474,6 +11474,365 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v45 Real Wallpaper Fix
+       Replaces weak edge glows with actual full-page wallpaper backgrounds.
+       Also cleans up Cursor/Wallpaper buttons.
+       ============================================================ */
+
+    .cursorDock,
+    .wallpaperDock {
+      z-index: 1698 !important;
+    }
+
+    .cursorDock {
+      left: auto !important;
+      right: 124px !important;
+      bottom: 18px !important;
+    }
+
+    .wallpaperDock {
+      left: auto !important;
+      right: 18px !important;
+      bottom: 18px !important;
+    }
+
+    .visualButton {
+      min-height: 46px !important;
+      padding: 11px 13px !important;
+      border-radius: 16px !important;
+      gap: 7px !important;
+      font-size: 12px !important;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055)) !important;
+      border: 1px solid rgba(255,255,255,.13) !important;
+      box-shadow:
+        0 14px 44px rgba(0,0,0,.30),
+        inset 0 1px 0 rgba(255,255,255,.12) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+    }
+
+    .visualButton span {
+      width: 22px !important;
+      height: 22px !important;
+      border-radius: 8px !important;
+      font-size: 12px !important;
+      background: rgba(255,255,255,.12) !important;
+    }
+
+    .visualButton:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.20) !important;
+      box-shadow:
+        0 18px 54px rgba(0,0,0,.34),
+        0 0 36px color-mix(in srgb, var(--theme-a, #7c5cff) 14%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.14) !important;
+    }
+
+    .visualPanel {
+      width: min(430px, calc(100vw - 28px)) !important;
+      border-radius: 24px !important;
+      padding: 14px !important;
+    }
+
+    .wallpaperPanel {
+      width: min(520px, calc(100vw - 28px)) !important;
+    }
+
+    .visualGrid,
+    .visualPanel .sensoryGrid,
+    .visualPanel .themeCategoryGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 9px !important;
+    }
+
+    .visualOption,
+    .visualOption.sensoryOption {
+      min-height: 84px !important;
+      padding: 12px !important;
+      border-radius: 18px !important;
+      background:
+        radial-gradient(160px circle at 22% 0%, rgba(255,255,255,.10), transparent 45%),
+        rgba(255,255,255,.050) !important;
+      border: 1px solid rgba(255,255,255,.085) !important;
+      text-align: left !important;
+    }
+
+    .visualOption b {
+      font-size: 18px !important;
+    }
+
+    .visualOption strong {
+      font-size: 12px !important;
+      margin-top: 8px !important;
+    }
+
+    .visualOption span {
+      font-size: 10.5px !important;
+      line-height: 1.25 !important;
+    }
+
+    .wallpaperLayer {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: -5 !important;
+      pointer-events: none !important;
+      opacity: 0 !important;
+      transition: opacity .22s ease !important;
+      overflow: hidden !important;
+      contain: layout paint !important;
+      background: transparent !important;
+    }
+
+    body[class*="wallpaper-"] .wallpaperLayer {
+      opacity: 1 !important;
+    }
+
+    body[class*="wallpaper-"]::before {
+      opacity: .10 !important;
+    }
+
+    .wallpaperLayer::before,
+    .wallpaperLayer::after {
+      content: "" !important;
+      position: absolute !important;
+      inset: 0 !important;
+      opacity: 1 !important;
+      pointer-events: none !important;
+    }
+
+    /* REAL wallpaper backgrounds */
+    body.wallpaper-aurora .wallpaperLayer {
+      background:
+        linear-gradient(180deg, rgba(3,7,18,.18), rgba(3,7,18,.52)),
+        radial-gradient(1200px 700px at 16% 0%, rgba(139,92,246,.72), transparent 58%),
+        radial-gradient(980px 660px at 90% 10%, rgba(45,212,191,.54), transparent 58%),
+        radial-gradient(900px 520px at 50% 100%, rgba(236,72,153,.38), transparent 60%),
+        linear-gradient(135deg, #050816 0%, #10143a 45%, #061b2b 100%) !important;
+    }
+
+    body.wallpaper-aurora .wallpaperLayer::before {
+      background:
+        linear-gradient(115deg, transparent 0 28%, rgba(255,255,255,.13) 36%, transparent 48%, rgba(255,255,255,.08) 62%, transparent 76%),
+        linear-gradient(72deg, transparent 0 36%, rgba(45,212,191,.20) 48%, transparent 62%);
+      filter: blur(22px);
+      animation: wallpaperDrift 16s ease-in-out infinite;
+    }
+
+    body.wallpaper-mesh .wallpaperLayer {
+      background:
+        radial-gradient(circle at 0% 0%, #7c3aed 0 18%, transparent 38%),
+        radial-gradient(circle at 100% 0%, #06b6d4 0 18%, transparent 36%),
+        radial-gradient(circle at 20% 100%, #ec4899 0 18%, transparent 40%),
+        radial-gradient(circle at 100% 100%, #22c55e 0 16%, transparent 36%),
+        linear-gradient(135deg, #090618, #0f172a) !important;
+    }
+
+    body.wallpaper-mesh .wallpaperLayer::before {
+      background: linear-gradient(135deg, rgba(255,255,255,.08), transparent 48%, rgba(255,255,255,.06));
+      backdrop-filter: blur(38px) saturate(1.25);
+      -webkit-backdrop-filter: blur(38px) saturate(1.25);
+    }
+
+    body.wallpaper-liquid .wallpaperLayer {
+      background:
+        radial-gradient(520px 480px at 12% 18%, color-mix(in srgb, var(--theme-a, #7c5cff) 80%, transparent), transparent 70%),
+        radial-gradient(620px 540px at 84% 20%, color-mix(in srgb, var(--theme-c, #35d7ff) 58%, transparent), transparent 70%),
+        radial-gradient(700px 620px at 48% 92%, color-mix(in srgb, var(--theme-b, #ff4fd8) 42%, transparent), transparent 74%),
+        linear-gradient(160deg, #030712, #0b1022 54%, #050816) !important;
+    }
+
+    body.wallpaper-liquid .wallpaperLayer::before {
+      inset: -12% !important;
+      background:
+        radial-gradient(420px circle at 30% 40%, rgba(255,255,255,.16), transparent 62%),
+        radial-gradient(380px circle at 70% 64%, rgba(255,255,255,.10), transparent 60%);
+      filter: blur(26px);
+      animation: wallpaperBlobMove 18s ease-in-out infinite;
+    }
+
+    body.wallpaper-linen .wallpaperLayer {
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.055) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 6px),
+        linear-gradient(135deg, #141018, #201725 48%, #0e1726) !important;
+    }
+
+    body.wallpaper-paper .wallpaperLayer {
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,.08), transparent 8%),
+        radial-gradient(circle at 72% 36%, rgba(255,255,255,.06), transparent 9%),
+        radial-gradient(circle at 44% 80%, rgba(255,255,255,.045), transparent 10%),
+        linear-gradient(135deg, #17151a, #24212a 52%, #101827) !important;
+    }
+
+    body.wallpaper-mist .wallpaperLayer {
+      background:
+        radial-gradient(900px 440px at 20% 32%, rgba(226,232,240,.24), transparent 70%),
+        radial-gradient(900px 460px at 70% 46%, rgba(186,230,253,.18), transparent 72%),
+        radial-gradient(1200px 620px at 50% 100%, rgba(255,255,255,.12), transparent 72%),
+        linear-gradient(135deg, #07111a, #17212b 50%, #101827) !important;
+    }
+
+    body.wallpaper-mist .wallpaperLayer::before {
+      inset: -20% !important;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      filter: blur(34px);
+      animation: wallpaperMist 22s ease-in-out infinite;
+    }
+
+    body.wallpaper-waves .wallpaperLayer {
+      background:
+        radial-gradient(1200px 700px at 50% 110%, rgba(56,189,248,.36), transparent 60%),
+        linear-gradient(180deg, #06121b, #0f2f4a 48%, #020617) !important;
+    }
+
+    body.wallpaper-waves .wallpaperLayer::before {
+      background:
+        repeating-radial-gradient(ellipse at 50% 120%, rgba(255,255,255,.15) 0 2px, transparent 2px 36px);
+      animation: wallpaperWaves 12s ease-in-out infinite;
+    }
+
+    body.wallpaper-marble .wallpaperLayer {
+      background:
+        linear-gradient(122deg, transparent 0 28%, rgba(255,255,255,.16) 29%, transparent 33%, transparent 64%, rgba(255,255,255,.10) 66%, transparent 70%),
+        linear-gradient(46deg, transparent 0 44%, rgba(255,255,255,.08) 46%, transparent 49%),
+        radial-gradient(900px circle at 24% 12%, color-mix(in srgb, var(--theme-a, #7c5cff) 26%, transparent), transparent 64%),
+        linear-gradient(135deg, #07070b, #171722 52%, #090b10) !important;
+      filter: contrast(1.08);
+    }
+
+    body.wallpaper-carbon .wallpaperLayer {
+      background:
+        linear-gradient(45deg, rgba(255,255,255,.070) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.070) 75%),
+        linear-gradient(45deg, rgba(255,255,255,.050) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.050) 75%),
+        linear-gradient(135deg, #020617, #111827) !important;
+      background-size: 22px 22px, 22px 22px, auto !important;
+      background-position: 0 0, 11px 11px, 0 0 !important;
+    }
+
+    body.wallpaper-chrome .wallpaperLayer {
+      background:
+        linear-gradient(105deg, #090b10 0%, #2b303b 18%, #f8fafc 22%, #1f2937 30%, #111827 44%, #94a3b8 50%, #111827 58%, #374151 72%, #f8fafc 78%, #0b1020 100%) !important;
+      filter: saturate(.74) contrast(1.12);
+    }
+
+    body.wallpaper-chrome .wallpaperLayer::before {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+      animation: wallpaperChrome 12s ease-in-out infinite;
+    }
+
+    body.wallpaper-velvet .wallpaperLayer {
+      background:
+        radial-gradient(900px circle at 30% 25%, rgba(124,92,255,.38), transparent 62%),
+        radial-gradient(700px circle at 80% 80%, rgba(236,72,153,.18), transparent 60%),
+        linear-gradient(135deg, #0a0614, #1e123d 52%, #07040d) !important;
+    }
+
+    body.wallpaper-velvet .wallpaperLayer::before {
+      background: repeating-linear-gradient(115deg, rgba(255,255,255,.035) 0 1px, transparent 1px 9px);
+      opacity: .55 !important;
+    }
+
+    body.wallpaper-neon .wallpaperLayer {
+      background:
+        linear-gradient(115deg, transparent 0 24%, rgba(53,215,255,.60) 27%, transparent 32%, transparent 54%, rgba(255,79,216,.42) 57%, transparent 62%),
+        radial-gradient(620px circle at 15% 90%, rgba(124,92,255,.34), transparent 58%),
+        linear-gradient(135deg, #020617, #0a1027) !important;
+    }
+
+    body.wallpaper-neon .wallpaperLayer::before {
+      background: linear-gradient(45deg, transparent 0 44%, rgba(255,255,255,.10) 50%, transparent 56%);
+      animation: wallpaperNeon 9s ease-in-out infinite;
+    }
+
+    body.wallpaper-matrix .wallpaperLayer {
+      background:
+        repeating-linear-gradient(90deg, rgba(34,197,94,.22) 0 1px, transparent 1px 24px),
+        repeating-linear-gradient(180deg, rgba(34,197,94,.13) 0 2px, transparent 2px 28px),
+        linear-gradient(180deg, #000704, #00150a) !important;
+    }
+
+    body.wallpaper-matrix .wallpaperLayer::before {
+      background: linear-gradient(180deg, transparent, rgba(34,197,94,.18), transparent);
+      animation: wallpaperMatrix 2.8s linear infinite;
+    }
+
+    body.wallpaper-stars .wallpaperLayer {
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.86) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.65) 0 1px, transparent 2px),
+        radial-gradient(circle at 34% 76%, rgba(255,255,255,.72) 0 1px, transparent 2px),
+        radial-gradient(circle at 90% 82%, rgba(255,255,255,.55) 0 1px, transparent 2px),
+        radial-gradient(circle at 52% 54%, rgba(255,255,255,.50) 0 1px, transparent 2px),
+        radial-gradient(900px circle at 50% 100%, rgba(124,92,255,.18), transparent 60%),
+        linear-gradient(135deg, #020617, #080a20) !important;
+      background-size: 240px 240px, 280px 280px, 220px 220px, 260px 260px, 300px 300px, auto, auto !important;
+    }
+
+    body.wallpaper-sunset .wallpaperLayer {
+      background:
+        radial-gradient(900px 520px at 50% 100%, rgba(251,146,60,.62), transparent 62%),
+        radial-gradient(700px circle at 15% 12%, rgba(236,72,153,.36), transparent 58%),
+        radial-gradient(720px circle at 86% 14%, rgba(59,130,246,.26), transparent 58%),
+        linear-gradient(180deg, #1e123d, #3b1d4c 45%, #090617) !important;
+    }
+
+    /* Kill weak legacy overlay behavior for wallpaper classes. */
+    body.wallpaper-aurora .wallpaperLayer::after,
+    body.wallpaper-mesh .wallpaperLayer::after,
+    body.wallpaper-liquid .wallpaperLayer::after,
+    body.wallpaper-linen .wallpaperLayer::after,
+    body.wallpaper-paper .wallpaperLayer::after,
+    body.wallpaper-mist .wallpaperLayer::after,
+    body.wallpaper-waves .wallpaperLayer::after,
+    body.wallpaper-marble .wallpaperLayer::after,
+    body.wallpaper-carbon .wallpaperLayer::after,
+    body.wallpaper-chrome .wallpaperLayer::after,
+    body.wallpaper-velvet .wallpaperLayer::after,
+    body.wallpaper-neon .wallpaperLayer::after,
+    body.wallpaper-matrix .wallpaperLayer::after,
+    body.wallpaper-stars .wallpaperLayer::after,
+    body.wallpaper-sunset .wallpaperLayer::after {
+      display: none !important;
+    }
+
+    @media(max-width:1000px) {
+      .cursorDock {
+        left: auto !important;
+        right: 104px !important;
+        bottom: calc(86px + var(--safe-bottom, 0px)) !important;
+      }
+
+      .wallpaperDock {
+        left: auto !important;
+        right: 12px !important;
+        bottom: calc(86px + var(--safe-bottom, 0px)) !important;
+      }
+
+      .visualButton {
+        min-height: 44px !important;
+        padding: 10px 12px !important;
+      }
+
+      .visualPanel {
+        position: fixed !important;
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(144px + var(--safe-bottom, 0px)) !important;
+        width: auto !important;
+        max-height: 62svh !important;
+      }
+
+      .visualGrid,
+      .visualPanel .sensoryGrid,
+      .visualPanel .themeCategoryGrid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -12150,9 +12509,9 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
       <div class="sensoryGrid visualGrid">
         <button class="visualOption wallpaperOption" data-wallpaper="none" type="button"><b>◎</b><strong>Theme</strong><span>Use current theme background</span></button>
-        <button class="visualOption wallpaperOption" data-wallpaper="aurora" type="button"><b>🟣</b><strong>Aurora</strong><span>Moving northern glow</span></button>
-        <button class="visualOption wallpaperOption" data-wallpaper="grid" type="button"><b>▦</b><strong>Grid</strong><span>Subtle tech grid</span></button>
-        <button class="visualOption wallpaperOption" data-wallpaper="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Soft floating blobs</span></button>
+        <button class="visualOption wallpaperOption" data-wallpaper="aurora" type="button"><b>🟣</b><strong>Aurora Wall</strong><span>Full aurora wallpaper</span></button>
+        <button class="visualOption wallpaperOption" data-wallpaper="mesh" type="button"><b>🌈</b><strong>Mesh</strong><span>Smooth color mesh</span></button>
+        <button class="visualOption wallpaperOption" data-wallpaper="liquid" type="button"><b>💧</b><strong>Liquid Wall</strong><span>Big liquid shapes</span></button>
       </div>
 
       <div id="moreWallpapersPanel" class="moreThemesPanel wallpaperMorePanel" hidden>
@@ -12208,7 +12567,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
     <button id="wallpaperLauncher" class="visualButton wallpaperLauncher" type="button">
       <span>▧</span>
-      Wall
+      Wallpaper
     </button>
   </div>
 
@@ -13425,7 +13784,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       const wallpaperLabels = {
         none: 'Theme background',
         aurora: 'Aurora wallpaper',
-        grid: 'Grid wallpaper',
+        mesh: 'Mesh wallpaper',
         liquid: 'Liquid wallpaper',
         linen: 'Linen wallpaper',
         paper: 'Paper wallpaper',
@@ -13607,6 +13966,71 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         applyCursor,
         applyWallpaper
       };
+    })();
+  </script>
+
+
+  <script>
+    (function patchRealWallpaperStudio(){
+      const wallpaperLabels = {
+        none: 'Theme background',
+        aurora: 'Aurora wallpaper',
+        mesh: 'Mesh wallpaper',
+        liquid: 'Liquid wallpaper',
+        linen: 'Linen wallpaper',
+        paper: 'Paper wallpaper',
+        mist: 'Mist wallpaper',
+        waves: 'Waves wallpaper',
+        marble: 'Marble wallpaper',
+        carbon: 'Carbon wallpaper',
+        chrome: 'Chrome wallpaper',
+        velvet: 'Velvet wallpaper',
+        neon: 'Neon wallpaper',
+        matrix: 'Matrix wallpaper',
+        stars: 'Stars wallpaper',
+        sunset: 'Sunset wallpaper'
+      };
+
+      const wallpaperClasses = Object.keys(wallpaperLabels).filter((key) => key !== 'none').map((key) => 'wallpaper-' + key);
+
+      function applyWallpaper(wallpaper){
+        const next = wallpaper || localStorage.getItem('dropcartWallpaperStyle') || 'none';
+        document.body.classList.remove('wallpaper-grid', ...wallpaperClasses);
+        if (next !== 'none') document.body.classList.add('wallpaper-' + next);
+
+        document.querySelectorAll('.wallpaperOption[data-wallpaper]').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.wallpaper === next);
+        });
+
+        const status = document.getElementById('wallpaperStatus');
+        if (status) status.innerHTML = '<strong>Current:</strong> ' + (wallpaperLabels[next] || next);
+      }
+
+      function bindWallpaperAgain(){
+        document.querySelectorAll('.wallpaperOption[data-wallpaper]').forEach((btn) => {
+          if (btn.dataset.realWallpaperBound === 'true') return;
+          btn.dataset.realWallpaperBound = 'true';
+          btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const wallpaper = btn.dataset.wallpaper || 'none';
+            localStorage.setItem('dropcartWallpaperStyle', wallpaper);
+            applyWallpaper(wallpaper);
+          }, true);
+        });
+
+        let saved = localStorage.getItem('dropcartWallpaperStyle') || 'none';
+        if (saved === 'grid') {
+          saved = 'mesh';
+          localStorage.setItem('dropcartWallpaperStyle', saved);
+        }
+        applyWallpaper(saved);
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindWallpaperAgain, { once: true });
+      else bindWallpaperAgain();
+
+      window.DropcartWallpaper = { apply: applyWallpaper };
     })();
   </script>
 
