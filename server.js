@@ -9842,6 +9842,167 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v39 Bottom Morph Button Visibility
+       Header Morph removed. Bottom Morph Studio button made obvious.
+       ============================================================ */
+
+    .morphNavButton,
+    .morphMobileButton {
+      display: none !important;
+    }
+
+    #morphDock {
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
+      bottom: 22px !important;
+      transform: translateX(-50%) !important;
+      z-index: 2147483000 !important;
+      display: grid !important;
+      justify-items: center !important;
+      pointer-events: none !important;
+      width: auto !important;
+    }
+
+    #morphButton {
+      display: inline-flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 58px !important;
+      min-width: 184px !important;
+      padding: 14px 20px !important;
+      border-radius: 999px !important;
+      color: white !important;
+      font-size: 15px !important;
+      font-weight: 950 !important;
+      letter-spacing: -.02em !important;
+      background:
+        radial-gradient(180px circle at 18% 0%, rgba(255,255,255,.24), transparent 45%),
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 68%, #10131f), color-mix(in srgb, var(--theme-c, #35d7ff) 48%, #10131f)) !important;
+      border: 1px solid rgba(255,255,255,.24) !important;
+      box-shadow:
+        0 24px 84px rgba(0,0,0,.52),
+        0 0 72px color-mix(in srgb, var(--theme-a, #7c5cff) 34%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.22) !important;
+      backdrop-filter: blur(24px) saturate(1.25) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(1.25) !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    #morphButton span {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 12px !important;
+      margin-right: 4px !important;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.36), transparent 38%),
+        rgba(255,255,255,.14) !important;
+    }
+
+    #morphButton::after {
+      content: "Tap to customize";
+      display: inline-grid !important;
+      place-items: center;
+      margin-left: 8px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      color: rgba(255,255,255,.80);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: .01em;
+    }
+
+    #morphDock.open {
+      align-items: end !important;
+    }
+
+    #morphDock.open #morphButton {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 75%, #111827), color-mix(in srgb, var(--theme-c, #35d7ff) 55%, #111827)) !important;
+      border-color: rgba(255,255,255,.32) !important;
+    }
+
+    #morphDock .morphDockPanel {
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
+      bottom: 92px !important;
+      transform: translateX(-50%) translateY(10px) scale(.98) !important;
+      transform-origin: bottom center !important;
+      width: min(520px, calc(100vw - 24px)) !important;
+      max-height: min(700px, 72svh) !important;
+      z-index: 2147483001 !important;
+    }
+
+    #morphDock.open .morphDockPanel {
+      display: block !important;
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) scale(1) !important;
+    }
+
+    #morphDebugToast {
+      left: 50% !important;
+      right: auto !important;
+      bottom: 92px !important;
+      transform: translateX(-50%) translateY(8px) !important;
+      text-align: center !important;
+    }
+
+    #morphDebugToast.show {
+      transform: translateX(-50%) translateY(0) !important;
+    }
+
+    body.hqFullscreenMode #morphDock,
+    body.hqFullscreenMode #morphDebugToast {
+      display: none !important;
+    }
+
+    @media(max-width:720px) {
+      #morphDock {
+        left: 50% !important;
+        right: auto !important;
+        bottom: calc(78px + var(--safe-bottom)) !important;
+        transform: translateX(-50%) !important;
+      }
+
+      #morphButton {
+        min-height: 54px !important;
+        min-width: min(260px, calc(100vw - 32px)) !important;
+        padding: 13px 16px !important;
+        font-size: 14px !important;
+      }
+
+      #morphButton::after {
+        content: "Style";
+        margin-left: 6px;
+      }
+
+      #morphDock .morphDockPanel {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(144px + var(--safe-bottom)) !important;
+        width: auto !important;
+        max-height: 62svh !important;
+        transform: translateY(10px) scale(.98) !important;
+      }
+
+      #morphDock.open .morphDockPanel {
+        transform: translateY(0) scale(1) !important;
+      }
+
+      #morphDebugToast {
+        bottom: calc(144px + var(--safe-bottom)) !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -10007,7 +10168,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
     <button id="morphButton" class="morphButton" type="button">
       <span>◇</span>
-      Morph
+      Morph Studio
     </button>
   </div>
 
@@ -11235,10 +11396,10 @@ function header(req) {
   return `<header class="header">
     <div class="container nav">
       <a class="logo" href="/#top" aria-label="${escapeHtml(SERVICE_NAME)} home"><span class="logoIcon" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l1.1 5.7M7.4 15h9.9L21 7H6.1" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20.2h.01M17 20.2h.01" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></svg></span><span><span class="logoTitle">${escapeHtml(SERVICE_NAME)}</span><span class="logoSub">${escapeHtml(CITY)} grocery unloading</span></span></a>
-      <nav class="desktopNav" aria-label="Main navigation"><a class="navLink" href="/#how">How it works</a><a class="navLink" href="/#pricing">Pricing</a><a class="navLink" href="/#estimate">Estimate</a><a class="navLink" href="/#area">Area</a><button class="navLink morphNavButton" type="button" onclick="return window.openMorphStudio?.();">Morph</button>${customerLinks}${employeeLink}<a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></nav>
+      <nav class="desktopNav" aria-label="Main navigation"><a class="navLink" href="/#how">How it works</a><a class="navLink" href="/#pricing">Pricing</a><a class="navLink" href="/#estimate">Estimate</a><a class="navLink" href="/#area">Area</a>${customerLinks}${employeeLink}<a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></nav>
       <button id="menuBtn" class="btn ghost menuBtn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
     </div>
-    <div id="mobileMenu" class="mobileMenu container"><div class="mobilePanel glass"><a href="/#how">How it works <span>→</span></a><a href="/#pricing">Pricing <span>→</span></a><a href="/#estimate">Estimate <span>→</span></a><a href="/#area">Service area <span>→</span></a><button class="morphMobileButton" type="button" onclick="return window.openMorphStudio?.();">Morph Studio <span>◇</span></button>${customer ? `<a href="/account">Account <span>→</span></a><form method="post" action="/logout">${csrfField(req)}<button type="submit">Logout <span>→</span></button></form>` : `<a href="/login">Customer login <span>→</span></a><a href="/signup">Create account <span>→</span></a>`}${employee ? `<a href="/employee">Employee <span>→</span></a>` : ``}<div class="mobileActions"><a class="btn ghost" href="/#contact">Book</a><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div></div></div>
+    <div id="mobileMenu" class="mobileMenu container"><div class="mobilePanel glass"><a href="/#how">How it works <span>→</span></a><a href="/#pricing">Pricing <span>→</span></a><a href="/#estimate">Estimate <span>→</span></a><a href="/#area">Service area <span>→</span></a>${customer ? `<a href="/account">Account <span>→</span></a><form method="post" action="/logout">${csrfField(req)}<button type="submit">Logout <span>→</span></button></form>` : `<a href="/login">Customer login <span>→</span></a><a href="/signup">Create account <span>→</span></a>`}${employee ? `<a href="/employee">Employee <span>→</span></a>` : ``}<div class="mobileActions"><a class="btn ghost" href="/#contact">Book</a><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div></div></div>
   </header>`;
 }
 function footer(req) {
