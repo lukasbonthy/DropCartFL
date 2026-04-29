@@ -434,15 +434,15 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     .bookingMemories{display:grid;gap:12px;margin-top:14px}.memoryCard{padding:18px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.1)}.memoryTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.memoryTitle{font-family:"Space Grotesk";font-size:25px;line-height:1;letter-spacing:-.055em;margin-top:9px}.memoryText{margin-top:7px;color:rgba(255,255,255,.58);line-height:1.62;font-size:14px}.memoryTimeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.memoryStep{padding:10px 8px;border-radius:15px;text-align:center;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.36);font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.06em}.memoryStep.done{color:var(--green);background:rgba(73,230,165,.09);border-color:rgba(73,230,165,.18)}.memoryStep.active{color:white;background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.28)}.emptyHome{padding:26px;border-radius:28px;text-align:left;background:rgba(255,255,255,.052);border:1px dashed rgba(255,255,255,.17);color:rgba(255,255,255,.66);line-height:1.7}.tinyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.tinyActions .btn{min-height:42px;padding:10px 14px;font-size:12px;border-radius:15px}
     @media(max-width:1050px){.personalHeroGrid,.hubLayout,.nextUnloadFocus{grid-template-columns:1fr}.hubSidebar{position:relative;top:auto}.hubStats{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:720px){.hubTopbar,.memoryTop{flex-direction:column;align-items:flex-start}.hubMiniNav{width:100%}.hubMiniNav a,.hubMiniNav button{flex:1;justify-content:center}.personalHero{padding:22px;border-radius:32px}.hubStats,.personalForm,.comfortStrip,.memoryTimeline{grid-template-columns:1fr}.rewardRing{grid-template-columns:1fr}.homeMood{grid-template-columns:repeat(3,1fr)}.todayMain{font-size:27px}.hubCard{border-radius:26px;padding:18px}}
-    .authWrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;min-height:calc(100svh - 72px);padding:64px 0}.authTitle{font-family:"Space Grotesk";font-size:clamp(46px,7vw,84px);line-height:.88;letter-spacing:-.075em}.authCard{padding:28px;border-radius:38px}.accountHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.bookingGrid{display:grid;gap:14px;margin-top:28px}.bookingCard{padding:20px;border-radius:28px}.bookingTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.bookingMeta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metaBox{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.metaBox span{display:block;color:rgba(255,255,255,.4);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.metaBox strong{display:block;margin-top:5px;color:rgba(255,255,255,.78);font-size:14px}.badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07)}.badge.green{color:var(--green);background:rgba(73,230,165,.12);border-color:rgba(73,230,165,.2)}.badge.red{color:var(--red);background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.2)}.badge.amber{color:var(--amber);background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.2)}.badge.blue{color:var(--blue);background:rgba(90,167,255,.12);border-color:rgba(90,167,255,.2)}.badge.purple{color:#c9c0ff;background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.2)}.adminActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.adminActions form{display:flex;gap:8px;align-items:center}.adminActions select{min-height:42px;padding:10px;border-radius:14px;color:white;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adminTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,6vw,82px);line-height:.9;font-weight:800;letter-spacing:-.07em}.empty{padding:48px;text-align:center;color:rgba(255,255,255,.56)}.slots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.slotDay{padding:14px;border-radius:22px}.slotDay h4{font-family:"Space Grotesk";font-size:18px;letter-spacing:-.04em}.slotList{display:grid;gap:7px;margin-top:12px}.slot{padding:8px 9px;border-radius:12px;font-size:11px;font-weight:850;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05)}.slot.open{color:var(--green);border-color:rgba(73,230,165,.18);background:rgba(73,230,165,.09)}.slot.limited{color:var(--amber);border-color:rgba(255,209,102,.18);background:rgba(255,209,102,.08)}.slot.busy{color:rgba(255,255,255,.38)}.faq{display:grid;gap:12px;max-width:860px;margin:0 auto}details.card{padding:0}summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px;padding:22px 24px;cursor:pointer;list-style:none;font-weight:900;letter-spacing:-.02em}summary::-webkit-details-marker{display:none}.plus{display:grid;place-items:center;width:31px;height:31px;flex-shrink:0;border-radius:12px;color:white;background:rgba(255,255,255,.08);transition:transform .18s ease}details[open] .plus{transform:rotate(45deg)}details.card p{padding:0 24px 24px;margin:0;color:rgba(255,255,255,.58);line-height:1.65}.final{padding:42px;border-radius:44px;overflow:hidden;background:radial-gradient(800px circle at 12% 0%,rgba(124,92,255,.22),transparent 42%),radial-gradient(800px circle at 90% 20%,rgba(255,79,216,.16),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))}.finalGrid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.finalTitle{max-width:820px;margin-top:14px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,5vw,78px);line-height:.88;font-weight:800;letter-spacing:-.075em}.finalText{max-width:650px;margin-top:18px;color:rgba(255,255,255,.62);font-size:18px;line-height:1.65}.finalActions{display:grid;gap:12px;min-width:220px}.footer{padding:28px 0 calc(28px + var(--safe-bottom));border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.22)}.foot{display:flex;align-items:center;justify-content:space-between;gap:22px}.footTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:800;letter-spacing:-.045em}.footCopy{margin-top:4px;color:rgba(255,255,255,.42);font-size:12px;font-weight:700}.footLinks{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.48);font-size:13px;font-weight:800}.footLinks a:hover{color:white}.mobileSticky{display:none}.toast{position:fixed;right:18px;bottom:18px;z-index:1600;display:none;max-width:360px;padding:16px 18px;border-radius:22px;background:rgba(7,10,18,.86);border:1px solid rgba(255,255,255,.14);box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:rgba(255,255,255,.78);font-size:14px;line-height:1.5;font-weight:750}.toast.show{display:block;animation:toastIn .26s ease both}@keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}.reveal{opacity:0;transform:translateY(20px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}.reveal.show{opacity:1;transform:translateY(0)}.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
-    @media(max-width:1050px){.desktopNav{display:none}.menuBtn{display:inline-flex}.hero,.twoCol,.grid2,.authWrap{grid-template-columns:1fr}.hero{min-height:auto;padding-top:48px}.deviceShell{margin-inline:auto}.stats{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.grid4,.grid3,.priceCards,.bookingMeta{grid-template-columns:repeat(2,1fr)}.finalGrid{grid-template-columns:1fr}.finalActions{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.container{width:min(100% - 26px,1240px)}.nav{min-height:66px}.logoIcon{width:40px;height:40px;border-radius:16px}.logoTitle{font-size:20px}.logoSub{display:none}.hero{padding:34px 0;gap:34px}.heroTitle{font-size:clamp(51px,16vw,74px);letter-spacing:-.069em}.heroDesc{font-size:16px;line-height:1.7}.heroActions,.stats,.miniGrid,.taskGrid,.formGrid,.formActions,.mobileActions,.grid4,.grid3,.priceCards,.slots,.bookingMeta,.finalActions{grid-template-columns:1fr}.available{display:none}.section{padding:64px 0}.sectionHeader{margin-bottom:28px}.card,.formBox,.final,.authCard{border-radius:26px;padding:20px}.estimateRow{align-items:flex-start;flex-direction:column}.estimateSide{text-align:left}.estimatePrice,.priceAmount{font-size:58px}.foot{flex-direction:column;text-align:center}.footLinks{justify-content:center;flex-wrap:wrap}.mobileSticky{position:fixed;left:12px;right:12px;bottom:calc(12px + var(--safe-bottom));z-index:1200;display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobileSticky .btn{min-height:50px}.toast{left:12px;right:12px;bottom:calc(82px + var(--safe-bottom));max-width:none}.bookingTop,.accountHeader{flex-direction:column}.adminActions form{width:100%;flex-direction:column;align-items:stretch}.adminActions .btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+    .authWrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;min-height:calc(100svh - 72px);padding:64px 0}.authTitle{font-family:"Space Grotesk";font-size:clamp(46px,7vw,84px);line-height:.88;letter-spacing:-.075em}.authCard{padding:28px;border-radius:38px}.accountHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.bookingGrid{display:grid;gap:14px;margin-top:28px}.bookingCard{padding:20px;border-radius:28px}.bookingTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.bookingMeta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metaBox{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.metaBox span{display:block;color:rgba(255,255,255,.4);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.metaBox strong{display:block;margin-top:5px;color:rgba(255,255,255,.78);font-size:14px}.badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07)}.badge.green{color:var(--green);background:rgba(73,230,165,.12);border-color:rgba(73,230,165,.2)}.badge.red{color:var(--red);background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.2)}.badge.amber{color:var(--amber);background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.2)}.badge.blue{color:var(--blue);background:rgba(90,167,255,.12);border-color:rgba(90,167,255,.2)}.badge.purple{color:#c9c0ff;background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.2)}.adminActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.adminActions form{display:flex;gap:8px;align-items:center}.adminActions select{min-height:42px;padding:10px;border-radius:14px;color:white;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adminTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,6vw,82px);line-height:.9;font-weight:800;letter-spacing:-.07em}.empty{padding:48px;text-align:center;color:rgba(255,255,255,.56)}.slots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.slotDay{padding:14px;border-radius:22px}.slotDay h4{font-family:"Space Grotesk";font-size:18px;letter-spacing:-.04em}.slotList{display:grid;gap:7px;margin-top:12px}.slot{padding:8px 9px;border-radius:12px;font-size:11px;font-weight:850;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05)}.slot.open{color:var(--green);border-color:rgba(73,230,165,.18);background:rgba(73,230,165,.09)}.slot.limited{color:var(--amber);border-color:rgba(255,209,102,.18);background:rgba(255,209,102,.08)}.slot.busy{color:rgba(255,255,255,.38)}.faq{display:grid;gap:12px;max-width:860px;margin:0 auto}details.card{padding:0}summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px;padding:22px 24px;cursor:pointer;list-style:none;font-weight:900;letter-spacing:-.02em}summary::-webkit-details-marker{display:none}.plus{display:grid;place-items:center;width:31px;height:31px;flex-shrink:0;border-radius:12px;color:white;background:rgba(255,255,255,.08);transition:transform .18s ease}details[open] .plus{transform:rotate(45deg)}details.card p{padding:0 24px 24px;margin:0;color:rgba(255,255,255,.58);line-height:1.65}.final{padding:42px;border-radius:44px;overflow:hidden;background:radial-gradient(800px circle at 12% 0%,rgba(124,92,255,.22),transparent 42%),radial-gradient(800px circle at 90% 20%,rgba(255,79,216,.16),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045))}.finalGrid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.finalTitle{max-width:820px;margin-top:14px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(42px,5vw,78px);line-height:.88;font-weight:800;letter-spacing:-.075em}.finalText{max-width:650px;margin-top:18px;color:rgba(255,255,255,.62);font-size:18px;line-height:1.65}.finalActions{display:grid;gap:12px;min-width:220px}.footer{padding:28px 0 calc(28px + var(--safe-bottom, 0px));border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.22)}.foot{display:flex;align-items:center;justify-content:space-between;gap:22px}.footTitle{font-family:"Space Grotesk",Inter,sans-serif;font-size:20px;font-weight:800;letter-spacing:-.045em}.footCopy{margin-top:4px;color:rgba(255,255,255,.42);font-size:12px;font-weight:700}.footLinks{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.48);font-size:13px;font-weight:800}.footLinks a:hover{color:white}.mobileSticky{display:none}.toast{position:fixed;right:18px;bottom:18px;z-index:1600;display:none;max-width:360px;padding:16px 18px;border-radius:22px;background:rgba(7,10,18,.86);border:1px solid rgba(255,255,255,.14);box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:rgba(255,255,255,.78);font-size:14px;line-height:1.5;font-weight:750}.toast.show{display:block;animation:toastIn .26s ease both}@keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}.reveal{opacity:0;transform:translateY(20px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}.reveal.show{opacity:1;transform:translateY(0)}.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+    @media(max-width:1050px){.desktopNav{display:none}.menuBtn{display:inline-flex}.hero,.twoCol,.grid2,.authWrap{grid-template-columns:1fr}.hero{min-height:auto;padding-top:48px}.deviceShell{margin-inline:auto}.stats{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.grid4,.grid3,.priceCards,.bookingMeta{grid-template-columns:repeat(2,1fr)}.finalGrid{grid-template-columns:1fr}.finalActions{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.container{width:min(100% - 26px,1240px)}.nav{min-height:66px}.logoIcon{width:40px;height:40px;border-radius:16px}.logoTitle{font-size:20px}.logoSub{display:none}.hero{padding:34px 0;gap:34px}.heroTitle{font-size:clamp(51px,16vw,74px);letter-spacing:-.069em}.heroDesc{font-size:16px;line-height:1.7}.heroActions,.stats,.miniGrid,.taskGrid,.formGrid,.formActions,.mobileActions,.grid4,.grid3,.priceCards,.slots,.bookingMeta,.finalActions{grid-template-columns:1fr}.available{display:none}.section{padding:64px 0}.sectionHeader{margin-bottom:28px}.card,.formBox,.final,.authCard{border-radius:26px;padding:20px}.estimateRow{align-items:flex-start;flex-direction:column}.estimateSide{text-align:left}.estimatePrice,.priceAmount{font-size:58px}.foot{flex-direction:column;text-align:center}.footLinks{justify-content:center;flex-wrap:wrap}.mobileSticky{position:fixed;left:12px;right:12px;bottom:calc(12px + var(--safe-bottom, 0px));z-index:1200;display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobileSticky .btn{min-height:50px}.toast{left:12px;right:12px;bottom:calc(82px + var(--safe-bottom, 0px));max-width:none}.bookingTop,.accountHeader{flex-direction:column}.adminActions form{width:100%;flex-direction:column;align-items:stretch}.adminActions .btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 
 
     /* ===== Server-detected Mobile Mode ===== */
     .is-mobile-device .header{display:none}
     .is-mobile-device .mobileAppTop{position:sticky;top:0;z-index:1200;display:block;padding:calc(10px + env(safe-area-inset-top,0px)) 13px 10px;background:linear-gradient(180deg,rgba(7,10,18,.96),rgba(7,10,18,.72));backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.09)}
-    .is-mobile-device .appBottomNav{position:fixed;left:10px;right:10px;bottom:calc(10px + var(--safe-bottom));z-index:1400;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:8px;border-radius:26px;background:rgba(8,11,20,.86);border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 70px rgba(0,0,0,.52);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-    .is-mobile-device{padding-bottom:calc(92px + var(--safe-bottom))}
+    .is-mobile-device .appBottomNav{position:fixed;left:10px;right:10px;bottom:calc(10px + var(--safe-bottom, 0px));z-index:1400;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:8px;border-radius:26px;background:rgba(8,11,20,.86);border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 70px rgba(0,0,0,.52);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .is-mobile-device{padding-bottom:calc(92px + var(--safe-bottom, 0px))}
     .is-mobile-device .container{width:min(100% - 22px,1240px)}
     .is-mobile-device .hero{grid-template-columns:1fr;min-height:auto;padding:34px 0;gap:34px}
     .is-mobile-device .heroTitle{font-size:clamp(48px,15vw,72px);letter-spacing:-.069em}
@@ -465,7 +465,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         background:
           radial-gradient(520px circle at 50% -8%,rgba(124,92,255,.42),transparent 58%),
           linear-gradient(180deg,#070a12 0%,#0b1020 42%,#050711 100%);
-        padding-bottom:calc(92px + var(--safe-bottom));
+        padding-bottom:calc(92px + var(--safe-bottom, 0px));
       }
       body:after{opacity:.045}
       .header{display:none}
@@ -490,7 +490,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .card,.formBox,.final,.glass{box-shadow:inset 0 1px 0 rgba(255,255,255,.075),0 18px 55px rgba(0,0,0,.32)}
       .card{border-radius:24px}
       .appBottomNav{
-        position:fixed;left:10px;right:10px;bottom:calc(10px + var(--safe-bottom));z-index:1400;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
+        position:fixed;left:10px;right:10px;bottom:calc(10px + var(--safe-bottom, 0px));z-index:1400;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
         padding:8px;border-radius:26px;background:rgba(8,11,20,.86);border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 70px rgba(0,0,0,.52);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
       }
       .appBottomNav a,.appBottomNav button{
@@ -500,17 +500,17 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .appBottomNav a.active,.appBottomNav a:active,.appBottomNav button:active{color:white;background:linear-gradient(135deg,rgba(124,92,255,.35),rgba(255,79,216,.16));box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
       .mobileSticky{display:none!important}
       .installBanner{
-        position:fixed;left:12px;right:12px;bottom:calc(86px + var(--safe-bottom));z-index:1350;padding:14px;border-radius:24px;
+        position:fixed;left:12px;right:12px;bottom:calc(86px + var(--safe-bottom, 0px));z-index:1350;padding:14px;border-radius:24px;
         background:rgba(7,10,18,.9);border:1px solid rgba(255,255,255,.13);box-shadow:0 20px 65px rgba(0,0,0,.48);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
       }
       .installBanner.show{display:block;animation:toastIn .24s ease both}
       .installBannerRow{display:flex;align-items:center;gap:12px}.installBannerIcon{display:grid;place-items:center;width:42px;height:42px;border-radius:16px;background:white;color:#070a12;flex:0 0 auto}.installBannerText{min-width:0;flex:1}.installBannerText strong{display:block;font-size:14px}.installBannerText span{display:block;margin-top:2px;color:rgba(255,255,255,.5);font-size:12px;line-height:1.35}.installBannerBtns{display:flex;gap:7px;margin-top:12px}.installBannerBtns .btn{min-height:40px;padding:10px 12px;border-radius:15px;font-size:12px}
       .mobileQuickSheet{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);align-items:flex-end}
       .mobileQuickSheet.show{display:flex}
-      .quickSheetPanel{width:100%;padding:16px 14px calc(18px + var(--safe-bottom));border-radius:30px 30px 0 0;background:#080b14;border:1px solid rgba(255,255,255,.12);box-shadow:0 -25px 80px rgba(0,0,0,.55)}
+      .quickSheetPanel{width:100%;padding:16px 14px calc(18px + var(--safe-bottom, 0px));border-radius:30px 30px 0 0;background:#080b14;border:1px solid rgba(255,255,255,.12);box-shadow:0 -25px 80px rgba(0,0,0,.55)}
       .quickHandle{width:54px;height:5px;border-radius:999px;background:rgba(255,255,255,.18);margin:0 auto 14px}
       .quickGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quickGrid .btn{min-height:58px;border-radius:20px}
-      .toast{bottom:calc(86px + var(--safe-bottom))}
+      .toast{bottom:calc(86px + var(--safe-bottom, 0px))}
       input,select,textarea{font-size:16px!important}
     }
 
@@ -566,15 +566,15 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     .is-mobile-device .rings:after{width:76px;height:76px}
     .is-mobile-device .pin{width:50px;height:50px}
     .is-mobile-device .final{margin-bottom:8px}
-    .is-mobile-device .footer{padding-bottom:calc(104px + var(--safe-bottom))}
-    .is-mobile-device .appBottomNav{left:8px;right:8px;bottom:calc(8px + var(--safe-bottom));width:auto;max-width:calc(100vw - 16px);grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;border-radius:22px}
+    .is-mobile-device .footer{padding-bottom:calc(104px + var(--safe-bottom, 0px))}
+    .is-mobile-device .appBottomNav{left:8px;right:8px;bottom:calc(8px + var(--safe-bottom, 0px));width:auto;max-width:calc(100vw - 16px);grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;border-radius:22px}
     .is-mobile-device .appBottomNav a,.is-mobile-device .appBottomNav button{min-width:0;width:100%;min-height:50px;border-radius:16px;font-size:9.5px;padding:0}
     .is-mobile-device .appBottomNav a span,.is-mobile-device .appBottomNav button span{font-size:18px}
-    .is-mobile-device .installBanner{left:10px;right:10px;bottom:calc(76px + var(--safe-bottom));border-radius:22px}
+    .is-mobile-device .installBanner{left:10px;right:10px;bottom:calc(76px + var(--safe-bottom, 0px));border-radius:22px}
     .is-mobile-device .mobileQuickSheet{width:100vw;max-width:100vw}
     .is-mobile-device .quickSheetPanel{max-height:82dvh;overflow:auto;border-radius:26px 26px 0 0}
     .is-mobile-device .quickGrid{grid-template-columns:1fr 1fr!important}
-    .is-mobile-device .toast{left:10px;right:10px;bottom:calc(76px + var(--safe-bottom))}
+    .is-mobile-device .toast{left:10px;right:10px;bottom:calc(76px + var(--safe-bottom, 0px))}
     .is-mobile-device .hubTopbar{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:12px}
     .is-mobile-device .hubMiniNav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
     .is-mobile-device .hubMiniNav a,.is-mobile-device .hubMiniNav button{width:100%;min-height:38px;text-align:center;justify-content:center}
@@ -733,7 +733,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       position:relative!important;
       width:100%!important;
       max-width:100vw!important;
-      padding-bottom:calc(96px + var(--safe-bottom))!important;
+      padding-bottom:calc(96px + var(--safe-bottom, 0px))!important;
     }
     .is-mobile-device main,
     .is-mobile-device .customerShell,
@@ -762,7 +762,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     .is-mobile-device .appBottomNav{
       left:12px!important;
       right:12px!important;
-      bottom:calc(12px + var(--safe-bottom))!important;
+      bottom:calc(12px + var(--safe-bottom, 0px))!important;
       max-width:480px!important;
       margin-inline:auto!important;
       transform:none!important;
@@ -813,7 +813,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     }
     .is-mobile-device .footer{
       display:block!important;
-      padding-bottom:calc(110px + var(--safe-bottom))!important;
+      padding-bottom:calc(110px + var(--safe-bottom, 0px))!important;
     }
     @media(max-width:380px){
       .is-mobile-device .appBottomNav{
@@ -5528,7 +5528,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .audioDock {
         right: 12px;
         left: 12px;
-        bottom: calc(88px + var(--safe-bottom));
+        bottom: calc(88px + var(--safe-bottom, 0px));
         justify-items: end;
       }
 
@@ -5867,7 +5867,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .sensoryDock {
         left: 12px;
         right: auto;
-        bottom: calc(88px + var(--safe-bottom));
+        bottom: calc(88px + var(--safe-bottom, 0px));
       }
 
       .sensoryPanel {
@@ -9067,7 +9067,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .morphDock {
         left: auto;
         right: 12px;
-        bottom: calc(146px + var(--safe-bottom));
+        bottom: calc(146px + var(--safe-bottom, 0px));
       }
 
       .morphButton {
@@ -9367,7 +9367,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .morphDock {
         left: 12px !important;
         right: auto !important;
-        bottom: calc(146px + var(--safe-bottom)) !important;
+        bottom: calc(146px + var(--safe-bottom, 0px)) !important;
       }
 
       .morphButton {
@@ -9470,7 +9470,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       .morphDock {
         right: 12px !important;
         left: auto !important;
-        bottom: calc(154px + var(--safe-bottom)) !important;
+        bottom: calc(154px + var(--safe-bottom, 0px)) !important;
       }
 
       .morphButton::after {
@@ -9549,7 +9549,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     @media(max-width:720px) {
       #morphDebugToast {
         right: 12px;
-        bottom: calc(210px + var(--safe-bottom));
+        bottom: calc(210px + var(--safe-bottom, 0px));
       }
     }
 
@@ -9808,7 +9808,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     @media(max-width:720px) {
       #morphDock {
         right: 12px !important;
-        bottom: calc(158px + var(--safe-bottom)) !important;
+        bottom: calc(158px + var(--safe-bottom, 0px)) !important;
       }
 
       #morphDock .morphismGrid {
@@ -9969,7 +9969,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       #morphDock {
         left: 50% !important;
         right: auto !important;
-        bottom: calc(78px + var(--safe-bottom)) !important;
+        bottom: calc(78px + var(--safe-bottom, 0px)) !important;
         transform: translateX(-50%) !important;
       }
 
@@ -9988,7 +9988,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       #morphDock .morphDockPanel {
         left: 12px !important;
         right: 12px !important;
-        bottom: calc(144px + var(--safe-bottom)) !important;
+        bottom: calc(144px + var(--safe-bottom, 0px)) !important;
         width: auto !important;
         max-height: 62svh !important;
         transform: translateY(10px) scale(.98) !important;
@@ -9999,7 +9999,150 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
 
       #morphDebugToast {
-        bottom: calc(144px + var(--safe-bottom)) !important;
+        bottom: calc(144px + var(--safe-bottom, 0px)) !important;
+      }
+    }
+
+
+    /* ============================================================
+       v40 Guaranteed Morph Launcher
+       Adds a separate bottom-center launcher that cannot be hidden by old Morph CSS.
+       ============================================================ */
+
+    #morphLauncher {
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
+      bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+      transform: translateX(-50%) !important;
+      z-index: 2147483646 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      min-width: min(300px, calc(100vw - 32px)) !important;
+      min-height: 58px !important;
+      padding: 14px 20px !important;
+      border-radius: 999px !important;
+      border: 1px solid rgba(255,255,255,.24) !important;
+      color: white !important;
+      background:
+        radial-gradient(190px circle at 20% 0%, rgba(255,255,255,.26), transparent 45%),
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 72%, #10131f), color-mix(in srgb, var(--theme-c, #35d7ff) 52%, #10131f)) !important;
+      box-shadow:
+        0 24px 84px rgba(0,0,0,.55),
+        0 0 76px color-mix(in srgb, var(--theme-a, #7c5cff) 38%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.24) !important;
+      backdrop-filter: blur(24px) saturate(1.25) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(1.25) !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      font-size: 15px !important;
+      font-weight: 950 !important;
+      letter-spacing: -.02em !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    #morphLauncher span {
+      display: grid !important;
+      place-items: center !important;
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 12px !important;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.38), transparent 38%),
+        rgba(255,255,255,.15) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12) !important;
+    }
+
+    #morphLauncher::after {
+      content: "Tap to open" !important;
+      display: inline-grid !important;
+      place-items: center !important;
+      padding: 5px 9px !important;
+      border-radius: 999px !important;
+      background: rgba(255,255,255,.14) !important;
+      color: rgba(255,255,255,.82) !important;
+      font-size: 10px !important;
+      font-weight: 950 !important;
+    }
+
+    #morphLauncher:active {
+      transform: translateX(-50%) scale(.97) !important;
+    }
+
+    /* Hide the older tiny Morph button so there is only one obvious button. */
+    #morphButton {
+      display: none !important;
+    }
+
+    #morphDock {
+      z-index: 2147483645 !important;
+      pointer-events: none !important;
+    }
+
+    #morphDock .morphDockPanel {
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
+      bottom: calc(168px + env(safe-area-inset-bottom, 0px)) !important;
+      width: min(540px, calc(100vw - 24px)) !important;
+      max-height: min(720px, 68svh) !important;
+      transform: translateX(-50%) translateY(12px) scale(.98) !important;
+      transform-origin: bottom center !important;
+      z-index: 2147483647 !important;
+      pointer-events: auto !important;
+      display: none !important;
+      opacity: 0 !important;
+      transition: opacity .16s ease, transform .16s ease !important;
+    }
+
+    #morphDock.open .morphDockPanel {
+      display: block !important;
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) scale(1) !important;
+    }
+
+    #morphDock.open ~ #morphLauncher,
+    body:has(#morphDock.open) #morphLauncher {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 82%, #111827), color-mix(in srgb, var(--theme-c, #35d7ff) 64%, #111827)) !important;
+      border-color: rgba(255,255,255,.32) !important;
+    }
+
+    body.hqFullscreenMode #morphLauncher,
+    body.hqFullscreenMode #morphDock,
+    body.hqFullscreenMode #morphDebugToast {
+      display: none !important;
+    }
+
+    @media(max-width:720px) {
+      #morphLauncher {
+        bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+        min-height: 56px !important;
+        min-width: min(280px, calc(100vw - 28px)) !important;
+        padding: 13px 16px !important;
+        font-size: 14px !important;
+      }
+
+      #morphLauncher::after {
+        content: "Open" !important;
+      }
+
+      #morphDock .morphDockPanel {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
+        width: auto !important;
+        max-height: 60svh !important;
+        transform: translateY(12px) scale(.98) !important;
+      }
+
+      #morphDock.open .morphDockPanel {
+        transform: translateY(0) scale(1) !important;
       }
     }
 
@@ -10125,9 +10268,42 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       if (dock) dock.classList.add('open');
       return false;
     };
+
+    // v40 guaranteed Morph launcher binding
+    (function(){
+      function bindMorphLauncher(){
+        var launcher = document.getElementById('morphLauncher');
+        if (!launcher || launcher.dataset.bound === 'true') return;
+        launcher.dataset.bound = 'true';
+        launcher.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          var dock = document.getElementById('morphDock');
+          if (dock) dock.classList.toggle('open');
+          if (window.DropcartMorph && window.DropcartMorph.apply) window.DropcartMorph.apply();
+        }, false);
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMorphLauncher);
+      else bindMorphLauncher();
+    })();
+
   </script>
 
   <div id="morphDebugToast"></div>
+
+  <button id="morphLauncher" class="morphLauncher" type="button"
+    onclick="
+      (function(){
+        var dock=document.getElementById('morphDock');
+        if(dock){dock.classList.toggle('open');}
+        if(window.DropcartMorph&&window.DropcartMorph.apply){window.DropcartMorph.apply();}
+      })();
+      return false;
+    ">
+    <span>◇</span>
+    Morph Studio
+  </button>
+
 
   <div id="morphDock" class="morphDock">
     <div class="morphDockPanel">
