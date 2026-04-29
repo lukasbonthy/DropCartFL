@@ -11833,6 +11833,293 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v46 Studio Controls Cleanup
+       Only changes the floating studio controls and option readability.
+       ============================================================ */
+
+    :root {
+      --studio-control-bottom: 18px;
+      --studio-control-gap: 10px;
+      --studio-control-bg:
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055));
+      --studio-control-border: rgba(255,255,255,.13);
+      --studio-control-shadow:
+        0 14px 44px rgba(0,0,0,.30),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    /* Make Theme, Morph, Cursor, and Wallpaper feel like the same button family. */
+    #sensoryButton,
+    #morphLauncher.morphLauncher,
+    #cursorLauncher.visualButton,
+    #wallpaperLauncher.visualButton {
+      min-height: 46px !important;
+      padding: 11px 13px !important;
+      border-radius: 16px !important;
+      gap: 7px !important;
+      font-size: 12px !important;
+      font-weight: 950 !important;
+      letter-spacing: -.01em !important;
+      color: #fff !important;
+      background: var(--studio-control-bg) !important;
+      border: 1px solid var(--studio-control-border) !important;
+      box-shadow: var(--studio-control-shadow) !important;
+      backdrop-filter: blur(18px) saturate(1.08) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(1.08) !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease !important;
+    }
+
+    #sensoryButton:hover,
+    #morphLauncher.morphLauncher:hover,
+    #cursorLauncher.visualButton:hover,
+    #wallpaperLauncher.visualButton:hover {
+      transform: translateY(-1px) !important;
+      border-color: rgba(255,255,255,.20) !important;
+      box-shadow:
+        0 18px 54px rgba(0,0,0,.34),
+        0 0 36px color-mix(in srgb, var(--theme-a, #7c5cff) 14%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.14) !important;
+    }
+
+    #sensoryButton span,
+    #morphLauncher.morphLauncher span,
+    #cursorLauncher.visualButton span,
+    #wallpaperLauncher.visualButton span {
+      width: 22px !important;
+      height: 22px !important;
+      border-radius: 8px !important;
+      font-size: 12px !important;
+      display: grid !important;
+      place-items: center !important;
+      background: rgba(255,255,255,.12) !important;
+      margin: 0 !important;
+    }
+
+    #morphLauncher.morphLauncher::after,
+    #cursorLauncher.visualButton::after,
+    #wallpaperLauncher.visualButton::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    /* Clean positions so no button sits on top of another popup. */
+    #sensoryDock.sensoryDock {
+      left: 18px !important;
+      bottom: var(--studio-control-bottom) !important;
+      z-index: 1710 !important;
+    }
+
+    #morphLauncher.morphLauncher {
+      left: 112px !important;
+      right: auto !important;
+      bottom: var(--studio-control-bottom) !important;
+      z-index: 1708 !important;
+      transform: none !important;
+    }
+
+    .cursorDock {
+      left: auto !important;
+      right: 128px !important;
+      bottom: var(--studio-control-bottom) !important;
+      z-index: 1706 !important;
+    }
+
+    .wallpaperDock {
+      left: auto !important;
+      right: 18px !important;
+      bottom: var(--studio-control-bottom) !important;
+      z-index: 1706 !important;
+    }
+
+    /* When Theme Studio is open, hide the nearby Morph/visual buttons so nothing overlays it. */
+    body.themeStudioOpen #morphLauncher,
+    body.themeStudioOpen .cursorDock,
+    body.themeStudioOpen .wallpaperDock {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(8px) !important;
+    }
+
+    /* Make Morph popup close/feel like Theme popup and keep it from covering Theme. */
+    .morphModal {
+      left: 112px !important;
+      right: auto !important;
+      bottom: 74px !important;
+      top: auto !important;
+      width: min(430px, calc(100vw - 28px)) !important;
+      height: auto !important;
+      inset: auto auto 74px 112px !important;
+      z-index: 1707 !important;
+      background: transparent !important;
+      pointer-events: none !important;
+    }
+
+    .morphModal.open {
+      display: block !important;
+      pointer-events: auto !important;
+    }
+
+    .morphModalPanel {
+      width: min(430px, calc(100vw - 28px)) !important;
+      max-height: min(720px, 76svh) !important;
+      padding: 15px !important;
+      border-radius: 26px !important;
+      background:
+        radial-gradient(440px circle at 0% 0%, rgba(53,215,255,.16), transparent 48%),
+        radial-gradient(440px circle at 100% 0%, rgba(124,92,255,.16), transparent 48%),
+        rgba(7,10,18,.92) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      box-shadow: 0 26px 86px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.09) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      animation: sensoryPanelIn .18s ease both !important;
+    }
+
+    .morphModalBackdrop {
+      display: none !important;
+    }
+
+    /* Cursor / Wallpaper option readability fix: no black-on-black text. */
+    .visualPanel,
+    .visualPanel *,
+    .visualOption,
+    .visualOption *,
+    .cursorOption,
+    .wallpaperOption {
+      color: #fff !important;
+    }
+
+    .visualOption,
+    .visualOption.sensoryOption,
+    .cursorOption,
+    .wallpaperOption {
+      min-height: 84px !important;
+      padding: 12px !important;
+      border-radius: 18px !important;
+      text-align: left !important;
+      background:
+        radial-gradient(160px circle at 22% 0%, rgba(255,255,255,.10), transparent 45%),
+        rgba(255,255,255,.065) !important;
+      border: 1px solid rgba(255,255,255,.10) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06) !important;
+    }
+
+    .visualOption b,
+    .cursorOption b,
+    .wallpaperOption b {
+      display: block !important;
+      color: #fff !important;
+      font-size: 19px !important;
+      line-height: 1 !important;
+    }
+
+    .visualOption strong,
+    .cursorOption strong,
+    .wallpaperOption strong {
+      display: block !important;
+      color: #fff !important;
+      margin-top: 9px !important;
+      font-size: 12px !important;
+      line-height: 1.1 !important;
+      font-weight: 950 !important;
+    }
+
+    .visualOption span,
+    .cursorOption span,
+    .wallpaperOption span {
+      display: block !important;
+      color: rgba(255,255,255,.54) !important;
+      margin-top: 4px !important;
+      font-size: 10.5px !important;
+      line-height: 1.28 !important;
+      font-weight: 760 !important;
+    }
+
+    .visualOption.active,
+    .visualOption.sensoryOption.active,
+    .cursorOption.active,
+    .wallpaperOption.active {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 44%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 20%, rgba(255,255,255,.05))) !important;
+      border-color: rgba(255,255,255,.32) !important;
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 72%, white) !important;
+      outline-offset: -2px !important;
+      box-shadow:
+        0 18px 58px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+    }
+
+    .visualOption:hover,
+    .cursorOption:hover,
+    .wallpaperOption:hover {
+      border-color: rgba(255,255,255,.20) !important;
+      background:
+        radial-gradient(180px circle at 22% 0%, rgba(255,255,255,.14), transparent 45%),
+        rgba(255,255,255,.085) !important;
+    }
+
+    /* Cursor and Wallpaper popups also use the same glass panel feeling as Theme. */
+    .visualPanel {
+      border-radius: 26px !important;
+      color: #fff !important;
+      background:
+        radial-gradient(440px circle at 0% 0%, rgba(53,215,255,.16), transparent 48%),
+        radial-gradient(440px circle at 100% 0%, rgba(124,92,255,.16), transparent 48%),
+        rgba(7,10,18,.92) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      box-shadow: 0 26px 86px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.09) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+    }
+
+    @media(max-width:720px) {
+      #sensoryDock.sensoryDock {
+        left: 12px !important;
+        bottom: calc(86px + var(--safe-bottom, 0px)) !important;
+      }
+
+      #morphLauncher.morphLauncher {
+        left: 102px !important;
+        right: auto !important;
+        bottom: calc(86px + var(--safe-bottom, 0px)) !important;
+      }
+
+      .cursorDock {
+        right: 104px !important;
+        bottom: calc(146px + var(--safe-bottom, 0px)) !important;
+      }
+
+      .wallpaperDock {
+        right: 12px !important;
+        bottom: calc(146px + var(--safe-bottom, 0px)) !important;
+      }
+
+      .morphModal {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(144px + var(--safe-bottom, 0px)) !important;
+        width: auto !important;
+        inset: auto 12px calc(144px + var(--safe-bottom, 0px)) 12px !important;
+      }
+
+      .morphModalPanel {
+        width: auto !important;
+        max-height: 62svh !important;
+      }
+
+      body.themeStudioOpen #morphLauncher,
+      body.themeStudioOpen .cursorDock,
+      body.themeStudioOpen .wallpaperDock {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -14031,6 +14318,103 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       else bindWallpaperAgain();
 
       window.DropcartWallpaper = { apply: applyWallpaper };
+    })();
+  </script>
+
+
+  <script>
+    (function studioControlsCleanup(){
+      function qs(s){ return document.querySelector(s); }
+
+      function updateThemeState(){
+        const sensory = qs('#sensoryDock');
+        document.body.classList.toggle('themeStudioOpen', !!sensory && sensory.classList.contains('open'));
+      }
+
+      function closeMorph(){
+        const modal = qs('#morphModal');
+        if (modal) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+        document.body.classList.remove('morphModalOpen');
+      }
+
+      function closeVisuals(){
+        qs('#cursorDock')?.classList.remove('open');
+        qs('#wallpaperDock')?.classList.remove('open');
+      }
+
+      function closeTheme(){
+        qs('#sensoryDock')?.classList.remove('open');
+        updateThemeState();
+      }
+
+      const sensoryButton = qs('#sensoryButton');
+      const sensoryClose = qs('#sensoryClose');
+      const sensoryDock = qs('#sensoryDock');
+      const morphButton = qs('#morphLauncher');
+      const morphClose = qs('#morphModalClose');
+      const cursorButton = qs('#cursorLauncher');
+      const wallButton = qs('#wallpaperLauncher');
+
+      sensoryButton?.addEventListener('click', function(){
+        setTimeout(function(){
+          updateThemeState();
+          if (sensoryDock?.classList.contains('open')) {
+            closeMorph();
+            closeVisuals();
+          }
+        }, 0);
+      }, true);
+
+      sensoryClose?.addEventListener('click', function(){
+        setTimeout(updateThemeState, 0);
+      }, true);
+
+      morphButton?.addEventListener('click', function(){
+        setTimeout(function(){
+          closeTheme();
+          closeVisuals();
+        }, 0);
+      }, true);
+
+      morphClose?.addEventListener('click', function(){
+        closeMorph();
+      }, true);
+
+      cursorButton?.addEventListener('click', function(){
+        setTimeout(function(){
+          closeTheme();
+          closeMorph();
+          qs('#wallpaperDock')?.classList.remove('open');
+        }, 0);
+      }, true);
+
+      wallButton?.addEventListener('click', function(){
+        setTimeout(function(){
+          closeTheme();
+          closeMorph();
+          qs('#cursorDock')?.classList.remove('open');
+        }, 0);
+      }, true);
+
+      document.addEventListener('click', function(event){
+        const modal = qs('#morphModal');
+        if (!modal || !modal.classList.contains('open')) return;
+        if (modal.contains(event.target) || qs('#morphLauncher')?.contains(event.target)) return;
+        closeMorph();
+      }, true);
+
+      document.addEventListener('keydown', function(event){
+        if (event.key === 'Escape') {
+          closeMorph();
+          closeVisuals();
+          closeTheme();
+        }
+      });
+
+      updateThemeState();
     })();
   </script>
 
