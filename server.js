@@ -13589,6 +13589,556 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v51 Employee Ops Redesign
+       Makes employee pages feel like a dedicated internal command center.
+       ============================================================ */
+
+    .employeeOpsShell {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      min-height: 100vh;
+      background:
+        radial-gradient(900px circle at 0% 0%, rgba(53,215,255,.10), transparent 36%),
+        radial-gradient(900px circle at 100% 0%, rgba(255,166,94,.09), transparent 34%),
+        linear-gradient(180deg, #07101c, #08121f 34%, #050c16);
+      color: #eaf4ff;
+    }
+
+    .employeeOpsRail {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      min-height: 100vh;
+      padding: 24px 18px;
+      border-right: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
+        rgba(5,11,18,.84);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 16px;
+    }
+
+    .employeeRailTop { display:grid; gap:14px; }
+
+    .employeeOpsBrand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#fff;
+      text-decoration:none;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .employeeOpsBrandIcon {
+      display:grid;
+      place-items:center;
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      background: linear-gradient(135deg, rgba(53,215,255,.9), rgba(124,92,255,.8));
+      color:#08111c;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size:18px;
+      font-weight:950;
+      letter-spacing:-.04em;
+      box-shadow: 0 14px 34px rgba(53,215,255,.20);
+    }
+
+    .employeeOpsBrand strong {
+      display:block;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size:20px;
+      letter-spacing:-.05em;
+      line-height:1;
+    }
+
+    .employeeOpsBrand span {
+      display:block;
+      margin-top:4px;
+      color:rgba(234,244,255,.55);
+      font-size:11px;
+      font-weight:860;
+      letter-spacing:.07em;
+      text-transform:uppercase;
+    }
+
+    .employeeRailBadge {
+      display:inline-flex;
+      align-items:center;
+      width:fit-content;
+      padding:9px 12px;
+      border-radius:999px;
+      background: rgba(255,166,94,.10);
+      border: 1px solid rgba(255,166,94,.22);
+      color:#ffd7b4;
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+    }
+
+    .employeeRailNav {
+      display:grid;
+      gap:8px;
+    }
+
+    .employeeRailLink {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-height:48px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      color: rgba(234,244,255,.76);
+      text-decoration:none;
+      border:1px solid transparent;
+      font-size:14px;
+      font-weight:860;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .employeeRailLink span {
+      display:grid;
+      place-items:center;
+      width:28px;
+      height:28px;
+      border-radius:10px;
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      font-size:14px;
+      flex: 0 0 auto;
+    }
+
+    .employeeRailLink:hover,
+    .employeeRailLink.active {
+      transform: translateX(2px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.10);
+      color:#fff;
+    }
+
+    .employeeRailLink.active {
+      background:
+        radial-gradient(180px circle at 20% 0%, rgba(53,215,255,.14), transparent 48%),
+        rgba(255,255,255,.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 10px 28px rgba(0,0,0,.18);
+    }
+
+    .employeeRailCard,
+    .employeeRailLogout {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .employeeRailCard.tone,
+    .employeePanel.tone {
+      background:
+        radial-gradient(300px circle at 100% 0%, rgba(255,166,94,.12), transparent 46%),
+        rgba(255,255,255,.04);
+    }
+
+    .employeeRailCard h3,
+    .employeePanelTop h2 {
+      margin-top: 12px;
+      color:#fff;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 28px;
+      line-height: .95;
+      letter-spacing: -.06em;
+    }
+
+    .employeeRailCard p,
+    .employeePanelText,
+    .employeeMiniCard span,
+    .employeeShortcutCard span {
+      margin-top: 9px;
+      color: rgba(234,244,255,.58);
+      line-height: 1.6;
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .employeeRailLogout { padding: 0; background: transparent; border: 0; }
+    .employeeRailLogout .btn { width:100%; }
+
+    .employeeOpsMain {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .employeeOpsHero {
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap:18px;
+      padding: 26px;
+      border-radius: 30px;
+      background:
+        radial-gradient(420px circle at 0% 0%, rgba(53,215,255,.14), transparent 44%),
+        radial-gradient(420px circle at 100% 0%, rgba(255,166,94,.12), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 20px 70px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .employeeOpsHeroText h1 {
+      margin-top: 16px;
+      color:#fff;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: clamp(40px, 5vw, 72px);
+      line-height: .92;
+      letter-spacing: -.075em;
+    }
+
+    .employeeOpsHeroText p {
+      margin-top: 12px;
+      max-width: 820px;
+      color: rgba(234,244,255,.62);
+      font-size: 15px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .employeeOpsHeroActions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 18px;
+    }
+
+    .employeeHeroMetricStack {
+      display:grid;
+      gap:12px;
+      align-content:stretch;
+    }
+
+    .employeeHeroMetric {
+      min-height: 124px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      display:grid;
+      align-content:start;
+    }
+
+    .employeeHeroMetric span,
+    .employeeKpiCard span {
+      display:block;
+      color: rgba(234,244,255,.52);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:900;
+    }
+
+    .employeeHeroMetric strong,
+    .employeeKpiCard strong,
+    .employeeStatusTile span {
+      display:block;
+      margin-top: 10px;
+      color:#fff;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 42px;
+      line-height:.9;
+      letter-spacing:-.07em;
+    }
+
+    .employeeHeroMetric small,
+    .employeeKpiCard small {
+      display:block;
+      margin-top: 8px;
+      color: rgba(234,244,255,.58);
+      font-size:12px;
+      line-height:1.45;
+      font-weight:770;
+    }
+
+    .employeeNotice.ok {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(73,230,165,.08);
+      border:1px solid rgba(73,230,165,.20);
+      color: #c3ffe8;
+      font-weight: 860;
+    }
+
+    .employeeKpiGrid,
+    .employeeCommandGrid,
+    .employeeMiniGrid,
+    .employeeShortcutGrid {
+      display:grid;
+      gap: 14px;
+    }
+
+    .employeeKpiGrid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .employeeCommandGrid { grid-template-columns: 1.1fr .9fr 1fr; }
+    .employeeMiniGrid,
+    .employeeShortcutGrid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+    .employeeKpiCard,
+    .employeePanel,
+    .employeeShortcutCard {
+      padding: 20px;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.028));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .employeePanel.soft {
+      background:
+        radial-gradient(280px circle at 0% 0%, rgba(53,215,255,.10), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.028));
+    }
+
+    .employeePanelTop {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+    }
+
+    .employeeChecklist {
+      display:grid;
+      gap:10px;
+    }
+
+    .employeeChecklist div {
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      color: rgba(234,244,255,.72);
+      font-weight: 760;
+      line-height:1.45;
+    }
+
+    .employeeChecklist b {
+      flex: 0 0 auto;
+      font-size: 17px;
+    }
+
+    .employeeQuickActions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 18px;
+    }
+
+    .employeeStatusGrid {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:10px;
+    }
+
+    .employeeStatusTile {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+    }
+
+    .employeeStatusTile strong {
+      display:block;
+      color: rgba(234,244,255,.60);
+      font-size: 12px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:900;
+    }
+
+    .employeeStatusTile.blue { box-shadow: inset 0 0 0 1px rgba(83,169,255,.18); }
+    .employeeStatusTile.green { box-shadow: inset 0 0 0 1px rgba(73,230,165,.18); }
+    .employeeStatusTile.red { box-shadow: inset 0 0 0 1px rgba(255,91,91,.18); }
+    .employeeStatusTile.amber { box-shadow: inset 0 0 0 1px rgba(255,166,94,.18); }
+    .employeeStatusTile.purple { box-shadow: inset 0 0 0 1px rgba(124,92,255,.18); }
+
+    .employeeShortcutCard {
+      text-decoration:none;
+      color:inherit;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .employeeShortcutCard:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.14);
+      background:
+        radial-gradient(220px circle at 20% 0%, rgba(53,215,255,.10), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+    }
+
+    .employeeShortcutCard b,
+    .employeeMiniCard b {
+      display:block;
+      color:#fff;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .employeeShortcutCard strong,
+    .employeeMiniCard b {
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 22px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .employeeQueuePanel { padding: 22px; }
+    .employeePanelMeta { color: rgba(234,244,255,.54); font-size: 12px; font-weight: 800; }
+
+    .employeeToolbar {
+      margin-top: 4px;
+      background: transparent;
+      padding: 0;
+      border: 0;
+    }
+
+    .employeeBookingGrid {
+      margin-top: 16px;
+    }
+
+    .employeeOpsMain .opsCard {
+      padding: 18px;
+      border-radius: 26px;
+      background:
+        radial-gradient(300px circle at 0% 0%, rgba(53,215,255,.08), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.026));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 34px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+      color:#eaf4ff;
+    }
+
+    .employeeOpsMain .opsJobTop {
+      align-items:flex-start;
+      gap:14px;
+    }
+
+    .employeeOpsMain .opsJobName {
+      color:#fff;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 28px;
+      line-height:.95;
+      letter-spacing:-.055em;
+    }
+
+    .employeeOpsMain .opsJobSub,
+    .employeeOpsMain .opsDetailText,
+    .employeeOpsMain .opsBlockBody,
+    .employeeOpsMain .opsTag,
+    .employeeOpsMain .hqTag,
+    .employeeOpsMain .opsStatNote,
+    .employeeOpsMain .metaBox span {
+      color: rgba(234,244,255,.60);
+    }
+
+    .employeeOpsMain .opsJobId,
+    .employeeOpsMain .metaBox strong,
+    .employeeOpsMain .opsBlockTitle {
+      color:#fff;
+    }
+
+    .employeeOpsMain .metaBox {
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.07);
+      border-radius: 18px;
+    }
+
+    .employeeOpsMain .opsActions .btn,
+    .employeeOpsMain .opsCard .btn,
+    .employeeOpsMain .opsCard button {
+      border-radius: 14px;
+    }
+
+    .employeeTrainingModules.trainingModules {
+      margin-top: 0;
+    }
+
+    .employeeSplitSection {
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+    }
+
+    .employeeMiniCard {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    @media(max-width:1200px) {
+      .employeeOpsHero,
+      .employeeCommandGrid,
+      .employeeSplitSection {
+        grid-template-columns: 1fr;
+      }
+      .employeeKpiGrid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .employeeOpsShell { grid-template-columns: 250px minmax(0,1fr); }
+    }
+
+    @media(max-width:860px) {
+      .employeeOpsShell {
+        grid-template-columns: 1fr;
+      }
+
+      .employeeOpsRail {
+        position: static;
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+
+      .employeeRailNav {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .employeeKpiGrid,
+      .employeeMiniGrid,
+      .employeeShortcutGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .employeeStatusGrid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:640px) {
+      .employeeOpsMain {
+        padding: 14px;
+      }
+
+      .employeeOpsHero {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .employeeRailNav {
+        grid-template-columns: 1fr;
+      }
+
+      .employeeStatusGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -16745,6 +17295,66 @@ function trainingModuleCard(icon, title, description, points) {
   </article>`;
 }
 
+
+function employeeOpsShell(req, options = {}) {
+  const employee = currentEmployee(req) || {};
+  const active = String(options.active || "dashboard");
+  const navItem = (href, key, label, icon) => `<a class="employeeRailLink ${active === key ? "active" : ""}" href="${href}"><span>${icon}</span>${label}</a>`;
+  return `<div class="employeeOpsShell">
+    <aside class="employeeOpsRail">
+      <div class="employeeRailTop">
+        <a class="employeeOpsBrand" href="/employee">
+          <div class="employeeOpsBrandIcon">DC</div>
+          <div>
+            <strong>${escapeHtml(SERVICE_NAME)} Ops</strong>
+            <span>Internal command</span>
+          </div>
+        </a>
+        <div class="employeeRailBadge">Employee only</div>
+      </div>
+
+      <nav class="employeeRailNav">
+        ${navItem("/employee", "dashboard", "Dashboard", "⌂")}
+        ${navItem("/employee/training", "training", "Training", "🎓")}
+        ${navItem("/hq", "hq", "HQ device", "◫")}
+        ${navItem("/employee/customers", "records", "Customer records", "☰")}
+        ${navItem("/employee/export", "export", "Export", "⇣")}
+      </nav>
+
+      <div class="employeeRailCard">
+        <span class="chip">Mission</span>
+        <h3>Carry groceries. Carry trust too.</h3>
+        <p>Employees are the face of the service. The job should feel calm, respectful, safe, and organized.</p>
+      </div>
+
+      <div class="employeeRailCard tone">
+        <span class="chip">Signed in</span>
+        <h3>${escapeHtml(employee.username || employee.name || "Employee")}</h3>
+        <p>Use the ops workflow, status buttons, and training standards every shift.</p>
+      </div>
+
+      <form class="employeeRailLogout" method="post" action="/employee/logout">
+        ${csrfField(req)}
+        <button class="btn ghost" type="submit">Logout</button>
+      </form>
+    </aside>
+
+    <main class="employeeOpsMain">
+      <section class="employeeOpsHero">
+        <div class="employeeOpsHeroText">
+          <span class="chip">${escapeHtml(options.eyebrow || "Dropcart internal")}</span>
+          <h1>${escapeHtml(options.title || "Employee workspace")}</h1>
+          <p>${escapeHtml(options.subtitle || "Internal dashboard.")}</p>
+          <div class="employeeOpsHeroActions">${options.actions || ""}</div>
+        </div>
+        <div class="employeeOpsHeroAside">${options.aside || ""}</div>
+      </section>
+      ${options.content || ""}
+    </main>
+  </div>`;
+}
+
+
 function employeeTrainingPage(req, message = "") {
   const trainingRecords = readTraining().sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
   const latest = trainingRecords[0];
@@ -16803,133 +17413,137 @@ function employeeTrainingPage(req, message = "") {
   ];
 
   const recent = trainingRecords.slice(0, 8).map((r) => `<tr><td>${escapeHtml(r.employee || "Employee")}</td><td>${escapeHtml(String(r.score || 0))}%</td><td>${escapeHtml(r.pledge || "completed")}</td><td>${escapeHtml(new Date(r.completedAt).toLocaleString())}</td></tr>`).join("");
+  const trainingScore = latest ? `${escapeHtml(String(latest.score || 0))}%` : "New";
+  const body = employeeOpsShell(req, {
+    active: "training",
+    eyebrow: "Employee training",
+    title: "Operations training center",
+    subtitle: "Internal standards for morals, lifting, customer respect, senior care, and safe home boundaries.",
+    actions: `<a class="btn primary" href="#training-quiz">Take quiz</a><a class="btn ghost" href="/employee">Dashboard</a><a class="btn ghost" href="/hq">HQ device</a>`,
+    aside: `<div class="employeeHeroMetricStack">
+      <div class="employeeHeroMetric"><span>Latest score</span><strong>${trainingScore}</strong><small>${latest ? "Most recent completion" : "No completion yet"}</small></div>
+      <div class="employeeHeroMetric"><span>Core values</span><strong>Respect</strong><small>Safety · clarity · humility</small></div>
+    </div>`,
+    content: `
+      ${message ? `<div class="employeeNotice ok">${escapeHtml(message)}</div>` : ``}
 
-  const body = `${header(req)}
-  <main class="container trainingPage">
-    <section class="trainingHero glass reveal">
-      <div>
-        <span class="chip">Employee training</span>
-        <h1 class="heroTitle">Carry groceries. <span class="shine">Carry trust too.</span></h1>
-        <p class="heroDesc">Dropcart training covers morals, customer respect, senior-friendly service, safe lifting basics, privacy, cold-item handling, home boundaries, and job checklists.</p>
-        <div class="heroActions">
-          <a class="btn primary" href="#training-quiz">Take quiz</a>
-          <a class="btn ghost" href="/employee">Back to employee dashboard</a>
-          <a class="btn ghost" href="/hq">HQ board</a>
+      <section class="employeeSplitSection">
+        <div class="employeePanel soft">
+          <div class="employeePanelTop"><span class="chip">Standards</span><h2>What makes a great Dropcart employee?</h2></div>
+          <div class="employeeMiniGrid">
+            <div class="employeeMiniCard"><b>Respect</b><span>Customers trust us around their homes and family members.</span></div>
+            <div class="employeeMiniCard"><b>Safety</b><span>No unload is worth injury or carelessness.</span></div>
+            <div class="employeeMiniCard"><b>Clarity</b><span>Confirm instructions before you start lifting.</span></div>
+            <div class="employeeMiniCard"><b>Humility</b><span>Ask for help instead of risking damage or injury.</span></div>
+          </div>
         </div>
-      </div>
-      <div class="trainingBadge">
-        <b>${latest ? escapeHtml(String(latest.score || 0)) + "%" : "New"}</b>
-        <span>${latest ? "latest score" : "training status"}</span>
-      </div>
-    </section>
+        <div class="employeePanel tone">
+          <div class="employeePanelTop"><span class="chip">Internal note</span><h2>The training is part of the product.</h2></div>
+          <p class="employeePanelText">The customer experience depends on how employees act in person. Calm communication and safe lifting matter as much as speed.</p>
+          <a class="btn ghost" href="/employee">Back to dashboard</a>
+        </div>
+      </section>
 
-    ${message ? `<div class="trainingMessage glass">${escapeHtml(message)}</div>` : ""}
+      <section class="trainingModules employeeTrainingModules">${modules.join("")}</section>
 
-    <section class="trainingPrinciples reveal">
-      <div class="trainingPrinciple glass"><b>Respect</b><span>Customers are trusting us near their car, groceries, home, and sometimes family members.</span></div>
-      <div class="trainingPrinciple glass"><b>Safety</b><span>No job is worth hurting yourself, damaging property, or making a customer uncomfortable.</span></div>
-      <div class="trainingPrinciple glass"><b>Clarity</b><span>Confirm the plan before lifting. Communicate changes early.</span></div>
-      <div class="trainingPrinciple glass"><b>Humility</b><span>If something is too heavy, unclear, or unsafe, ask for help.</span></div>
-    </section>
-
-    <section class="trainingModules" id="modules">
-      ${modules.join("")}
-    </section>
-
-    <section class="trainingLiftGuide glass reveal">
-      <div>
-        <span class="chip">Lifting guide</span>
-        <h2>Safe lifting basics.</h2>
-        <p>This is general training, not medical advice. If something feels unsafe or painful, stop and ask for help.</p>
-      </div>
-      <div class="liftSteps">
-        <div><b>1</b><strong>Check the load</strong><span>Look for weight, leaks, glass, awkward shape, and stairs.</span></div>
-        <div><b>2</b><strong>Get close</strong><span>Keep bags or cases close to your body instead of reaching.</span></div>
-        <div><b>3</b><strong>Use legs</strong><span>Bend knees/hips, keep your back controlled, and stand smoothly.</span></div>
-        <div><b>4</b><strong>No twisting</strong><span>Turn your feet and whole body instead of twisting your back.</span></div>
-        <div><b>5</b><strong>Take more trips</strong><span>Two safe trips are better than one risky trip.</span></div>
-        <div><b>6</b><strong>Team lift</strong><span>Use another person for heavy cases, stairs, or awkward bulk items.</span></div>
-      </div>
-    </section>
-
-    <section id="training-quiz" class="trainingQuiz glass reveal">
-      <div class="trainingQuizTop">
+      <section class="trainingLiftGuide glass reveal">
         <div>
-          <span class="chip">Completion quiz</span>
-          <h2>Pass the basics before taking jobs.</h2>
-          <p>Answer these honestly. The goal is not to look tough; it is to protect the customer and the business.</p>
+          <span class="chip">Lifting guide</span>
+          <h2>Safe lifting basics.</h2>
+          <p>This is general training, not medical advice. If something feels unsafe or painful, stop and ask for help.</p>
         </div>
-        <div id="trainingScorePreview" class="scorePreview">0%</div>
-      </div>
-
-      <form id="trainingForm" method="post" action="/employee/training/complete">
-        ${csrfField(req)}
-        <input id="trainingScore" name="score" type="hidden" value="0" />
-
-        <div class="quizQuestion" data-answer="b">
-          <strong>1. A water case feels too heavy and awkward. What should you do?</strong>
-          <label><input type="radio" name="q1" value="a" /> Carry it anyway so the job is faster.</label>
-          <label><input type="radio" name="q1" value="b" /> Use help, split the load, or take a safer trip.</label>
-          <label><input type="radio" name="q1" value="c" /> Drag it across the customer’s floor.</label>
+        <div class="liftSteps">
+          <div><b>1</b><strong>Check the load</strong><span>Look for weight, leaks, glass, awkward shape, and stairs.</span></div>
+          <div><b>2</b><strong>Get close</strong><span>Keep bags or cases close to your body instead of reaching.</span></div>
+          <div><b>3</b><strong>Use legs</strong><span>Bend knees/hips, keep your back controlled, and stand smoothly.</span></div>
+          <div><b>4</b><strong>No twisting</strong><span>Turn your feet and whole body instead of twisting your back.</span></div>
+          <div><b>5</b><strong>Take more trips</strong><span>Two safe trips are better than one risky trip.</span></div>
+          <div><b>6</b><strong>Team lift</strong><span>Use another person for heavy cases, stairs, or awkward bulk items.</span></div>
         </div>
+      </section>
 
-        <div class="quizQuestion" data-answer="c">
-          <strong>2. A customer says “just leave everything by the door.” What does that mean?</strong>
-          <label><input type="radio" name="q2" value="a" /> Go inside and put items away anyway.</label>
-          <label><input type="radio" name="q2" value="b" /> Put some things in the kitchen if it looks easy.</label>
-          <label><input type="radio" name="q2" value="c" /> Respect the boundary and leave items by the door.</label>
-        </div>
-
-        <div class="quizQuestion" data-answer="a">
-          <strong>3. Which items should be prioritized when requested?</strong>
-          <label><input type="radio" name="q3" value="a" /> Cold, frozen, dairy, meat, and leaking bags.</label>
-          <label><input type="radio" name="q3" value="b" /> Paper towels only.</label>
-          <label><input type="radio" name="q3" value="c" /> Whatever bag is closest.</label>
+      <section id="training-quiz" class="trainingQuiz glass reveal">
+        <div class="trainingQuizTop">
+          <div>
+            <span class="chip">Completion quiz</span>
+            <h2>Pass the basics before taking jobs.</h2>
+            <p>Answer these honestly. The goal is not to look tough; it is to protect the customer and the business.</p>
+          </div>
+          <div id="trainingScorePreview" class="scorePreview">0%</div>
         </div>
 
-        <div class="quizQuestion" data-answer="b">
-          <strong>4. What should you do if something breaks, spills, or gets dropped?</strong>
-          <label><input type="radio" name="q4" value="a" /> Hide it if nobody saw it.</label>
-          <label><input type="radio" name="q4" value="b" /> Tell the customer or HQ immediately.</label>
-          <label><input type="radio" name="q4" value="c" /> Blame the grocery store.</label>
-        </div>
+        <form id="trainingForm" method="post" action="/employee/training/complete">
+          ${csrfField(req)}
+          <input id="trainingScore" name="score" type="hidden" value="0" />
 
-        <div class="quizQuestion" data-answer="c">
-          <strong>5. Which answer best matches Dropcart morals?</strong>
-          <label><input type="radio" name="q5" value="a" /> Fast matters more than respect.</label>
-          <label><input type="radio" name="q5" value="b" /> The customer should figure it out.</label>
-          <label><input type="radio" name="q5" value="c" /> Be honest, respectful, careful, and clear.</label>
-        </div>
+          <div class="quizQuestion" data-answer="b">
+            <strong>1. A water case feels too heavy and awkward. What should you do?</strong>
+            <label><input type="radio" name="q1" value="a" /> Carry it anyway so the job is faster.</label>
+            <label><input type="radio" name="q1" value="b" /> Use help, split the load, or take a safer trip.</label>
+            <label><input type="radio" name="q1" value="c" /> Drag it across the customer’s floor.</label>
+          </div>
 
-        <div class="pledgeBox">
-          <label><input id="trainingPledge" name="pledge" value="I agree to follow Dropcart training standards." type="checkbox" required /> I agree to follow Dropcart training standards.</label>
-        </div>
+          <div class="quizQuestion" data-answer="c">
+            <strong>2. A customer says “just leave everything by the door.” What does that mean?</strong>
+            <label><input type="radio" name="q2" value="a" /> Go inside and put items away anyway.</label>
+            <label><input type="radio" name="q2" value="b" /> Put some things in the kitchen if it looks easy.</label>
+            <label><input type="radio" name="q2" value="c" /> Respect the boundary and leave items by the door.</label>
+          </div>
 
-        <button class="btn primary" type="submit">Complete training</button>
-      </form>
-    </section>
+          <div class="quizQuestion" data-answer="a">
+            <strong>3. Which items should be prioritized when requested?</strong>
+            <label><input type="radio" name="q3" value="a" /> Cold, frozen, dairy, meat, and leaking bags.</label>
+            <label><input type="radio" name="q3" value="b" /> Paper towels only.</label>
+            <label><input type="radio" name="q3" value="c" /> Whatever bag is closest.</label>
+          </div>
 
-    <section class="trainingRecords glass reveal">
-      <div class="trainingQuizTop">
-        <div>
-          <span class="chip">Records</span>
-          <h2>Recent completions.</h2>
-          <p>Stored locally in the app data file for now.</p>
+          <div class="quizQuestion" data-answer="b">
+            <strong>4. What should you do if something breaks, spills, or gets dropped?</strong>
+            <label><input type="radio" name="q4" value="a" /> Hide it if nobody saw it.</label>
+            <label><input type="radio" name="q4" value="b" /> Tell the customer or HQ immediately.</label>
+            <label><input type="radio" name="q4" value="c" /> Blame the grocery store.</label>
+          </div>
+
+          <div class="quizQuestion" data-answer="c">
+            <strong>5. Which answer best matches Dropcart morals?</strong>
+            <label><input type="radio" name="q5" value="a" /> Fast matters more than respect.</label>
+            <label><input type="radio" name="q5" value="b" /> The customer should figure it out.</label>
+            <label><input type="radio" name="q5" value="c" /> Be honest, respectful, careful, and clear.</label>
+          </div>
+
+          <div class="pledgeBox">
+            <label><input id="trainingPledge" name="pledge" value="I agree to follow Dropcart training standards." type="checkbox" required /> I agree to follow Dropcart training standards.</label>
+          </div>
+
+          <button class="btn primary" type="submit">Complete training</button>
+        </form>
+      </section>
+
+      <section class="trainingRecords glass reveal">
+        <div class="trainingQuizTop">
+          <div>
+            <span class="chip">Records</span>
+            <h2>Recent completions.</h2>
+            <p>Stored locally in the app data file for now.</p>
+          </div>
         </div>
-      </div>
-      <div class="trainingTableWrap">
-        <table class="trainingTable"><thead><tr><th>Employee</th><th>Score</th><th>Pledge</th><th>Completed</th></tr></thead><tbody>${recent || `<tr><td colspan="4">No training completions yet.</td></tr>`}</tbody></table>
-      </div>
-    </section>
-  </main>
-  ${footer(req)}`;
-  return pageShell({ req, title: `${SERVICE_NAME} — Employee Training`, body });
+        <div class="trainingTableWrap">
+          <table class="trainingTable"><thead><tr><th>Employee</th><th>Score</th><th>Pledge</th><th>Completed</th></tr></thead><tbody>${recent || `<tr><td colspan="4">No training completions yet.</td></tr>`}</tbody></table>
+        </div>
+      </section>
+    `
+  });
+  return pageShell({ req, title: `${SERVICE_NAME} — Employee Training Center`, body });
 }
+
+
 
 function employeePage(req) {
   const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const analytics = getAnalytics();
   const customers = readCustomers();
+  const trainingRecords = readTraining().sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+  const latestTraining = trainingRecords[0];
   const todayIso = new Date().toISOString().slice(0, 10);
   const activeStatuses = ["new", "contacted", "confirmed", "on-the-way", "arrived"];
   const todayBookings = bookings.filter((b) => b.date === todayIso || String(b.createdAt || "").slice(0, 10) === todayIso);
@@ -16941,97 +17555,87 @@ function employeePage(req) {
   const completionRate = bookings.length ? Math.round((completed.length / bookings.length) * 100) : 0;
   const nextJob = activeBookings[0] || bookings[0];
   const cards = bookings.map((b) => employeeBookingCard(req, b)).join("");
+  const trainingScore = latestTraining ? `${escapeHtml(String(latestTraining.score || 0))}%` : "Not started";
+  const heroAside = `<div class="employeeHeroMetricStack">
+    <div class="employeeHeroMetric"><span>Active queue</span><strong>${escapeHtml(String(activeBookings.length))}</strong><small>Live jobs needing attention</small></div>
+    <div class="employeeHeroMetric"><span>Training</span><strong>${trainingScore}</strong><small>${latestTraining ? "Most recent completion" : "Open the training center"}</small></div>
+  </div>`;
 
-  const statusBoard = VALID_STATUSES.map((status) => {
-    const items = bookings.filter((b) => b.status === status).slice(0, 3);
-    const itemHtml = items.map((b) => `<div class="opsMiniJob"><b>${escapeHtml(b.name)}</b><span>${escapeHtml(b.timeWindow || "Flexible")} · ${money(b.estimate?.price)} · ${escapeHtml(b.zip || "no ZIP")}</span></div>`).join("");
-    return `<div class="opsColumn">
-      <div class="opsColumnHead"><strong>${escapeHtml(status)}</strong><span class="opsCount">${statusCounts[status] || 0}</span></div>
-      ${itemHtml || `<div class="opsEmptyMini">Nothing here.</div>`}
-    </div>`;
-  }).join("");
+  const content = `
+    <section class="employeeKpiGrid">
+      <article class="employeeKpiCard"><span>Total requests</span><strong>${escapeHtml(String(bookings.length))}</strong><small>All bookings received</small></article>
+      <article class="employeeKpiCard"><span>Active jobs</span><strong>${escapeHtml(String(activeBookings.length))}</strong><small>New, confirmed, on the way, arrived</small></article>
+      <article class="employeeKpiCard"><span>Today</span><strong>${escapeHtml(String(todayBookings.length))}</strong><small>${money(todayRevenue)} estimated today</small></article>
+      <article class="employeeKpiCard"><span>Completion rate</span><strong>${escapeHtml(String(completionRate))}%</strong><small>${escapeHtml(String(completed.length))} jobs completed</small></article>
+    </section>
 
-  const body = `${header(req)}
-  <main class="container employeeOps">
-    <div class="opsShell">
-      <section class="opsTop">
-        <div class="opsIdentity">
-          <div class="opsMark">🛒</div>
-          <div>
-            <span class="opsKicker"><span class="opsLiveDot"></span>Employee Operations HQ</span>
-            <h1 class="opsTitle">Clean shift dashboard.</h1>
-            <p class="opsSub">Manage grocery unload requests, contact customers, track statuses, and keep the service feeling smooth without the clutter.</p>
-          </div>
+    <section class="employeeCommandGrid">
+      <article class="employeePanel">
+        <div class="employeePanelTop"><span class="chip">Shift brief</span><h2>What matters most today</h2></div>
+        <div class="employeeChecklist">
+          <div><b>🧊</b><span>Cold items first when requested.</span></div>
+          <div><b>📍</b><span>Confirm address, stairs, gate code, and placement.</span></div>
+          <div><b>💪</b><span>Watch heavy items, cases of water, and awkward loads.</span></div>
+          <div><b>🤝</b><span>Keep communication calm, clear, and respectful.</span></div>
         </div>
-        <div class="opsTopActions">
-          <a class="btn primary" href="#jobs">View jobs</a><a class="btn ghost" href="/hq">HQ Device</a>
+      </article>
+
+      <article class="employeePanel tone">
+        <div class="employeePanelTop"><span class="chip">Next up</span><h2>${nextJob ? escapeHtml(nextJob.name) : "No active job"}</h2></div>
+        <p class="employeePanelText">${nextJob ? `${escapeHtml(nextJob.address || "No address")} · ${escapeHtml(nextJob.timeWindow || "Flexible")} · ${money(nextJob.estimate?.price || 0)}` : "No active booking is in queue right now."}</p>
+        <div class="employeeQuickActions">
+          <a class="btn primary" href="#jobs">View queue</a>
+          <a class="btn ghost" href="/hq">Open HQ</a>
           <a class="btn ghost" href="/employee/training">Training</a>
-          <a class="btn ghost" href="/employee/customers">Customers</a>
-          <a class="btn ghost" href="/employee/export">Export</a>
-          <form method="post" action="/employee/logout">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
         </div>
-      </section>
+      </article>
 
-      <section class="opsStats">
-        <div class="opsStat"><div class="opsStatLabel">Total requests</div><div class="opsStatValue">${bookings.length}</div><div class="opsStatNote">All bookings received.</div></div>
-        <div class="opsStat"><div class="opsStatLabel">Active</div><div class="opsStatValue">${activeBookings.length}</div><div class="opsStatNote">New, contacted, confirmed.</div></div>
-        <div class="opsStat"><div class="opsStatLabel">Today value</div><div class="opsStatValue">${money(todayRevenue)}</div><div class="opsStatNote">${todayBookings.length} touched today.</div></div>
-        <div class="opsStat"><div class="opsStatLabel">Completion</div><div class="opsStatValue">${completionRate}%</div><div class="opsStatNote">${completed.length} completed · ${customers.length} customers.</div></div>
-      </section>
-
-      <section class="opsMainGrid">
-        <aside class="opsPanel">
-          <div class="opsPanelHead">
-            <div>
-              <h2 class="opsPanelTitle">Shift brief</h2>
-              <p class="opsPanelText">Keep it simple, clear, and respectful.</p>
-            </div>
-            <span class="opsMiniPill">${escapeHtml(new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }))}</span>
-          </div>
-
-          <div class="opsBriefList">
-            <div class="opsBriefItem"><div class="opsBriefIcon">🧊</div><div><strong>Ask about cold items</strong><span>Fridge and freezer items should be handled first if requested.</span></div></div>
-            <div class="opsBriefItem"><div class="opsBriefIcon">📍</div><div><strong>Confirm location</strong><span>Address, ZIP, stairs, gate code, and where bags should go.</span></div></div>
-            <div class="opsBriefItem"><div class="opsBriefIcon">💪</div><div><strong>Watch heavy items</strong><span>Water cases, bulk items, and stairs are the main reason people book.</span></div></div>
-            <div class="opsBriefItem"><div class="opsBriefIcon">🎓</div><div><strong>Training matters</strong><span>Review lifting, boundaries, senior respect, and job morals before taking real jobs.</span><a class="opsMiniTrainingLink" href="/employee/training">Open training</a></div></div>
-          </div>
-
-          <div class="opsFocusCard">
-            <strong>${nextJob ? escapeHtml(nextJob.name) : "No active job"}</strong>
-            <span>${nextJob ? `${escapeHtml(nextJob.timeWindow || "Flexible")} · ${money(nextJob.estimate?.price)} · ${escapeHtml(nextJob.address || "address pending")}` : "New requests will show up here first."}</span>
-          </div>
-        </aside>
-
-        <section class="opsPanel">
-          <div class="opsPanelHead">
-            <div>
-              <h2 class="opsPanelTitle">Status board</h2>
-              <p class="opsPanelText">A quick glance at where requests are sitting.</p>
-            </div>
-            <span class="opsMiniPill">${activeBookings.length} active</span>
-          </div>
-          <div class="opsBoard">${statusBoard}</div>
-        </section>
-      </section>
-
-      <section id="jobs" class="opsJobsHead">
-        <h2>Booking requests</h2>
-        <p>Use search and filters to find requests fast. Each card has contact shortcuts, job details, notes, tags, and status controls.</p>
-        <div class="opsToolbar">
-          <input id="opsSearch" class="opsSearch" type="search" placeholder="Search name, phone, address, ZIP, notes..." />
-          <select id="opsStatusFilter" class="opsFilter">
-            <option value="all">All statuses</option>
-            ${VALID_STATUSES.map((status) => `<option value="${status}">${status}</option>`).join("")}
-          </select>
-          <span class="opsMiniPill">${money(estimatedRevenue)} total estimated</span>
+      <article class="employeePanel soft">
+        <div class="employeePanelTop"><span class="chip">Status board</span><h2>Live counts</h2></div>
+        <div class="employeeStatusGrid">
+          ${VALID_STATUSES.map((status) => `<div class="employeeStatusTile ${escapeHtml(statusColor(status))}"><strong>${escapeHtml(status)}</strong><span>${escapeHtml(String(statusCounts[status] || 0))}</span></div>`).join("")}
         </div>
-      </section>
+      </article>
+    </section>
 
-      <section id="opsJobsList" class="bookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet.</div>`}</section>
-    </div>
-  </main>
-  ${footer(req)}`;
-  return pageShell({ req, title: `${SERVICE_NAME} — Employee Operations HQ`, body });
+    <section class="employeePanel soft">
+      <div class="employeePanelTop"><span class="chip">Operations tools</span><h2>Internal shortcuts</h2></div>
+      <div class="employeeShortcutGrid">
+        <a class="employeeShortcutCard" href="/hq"><b>◫</b><strong>HQ Device</strong><span>Dispatch-focused board for assignments and live statuses.</span></a>
+        <a class="employeeShortcutCard" href="/employee/training"><b>🎓</b><strong>Training</strong><span>Morals, lifting, home boundaries, and completion quiz.</span></a>
+        <a class="employeeShortcutCard" href="/employee/customers"><b>☰</b><strong>Customer records</strong><span>See saved customer details and history.</span></a>
+        <a class="employeeShortcutCard" href="/employee/export"><b>⇣</b><strong>Export</strong><span>Download current booking data for offline review.</span></a>
+      </div>
+    </section>
+
+    <section id="jobs" class="employeePanel employeeQueuePanel">
+      <div class="employeePanelTop">
+        <div><span class="chip">Queue</span><h2>Job command board</h2></div>
+        <div class="employeePanelMeta">${money(estimatedRevenue)} estimated · ${escapeHtml(String(customers.length))} customers</div>
+      </div>
+
+      <div class="opsToolbar employeeToolbar">
+        <input id="opsSearch" class="opsSearch" type="search" placeholder="Search name, phone, address, ZIP, notes..." />
+        <select id="opsStatusFilter" class="opsFilter">
+          <option value="all">All statuses</option>
+          ${VALID_STATUSES.map((status) => `<option value="${status}">${status}</option>`).join("")}
+        </select>
+        <span class="opsMiniPill">Live internal filter</span>
+      </div>
+
+      <section id="opsJobsList" class="bookingGrid employeeBookingGrid">${bookings.length ? cards : `<div class="empty glass">No bookings yet.</div>`}</section>
+    </section>
+  `;
+  const body = employeeOpsShell(req, {
+    active: "dashboard",
+    eyebrow: "Employee dashboard",
+    title: "Ops command center",
+    subtitle: "A dedicated internal workspace for queue control, shift focus, statuses, and job execution — separate from the customer-facing experience.",
+    actions: `<a class="btn primary" href="#jobs">View queue</a><a class="btn ghost" href="/employee/training">Training</a><a class="btn ghost" href="/hq">HQ device</a>`,
+    aside: heroAside,
+    content
+  });
+  return pageShell({ req, title: `${SERVICE_NAME} — Employee Command Center`, body });
 }
 
 
