@@ -10426,6 +10426,296 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v42 Morph Gallery
+       Morph button now matches Theme button. Popup matches Theme Studio.
+       ============================================================ */
+
+    #morphLauncher.morphLauncher {
+      position: fixed !important;
+      left: 132px !important;
+      right: auto !important;
+      bottom: 18px !important;
+      transform: none !important;
+      z-index: 1702 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 9px !important;
+      min-height: 54px !important;
+      min-width: 0 !important;
+      padding: 14px 18px !important;
+      border-radius: 22px !important;
+      color: white !important;
+      background:
+        radial-gradient(170px circle at 20% 0%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 82%, #111), color-mix(in srgb, var(--theme-c, #35d7ff) 60%, #111)) !important;
+      border: 0 !important;
+      box-shadow:
+        0 20px 64px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        0 12px 42px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+      font-size: 14px !important;
+      font-weight: 950 !important;
+      letter-spacing: -.02em !important;
+      pointer-events: auto !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      cursor: pointer !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    #morphLauncher.morphLauncher span {
+      display: grid !important;
+      place-items: center !important;
+      width: 26px !important;
+      height: 26px !important;
+      border-radius: 10px !important;
+      background: rgba(255,255,255,.15) !important;
+      margin: 0 !important;
+    }
+
+    #morphLauncher.morphLauncher::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .morphModal {
+      position: fixed !important;
+      left: 132px !important;
+      right: auto !important;
+      bottom: 84px !important;
+      top: auto !important;
+      z-index: 1701 !important;
+      display: none !important;
+      padding: 0 !important;
+      align-items: end !important;
+      justify-content: start !important;
+      pointer-events: none !important;
+      width: min(430px, calc(100vw - 28px)) !important;
+      height: auto !important;
+      inset: auto auto 84px 132px !important;
+      background: transparent !important;
+    }
+
+    .morphModal.open {
+      display: block !important;
+      pointer-events: auto !important;
+    }
+
+    .morphModalBackdrop {
+      display: none !important;
+    }
+
+    .morphModalPanel {
+      width: min(430px, calc(100vw - 28px)) !important;
+      max-height: min(720px, 76svh) !important;
+      overflow-y: auto !important;
+      padding: 15px !important;
+      border-radius: 28px !important;
+      color: white !important;
+      background:
+        radial-gradient(440px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), transparent 48%),
+        radial-gradient(440px circle at 100% 0%, color-mix(in srgb, var(--theme-c, #35d7ff) 14%, transparent), transparent 48%),
+        rgba(7,10,18,.92) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      box-shadow: 0 26px 86px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.09) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      animation: sensoryPanelIn .18s ease both !important;
+    }
+
+    .morphModalTop,
+    .morphModalKicker,
+    .morphModalBackdrop {
+      display: none !important;
+    }
+
+    .morphPopupTitle {
+      display: flex !important;
+    }
+
+    .morphModalStatus {
+      margin: 0 0 12px !important;
+      padding: 11px !important;
+      border-radius: 18px !important;
+      color: rgba(255,255,255,.68) !important;
+      background: rgba(255,255,255,.045) !important;
+      border: 1px solid rgba(255,255,255,.075) !important;
+      font-size: 12px !important;
+      line-height: 1.4 !important;
+      font-weight: 800 !important;
+    }
+
+    .morphHeader {
+      margin-top: 0 !important;
+    }
+
+    .morphPrimaryGrid {
+      margin-top: 10px !important;
+    }
+
+    .morphMorePanel {
+      margin-top: 12px !important;
+      max-height: 430px !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .morphMorePanel[hidden] {
+      display: none !important;
+    }
+
+    .morphMorePanel.show {
+      display: block !important;
+      animation: moreThemesIn .2s ease both !important;
+    }
+
+    .morphGallery {
+      display: grid !important;
+      gap: 12px !important;
+    }
+
+    .morphModalOption.active,
+    .morphModalOption.sensoryOption.active {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 44%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 20%, rgba(255,255,255,.05))) !important;
+      border-color: rgba(255,255,255,.32) !important;
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 72%, white) !important;
+      outline-offset: -2px !important;
+      box-shadow:
+        0 18px 58px color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+    }
+
+    body.morphModalOpen {
+      overflow: auto !important;
+    }
+
+    /* New v42 morph styles */
+    body.morph-shadowbox .card,body.morph-shadowbox .hubCard,body.morph-shadowbox .formBox,body.morph-shadowbox .v20-showcase,body.morph-shadowbox .opsPanel,body.morph-shadowbox .hqJob {
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.08), inset 0 0 0 10px rgba(0,0,0,.18), 0 34px 92px rgba(0,0,0,.45) !important;
+      border-color: rgba(255,255,255,.18) !important;
+    }
+
+    body.morph-tilt .card,body.morph-tilt .hubCard,body.morph-tilt .formBox,body.morph-tilt .v20-showcase,body.morph-tilt .opsPanel,body.morph-tilt .hqJob {
+      transform: perspective(1200px) rotateX(5deg) rotateY(-6deg) translateY(-4px) !important;
+      box-shadow: 18px 22px 68px rgba(0,0,0,.34), 0 0 52px color-mix(in srgb, var(--theme-a, #7c5cff) 13%, transparent) !important;
+    }
+
+    body.morph-gel .card,body.morph-gel .hubCard,body.morph-gel .formBox,body.morph-gel .v20-showcase,body.morph-gel .opsPanel,body.morph-gel .hqJob {
+      border-radius: 42px !important;
+      background:
+        radial-gradient(220px circle at 28% 16%, rgba(255,255,255,.24), transparent 36%),
+        linear-gradient(145deg, color-mix(in srgb, var(--theme-a, #7c5cff) 26%, rgba(255,255,255,.11)), color-mix(in srgb, var(--theme-c, #35d7ff) 14%, rgba(255,255,255,.04))) !important;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.20), inset 0 -8px 22px rgba(0,0,0,.14), 0 28px 80px rgba(0,0,0,.32) !important;
+    }
+
+    body.morph-foam .card,body.morph-foam .hubCard,body.morph-foam .formBox,body.morph-foam .v20-showcase,body.morph-foam .opsPanel,body.morph-foam .hqJob {
+      border-radius: 38px !important;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.055)) !important;
+      box-shadow: 0 12px 34px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.16) !important;
+      filter: saturate(1.03) !important;
+    }
+
+    body.morph-chrome .card,body.morph-chrome .hubCard,body.morph-chrome .formBox,body.morph-chrome .v20-showcase,body.morph-chrome .opsPanel,body.morph-chrome .hqJob {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.24), rgba(255,255,255,.035) 30%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.04) 72%, rgba(255,255,255,.20)) !important;
+      border-color: rgba(255,255,255,.30) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 28px 92px rgba(0,0,0,.40) !important;
+      backdrop-filter: blur(18px) contrast(1.18) saturate(.9) !important;
+      -webkit-backdrop-filter: blur(18px) contrast(1.18) saturate(.9) !important;
+    }
+
+    body.morph-neon-edge .card,body.morph-neon-edge .hubCard,body.morph-neon-edge .formBox,body.morph-neon-edge .v20-showcase,body.morph-neon-edge .opsPanel,body.morph-neon-edge .hqJob {
+      background: rgba(255,255,255,.035) !important;
+      border-color: color-mix(in srgb, var(--theme-c, #35d7ff) 70%, rgba(255,255,255,.22)) !important;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-a, #7c5cff) 54%, transparent), 0 0 28px color-mix(in srgb, var(--theme-c, #35d7ff) 30%, transparent), 0 24px 80px rgba(0,0,0,.38) !important;
+    }
+
+    body.morph-frosted .card,body.morph-frosted .hubCard,body.morph-frosted .formBox,body.morph-frosted .v20-showcase,body.morph-frosted .opsPanel,body.morph-frosted .hqJob {
+      background: rgba(240,249,255,.105) !important;
+      border-color: rgba(255,255,255,.25) !important;
+      backdrop-filter: blur(40px) saturate(1.05) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(1.05) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(255,255,255,.08), 0 28px 90px rgba(0,0,0,.34) !important;
+    }
+
+    body.morph-paper .card,body.morph-paper .hubCard,body.morph-paper .formBox,body.morph-paper .v20-showcase,body.morph-paper .opsPanel,body.morph-paper .hqJob {
+      background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.10)) !important;
+      border-color: rgba(255,255,255,.18) !important;
+      box-shadow: 0 18px 42px rgba(0,0,0,.22) !important;
+      border-radius: 18px !important;
+    }
+
+    body.morph-blueprint .card,body.morph-blueprint .hubCard,body.morph-blueprint .formBox,body.morph-blueprint .v20-showcase,body.morph-blueprint .opsPanel,body.morph-blueprint .hqJob {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        rgba(37,99,235,.08) !important;
+      background-size: 22px 22px !important;
+      border-color: rgba(147,197,253,.26) !important;
+      box-shadow: inset 0 0 0 1px rgba(147,197,253,.12), 0 24px 78px rgba(0,0,0,.34) !important;
+    }
+
+    body.morph-brutal .card,body.morph-brutal .hubCard,body.morph-brutal .formBox,body.morph-brutal .v20-showcase,body.morph-brutal .opsPanel,body.morph-brutal .hqJob {
+      border-radius: 4px !important;
+      border: 2px solid rgba(255,255,255,.70) !important;
+      background: rgba(0,0,0,.48) !important;
+      box-shadow: 10px 10px 0 color-mix(in srgb, var(--theme-a, #7c5cff) 50%, rgba(255,255,255,.12)) !important;
+    }
+
+    body.morph-carbon .card,body.morph-carbon .hubCard,body.morph-carbon .formBox,body.morph-carbon .v20-showcase,body.morph-carbon .opsPanel,body.morph-carbon .hqJob {
+      background:
+        linear-gradient(45deg, rgba(255,255,255,.045) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.045) 75%),
+        linear-gradient(45deg, rgba(255,255,255,.045) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.045) 75%),
+        rgba(0,0,0,.32) !important;
+      background-size: 16px 16px !important;
+      background-position: 0 0, 8px 8px !important;
+      border-color: rgba(255,255,255,.10) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 86px rgba(0,0,0,.46) !important;
+    }
+
+    body.morph-sticker .card,body.morph-sticker .hubCard,body.morph-sticker .formBox,body.morph-sticker .v20-showcase,body.morph-sticker .opsPanel,body.morph-sticker .hqJob {
+      transform: rotate(-.6deg) translateY(-3px) !important;
+      border: 2px solid rgba(255,255,255,.55) !important;
+      border-radius: 26px !important;
+      box-shadow: 0 12px 0 rgba(255,255,255,.08), 0 24px 68px rgba(0,0,0,.32) !important;
+    }
+
+    @media(max-width:720px) {
+      #morphLauncher.morphLauncher {
+        left: auto !important;
+        right: 12px !important;
+        bottom: calc(146px + var(--safe-bottom, 0px)) !important;
+        min-height: 48px !important;
+        padding: 12px 14px !important;
+        border-radius: 18px !important;
+        font-size: 13px !important;
+      }
+
+      .morphModal {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(204px + var(--safe-bottom, 0px)) !important;
+        width: auto !important;
+        inset: auto 12px calc(204px + var(--safe-bottom, 0px)) 12px !important;
+      }
+
+      .morphModalPanel {
+        width: auto !important;
+        max-height: 62svh !important;
+        border-radius: 24px !important;
+      }
+
+      .morphModal .sensoryGrid,
+      .morphModal .themeCategoryGrid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -10559,46 +10849,110 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   </button>
 
 
-  <div id="morphModal" class="morphModal" aria-hidden="true">
-    <div class="morphModalBackdrop" data-morph-modal-close="true"></div>
-
-    <section class="morphModalPanel" role="dialog" aria-modal="true" aria-labelledby="morphModalTitle">
-      <div class="morphModalTop">
+  <div id="morphModal" class="morphModal morphPopup" aria-hidden="true">
+    <section class="morphModalPanel" role="dialog" aria-modal="false" aria-labelledby="morphModalTitle">
+      <div class="sensoryTitle morphPopupTitle">
         <div>
-          <p class="morphModalKicker">Design layer</p>
-          <h2 id="morphModalTitle">Morphism Studio</h2>
-          <p>Pick how the whole site should feel: glass, liquid, 3D, prism, floating, and more.</p>
+          <strong id="morphModalTitle">Morphism Studio</strong>
+          <span>Change the shape, glass, depth, 3D, and surface style.</span>
         </div>
-        <button id="morphModalClose" class="morphModalClose" type="button" aria-label="Close Morphism Studio">✕</button>
+        <button id="morphModalClose" class="sensoryMiniButton" type="button" aria-label="Close Morphism Studio">✕</button>
       </div>
 
       <div id="morphModalStatus" class="morphModalStatus">
         <strong>Current:</strong> Regular theme style
       </div>
 
-      <div class="morphModalGrid">
-        <button class="morphModalOption" data-morph="none" type="button"><b>◎</b><strong>None</strong><span>Regular theme style</span></button>
-        <button class="morphModalOption" data-morph="glass" type="button"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
-        <button class="morphModalOption" data-morph="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Organic flowing card shapes</span></button>
-        <button class="morphModalOption" data-morph="neo" type="button"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
-        <button class="morphModalOption" data-morph="clay" type="button"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
-        <button class="morphModalOption" data-morph="crystal" type="button"><b>◇</b><strong>Crystal</strong><span>Sharp glass/facet style</span></button>
-        <button class="morphModalOption" data-morph="holo" type="button"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
-        <button class="morphModalOption" data-morph="soft" type="button"><b>☁️</b><strong>Soft</strong><span>Softer rounded depth</span></button>
-        <button class="morphModalOption" data-morph="three-d" type="button"><b>🧊</b><strong>3D Lift</strong><span>Lifted cards with cinematic depth</span></button>
-        <button class="morphModalOption" data-morph="three-d-glass" type="button"><b>🔮</b><strong>3D Glass</strong><span>Layered glass with deep shadows</span></button>
-        <button class="morphModalOption" data-morph="isometric" type="button"><b>📐</b><strong>Isometric</strong><span>Angled dashboard perspective</span></button>
-        <button class="morphModalOption" data-morph="layered" type="button"><b>🗂️</b><strong>Layered</strong><span>Stacked panel edges</span></button>
-        <button class="morphModalOption" data-morph="pressed" type="button"><b>🫧</b><strong>Pressed</strong><span>Inset pressed-in surfaces</span></button>
-        <button class="morphModalOption" data-morph="prism" type="button"><b>💠</b><strong>Prism</strong><span>Iridescent gem depth</span></button>
-        <button class="morphModalOption" data-morph="floating" type="button"><b>🎈</b><strong>Floating</strong><span>Airy floating cards</span></button>
-        <button class="morphModalOption" data-morph="frame" type="button"><b>🧿</b><strong>Frame</strong><span>Clean wireframe outline</span></button>
+      <div class="themeStudioHeader morphHeader">
+        <div>
+          <strong>Featured morphs</strong>
+          <span>Quick styles that work with every theme.</span>
+        </div>
+        <button id="moreMorphsToggle" class="themeMoreButton" type="button" aria-expanded="false">
+          <span>+</span>
+          More
+        </button>
+      </div>
+
+      <div class="sensoryGrid morphPrimaryGrid">
+        <button class="morphModalOption sensoryOption" data-morph="none" type="button"><b>◎</b><strong>None</strong><span>Regular theme style</span></button>
+        <button class="morphModalOption sensoryOption" data-morph="glass" type="button"><b>🪟</b><strong>Glass</strong><span>Blurred glass panels</span></button>
+        <button class="morphModalOption sensoryOption" data-morph="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Organic moving cards</span></button>
+        <button class="morphModalOption sensoryOption" data-morph="three-d" type="button"><b>🧊</b><strong>3D Lift</strong><span>Cinematic card depth</span></button>
+      </div>
+
+      <div id="moreMorphsPanel" class="moreThemesPanel morphMorePanel" hidden>
+        <div class="moreThemesLabel">
+          <strong>Morph Gallery</strong>
+          <span>More surface styles, shape systems, and depth effects.</span>
+        </div>
+
+        <div class="themeGallery morphGallery">
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Depth + 3D</strong>
+              <span>Perspective, stacked layers, and floating panels.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="three-d-glass" type="button"><b>🔮</b><strong>3D Glass</strong><span>Layered transparent depth</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="isometric" type="button"><b>📐</b><strong>Isometric</strong><span>Angled dashboard view</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="layered" type="button"><b>🗂️</b><strong>Layered</strong><span>Stacked panel edges</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="floating" type="button"><b>🎈</b><strong>Floating</strong><span>Airy bobbing cards</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="shadowbox" type="button"><b>▣</b><strong>Shadowbox</strong><span>Deep framed shadows</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="tilt" type="button"><b>↗</b><strong>Tilt</strong><span>Subtle angled lift</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Soft surfaces</strong>
+              <span>Softer tactile styles for friendly app-like layouts.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="soft" type="button"><b>☁️</b><strong>Soft</strong><span>Rounded calm depth</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="neo" type="button"><b>◓</b><strong>Neo</strong><span>Raised neumorphism</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="pressed" type="button"><b>🫧</b><strong>Pressed</strong><span>Inset controls</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="clay" type="button"><b>🧱</b><strong>Clay</strong><span>Chunky soft blocks</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="gel" type="button"><b>🟣</b><strong>Gel</strong><span>Squishy glossy depth</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="foam" type="button"><b>🧼</b><strong>Foam</strong><span>Light cushion cards</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Glass + shine</strong>
+              <span>Sharper glossy, crystal, metallic, and glowing surfaces.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="crystal" type="button"><b>◇</b><strong>Crystal</strong><span>Cut glass facets</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="holo" type="button"><b>🌈</b><strong>Holo</strong><span>Holographic glow</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="prism" type="button"><b>💠</b><strong>Prism</strong><span>Iridescent gem depth</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="chrome" type="button"><b>⚙️</b><strong>Chrome</strong><span>Metallic reflections</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="neon-edge" type="button"><b>💡</b><strong>Neon Edge</strong><span>Glowing outline cards</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="frosted" type="button"><b>🧊</b><strong>Frosted</strong><span>Thick frosted glass</span></button>
+            </div>
+          </section>
+
+          <section class="themeCategory">
+            <div class="themeCategoryHead">
+              <strong>Graphic systems</strong>
+              <span>More stylized looks for bold pages or dashboards.</span>
+            </div>
+            <div class="sensoryGrid themeCategoryGrid">
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="frame" type="button"><b>🧿</b><strong>Frame</strong><span>Wireframe outline</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="paper" type="button"><b>📄</b><strong>Paper</strong><span>Clean paper cards</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="blueprint" type="button"><b>📘</b><strong>Blueprint</strong><span>Technical grid panels</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="brutal" type="button"><b>■</b><strong>Brutal</strong><span>Bold hard edges</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="carbon" type="button"><b>▦</b><strong>Carbon</strong><span>Dark textured panels</span></button>
+              <button class="morphModalOption sensoryOption premiumTheme" data-morph="sticker" type="button"><b>🏷️</b><strong>Sticker</strong><span>Sticker-like lifted cards</span></button>
+            </div>
+          </section>
+        </div>
       </div>
 
       <p class="morphModalHint">This stacks with themes. Try Snow + 3D Glass, Galaxy + Prism, or Luxury + Isometric.</p>
     </section>
   </div>
-
 
   <div id="morphDock" class="morphDock">
     <div class="morphDockPanel">
@@ -10645,7 +10999,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
   <script>
     window.DropcartMorph = (function(){
-      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame'];
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame','morph-shadowbox','morph-tilt','morph-gel','morph-foam','morph-chrome','morph-neon-edge','morph-frosted','morph-paper','morph-blueprint','morph-brutal','morph-carbon','morph-sticker'];
       const labels = {
         none: 'Regular theme style',
         glass: 'Glassmorphism active',
@@ -10662,7 +11016,19 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         pressed: 'Pressed morph active',
         prism: 'Prism morph active',
         floating: 'Floating morph active',
-        frame: 'Frame morph active'
+        frame: 'Frame morph active',
+        shadowbox: 'Shadowbox morph active',
+        tilt: 'Tilt morph active',
+        gel: 'Gel morph active',
+        foam: 'Foam morph active',
+        chrome: 'Chrome morph active',
+        'neon-edge': 'Neon Edge morph active',
+        frosted: 'Frosted morph active',
+        paper: 'Paper morph active',
+        blueprint: 'Blueprint morph active',
+        brutal: 'Brutal morph active',
+        carbon: 'Carbon morph active',
+        sticker: 'Sticker morph active'
       };
 
       function byId(id) {
@@ -11458,7 +11824,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       let reducedSensory = localStorage.getItem('dropcartReducedSensory') === 'on';
 
       let morphism = localStorage.getItem('dropcartMorphism') || 'none';
-      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame'];
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame','morph-shadowbox','morph-tilt','morph-gel','morph-foam','morph-chrome','morph-neon-edge','morph-frosted','morph-paper','morph-blueprint','morph-brutal','morph-carbon','morph-sticker'];
 
       function applyMorphism(){
         document.body.classList.remove(...morphClasses);
@@ -11855,10 +12221,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
   <script>
     window.DropcartMorphModal = (function(){
-      const morphClasses = [
-        'morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft',
-        'morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame'
-      ];
+      const morphClasses = ['morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft','morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame','morph-shadowbox','morph-tilt','morph-gel','morph-foam','morph-chrome','morph-neon-edge','morph-frosted','morph-paper','morph-blueprint','morph-brutal','morph-carbon','morph-sticker'];
 
       const labels = {
         none: 'Regular theme style',
@@ -11876,7 +12239,19 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         pressed: 'Pressed morph active',
         prism: 'Prism morph active',
         floating: 'Floating morph active',
-        frame: 'Frame morph active'
+        frame: 'Frame morph active',
+        shadowbox: 'Shadowbox morph active',
+        tilt: 'Tilt morph active',
+        gel: 'Gel morph active',
+        foam: 'Foam morph active',
+        chrome: 'Chrome morph active',
+        'neon-edge': 'Neon Edge morph active',
+        frosted: 'Frosted morph active',
+        paper: 'Paper morph active',
+        blueprint: 'Blueprint morph active',
+        brutal: 'Brutal morph active',
+        carbon: 'Carbon morph active',
+        sticker: 'Sticker morph active'
       };
 
       function get(){
@@ -11908,6 +12283,12 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
         document.body.classList.add('morphModalOpen');
         apply();
         return false;
+      }
+
+      function toggleMorphModal(){
+        const modal = document.getElementById('morphModal');
+        if (!modal || !modal.classList.contains('open')) return open();
+        return close();
       }
 
       function close(){
@@ -11967,7 +12348,7 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       // Make old helper open the new modal too.
       window.openMorphStudio = open;
 
-      return { open, close, set, apply, get };
+      return { open, close, toggle: toggleMorphModal, set, apply, get };
     })();
   </script>
 
@@ -11996,6 +12377,44 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind, { once: true });
       else bind();
+    })();
+  </script>
+
+
+  <script>
+    (function(){
+      function bindMoreMorphs(){
+        const toggle = document.getElementById('moreMorphsToggle');
+        const panel = document.getElementById('moreMorphsPanel');
+        if (!toggle || !panel || toggle.dataset.bound === 'true') return;
+        toggle.dataset.bound = 'true';
+
+        function setOpen(open){
+          panel.hidden = !open;
+          panel.classList.toggle('show', open);
+          toggle.classList.toggle('open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.innerHTML = open ? '<span>+</span>Less' : '<span>+</span>More';
+          localStorage.setItem('dropcartMoreMorphsOpen', open ? 'on' : 'off');
+        }
+
+        setOpen(localStorage.getItem('dropcartMoreMorphsOpen') === 'on');
+
+        toggle.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen(panel.hidden);
+        });
+
+        panel.querySelectorAll('.morphModalOption[data-morph]').forEach(function(btn){
+          btn.addEventListener('click', function(){
+            setOpen(false);
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMoreMorphs, { once: true });
+      else bindMoreMorphs();
     })();
   </script>
 
