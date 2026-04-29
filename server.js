@@ -10146,6 +10146,286 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v41 Real Morph Modal
+       Replaces the hidden dock experience with a guaranteed overlay modal.
+       ============================================================ */
+
+    #morphDock {
+      display: none !important;
+    }
+
+    #morphLauncher {
+      display: inline-flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      z-index: 2147483645 !important;
+    }
+
+    .morphModal {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 2147483646 !important;
+      display: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 18px !important;
+      pointer-events: none !important;
+    }
+
+    .morphModal.open {
+      display: flex !important;
+      pointer-events: auto !important;
+    }
+
+    .morphModalBackdrop {
+      position: absolute !important;
+      inset: 0 !important;
+      background:
+        radial-gradient(900px circle at 50% 100%, color-mix(in srgb, var(--theme-a, #7c5cff) 22%, transparent), transparent 55%),
+        rgba(0,0,0,.62) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+    }
+
+    .morphModalPanel {
+      position: relative !important;
+      z-index: 2 !important;
+      width: min(760px, calc(100vw - 24px)) !important;
+      max-height: min(780px, 86svh) !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      padding: 18px !important;
+      border-radius: 30px !important;
+      color: white !important;
+      background:
+        radial-gradient(620px circle at 0% 0%, color-mix(in srgb, var(--theme-a, #7c5cff) 20%, transparent), transparent 50%),
+        radial-gradient(620px circle at 100% 0%, color-mix(in srgb, var(--theme-c, #35d7ff) 15%, transparent), transparent 50%),
+        rgba(7,10,18,.94) !important;
+      border: 1px solid rgba(255,255,255,.16) !important;
+      box-shadow:
+        0 34px 120px rgba(0,0,0,.58),
+        0 0 90px color-mix(in srgb, var(--theme-a, #7c5cff) 20%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.12) !important;
+      backdrop-filter: blur(26px) saturate(1.18) !important;
+      -webkit-backdrop-filter: blur(26px) saturate(1.18) !important;
+      animation: morphModalIn .18s ease both !important;
+    }
+
+    @keyframes morphModalIn {
+      from { opacity: 0; transform: translateY(14px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .morphModalTop {
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      gap: 14px !important;
+      margin-bottom: 14px !important;
+      padding: 14px !important;
+      border-radius: 24px !important;
+      background: rgba(255,255,255,.055) !important;
+      border: 1px solid rgba(255,255,255,.09) !important;
+    }
+
+    .morphModalKicker {
+      margin: 0 0 8px !important;
+      display: inline-flex !important;
+      min-height: 28px !important;
+      align-items: center !important;
+      padding: 6px 10px !important;
+      border-radius: 999px !important;
+      background: rgba(255,255,255,.08) !important;
+      border: 1px solid rgba(255,255,255,.10) !important;
+      color: rgba(255,255,255,.66) !important;
+      font-size: 11px !important;
+      font-weight: 950 !important;
+      letter-spacing: .08em !important;
+      text-transform: uppercase !important;
+    }
+
+    .morphModalTop h2 {
+      margin: 0 !important;
+      font-family: "Space Grotesk", Inter, sans-serif !important;
+      font-size: clamp(34px, 5vw, 58px) !important;
+      line-height: .9 !important;
+      letter-spacing: -.065em !important;
+      font-weight: 900 !important;
+    }
+
+    .morphModalTop p:not(.morphModalKicker) {
+      margin: 9px 0 0 !important;
+      max-width: 560px !important;
+      color: rgba(255,255,255,.56) !important;
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      font-weight: 750 !important;
+    }
+
+    .morphModalClose {
+      flex: 0 0 auto !important;
+      display: grid !important;
+      place-items: center !important;
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 16px !important;
+      color: white !important;
+      background: rgba(255,255,255,.08) !important;
+      border: 1px solid rgba(255,255,255,.12) !important;
+      cursor: pointer !important;
+      font-size: 18px !important;
+      font-weight: 950 !important;
+    }
+
+    .morphModalStatus {
+      margin-bottom: 13px !important;
+      padding: 12px 14px !important;
+      border-radius: 18px !important;
+      color: rgba(255,255,255,.72) !important;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent), rgba(255,255,255,.045)) !important;
+      border: 1px solid rgba(255,255,255,.09) !important;
+      font-size: 13px !important;
+      line-height: 1.4 !important;
+      font-weight: 850 !important;
+    }
+
+    .morphModalStatus strong {
+      color: white !important;
+    }
+
+    .morphModalGrid {
+      display: grid !important;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      gap: 10px !important;
+    }
+
+    .morphModalOption {
+      position: relative !important;
+      overflow: hidden !important;
+      min-height: 112px !important;
+      padding: 13px !important;
+      border-radius: 22px !important;
+      color: white !important;
+      text-align: left !important;
+      background:
+        radial-gradient(160px circle at 25% 0%, rgba(255,255,255,.13), transparent 48%),
+        rgba(255,255,255,.055) !important;
+      border: 1px solid rgba(255,255,255,.10) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06) !important;
+      cursor: pointer !important;
+    }
+
+    .morphModalOption::after {
+      content: "" !important;
+      position: absolute !important;
+      right: -28px !important;
+      top: -28px !important;
+      width: 82px !important;
+      height: 82px !important;
+      border-radius: 30px !important;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 30%, transparent), color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent)) !important;
+      transform: rotate(18deg) !important;
+      opacity: .46 !important;
+      pointer-events: none !important;
+    }
+
+    .morphModalOption b,
+    .morphModalOption strong,
+    .morphModalOption span {
+      position: relative !important;
+      z-index: 2 !important;
+      display: block !important;
+    }
+
+    .morphModalOption b {
+      font-size: 22px !important;
+      line-height: 1 !important;
+    }
+
+    .morphModalOption strong {
+      margin-top: 11px !important;
+      font-size: 13px !important;
+      line-height: 1.1 !important;
+      font-weight: 950 !important;
+    }
+
+    .morphModalOption span {
+      margin-top: 5px !important;
+      color: rgba(255,255,255,.48) !important;
+      font-size: 11px !important;
+      line-height: 1.3 !important;
+      font-weight: 760 !important;
+    }
+
+    .morphModalOption.active {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 45%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 24%, rgba(255,255,255,.05))) !important;
+      border-color: rgba(255,255,255,.35) !important;
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 72%, white) !important;
+      outline-offset: -2px !important;
+      box-shadow:
+        0 18px 58px color-mix(in srgb, var(--theme-a, #7c5cff) 24%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+    }
+
+    .morphModalHint {
+      margin: 13px 0 0 !important;
+      padding: 12px !important;
+      border-radius: 18px !important;
+      color: rgba(255,255,255,.50) !important;
+      background: rgba(255,255,255,.045) !important;
+      border: 1px solid rgba(255,255,255,.075) !important;
+      font-size: 12px !important;
+      line-height: 1.45 !important;
+      font-weight: 780 !important;
+    }
+
+    body.morphModalOpen {
+      overflow: hidden !important;
+    }
+
+    @media(max-width:900px) {
+      .morphModalGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+
+    @media(max-width:560px) {
+      .morphModal {
+        align-items: flex-end !important;
+        padding: 10px !important;
+      }
+
+      .morphModalPanel {
+        width: calc(100vw - 20px) !important;
+        max-height: 82svh !important;
+        border-radius: 26px !important;
+        padding: 14px !important;
+      }
+
+      .morphModalTop {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        padding: 12px !important;
+      }
+
+      .morphModalTop h2 {
+        font-size: 34px !important;
+      }
+
+      .morphModalGrid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .morphModalOption {
+        min-height: 88px !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -10269,40 +10549,55 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       return false;
     };
 
-    // v40 guaranteed Morph launcher binding
-    (function(){
-      function bindMorphLauncher(){
-        var launcher = document.getElementById('morphLauncher');
-        if (!launcher || launcher.dataset.bound === 'true') return;
-        launcher.dataset.bound = 'true';
-        launcher.addEventListener('click', function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          var dock = document.getElementById('morphDock');
-          if (dock) dock.classList.toggle('open');
-          if (window.DropcartMorph && window.DropcartMorph.apply) window.DropcartMorph.apply();
-        }, false);
-      }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMorphLauncher);
-      else bindMorphLauncher();
-    })();
-
   </script>
 
   <div id="morphDebugToast"></div>
 
-  <button id="morphLauncher" class="morphLauncher" type="button"
-    onclick="
-      (function(){
-        var dock=document.getElementById('morphDock');
-        if(dock){dock.classList.toggle('open');}
-        if(window.DropcartMorph&&window.DropcartMorph.apply){window.DropcartMorph.apply();}
-      })();
-      return false;
-    ">
+  <button id="morphLauncher" class="morphLauncher" type="button" onclick="window.DropcartMorphModal?.open?.(); return false;">
     <span>◇</span>
     Morph Studio
   </button>
+
+
+  <div id="morphModal" class="morphModal" aria-hidden="true">
+    <div class="morphModalBackdrop" data-morph-modal-close="true"></div>
+
+    <section class="morphModalPanel" role="dialog" aria-modal="true" aria-labelledby="morphModalTitle">
+      <div class="morphModalTop">
+        <div>
+          <p class="morphModalKicker">Design layer</p>
+          <h2 id="morphModalTitle">Morphism Studio</h2>
+          <p>Pick how the whole site should feel: glass, liquid, 3D, prism, floating, and more.</p>
+        </div>
+        <button id="morphModalClose" class="morphModalClose" type="button" aria-label="Close Morphism Studio">✕</button>
+      </div>
+
+      <div id="morphModalStatus" class="morphModalStatus">
+        <strong>Current:</strong> Regular theme style
+      </div>
+
+      <div class="morphModalGrid">
+        <button class="morphModalOption" data-morph="none" type="button"><b>◎</b><strong>None</strong><span>Regular theme style</span></button>
+        <button class="morphModalOption" data-morph="glass" type="button"><b>🪟</b><strong>Glass</strong><span>Ultra-blur glassmorphism</span></button>
+        <button class="morphModalOption" data-morph="liquid" type="button"><b>💧</b><strong>Liquid</strong><span>Organic flowing card shapes</span></button>
+        <button class="morphModalOption" data-morph="neo" type="button"><b>◓</b><strong>Neo</strong><span>Soft raised neumorphism</span></button>
+        <button class="morphModalOption" data-morph="clay" type="button"><b>🧱</b><strong>Clay</strong><span>Chunky claymorphism depth</span></button>
+        <button class="morphModalOption" data-morph="crystal" type="button"><b>◇</b><strong>Crystal</strong><span>Sharp glass/facet style</span></button>
+        <button class="morphModalOption" data-morph="holo" type="button"><b>🌈</b><strong>Holo</strong><span>Holographic glow layer</span></button>
+        <button class="morphModalOption" data-morph="soft" type="button"><b>☁️</b><strong>Soft</strong><span>Softer rounded depth</span></button>
+        <button class="morphModalOption" data-morph="three-d" type="button"><b>🧊</b><strong>3D Lift</strong><span>Lifted cards with cinematic depth</span></button>
+        <button class="morphModalOption" data-morph="three-d-glass" type="button"><b>🔮</b><strong>3D Glass</strong><span>Layered glass with deep shadows</span></button>
+        <button class="morphModalOption" data-morph="isometric" type="button"><b>📐</b><strong>Isometric</strong><span>Angled dashboard perspective</span></button>
+        <button class="morphModalOption" data-morph="layered" type="button"><b>🗂️</b><strong>Layered</strong><span>Stacked panel edges</span></button>
+        <button class="morphModalOption" data-morph="pressed" type="button"><b>🫧</b><strong>Pressed</strong><span>Inset pressed-in surfaces</span></button>
+        <button class="morphModalOption" data-morph="prism" type="button"><b>💠</b><strong>Prism</strong><span>Iridescent gem depth</span></button>
+        <button class="morphModalOption" data-morph="floating" type="button"><b>🎈</b><strong>Floating</strong><span>Airy floating cards</span></button>
+        <button class="morphModalOption" data-morph="frame" type="button"><b>🧿</b><strong>Frame</strong><span>Clean wireframe outline</span></button>
+      </div>
+
+      <p class="morphModalHint">This stacks with themes. Try Snow + 3D Glass, Galaxy + Prism, or Luxury + Isometric.</p>
+    </section>
+  </div>
 
 
   <div id="morphDock" class="morphDock">
@@ -11557,6 +11852,153 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     })();
 
   </script>
+
+  <script>
+    window.DropcartMorphModal = (function(){
+      const morphClasses = [
+        'morph-glass','morph-liquid','morph-neo','morph-clay','morph-crystal','morph-holo','morph-soft',
+        'morph-three-d','morph-three-d-glass','morph-isometric','morph-layered','morph-pressed','morph-prism','morph-floating','morph-frame'
+      ];
+
+      const labels = {
+        none: 'Regular theme style',
+        glass: 'Glassmorphism active',
+        liquid: 'Liquid morphism active',
+        neo: 'Neumorphism active',
+        clay: 'Claymorphism active',
+        crystal: 'Crystal morphism active',
+        holo: 'Holographic morphism active',
+        soft: 'Soft depth active',
+        'three-d': '3D Lift active',
+        'three-d-glass': '3D Glass active',
+        isometric: 'Isometric morph active',
+        layered: 'Layered morph active',
+        pressed: 'Pressed morph active',
+        prism: 'Prism morph active',
+        floating: 'Floating morph active',
+        frame: 'Frame morph active'
+      };
+
+      function get(){
+        return localStorage.getItem('dropcartMorphism') || 'none';
+      }
+
+      function apply(morph){
+        const next = morph || get();
+        document.body.classList.remove(...morphClasses);
+        if (next !== 'none') document.body.classList.add('morph-' + next);
+
+        document.querySelectorAll('.morphModalOption[data-morph], .morphismOption[data-morph]').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.morph === next);
+        });
+
+        const status = document.getElementById('morphModalStatus') || document.getElementById('morphStatus');
+        if (status) status.innerHTML = '<strong>Current:</strong> ' + (labels[next] || next);
+
+        if (window.DropcartMorph && window.DropcartMorph.apply) {
+          try { window.DropcartMorph.apply(next); } catch(e) {}
+        }
+      }
+
+      function open(){
+        const modal = document.getElementById('morphModal');
+        if (!modal) return false;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('morphModalOpen');
+        apply();
+        return false;
+      }
+
+      function close(){
+        const modal = document.getElementById('morphModal');
+        if (!modal) return false;
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('morphModalOpen');
+        return false;
+      }
+
+      function set(morph){
+        const next = morph || 'none';
+        localStorage.setItem('dropcartMorphism', next);
+        apply(next);
+        try { navigator.vibrate?.(10); } catch(e) {}
+        return false;
+      }
+
+      function bind(){
+        const modal = document.getElementById('morphModal');
+        const launcher = document.getElementById('morphLauncher');
+        const closeBtn = document.getElementById('morphModalClose');
+
+        launcher?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          open();
+        });
+
+        closeBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          close();
+        });
+
+        modal?.querySelectorAll('[data-morph-modal-close="true"]').forEach((el) => {
+          el.addEventListener('click', close);
+        });
+
+        document.querySelectorAll('.morphModalOption[data-morph]').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            set(btn.dataset.morph || 'none');
+          });
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') close();
+        });
+
+        apply();
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind, { once: true });
+      else bind();
+
+      // Make old helper open the new modal too.
+      window.openMorphStudio = open;
+
+      return { open, close, set, apply, get };
+    })();
+  </script>
+
+
+  <script>
+    (function(){
+      function forceMorphModalOpen(){
+        var modal = document.getElementById('morphModal');
+        if (!modal) return false;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.classList.add('morphModalOpen');
+        if (window.DropcartMorphModal && window.DropcartMorphModal.apply) window.DropcartMorphModal.apply();
+        return false;
+      }
+      window.forceMorphModalOpen = forceMorphModalOpen;
+      function bind(){
+        var launcher = document.getElementById('morphLauncher');
+        if (!launcher || launcher.dataset.modalBound === 'true') return;
+        launcher.dataset.modalBound = 'true';
+        launcher.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          forceMorphModalOpen();
+        }, true);
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind, { once: true });
+      else bind();
+    })();
+  </script>
+
 </body>
 </html>`;
 }
