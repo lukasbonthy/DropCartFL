@@ -69,7 +69,7 @@ function isMobileRequest(req) {
   return getRequestedView(req) === "mobile";
 }
 
-const VALID_STATUSES = ["new", "contacted", "confirmed", "completed", "cancelled"];
+const VALID_STATUSES = ["new", "contacted", "confirmed", "on-the-way", "arrived", "completed", "cancelled"];
 const SERVICE_ZIPS = new Set(["34450", "34452", "34453"]);
 const EDGE_ZIPS = new Set(["34446", "34442", "34461", "34465", "34429"]);
 
@@ -341,6 +341,8 @@ function getAvailability() {
 function statusColor(status) {
   switch (status) {
     case "confirmed": return "blue";
+    case "on-the-way": return "blue";
+    case "arrived": return "amber";
     case "completed": return "green";
     case "cancelled": return "red";
     case "contacted": return "amber";
@@ -12120,6 +12122,512 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v47 Center Sound Button
+       Only moves the audio/sound dock to the bottom middle.
+       ============================================================ */
+
+    .audioDock {
+      left: 50% !important;
+      right: auto !important;
+      bottom: 18px !important;
+      transform: translateX(-50%) !important;
+      z-index: 1705 !important;
+      justify-items: center !important;
+      pointer-events: none !important;
+    }
+
+    .audioDock .audioMainButton {
+      pointer-events: auto !important;
+    }
+
+    .audioDockPanel {
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
+      bottom: 84px !important;
+      transform: translateX(-50%) !important;
+      width: min(360px, calc(100vw - 28px)) !important;
+      z-index: 1706 !important;
+      pointer-events: auto !important;
+    }
+
+    .audioDock.open {
+      z-index: 1810 !important;
+    }
+
+    .audioDock.open .audioDockPanel {
+      display: block !important;
+      animation: sensoryPanelIn .18s ease both !important;
+    }
+
+    @media(max-width:720px) {
+      .audioDock {
+        left: 50% !important;
+        right: auto !important;
+        bottom: calc(86px + var(--safe-bottom, 0px)) !important;
+        transform: translateX(-50%) !important;
+      }
+
+      .audioDockPanel {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(144px + var(--safe-bottom, 0px)) !important;
+        transform: none !important;
+        width: auto !important;
+        max-height: 62svh !important;
+        overflow-y: auto !important;
+      }
+
+      .audioMainButton {
+        min-height: 46px !important;
+        padding: 11px 14px !important;
+      }
+    }
+
+
+    /* ============================================================
+       v48 Conversion Upgrade
+       Booking-first homepage, one Customize hub, cleaner trust sections.
+       ============================================================ */
+
+    .conversionTrustSection,
+    .bookingJourneySection,
+    .referralSection {
+      position: relative;
+    }
+
+    .conversionStats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .conversionStat {
+      padding: 18px;
+      border-radius: 26px;
+      background:
+        radial-gradient(220px circle at 20% 0%, rgba(255,255,255,.10), transparent 48%),
+        rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .conversionStat strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 36px;
+      line-height: .9;
+      letter-spacing: -.065em;
+      color: white;
+    }
+
+    .conversionStat span {
+      display: block;
+      margin-top: 9px;
+      color: rgba(255,255,255,.52);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .trustGrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .trustCard {
+      padding: 20px;
+      border-radius: 30px;
+    }
+
+    .trustCard b {
+      display: block;
+      font-size: 28px;
+    }
+
+    .trustCard strong {
+      display: block;
+      margin-top: 12px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .trustCard span {
+      display: block;
+      margin-top: 9px;
+      color: rgba(255,255,255,.58);
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 720;
+    }
+
+    .reviewGrid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .reviewCard {
+      padding: 22px;
+      border-radius: 30px;
+    }
+
+    .stars {
+      color: #ffd166;
+      letter-spacing: .06em;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .reviewCard p {
+      margin-top: 12px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .reviewCard strong {
+      display: block;
+      margin-top: 14px;
+      color: rgba(255,255,255,.90);
+      font-size: 13px;
+    }
+
+    .journeyCard {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 28px;
+      border-radius: 38px;
+    }
+
+    .journeySteps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .journeySteps div {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .journeySteps b {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(73,230,165,.22), rgba(53,215,255,.13));
+      color: white;
+      font-weight: 950;
+    }
+
+    .journeySteps strong {
+      display: block;
+      margin-top: 13px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 22px;
+      letter-spacing: -.05em;
+    }
+
+    .journeySteps span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255,255,255,.54);
+      font-size: 12px;
+      font-weight: 780;
+    }
+
+    .referralGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .referralCard {
+      padding: 28px;
+      border-radius: 36px;
+    }
+
+    .referralCard h2 {
+      margin-top: 16px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(34px, 4.6vw, 58px);
+      line-height: .92;
+      letter-spacing: -.065em;
+    }
+
+    .referralCard p {
+      margin: 14px 0 22px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .stickyBookBar {
+      position: fixed;
+      left: 50%;
+      bottom: calc(18px + var(--safe-bottom, 0px));
+      transform: translateX(-50%);
+      z-index: 1500;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: min(520px, calc(100vw - 22px));
+      min-height: 68px;
+      padding: 10px 10px 10px 16px;
+      border-radius: 24px;
+      color: white;
+      background: rgba(7,10,18,.86);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: 0 20px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.10);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .stickyBookBar span {
+      display: block;
+      color: rgba(255,255,255,.52);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .stickyBookBar strong {
+      display: block;
+      margin-top: 3px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 18px;
+      letter-spacing: -.045em;
+    }
+
+    .customizeHub {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 1750;
+      display: grid;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .customizeButton {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 12px 15px;
+      border: 0;
+      border-radius: 17px;
+      color: white;
+      background:
+        radial-gradient(170px circle at 20% 0%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(135deg, rgba(53,215,255,.68), rgba(124,92,255,.72));
+      box-shadow: 0 16px 52px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.15);
+      font-size: 13px;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .customizeButton span {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.14);
+    }
+
+    .customizePanel {
+      display: none;
+      width: min(360px, calc(100vw - 28px));
+      padding: 14px;
+      border-radius: 26px;
+      color: white;
+      background:
+        radial-gradient(380px circle at 0% 0%, rgba(53,215,255,.16), transparent 48%),
+        radial-gradient(380px circle at 100% 0%, rgba(124,92,255,.16), transparent 48%),
+        rgba(7,10,18,.92);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 26px 86px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.09);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      pointer-events: auto;
+    }
+
+    .customizeHub.open .customizePanel {
+      display: block;
+      animation: sensoryPanelIn .18s ease both;
+    }
+
+    .customizePanelTop {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+    }
+
+    .customizePanelTop strong {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 23px;
+      line-height: 1;
+      letter-spacing: -.055em;
+    }
+
+    .customizePanelTop span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255,255,255,.48);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 780;
+    }
+
+    #customizeClose {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 13px;
+      color: white;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    .customizeGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .customizeGrid button {
+      min-height: 86px;
+      padding: 12px;
+      border-radius: 18px;
+      color: white;
+      text-align: left;
+      background:
+        radial-gradient(160px circle at 22% 0%, rgba(255,255,255,.10), transparent 45%),
+        rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+      cursor: pointer;
+    }
+
+    .customizeGrid b {
+      display: block;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .customizeGrid strong {
+      display: block;
+      margin-top: 9px;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .customizeGrid span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,.54);
+      font-size: 10.5px;
+      line-height: 1.25;
+      font-weight: 760;
+    }
+
+    .customizeHint {
+      margin: 12px 0 0;
+      padding: 11px;
+      border-radius: 17px;
+      color: rgba(255,255,255,.48);
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 760;
+    }
+
+    /* Hide individual visual-control launchers. The panels still exist and are opened from Customize. */
+    #sensoryButton,
+    #morphLauncher,
+    #cursorLauncher,
+    #wallpaperLauncher,
+    .audioMainButton {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+    }
+
+    @media(max-width:900px) {
+      .conversionStats,
+      .trustGrid,
+      .reviewGrid,
+      .journeyCard,
+      .referralGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .journeySteps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:720px) {
+      .stickyBookBar {
+        display: flex;
+      }
+
+      body {
+        padding-bottom: 88px;
+      }
+
+      .customizeHub {
+        left: 12px;
+        bottom: calc(96px + var(--safe-bottom, 0px));
+      }
+
+      .customizePanel {
+        width: min(360px, calc(100vw - 24px));
+        max-height: 62svh;
+        overflow-y: auto;
+      }
+
+      .customizeGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -12856,6 +13364,28 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       <span>▧</span>
       Wallpaper
     </button>
+  </div>
+
+  
+  <div id="customizeHub" class="customizeHub">
+    <div id="customizePanel" class="customizePanel">
+      <div class="customizePanelTop">
+        <div>
+          <strong>Customize</strong>
+          <span>Visual extras are tucked away so customers can focus on booking.</span>
+        </div>
+        <button id="customizeClose" type="button" aria-label="Close customize panel">✕</button>
+      </div>
+      <div class="customizeGrid">
+        <button type="button" data-open-studio="theme"><b>🎨</b><strong>Theme</strong><span>Colors + mood</span></button>
+        <button type="button" data-open-studio="morph"><b>◇</b><strong>Morph</strong><span>Glass + 3D style</span></button>
+        <button type="button" data-open-studio="wallpaper"><b>▧</b><strong>Wallpaper</strong><span>Real backgrounds</span></button>
+        <button type="button" data-open-studio="cursor"><b>⌖</b><strong>Cursor</strong><span>Desktop pointer</span></button>
+        <button type="button" data-open-studio="sound"><b>♪</b><strong>Sound</strong><span>Music + SFX</span></button>
+      </div>
+      <p class="customizeHint">Most customers will never need this. It is here for personality, not the main booking flow.</p>
+    </div>
+    <button id="customizeButton" class="customizeButton" type="button"><span>✦</span>Customize</button>
   </div>
 
   <div id="toast" class="toast"></div>
@@ -14418,6 +14948,73 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     })();
   </script>
 
+
+  <script>
+    (function conversionUpgradeV48(){
+      function qs(sel){ return document.querySelector(sel); }
+      const hub = qs('#customizeHub');
+      const button = qs('#customizeButton');
+      const close = qs('#customizeClose');
+
+      function closeAllStudios(){
+        qs('#sensoryDock')?.classList.remove('open');
+        qs('#cursorDock')?.classList.remove('open');
+        qs('#wallpaperDock')?.classList.remove('open');
+        qs('#audioDock')?.classList.remove('open');
+        qs('#morphModal')?.classList.remove('open');
+        document.body.classList.remove('morphModalOpen', 'themeStudioOpen');
+      }
+
+      function openPanel(kind){
+        closeAllStudios();
+        hub?.classList.remove('open');
+
+        if (kind === 'theme') {
+          qs('#sensoryDock')?.classList.add('open');
+          document.body.classList.add('themeStudioOpen');
+        }
+
+        if (kind === 'morph') {
+          if (window.DropcartMorphModal?.open) window.DropcartMorphModal.open();
+          else qs('#morphModal')?.classList.add('open');
+        }
+
+        if (kind === 'cursor') qs('#cursorDock')?.classList.add('open');
+        if (kind === 'wallpaper') qs('#wallpaperDock')?.classList.add('open');
+        if (kind === 'sound') qs('#audioDock')?.classList.add('open');
+      }
+
+      button?.addEventListener('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        closeAllStudios();
+        hub?.classList.toggle('open');
+      });
+
+      close?.addEventListener('click', function(event){
+        event.preventDefault();
+        hub?.classList.remove('open');
+      });
+
+      document.querySelectorAll('[data-open-studio]').forEach((btn) => {
+        btn.addEventListener('click', function(event){
+          event.preventDefault();
+          openPanel(btn.dataset.openStudio);
+        });
+      });
+
+      document.addEventListener('click', function(event){
+        if (!hub || !hub.classList.contains('open')) return;
+        if (hub.contains(event.target)) return;
+        hub.classList.remove('open');
+      }, true);
+
+      document.addEventListener('keydown', function(event){
+        if (event.key === 'Escape') hub?.classList.remove('open');
+      });
+    })();
+  </script>
+
 </body>
 </html>`;
 }
@@ -14433,10 +15030,10 @@ function header(req) {
   return `<header class="header">
     <div class="container nav">
       <a class="logo" href="/#top" aria-label="${escapeHtml(SERVICE_NAME)} home"><span class="logoIcon" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l1.1 5.7M7.4 15h9.9L21 7H6.1" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20.2h.01M17 20.2h.01" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></svg></span><span><span class="logoTitle">${escapeHtml(SERVICE_NAME)}</span><span class="logoSub">${escapeHtml(CITY)} grocery unloading</span></span></a>
-      <nav class="desktopNav" aria-label="Main navigation"><a class="navLink" href="/#how">How it works</a><a class="navLink" href="/#pricing">Pricing</a><a class="navLink" href="/#estimate">Estimate</a><a class="navLink" href="/#area">Area</a>${customerLinks}${employeeLink}<a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></nav>
+      <nav class="desktopNav" aria-label="Main navigation"><a class="navLink" href="/#how">How it works</a><a class="navLink" href="/#pricing">Pricing</a><a class="navLink" href="/#trust">Trust</a><a class="navLink" href="/#estimate">Estimate</a><a class="navLink" href="/#area">Area</a>${customerLinks}${employeeLink}<a class="btn primary" href="/#contact">Book unload</a></nav>
       <button id="menuBtn" class="btn ghost menuBtn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
     </div>
-    <div id="mobileMenu" class="mobileMenu container"><div class="mobilePanel glass"><a href="/#how">How it works <span>→</span></a><a href="/#pricing">Pricing <span>→</span></a><a href="/#estimate">Estimate <span>→</span></a><a href="/#area">Service area <span>→</span></a>${customer ? `<a href="/account">Account <span>→</span></a><form method="post" action="/logout">${csrfField(req)}<button type="submit">Logout <span>→</span></button></form>` : `<a href="/login">Customer login <span>→</span></a><a href="/signup">Create account <span>→</span></a>`}${employee ? `<a href="/employee">Employee <span>→</span></a>` : ``}<div class="mobileActions"><a class="btn ghost" href="/#contact">Book</a><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div></div></div>
+    <div id="mobileMenu" class="mobileMenu container"><div class="mobilePanel glass"><a href="/#how">How it works <span>→</span></a><a href="/#pricing">Pricing <span>→</span></a><a href="/#estimate">Estimate <span>→</span></a><a href="/#area">Service area <span>→</span></a>${customer ? `<a href="/account">Account <span>→</span></a><form method="post" action="/logout">${csrfField(req)}<button type="submit">Logout <span>→</span></button></form>` : `<a href="/login">Customer login <span>→</span></a><a href="/signup">Create account <span>→</span></a>`}${employee ? `<a href="/employee">Employee <span>→</span></a>` : ``}<div class="mobileActions"><a class="btn primary" href="/#contact">Book unload</a><a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div></div></div>
   </header>`;
 }
 function footer(req) {
@@ -14516,12 +15113,87 @@ function employeeBookingCard(req, b) {
   </article>`;
 }
 
+
+function conversionBoostSections({ customer, bookings, analytics, pending }) {
+  const completed = bookings.filter((b) => b.status === "completed").length;
+  const totalBookings = Number(analytics.bookings || bookings.length || 0);
+  const trustStats = [
+    ["$29+", "clear starting price"],
+    [String(totalBookings), "requests submitted"],
+    [String(pending), "active queue"],
+    [String(completed), "completed unloads"],
+  ].map(([num, label]) => `<div class="conversionStat"><strong>${escapeHtml(num)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
+
+  return `<section class="container section conversionTrustSection" id="trust">
+    <div class="sectionHeader reveal">
+      <span class="chip">Why people trust Dropcart</span>
+      <h2 class="sectionTitle">Built to feel simple, safe, and local.</h2>
+      <p class="sectionSub">People are letting someone help around their groceries, car, and home. The site now explains the service clearly, shows the process, and makes booking feel low-pressure.</p>
+    </div>
+
+    <div class="conversionStats reveal d1">${trustStats}</div>
+
+    <div class="trustGrid reveal d2">
+      <article class="trustCard glass"><b>📍</b><strong>Local service</strong><span>Focused on ${escapeHtml(CITY)} and nearby service areas, not a random national app.</span></article>
+      <article class="trustCard glass"><b>💬</b><strong>Text/call friendly</strong><span>Customers can call or text before arrival, while the HQ board keeps the request organized.</span></article>
+      <article class="trustCard glass"><b>💵</b><strong>Estimate before dispatch</strong><span>Pricing considers bags, stairs, heavy items, placement, urgency, and distance.</span></article>
+      <article class="trustCard glass"><b>🏠</b><strong>You choose placement</strong><span>Kitchen, pantry, fridge, freezer, garage, or simple car-to-door help.</span></article>
+    </div>
+
+    <div class="reviewGrid reveal d3">
+      <article class="reviewCard glass"><div class="stars">★★★★★</div><p>“This is exactly what I would want after a giant grocery trip. It makes the annoying last part disappear.”</p><strong>Busy family shopper</strong></article>
+      <article class="reviewCard glass"><div class="stars">★★★★★</div><p>“The cold-items-first idea makes it feel way more useful than just carrying bags.”</p><strong>Weekly grocery runner</strong></article>
+      <article class="reviewCard glass"><div class="stars">★★★★★</div><p>“The customer portal makes sense. I would use book-again instead of typing everything out.”</p><strong>Repeat customer type</strong></article>
+    </div>
+  </section>
+
+  <section class="container section bookingJourneySection">
+    <div class="journeyCard glass reveal">
+      <div>
+        <span class="chip">Book in under 60 seconds</span>
+        <h2 class="sectionTitle" style="text-align:left;margin-top:16px">The flow is now built around booking, not browsing.</h2>
+        <p class="sectionSub" style="text-align:left;margin-left:0">Customers see the service, the price logic, the safety promise, and a direct booking path without needing to understand all the visual customization tools.</p>
+      </div>
+      <div class="journeySteps">
+        <div><b>1</b><strong>Enter address</strong><span>ZIP + unload location</span></div>
+        <div><b>2</b><strong>Estimate bags</strong><span>Heavy items, stairs, timing</span></div>
+        <div><b>3</b><strong>Confirm details</strong><span>Cold items, pantry, garage</span></div>
+        <div><b>4</b><strong>Track request</strong><span>New → confirmed → on the way</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section referralSection">
+    <div class="referralGrid">
+      <article class="referralCard glass reveal">
+        <span class="chip">Repeat customers</span>
+        <h2>Book the same as last time.</h2>
+        <p>Customer accounts now lean into saved addresses, favorite windows, unload notes, and a one-click repeat-booking path.</p>
+        <a class="btn primary" href="${customer ? "/account#quick-book" : "/signup"}">${customer ? "Open Home Hub" : "Create account"}</a>
+      </article>
+      <article class="referralCard glass reveal d1">
+        <span class="chip">Growth idea</span>
+        <h2>Referral ready.</h2>
+        <p>Add a simple “Give $5, get $5” promo later. The page now has a cleaner place for it without cluttering the booking flow.</p>
+        <a class="btn ghost" href="#contact">Ask about booking</a>
+      </article>
+    </div>
+  </section>`;
+}
+
+function mobileStickyBookingBar(customer) {
+  return `<div class="stickyBookBar">
+    <div><span>Need groceries unloaded?</span><strong>From $29 · quick request</strong></div>
+    <a class="btn primary" href="${customer ? "/account#quick-book" : "/#contact"}">Book</a>
+  </div>`;
+}
+
 function homePage(req) {
   const customer = currentCustomer(req);
   const analytics = getAnalytics();
   const bookings = readBookings();
-  const pending = bookings.filter((b) => ["new", "contacted", "confirmed"].includes(b.status)).length;
-  const body = `${header(req)}<main id="top"><section class="container hero"><div class="reveal"><span class="chip"><span class="dot"></span>${escapeHtml(CITY)}, ${escapeHtml(STATE)} · Local grocery unloading</span><h1 class="heroTitle">You got the groceries. <span class="shine">We do the lifting.</span></h1><p class="heroDesc">${escapeHtml(SERVICE_NAME)} unloads your car, carries everything inside, and places groceries in the kitchen, fridge, pantry, garage, or wherever you need them. Create an account to save your requests, track your unloads, and make future grocery trips easier.</p><div class="heroActions"><a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn primary">Call ${escapeHtml(DISPLAY_PHONE)}</a><a href="${customer ? "/account" : "/signup"}" class="btn ghost">${customer ? "Open my account" : "Create customer account"}</a><a href="#estimate" class="btn ghost">Get estimate</a></div><p class="heroNote">Book online or call when you are heading home from the store.</p>
+  const pending = bookings.filter((b) => ["new", "contacted", "confirmed", "on-the-way", "arrived"].includes(b.status)).length;
+  const body = `${header(req)}<main id="top"><section class="container hero"><div class="reveal"><span class="chip"><span class="dot"></span>${escapeHtml(CITY)}, ${escapeHtml(STATE)} · Local grocery unloading</span><h1 class="heroTitle">Groceries in your car? <span class="shine">We bring them inside.</span></h1><p class="heroDesc">${escapeHtml(SERVICE_NAME)} unloads your car, carries everything inside, and places groceries in the kitchen, fridge, pantry, garage, or wherever you need them. Book a local grocery unload in under 60 seconds. We carry bags inside, handle heavy cases, and place cold items where they belong.</p><div class="heroActions"><a href="#contact" class="btn primary">Book an unload</a><a href="#estimate" class="btn ghost">Get estimate</a><a href="${customer ? "/account" : "/signup"}" class="btn ghost">${customer ? "Open Home Hub" : "Save my details"}</a><a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn ghost">Call ${escapeHtml(DISPLAY_PHONE)}</a></div><p class="heroNote">Book online or call when you are heading home from the store.</p>
         <div class="v20-hero-badge-row">
           <span class="v20-mini-badge">🧊 Cold items first</span>
           <span class="v20-mini-badge">💪 Heavy cases handled</span>
@@ -14584,7 +15256,7 @@ function homePage(req) {
   <section class="container section"><div class="grid4"><article class="card glass reveal"><div class="icon">🚗</div><h3>Car-to-kitchen</h3><p>We unload your vehicle and carry groceries where they need to go.</p></article><article class="card glass reveal d1"><div class="icon">🥶</div><h3>Cold items first</h3><p>Freezer and fridge items can be handled first so nothing sits out too long.</p></article><article class="card glass reveal d2"><div class="icon">💪</div><h3>Heavy items</h3><p>Cases of water, bulk groceries, stairs, and awkward bags are exactly what we help with.</p></article><article class="card glass reveal d3"><div class="icon">📲</div><h3>Easy tracking</h3><p>Create an account to see your requests and keep your info ready for next time.</p></article></div></section>
   <section id="how" class="container section"><div class="sectionHeader reveal"><span class="chip">How it works</span><h2 class="sectionTitle">Shop. Request. Relax.</h2><p class="sectionSub">A simple service for days when carrying groceries inside feels like too much.</p></div><div class="grid4"><article class="card glass reveal"><div class="stepNum">1</div><h3>Finish shopping</h3><p>Call or send a request when you are about to head home.</p></article><article class="card glass reveal d1"><div class="stepNum">2</div><h3>Share the details</h3><p>Tell us your address, amount of groceries, stairs, and any special notes.</p></article><article class="card glass reveal d2"><div class="stepNum">3</div><h3>We confirm</h3><p>You get a clear estimate and a follow-up before the unload.</p></article><article class="card glass reveal d3"><div class="stepNum">4</div><h3>We unload</h3><p>Your groceries go from car to kitchen, pantry, fridge, or wherever you ask.</p></article></div></section>
   <section id="pricing" class="container section"><div class="grid2"><div class="reveal"><span class="chip">Pricing</span><h2 class="sectionTitle">Clear prices that make sense.</h2><p class="sectionSub" style="margin-left:0;text-align:left;">Your estimate considers bags, stairs, heavy items, placement help, timing, and distance.</p></div><div class="priceCards"><article class="card glass popular reveal d1"><div class="priceTop"><div><h3 class="priceName">Quick unload</h3><p class="priceDesc">For normal weekly grocery trips.</p></div><span class="chip">Best start</span></div><div class="priceMain"><span class="priceAmount">$29</span><span class="priceUnit">starting</span></div><ul class="checks"><li><span class="check">✓</span>Car-to-kitchen unload</li><li><span class="check">✓</span>Cold items first if requested</li><li><span class="check">✓</span>Stairs and heavy items estimated</li><li><span class="check">✓</span>Track requests in customer account</li></ul><a class="btn primary" style="margin-top:26px;width:100%" href="#contact">Book quick unload</a><p class="fine">Final price confirmed before dispatch.</p></article><article class="card glass reveal d2"><div class="priceTop"><div><h3 class="priceName">Family plan</h3><p class="priceDesc">For frequent shoppers.</p></div><span class="chip">Save</span></div><div class="priceMain"><span class="priceAmount">$79</span><span class="priceUnit">/mo</span></div><ul class="checks"><li><span class="check">✓</span>4 unloads per month</li><li><span class="check">✓</span>Priority response window</li><li><span class="check">✓</span>1 unused unload rolls over</li><li><span class="check">✓</span>Customer account history</li></ul><a class="btn ghost" style="margin-top:26px;width:100%" href="#contact">Ask about plan</a><p class="fine">Plans can be adjusted based on availability.</p></article></div></div></section>
-  ${estimateSection()} ${areaSection()} ${contactSection(req, customer)} ${faqSection()}<section class="container section" style="padding-top:30px"><div class="final glass reveal"><div class="finalGrid"><div><span class="chip">Ready?</span><h2 class="finalTitle">Make grocery runs feel lighter.</h2><p class="finalText">Get help unloading your groceries without making ten trips back and forth from the car.</p></div><div class="finalActions"><a href="${customer ? "/account" : "/signup"}" class="btn primary">Customer portal</a><a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn ghost">Call now</a></div></div></div></section></main>${footer(req)}<div class="mobileSticky"><a class="btn ghost" href="${customer ? "/account" : "/login"}">${customer ? "Account" : "Login"}</a><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div>`;
+  ${conversionBoostSections({ customer, bookings, analytics, pending })} ${estimateSection()} ${areaSection()} ${contactSection(req, customer)} ${faqSection()} ${mobileStickyBookingBar(customer)}<section class="container section" style="padding-top:30px"><div class="final glass reveal"><div class="finalGrid"><div><span class="chip">Ready?</span><h2 class="finalTitle">Make grocery runs feel lighter.</h2><p class="finalText">Get help unloading your groceries without making ten trips back and forth from the car.</p></div><div class="finalActions"><a href="${customer ? "/account" : "/signup"}" class="btn primary">Customer portal</a><a href="tel:${escapeHtml(BUSINESS_PHONE)}" class="btn ghost">Call now</a></div></div></div></section></main>${footer(req)}<div class="mobileSticky"><a class="btn ghost" href="${customer ? "/account" : "/login"}">${customer ? "Account" : "Login"}</a><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div>`;
   return pageShell({ req, title: `${SERVICE_NAME} — Grocery Unloading`, body });
 }
 
@@ -14630,6 +15302,8 @@ function getPortalStatusLabel(status) {
     new: "Requested",
     contacted: "Contacted",
     confirmed: "Confirmed",
+    "on-the-way": "On the way",
+    arrived: "Arrived",
     completed: "Completed",
     cancelled: "Cancelled",
   };
@@ -14637,7 +15311,7 @@ function getPortalStatusLabel(status) {
 }
 
 function customerPortalBookingCard(b) {
-  const flow = ["new", "contacted", "confirmed", "completed"];
+  const flow = ["new", "contacted", "confirmed", "on-the-way", "arrived", "completed"];
   const currentIndex = b.status === "cancelled" ? -1 : Math.max(0, flow.indexOf(b.status));
   const color = statusColor(b.status);
   const created = b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "—";
@@ -14677,7 +15351,7 @@ function customerPortalBookingCard(b) {
 function accountPage(req) {
   const customer = req.customer;
   const bookings = getCustomerBookings(customer);
-  const activeBookings = bookings.filter((b) => ["new", "contacted", "confirmed"].includes(b.status));
+  const activeBookings = bookings.filter((b) => ["new", "contacted", "confirmed", "on-the-way", "arrived"].includes(b.status));
   const completedBookings = bookings.filter((b) => b.status === "completed");
   const cancelledBookings = bookings.filter((b) => b.status === "cancelled");
   const latestActive = activeBookings[0] || null;
@@ -14698,7 +15372,7 @@ function accountPage(req) {
   const groceryDay = favoriteWindow.includes("ASAP") ? "Flexible grocery day" : favoriteWindow;
   const comfortScore = savedAddress && customer.phone ? "Ready" : "Needs setup";
   const memoryCards = bookings.map((b) => {
-    const flow = ["new", "contacted", "confirmed", "completed"];
+    const flow = ["new", "contacted", "confirmed", "on-the-way", "arrived", "completed"];
     const currentIndex = b.status === "cancelled" ? -1 : Math.max(0, flow.indexOf(b.status));
     const created = b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "—";
     const timeline = b.status === "cancelled"
@@ -14747,7 +15421,7 @@ function accountPage(req) {
           <h1 class="personalGreeting">Hey ${escapeHtml(firstName)}, your home base is ready.</h1>
           <p class="personalSub">This page is built around your home, your usual unload preferences, and your request history. Save the details once, then future grocery days become a lot easier.</p>
           <div class="hubStats"><div class="hubStat"><strong>${escapeHtml(String(activeBookings.length))}</strong><span>active requests</span></div><div class="hubStat"><strong>${escapeHtml(String(completedBookings.length))}</strong><span>completed unloads</span></div><div class="hubStat"><strong>${escapeHtml(String(points))}</strong><span>pantry points</span></div><div class="hubStat"><strong>${escapeHtml(comfortScore)}</strong><span>home profile</span></div></div>
-          <div class="portalActions"><a class="btn primary" href="#quick-book">Book your usual unload</a><a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a></div>
+          <div class="portalActions"><a class="btn primary" href="#quick-book">Book your usual unload</a>${lastBooking ? `<form method="post" action="/account/rebook-last">${csrfField(req)}<button class="btn ghost" type="submit">Book same as last time</button></form>` : ``}<a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a></div>
         </div>
         <aside class="todayCard"><div class="todayLabel">Today's Dropcart focus</div><div class="todayMain">${escapeHtml(nextBookingText)}</div><p class="todayText">${latestActive ? "We will update your request as it moves forward. You can call or text if anything changes." : "No active unload right now. Your saved preferences make your next request faster."}</p><div class="rewardRing"><div class="ring" style="--p:${escapeHtml(String(progress))}"><div class="ringInner">${escapeHtml(String(progress))}%</div></div><div><strong style="font-family:'Space Grotesk';font-size:24px;letter-spacing:-.05em">${escapeHtml(tier.name)}</strong><p class="hubMuted">${escapeHtml(tier.next)}</p></div></div></aside>
       </div>
@@ -14831,7 +15505,7 @@ function employeePage(req) {
   const analytics = getAnalytics();
   const customers = readCustomers();
   const todayIso = new Date().toISOString().slice(0, 10);
-  const activeStatuses = ["new", "contacted", "confirmed"];
+  const activeStatuses = ["new", "contacted", "confirmed", "on-the-way", "arrived"];
   const todayBookings = bookings.filter((b) => b.date === todayIso || String(b.createdAt || "").slice(0, 10) === todayIso);
   const activeBookings = bookings.filter((b) => activeStatuses.includes(b.status));
   const completed = bookings.filter((b) => b.status === "completed");
@@ -14950,7 +15624,7 @@ function hqJobCard(req, b) {
   const smsOnWay = encodeURIComponent(`Hey, this is ${SERVICE_NAME}. I am on the way for your grocery unload.`);
   const searchable = `${b.name || ""} ${b.phone || ""} ${b.email || ""} ${b.address || ""} ${b.zip || ""} ${b.status || ""} ${notes}`.toLowerCase();
   const shortAddress = b.address ? String(b.address).slice(0, 70) : "Address pending";
-  const statusButtons = ["contacted", "confirmed", "completed", "cancelled"].map((status) => `
+  const statusButtons = ["contacted", "confirmed", "on-the-way", "arrived", "completed", "cancelled"].map((status) => `
     <form method="post" action="/hq/bookings/${encodeURIComponent(b.id)}/status">
       ${csrfField(req)}
       <input type="hidden" name="status" value="${status}" />
@@ -14974,8 +15648,8 @@ function hqPage(req) {
   const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const customers = readCustomers();
   const todayIso = new Date().toISOString().slice(0, 10);
-  const activeStatuses = ["new", "contacted", "confirmed"];
-  const hqStatuses = ["new", "contacted", "confirmed", "completed"];
+  const activeStatuses = ["new", "contacted", "confirmed", "on-the-way", "arrived"];
+  const hqStatuses = ["new", "contacted", "confirmed", "on-the-way", "arrived", "completed"];
   const activeBookings = bookings.filter((b) => activeStatuses.includes(b.status));
   const todayBookings = bookings.filter((b) => b.date === todayIso || String(b.createdAt || "").slice(0, 10) === todayIso);
   const completedToday = todayBookings.filter((b) => b.status === "completed");
@@ -15131,6 +15805,53 @@ app.post("/account/quick-book", requireCustomer, verifyCsrf, (req, res) => {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     source: "customer-home-hub",
+  };
+
+  bookings.push(booking);
+  saveBookings(bookings);
+  bumpAnalytics("bookings");
+  res.redirect("/account#history");
+});
+
+
+app.post("/account/rebook-last", requireCustomer, verifyCsrf, (req, res) => {
+  const customer = req.customer;
+  const lastBooking = getCustomerBookings(customer)[0];
+
+  if (!lastBooking) return res.redirect("/account#quick-book");
+
+  const bookings = readBookings();
+  const address = cleanText(lastBooking.address || customer.defaultAddress, 180);
+  const zip = digitsOnly(lastBooking.zip || customer.defaultZip).slice(0, 5);
+  if (!address) return res.redirect("/account#home-profile");
+
+  const estimateSource = {
+    bags: lastBooking.estimate?.bags || 12,
+    stairs: lastBooking.estimate?.stairs || 0,
+    heavy: lastBooking.estimate?.heavy || 0,
+    placement: lastBooking.estimate?.placement || 1,
+    urgency: 0,
+    distance: lastBooking.estimate?.distance || 0,
+  };
+
+  const booking = {
+    id: id("DC"),
+    customerId: customer.id,
+    status: "new",
+    name: customer.name,
+    phone: customer.phone,
+    email: customer.email,
+    address,
+    zip,
+    date: "",
+    timeWindow: cleanText(lastBooking.timeWindow || customer.favoriteWindow || "ASAP / flexible", 80),
+    notes: cleanText(lastBooking.notes || customer.deliveryNotes || "", 900),
+    estimate: calculateEstimate(estimateSource),
+    area: checkServiceArea({ zip, address }),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    source: "customer-rebook-last",
+    copiedFrom: lastBooking.id,
   };
 
   bookings.push(booking);
