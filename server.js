@@ -51,6 +51,11 @@ const DATA_DIR = path.join(__dirname, "data");
 const BOOKINGS_FILE = path.join(DATA_DIR, "bookings.json");
 const CUSTOMERS_FILE = path.join(DATA_DIR, "customers.json");
 const LEADS_FILE = path.join(DATA_DIR, "leads.json");
+const REVIEWS_FILE = path.join(DATA_DIR, "reviews.json");
+const ISSUES_FILE = path.join(DATA_DIR, "issues.json");
+const REFERRALS_FILE = path.join(DATA_DIR, "referrals.json");
+const TIPS_FILE = path.join(DATA_DIR, "tips.json");
+const TRAINING_FILE = path.join(DATA_DIR, "training.json");
 const ANALYTICS_FILE = path.join(DATA_DIR, "analytics.json");
 
 
@@ -106,6 +111,11 @@ function ensureFiles() {
     [BOOKINGS_FILE, "[]"],
     [CUSTOMERS_FILE, "[]"],
     [LEADS_FILE, "[]"],
+    [REVIEWS_FILE, "[]"],
+    [ISSUES_FILE, "[]"],
+    [REFERRALS_FILE, "[]"],
+    [TIPS_FILE, "[]"],
+    [TRAINING_FILE, "[]"],
     [ANALYTICS_FILE, JSON.stringify({ startedAt: new Date().toISOString(), pageViews: 0, estimates: 0, bookings: 0, signups: 0, customerLogins: 0, employeeLogins: 0, areaChecks: 0, routeViews: {} }, null, 2)],
   ];
   for (const [file, value] of defaults) {
@@ -143,6 +153,78 @@ function readLeads() {
   return Array.isArray(data) ? data : [];
 }
 function saveLeads(leads) { writeJson(LEADS_FILE, leads); }
+function readReviews() {
+  const data = readJson(REVIEWS_FILE, []);
+  return Array.isArray(data) ? data : [];
+}
+function saveReviews(reviews) { writeJson(REVIEWS_FILE, reviews); }
+function readIssues() {
+  const data = readJson(ISSUES_FILE, []);
+  return Array.isArray(data) ? data : [];
+}
+function saveIssues(issues) { writeJson(ISSUES_FILE, issues); }
+function readReferrals() {
+  const data = readJson(REFERRALS_FILE, []);
+  return Array.isArray(data) ? data : [];
+}
+function saveReferrals(referrals) { writeJson(REFERRALS_FILE, referrals); }
+function readTips() {
+  const data = readJson(TIPS_FILE, []);
+  return Array.isArray(data) ? data : [];
+}
+function saveTips(tips) { writeJson(TIPS_FILE, tips); }
+function readTraining() {
+  const data = readJson(TRAINING_FILE, []);
+  return Array.isArray(data) ? data : [];
+}
+function saveTraining(records) { writeJson(TRAINING_FILE, records); }
+const MEMBERSHIP_PLANS = [
+  { id: "none", name: "No membership", price: 0, perk: "Book whenever you need help." },
+  { id: "basic", name: "Dropcart Basic", price: 39, perk: "2 unloads/month and saved preferences." },
+  { id: "plus", name: "Dropcart Plus", price: 69, perk: "4 unloads/month, priority windows, and easier rebooking." },
+  { id: "family", name: "Dropcart Family", price: 119, perk: "8 unloads/month for families or caregivers." },
+  { id: "senior", name: "Senior Helper Plan", price: 59, perk: "Weekly-friendly grocery unload support with call-first booking." },
+];
+function getMembershipPlan(id = "none") {
+  return MEMBERSHIP_PLANS.find((plan) => plan.id === id) || MEMBERSHIP_PLANS[0];
+}
+function referralCodeForCustomer(customer) {
+  const raw = `${customer?.name || "DROP"}${customer?.id || ""}`.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  return `DROP-${raw.slice(0, 7) || "LOCAL"}`;
+}
+function bookingSafetyFlags(booking = {}) {
+  const notes = `${booking.notes || ""} ${booking.serviceType || ""} ${booking.placementNotes || ""}`.toLowerCase();
+  const flags = [];
+  if (booking.bookingFor === "someone-else") flags.push("caregiver booking");
+  if (/senior|elder|older|mobility|disabled|walker|wheelchair/.test(notes)) flags.push("mobility/senior help");
+  if (/gate|code/.test(notes)) flags.push("gate/code");
+  if (/dog|cat|pet/.test(notes)) flags.push("pets");
+  if (/cold|frozen|fridge|freezer/.test(notes)) flags.push("cold first");
+  if ((booking.estimate?.heavy || 0) > 0) flags.push("heavy items");
+  return flags;
+}
+function getPublicReviews() {
+  const saved = readReviews().filter((r) => r.approved !== false);
+  const defaults = [
+    { rating: 5, name: "Busy family shopper", text: "This makes the annoying last part of grocery shopping disappear.", createdAt: new Date().toISOString() },
+    { rating: 5, name: "Weekly grocery runner", text: "Cold-items-first makes it feel useful and thoughtful.", createdAt: new Date().toISOString() },
+    { rating: 5, name: "Repeat customer type", text: "Book same as last time is exactly what I would use.", createdAt: new Date().toISOString() },
+  ];
+  return [...saved, ...defaults].slice(0, 9);
+}
+function getServiceTypes() {
+  return [
+    ["grocery-unload", "Grocery unload", "Car to kitchen, pantry, fridge, or garage."],
+    ["heavy-carry", "Heavy item carry-in", "Water cases, pet food, bulk items."],
+    ["costco-sams", "Costco / Sam’s haul", "Big club-store trips and heavy cases."],
+    ["pickup-unload", "Pickup order unload", "Walmart, Instacart, delivery, or curbside."],
+    ["pantry-add-on", "Pantry/fridge organizing", "Light placement and cold-items-first help."],
+    ["trash-add-on", "Trash/recycling carry-out", "Small add-on after unload completion."],
+  ];
+}
+function simplePhoneBlock(label = "Prefer to talk to a real person?") {
+  return `<div class="phoneFirstBox glass"><div><span class="chip">Call or text</span><h2>${escapeHtml(label)}</h2><p>Call or text and we can help book it for you. You do not have to use the form if you do not want to.</p></div><div class="phoneFirstActions"><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a><a class="btn ghost" href="sms:${escapeHtml(BUSINESS_PHONE)}?body=${encodeURIComponent("Hi Dropcart, I need help booking a grocery unload.")}">Text us</a></div></div>`;
+}
 function getAnalytics() {
   const a = readJson(ANALYTICS_FILE, {});
   return {
@@ -12628,6 +12710,885 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v49 Maximum Functionality + Senior/Accessibility Upgrade
+       ============================================================ */
+
+    .simpleModeToggle {
+      position: fixed;
+      right: 18px;
+      top: 86px;
+      z-index: 1800;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 11px 14px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(7,10,18,.86);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 16px 52px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      font-size: 13px;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .simpleModeToggle span {
+      display:grid;
+      place-items:center;
+      width:28px;
+      height:28px;
+      border-radius:12px;
+      background:rgba(255,255,255,.12);
+      font-weight:950;
+    }
+
+    body.simpleMode {
+      --radius: 22px;
+      font-size: 18px;
+      background: #07111f !important;
+    }
+
+    body.simpleMode .themeFxLayer,
+    body.simpleMode .morphBlobLayer,
+    body.simpleMode .customizeHub,
+    body.simpleMode .cursorDock,
+    body.simpleMode .wallpaperDock,
+    body.simpleMode .audioDock,
+    body.simpleMode #morphLauncher,
+    body.simpleMode #sensoryDock,
+    body.simpleMode .wallpaperLayer,
+    body.simpleMode .customCursor {
+      display: none !important;
+    }
+
+    body.simpleMode *,
+    body.simpleMode *::before,
+    body.simpleMode *::after {
+      animation: none !important;
+      transition-duration: .01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    body.simpleMode .heroTitle,
+    body.simpleMode .sectionTitle {
+      font-size: clamp(42px, 8vw, 76px) !important;
+      line-height: .98 !important;
+    }
+
+    body.simpleMode .heroDesc,
+    body.simpleMode .sectionSub,
+    body.simpleMode p,
+    body.simpleMode label,
+    body.simpleMode input,
+    body.simpleMode select,
+    body.simpleMode textarea {
+      font-size: 18px !important;
+      line-height: 1.65 !important;
+    }
+
+    body.simpleMode .btn,
+    body.simpleMode button,
+    body.simpleMode input,
+    body.simpleMode select {
+      min-height: 54px !important;
+    }
+
+    body.simpleMode .glass,
+    body.simpleMode .card,
+    body.simpleMode .formBox,
+    body.simpleMode .hubCard {
+      background: rgba(255,255,255,.08) !important;
+      border-color: rgba(255,255,255,.18) !important;
+      box-shadow: 0 18px 54px rgba(0,0,0,.28) !important;
+    }
+
+    .phoneFirstBox {
+      display: grid;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 28px;
+      margin-top: 20px;
+    }
+
+    .phoneFirstBox h2 {
+      margin-top: 14px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: .94;
+      letter-spacing: -.06em;
+    }
+
+    .phoneFirstBox p {
+      margin-top: 10px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.7;
+      font-weight: 740;
+    }
+
+    .phoneFirstActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .safetyMiniList {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .safetyMiniList div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+      color: rgba(255,255,255,.72);
+      font-weight: 800;
+    }
+
+    .safetyMiniList b {
+      color: var(--good);
+    }
+
+    .formStepHeader {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      margin: 6px 0 12px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .formStepHeader b {
+      display: grid;
+      place-items: center;
+      flex: 0 0 36px;
+      height: 36px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(73,230,165,.22), rgba(53,215,255,.13));
+      color: #fff;
+      font-weight: 950;
+    }
+
+    .formStepHeader strong {
+      display: block;
+      color: white;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .formStepHeader span {
+      display: block;
+      margin-top: 3px;
+      color: rgba(255,255,255,.52);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .tapCardGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tapCardGrid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tapCard {
+      position: relative;
+      display: block;
+      min-height: 112px;
+      padding: 14px;
+      border-radius: 22px;
+      background:
+        radial-gradient(180px circle at 22% 0%, rgba(255,255,255,.11), transparent 48%),
+        rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.10);
+      cursor: pointer;
+      color: white;
+    }
+
+    .tapCard input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tapCard b {
+      display: block;
+      font-size: 24px;
+    }
+
+    .tapCard strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .tapCard span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .tapCard.active {
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--theme-a, #7c5cff) 44%, rgba(255,255,255,.08)), color-mix(in srgb, var(--theme-c, #35d7ff) 20%, rgba(255,255,255,.05)));
+      border-color: rgba(255,255,255,.32);
+      outline: 2px solid color-mix(in srgb, var(--theme-c, #35d7ff) 72%, white);
+      outline-offset: -2px;
+    }
+
+    .caregiverFields {
+      display: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+      padding: 14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.075);
+    }
+
+    .accessibleBookingForm.caregiverMode .caregiverFields {
+      display: grid;
+    }
+
+    .helperChoiceRow {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .helperChoiceRow label,
+    .saveDefaultBox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 18px;
+      color: rgba(255,255,255,.72);
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.075);
+      font-weight: 800;
+    }
+
+    .pricePromise {
+      margin: 14px 0 0;
+      padding: 12px;
+      border-radius: 18px;
+      color: rgba(255,255,255,.70);
+      background: rgba(73,230,165,.08);
+      border: 1px solid rgba(73,230,165,.16);
+      line-height: 1.55;
+      font-weight: 820;
+    }
+
+    .seniorHero {
+      padding-top: 72px;
+    }
+
+    .seniorHeroCard {
+      padding: clamp(28px, 6vw, 64px);
+      border-radius: 44px;
+    }
+
+    .seniorStepGrid,
+    .safetyGrid,
+    .membershipGrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .seniorStep {
+      padding: 24px;
+      border-radius: 30px;
+    }
+
+    .seniorStep b {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: rgba(73,230,165,.16);
+      color: white;
+      font-weight: 950;
+    }
+
+    .seniorStep strong,
+    .safetyCard strong {
+      display: block;
+      margin-top: 16px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .safetyCard,
+    .membershipCard {
+      padding: 24px;
+      border-radius: 32px;
+    }
+
+    .safetyCard b {
+      display:block;
+      font-size: 28px;
+    }
+
+    .safetyCard span,
+    .membershipCard p {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.65;
+      font-weight: 740;
+    }
+
+    .membershipCard h2 {
+      margin-top: 16px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 46px;
+      letter-spacing: -.07em;
+    }
+
+    .membershipCard small {
+      font-size: 16px;
+      color: rgba(255,255,255,.52);
+      letter-spacing: 0;
+    }
+
+    .caregiverCTA,
+    .flyerPage {
+      padding: clamp(26px, 5vw, 54px);
+      border-radius: 38px;
+    }
+
+    .caregiverCTA h2 {
+      margin-top: 16px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: .94;
+      letter-spacing: -.06em;
+    }
+
+    .caregiverCTA p {
+      margin: 14px 0 24px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.7;
+    }
+
+    .flyerPage {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .fakeQR {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 4px;
+      padding: 18px;
+      border-radius: 26px;
+      background: white;
+    }
+
+    .fakeQR i {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: #0b1020;
+      opacity: .12;
+    }
+
+    .fakeQR i.on {
+      opacity: 1;
+    }
+
+    .hqAssignForm,
+    .hqInternalNoteForm {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hqAssignForm {
+      grid-template-columns: 1fr auto;
+    }
+
+    .hqAssignForm select,
+    .hqInternalNoteForm textarea {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      color: white;
+      background: rgba(255,255,255,.06);
+      padding: 10px;
+      font: inherit;
+    }
+
+    .hqInternalNoteForm textarea {
+      min-height: 66px;
+      resize: vertical;
+    }
+
+    .hqAssignForm button,
+    .hqInternalNoteForm button {
+      border: 0;
+      border-radius: 14px;
+      color: white;
+      background: rgba(255,255,255,.10);
+      padding: 10px 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .hqTag.safety {
+      border-color: rgba(73,230,165,.22);
+      color: rgba(186,255,225,.88);
+      background: rgba(73,230,165,.08);
+    }
+
+    @media(max-width:1000px) {
+      .seniorStepGrid,
+      .safetyGrid,
+      .membershipGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flyerPage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:720px) {
+      .simpleModeToggle {
+        top: auto;
+        right: 12px;
+        bottom: calc(174px + var(--safe-bottom, 0px));
+      }
+
+      .tapCardGrid,
+      .tapCardGrid.two,
+      .caregiverFields,
+      .helperChoiceRow,
+      .seniorStepGrid,
+      .safetyGrid,
+      .membershipGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .phoneFirstActions {
+        display: grid;
+      }
+
+      .seniorHero {
+        padding-top: 34px;
+      }
+
+      .seniorHeroCard {
+        border-radius: 32px;
+      }
+    }
+
+
+    /* ============================================================
+       v50 Employee Training Center
+       Adds morals, lifting basics, senior respect, boundaries, and quiz.
+       ============================================================ */
+
+    .trainingPage {
+      padding-top: 44px;
+      padding-bottom: 80px;
+    }
+
+    .trainingHero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 28px;
+      align-items: center;
+      padding: clamp(28px, 5vw, 58px);
+      border-radius: 44px;
+      margin-bottom: 22px;
+    }
+
+    .trainingBadge {
+      display: grid;
+      place-items: center;
+      min-height: 220px;
+      border-radius: 34px;
+      background:
+        radial-gradient(260px circle at 20% 0%, rgba(255,255,255,.18), transparent 48%),
+        linear-gradient(135deg, rgba(73,230,165,.15), rgba(53,215,255,.10));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+      text-align: center;
+    }
+
+    .trainingBadge b {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 56px;
+      line-height: .9;
+      letter-spacing: -.07em;
+      color: white;
+    }
+
+    .trainingBadge span {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .trainingMessage {
+      padding: 16px 18px;
+      border-radius: 24px;
+      margin-bottom: 18px;
+      color: rgba(186,255,225,.92);
+      border-color: rgba(73,230,165,.24) !important;
+      background: rgba(73,230,165,.08) !important;
+      font-weight: 850;
+    }
+
+    .trainingPrinciples {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .trainingPrinciple {
+      padding: 20px;
+      border-radius: 28px;
+    }
+
+    .trainingPrinciple b {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      color: white;
+      font-size: 25px;
+      letter-spacing: -.055em;
+    }
+
+    .trainingPrinciple span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255,255,255,.58);
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 740;
+    }
+
+    .trainingModules {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .trainingModule {
+      padding: 20px;
+      border-radius: 30px;
+    }
+
+    .trainingModuleIcon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 17px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: 23px;
+    }
+
+    .trainingModule h3 {
+      margin-top: 16px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 25px;
+      line-height: .98;
+      letter-spacing: -.055em;
+      color: white;
+    }
+
+    .trainingModule p {
+      margin-top: 9px;
+      color: rgba(255,255,255,.60);
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 760;
+    }
+
+    .trainingModule ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.68);
+      font-size: 12.5px;
+      line-height: 1.6;
+      font-weight: 760;
+    }
+
+    .trainingModule li + li {
+      margin-top: 6px;
+    }
+
+    .trainingLiftGuide,
+    .trainingQuiz,
+    .trainingRecords {
+      padding: clamp(22px, 4vw, 34px);
+      border-radius: 38px;
+      margin-top: 18px;
+    }
+
+    .trainingLiftGuide {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .trainingLiftGuide h2,
+    .trainingQuiz h2,
+    .trainingRecords h2 {
+      margin-top: 14px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: .92;
+      letter-spacing: -.065em;
+      color: white;
+    }
+
+    .trainingLiftGuide p,
+    .trainingQuiz p,
+    .trainingRecords p {
+      margin-top: 12px;
+      color: rgba(255,255,255,.60);
+      line-height: 1.7;
+      font-weight: 760;
+    }
+
+    .liftSteps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .liftSteps div {
+      padding: 16px;
+      border-radius: 23px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .liftSteps b {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      background: rgba(73,230,165,.14);
+      color: white;
+      font-weight: 950;
+    }
+
+    .liftSteps strong {
+      display: block;
+      margin-top: 12px;
+      color: white;
+      font-size: 15px;
+      font-weight: 950;
+    }
+
+    .liftSteps span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 760;
+    }
+
+    .trainingQuizTop {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .scorePreview {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      border-radius: 28px;
+      color: white;
+      background: linear-gradient(135deg, rgba(73,230,165,.16), rgba(53,215,255,.10));
+      border: 1px solid rgba(255,255,255,.10);
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -.055em;
+    }
+
+    .quizQuestion {
+      padding: 18px;
+      border-radius: 25px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+      margin-top: 12px;
+    }
+
+    .quizQuestion.correct {
+      border-color: rgba(73,230,165,.32);
+      background: rgba(73,230,165,.07);
+    }
+
+    .quizQuestion.wrong {
+      border-color: rgba(255,91,91,.32);
+      background: rgba(255,91,91,.06);
+    }
+
+    .quizQuestion strong {
+      display: block;
+      color: white;
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .quizQuestion label,
+    .pledgeBox label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: 17px;
+      color: rgba(255,255,255,.70);
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.07);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 780;
+      cursor: pointer;
+    }
+
+    .quizQuestion label + label {
+      margin-top: 8px;
+    }
+
+    .quizQuestion input,
+    .pledgeBox input {
+      margin-top: 2px;
+      accent-color: #49e6a5;
+    }
+
+    .pledgeBox {
+      margin: 16px 0;
+    }
+
+    .trainingTableWrap {
+      overflow-x: auto;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .trainingTable {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+
+    .trainingTable th,
+    .trainingTable td {
+      text-align: left;
+      padding: 13px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.075);
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+    }
+
+    .trainingTable th {
+      color: white;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: rgba(255,255,255,.045);
+    }
+
+    .opsMiniTrainingLink {
+      display: inline-flex;
+      margin-top: 8px;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    @media(max-width:1100px) {
+      .trainingModules,
+      .trainingPrinciples {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trainingLiftGuide {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:720px) {
+      .trainingHero,
+      .trainingModules,
+      .trainingPrinciples,
+      .liftSteps {
+        grid-template-columns: 1fr;
+      }
+
+      .trainingHero {
+        border-radius: 32px;
+      }
+
+      .trainingBadge {
+        min-height: 150px;
+      }
+
+      .trainingQuizTop {
+        display: grid;
+      }
+
+      .scorePreview {
+        width: 100%;
+        height: 72px;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -13367,6 +14328,12 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
   </div>
 
   
+  
+  <button id="simpleModeToggle" class="simpleModeToggle" type="button">
+    <span>Aa</span>
+    Simple Mode
+  </button>
+
   <div id="customizeHub" class="customizeHub">
     <div id="customizePanel" class="customizePanel">
       <div class="customizePanelTop">
@@ -15015,6 +15982,103 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
     })();
   </script>
 
+
+  <script>
+    (function maxFunctionalityV49(){
+      const simpleBtn = document.getElementById('simpleModeToggle');
+
+      function setSimpleMode(on){
+        document.body.classList.toggle('simpleMode', !!on);
+        localStorage.setItem('dropcartSimpleMode', on ? 'on' : 'off');
+        if (simpleBtn) simpleBtn.innerHTML = on ? '<span>Aa</span>Normal Mode' : '<span>Aa</span>Simple Mode';
+      }
+
+      setSimpleMode(localStorage.getItem('dropcartSimpleMode') === 'on');
+
+      simpleBtn?.addEventListener('click', function(){
+        setSimpleMode(!document.body.classList.contains('simpleMode'));
+      });
+
+      document.querySelectorAll('.tapCard input[type="radio"]').forEach((input) => {
+        const card = input.closest('.tapCard');
+        const group = input.name;
+        function refresh(){
+          document.querySelectorAll('.tapCard input[name="' + group + '"]').forEach((other) => {
+            other.closest('.tapCard')?.classList.toggle('active', other.checked);
+          });
+
+          if (group === 'bookingFor') {
+            const form = input.closest('form');
+            const selected = form?.querySelector('input[name="bookingFor"]:checked')?.value;
+            form?.classList.toggle('caregiverMode', selected === 'someone-else');
+          }
+        }
+
+        card?.addEventListener('click', () => {
+          input.checked = true;
+          refresh();
+        });
+
+        input.addEventListener('change', refresh);
+        refresh();
+      });
+
+      // Large tap-card convenience: clicking labels should refresh estimate soon after.
+      document.querySelectorAll('.tapCard').forEach((card) => {
+        card.addEventListener('click', () => {
+          try { navigator.vibrate?.(8); } catch(e) {}
+        });
+      });
+    })();
+  </script>
+
+
+  <script>
+    (function initEmployeeTrainingQuiz(){
+      const form = document.getElementById('trainingForm');
+      if (!form) return;
+
+      const scoreInput = document.getElementById('trainingScore');
+      const preview = document.getElementById('trainingScorePreview');
+
+      function updateScore(){
+        const questions = Array.from(form.querySelectorAll('.quizQuestion[data-answer]'));
+        let correct = 0;
+
+        questions.forEach((question) => {
+          const answer = question.dataset.answer;
+          const checked = question.querySelector('input[type="radio"]:checked');
+          question.classList.remove('correct', 'wrong');
+
+          if (checked) {
+            if (checked.value === answer) {
+              correct += 1;
+              question.classList.add('correct');
+            } else {
+              question.classList.add('wrong');
+            }
+          }
+        });
+
+        const score = questions.length ? Math.round((correct / questions.length) * 100) : 0;
+        if (scoreInput) scoreInput.value = String(score);
+        if (preview) preview.textContent = score + '%';
+        return score;
+      }
+
+      form.addEventListener('change', updateScore);
+      form.addEventListener('submit', (event) => {
+        const score = updateScore();
+        if (score < 80) {
+          event.preventDefault();
+          alert('Please review the training and score at least 80% before completing.');
+        }
+      });
+
+      updateScore();
+    })();
+  </script>
+
 </body>
 </html>`;
 }
@@ -15030,7 +16094,7 @@ function header(req) {
   return `<header class="header">
     <div class="container nav">
       <a class="logo" href="/#top" aria-label="${escapeHtml(SERVICE_NAME)} home"><span class="logoIcon" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l1.1 5.7M7.4 15h9.9L21 7H6.1" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20.2h.01M17 20.2h.01" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></svg></span><span><span class="logoTitle">${escapeHtml(SERVICE_NAME)}</span><span class="logoSub">${escapeHtml(CITY)} grocery unloading</span></span></a>
-      <nav class="desktopNav" aria-label="Main navigation"><a class="navLink" href="/#how">How it works</a><a class="navLink" href="/#pricing">Pricing</a><a class="navLink" href="/#trust">Trust</a><a class="navLink" href="/#estimate">Estimate</a><a class="navLink" href="/#area">Area</a>${customerLinks}${employeeLink}<a class="btn primary" href="/#contact">Book unload</a></nav>
+      <nav class="desktopNav" aria-label="Main navigation"><a class="navLink" href="/#how">How it works</a><a class="navLink" href="/#pricing">Pricing</a><a class="navLink" href="/seniors">Seniors</a><a class="navLink" href="/safety">Safety</a><a class="navLink" href="/#trust">Trust</a><a class="navLink" href="/#estimate">Estimate</a><a class="navLink" href="/#area">Area</a>${customerLinks}${employeeLink}<a class="btn primary" href="/#contact">Book unload</a></nav>
       <button id="menuBtn" class="btn ghost menuBtn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
     </div>
     <div id="mobileMenu" class="mobileMenu container"><div class="mobilePanel glass"><a href="/#how">How it works <span>→</span></a><a href="/#pricing">Pricing <span>→</span></a><a href="/#estimate">Estimate <span>→</span></a><a href="/#area">Service area <span>→</span></a>${customer ? `<a href="/account">Account <span>→</span></a><form method="post" action="/logout">${csrfField(req)}<button type="submit">Logout <span>→</span></button></form>` : `<a href="/login">Customer login <span>→</span></a><a href="/signup">Create account <span>→</span></a>`}${employee ? `<a href="/employee">Employee <span>→</span></a>` : ``}<div class="mobileActions"><a class="btn primary" href="/#contact">Book unload</a><a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a></div></div></div>
@@ -15188,6 +16252,74 @@ function mobileStickyBookingBar(customer) {
   </div>`;
 }
 
+
+function seniorLandingPage(req) {
+  const body = `${header(req)}<main id="top">
+    <section class="container seniorHero">
+      <div class="glass seniorHeroCard reveal">
+        <span class="chip">Senior-friendly help</span>
+        <h1 class="heroTitle">Grocery bags can be heavy. <span class="shine">You do not have to lift them alone.</span></h1>
+        <p class="heroDesc">Dropcart helps carry groceries from your car to your kitchen, pantry, fridge, freezer, garage, or door. You can book online, call, text, or have a family member book for you.</p>
+        <div class="heroActions"><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call ${escapeHtml(DISPLAY_PHONE)}</a><a class="btn ghost" href="sms:${escapeHtml(BUSINESS_PHONE)}?body=${encodeURIComponent("Hi Dropcart, I need senior-friendly grocery unload help.")}">Text us</a><a class="btn ghost" href="/#contact">Book online</a></div>
+      </div>
+    </section>
+    <section class="container section seniorSimpleSteps">
+      <div class="sectionHeader reveal"><span class="chip">Plain and simple</span><h2 class="sectionTitle">How it works.</h2></div>
+      <div class="seniorStepGrid">
+        ${["You bring groceries home", "We arrive at your car", "We carry everything inside", "Cold items can go first", "You relax"].map((step, i) => `<div class="seniorStep glass reveal d${i}"><b>${i + 1}</b><strong>${escapeHtml(step)}</strong></div>`).join("")}
+      </div>
+      ${simplePhoneBlock("Want us to fill the booking out for you?")}
+    </section>
+    ${safetyPromiseSection()}
+    <section class="container section"><div class="caregiverCTA glass reveal"><span class="chip">Caregivers</span><h2>Booking for a parent or grandparent?</h2><p>Use the normal booking form and choose “Someone else.” You can tell us whether to contact you, them, or both.</p><a class="btn primary" href="/#contact">Book for someone else</a></div></section>
+  </main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Seniors`, body });
+}
+
+function safetyPromiseSection() {
+  return `<section class="container section safetyPromiseSection" id="safety"><div class="sectionHeader reveal"><span class="chip">Safety promise</span><h2 class="sectionTitle">Your comfort matters.</h2><p class="sectionSub">Dropcart is designed to make the last part of grocery day easier, not stressful.</p></div><div class="safetyGrid">
+    <article class="safetyCard glass reveal"><b>📲</b><strong>We confirm before arrival</strong><span>Text/call updates help you know what is happening.</span></article>
+    <article class="safetyCard glass reveal d1"><b>🚪</b><strong>You choose the boundary</strong><span>Door, garage, kitchen, pantry, fridge, freezer, or another area you approve.</span></article>
+    <article class="safetyCard glass reveal d2"><b>💵</b><strong>No surprise price changes</strong><span>If anything changes, we contact you first.</span></article>
+    <article class="safetyCard glass reveal d3"><b>🤝</b><strong>Caregiver friendly</strong><span>Family members can book and receive status updates.</span></article>
+  </div></section>`;
+}
+
+function safetyPage(req) {
+  const body = `${header(req)}<main>${safetyPromiseSection()}<section class="container section">${simplePhoneBlock("Have a question before booking?")}</section></main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Safety`, body });
+}
+
+function membershipsPage(req) {
+  const cards = MEMBERSHIP_PLANS.filter((p) => p.id !== "none").map((plan) => `<article class="membershipCard glass reveal"><span class="chip">${escapeHtml(plan.name)}</span><h2>${money(plan.price)}<small>/mo</small></h2><p>${escapeHtml(plan.perk)}</p><a class="btn primary" href="/#contact">Ask about ${escapeHtml(plan.name)}</a></article>`).join("");
+  const body = `${header(req)}<main class="container section"><div class="sectionHeader reveal"><span class="chip">Memberships</span><h1 class="sectionTitle">Plans for repeat grocery help.</h1><p class="sectionSub">Membership payments are not live yet, but the site is ready to explain plans and collect interest.</p></div><div class="membershipGrid">${cards}</div></main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Memberships`, body });
+}
+
+function flyerPage(req) {
+  const qrBlocks = Array.from({ length: 121 }, (_, i) => `<i class="${(i * 7 + i) % 5 < 2 ? "on" : ""}"></i>`).join("");
+  const body = `${header(req)}<main class="container section"><section class="flyerPage glass reveal"><div><span class="chip">Printable flyer</span><h1 class="heroTitle">Need help unloading groceries?</h1><p class="heroDesc">Dropcart carries groceries from your car to your kitchen, fridge, pantry, garage, or door. Call, text, or book online.</p><div class="heroActions"><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">${escapeHtml(DISPLAY_PHONE)}</a><a class="btn ghost" href="/#contact">Book online</a></div></div><div class="fakeQR">${qrBlocks}</div></section><p class="sectionSub">This is a printable flyer layout. Replace the stylized QR block with a real QR code image when you have your final domain.</p></main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Flyer`, body });
+}
+
+function audiencePage(req, audience) {
+  const data = {
+    families: ["Families", "Make grocery day easier for busy households.", "Dropcart helps after Costco, Walmart, Publix, or Instacart trips so families do not have to haul everything alone."],
+    costco: ["Costco / Sam’s Club", "Bulk hauls are heavy.", "Water cases, pet food, paper goods, and big grocery trips are exactly where unload help makes sense."],
+    "disabled-help": ["Mobility help", "Extra carrying help when lifting is difficult.", "Book for yourself or have a caregiver book for you. We can follow your placement instructions."],
+    "walmart-pickup": ["Walmart pickup", "Curbside pickup still has one hard part.", "After pickup, Dropcart can help carry everything from the car into your home."],
+    "instacart-unload": ["Instacart unload", "Delivery dropped off? We can help bring it in.", "Great for heavier orders, stairs, garages, pantries, and cold items."]
+  }[audience] || ["Dropcart", "Grocery unload help.", "Book local help for the heavy part after shopping."];
+  const body = `${header(req)}<main><section class="container seniorHero"><div class="glass seniorHeroCard reveal"><span class="chip">${escapeHtml(data[0])}</span><h1 class="heroTitle">${escapeHtml(data[1])}</h1><p class="heroDesc">${escapeHtml(data[2])}</p><div class="heroActions"><a class="btn primary" href="/#contact">Book unload</a><a class="btn ghost" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call now</a><a class="btn ghost" href="/safety">Safety promise</a></div></div></section>${safetyPromiseSection()}</main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — ${data[0]}`, body });
+}
+
+function reviewsPage(req) {
+  const reviews = getPublicReviews().map((r) => `<article class="reviewCard glass"><div class="stars">${"★".repeat(Math.max(1, Math.min(5, Number(r.rating) || 5)))}</div><p>${escapeHtml(r.text || "")}</p><strong>${escapeHtml(r.name || "Customer")}</strong></article>`).join("");
+  const body = `${header(req)}<main class="container section"><div class="sectionHeader"><span class="chip">Reviews</span><h1 class="sectionTitle">Customer feedback.</h1><p class="sectionSub">Reviews can be collected after completed unloads.</p></div><div class="reviewGrid">${reviews}</div><form class="glass formBox reviewForm" method="post" action="/api/reviews"><h2>Leave a review</h2><div class="formGrid"><div class="field"><label>Name</label><input name="name" placeholder="Your name" /></div><div class="field"><label>Rating</label><select name="rating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div><div class="field full"><label>Review</label><textarea name="text" required placeholder="How did Dropcart do?"></textarea></div></div><button class="btn primary" type="submit">Submit review</button></form></main>${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Reviews`, body });
+}
+
 function homePage(req) {
   const customer = currentCustomer(req);
   const analytics = getAnalytics();
@@ -15267,7 +16399,78 @@ function areaSection() {
   return `<section id="area" class="container section"><div class="grid2"><article class="card glass reveal"><span class="chip">Service area</span><h2 class="sectionTitle">Built for ${escapeHtml(CITY)} first.</h2><p class="sectionSub" style="margin-left:0;text-align:left;">We are starting local so service stays fast and reliable. Check your ZIP or city before sending a request.</p><form id="areaForm" style="margin-top:24px"><div class="formGrid"><div class="field"><label for="zip">ZIP</label><input id="zip" name="zip" placeholder="34450" /></div><div class="field"><label for="areaAddress">Address / city</label><input id="areaAddress" name="address" placeholder="Inverness, FL" /></div></div><button class="btn primary" style="margin-top:14px;width:100%" type="submit">Check service area</button><div id="areaResult" class="areaResult">Try ZIP 34450, 34452, or 34453.</div></form></article><article class="card glass reveal d1"><div class="map"><div><span class="chip">Local coverage</span><h3 class="display" style="margin-top:18px;font-size:38px;line-height:.95;letter-spacing:-.06em;">Inverness radius</h3><p style="margin-top:12px;max-width:410px;color:rgba(255,255,255,.58);line-height:1.65;font-size:14px;">Serving Inverness first helps keep response times realistic and personal.</p></div><div class="rings"><div class="pin">📍</div></div><a class="btn primary" href="tel:${escapeHtml(BUSINESS_PHONE)}">Call to check address</a></div></article></div></section>`;
 }
 function contactSection(req, customer) {
-  return `<section id="contact" class="container section"><div class="twoCol"><article class="card glass reveal"><span class="chip">Book now</span><h2 class="sectionTitle">Request a grocery unload.</h2><p class="sectionSub" style="margin-left:0;text-align:left;">${customer ? "You are logged in, so this request will show in your account." : "You can book as a guest, or create an account so your request history is saved for next time."}</p><div style="display:grid;gap:10px;margin-top:26px"><a class="soft" style="padding:14px;border-radius:20px;color:rgba(255,255,255,.66);font-weight:800" href="tel:${escapeHtml(BUSINESS_PHONE)}">📞 ${escapeHtml(DISPLAY_PHONE)}</a><a class="soft" style="padding:14px;border-radius:20px;color:rgba(255,255,255,.66);font-weight:800" href="mailto:${escapeHtml(BUSINESS_EMAIL)}">✉️ ${escapeHtml(BUSINESS_EMAIL)}</a>${customer ? `<a class="btn ghost" href="/account">View my account</a>` : `<a class="btn ghost" href="/signup">Create customer account</a>`}</div></article><form id="requestForm" class="formBox glass reveal d1"><div class="formGrid"><div class="field"><label for="name">Name</label><input id="name" name="name" placeholder="Your name" value="${customer ? escapeHtml(customer.name) : ""}" required /></div><div class="field"><label for="phone">Phone</label><input id="phone" name="phone" placeholder="${escapeHtml(DISPLAY_PHONE)}" value="${customer ? escapeHtml(customer.phone || "") : ""}" required /></div><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="optional@email.com" value="${customer ? escapeHtml(customer.email) : ""}" /></div><div class="field"><label for="bookZip">ZIP</label><input id="bookZip" name="zip" placeholder="34450" /></div><div class="field full"><label for="address">Address</label><input id="address" name="address" placeholder="Street, apartment, or neighborhood" required /></div><div class="field"><label for="date">Preferred date</label><input id="date" name="date" type="date" /></div><div class="field"><label for="timeWindow">Time window</label><select id="timeWindow" name="timeWindow"><option>ASAP / flexible</option><option>8:00 AM – 10:00 AM</option><option>10:30 AM – 12:30 PM</option><option>1:00 PM – 3:00 PM</option><option>3:30 PM – 5:30 PM</option><option>6:00 PM – 8:00 PM</option></select></div><div class="field full"><label for="notes">Notes</label><textarea id="notes" name="notes" placeholder="Bags? Stairs? Cold items? Gate code?"></textarea></div></div><button class="btn primary" style="margin-top:18px;width:100%" type="submit">Send request</button><div id="formStatus" class="status" aria-live="polite"></div></form></div></section>`;
+  const serviceCards = getServiceTypes().map(([value, title, desc], index) => `
+    <label class="tapCard ${index === 0 ? "active" : ""}">
+      <input type="radio" name="serviceType" value="${escapeHtml(value)}" ${index === 0 ? "checked" : ""} />
+      <b>${index === 0 ? "🛒" : index === 1 ? "💪" : index === 2 ? "📦" : index === 3 ? "🚗" : index === 4 ? "🥶" : "♻️"}</b>
+      <strong>${escapeHtml(title)}</strong>
+      <span>${escapeHtml(desc)}</span>
+    </label>
+  `).join("");
+
+  return `<section id="contact" class="container section"><div class="twoCol">
+    <article class="card glass reveal callFirstCard">
+      <span class="chip">Book now</span>
+      <h2 class="sectionTitle">Request help without stress.</h2>
+      <p class="sectionSub" style="margin-left:0;text-align:left;">${customer ? "You are logged in, so this request will show in your account." : "Book as a guest, call/text, or create an account to save your details for next time."}</p>
+      ${simplePhoneBlock("Prefer to book by phone?")}
+      <div class="safetyMiniList">
+        <div><b>✓</b><span>We confirm before arrival</span></div>
+        <div><b>✓</b><span>Cold items can go first</span></div>
+        <div><b>✓</b><span>No surprise changes without asking</span></div>
+        <div><b>✓</b><span>Caregivers can book for someone else</span></div>
+      </div>
+      <div style="display:grid;gap:10px;margin-top:18px">
+        ${customer ? `<a class="btn ghost" href="/account">View my account</a>` : `<a class="btn ghost" href="/signup">Create customer account</a>`}
+        <a class="btn ghost" href="/seniors">Senior-friendly booking</a>
+        <a class="btn ghost" href="/safety">Safety promise</a>
+      </div>
+    </article>
+
+    <form id="requestForm" class="formBox glass reveal d1 accessibleBookingForm">
+      <div class="formStepHeader"><b>1</b><div><strong>What do you need help with?</strong><span>Tap one. You can choose “not sure” in the notes.</span></div></div>
+      <div class="tapCardGrid">${serviceCards}</div>
+
+      <div class="formStepHeader"><b>2</b><div><strong>Who is this for?</strong><span>Great for caregivers booking for parents, grandparents, neighbors, or church members.</span></div></div>
+      <div class="tapCardGrid two">
+        <label class="tapCard active"><input type="radio" name="bookingFor" value="self" checked /><b>🙋</b><strong>For me</strong><span>I need the unload.</span></label>
+        <label class="tapCard"><input type="radio" name="bookingFor" value="someone-else" /><b>🤝</b><strong>Someone else</strong><span>I am booking for another person.</span></label>
+      </div>
+
+      <div class="caregiverFields">
+        <div class="field"><label for="recipientName">Person receiving help</label><input id="recipientName" name="recipientName" placeholder="Parent, grandparent, neighbor..." /></div>
+        <div class="field"><label for="recipientPhone">Their phone</label><input id="recipientPhone" name="recipientPhone" placeholder="If different" /></div>
+        <div class="field"><label for="caregiverName">Your name</label><input id="caregiverName" name="caregiverName" placeholder="Caregiver / family member" /></div>
+        <div class="field"><label for="caregiverPhone">Your phone</label><input id="caregiverPhone" name="caregiverPhone" placeholder="Where should updates go?" /></div>
+      </div>
+
+      <div class="formStepHeader"><b>3</b><div><strong>Basic details</strong><span>Big simple fields. You can also call us instead.</span></div></div>
+      <div class="formGrid">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" placeholder="Your name" value="${customer ? escapeHtml(customer.name) : ""}" required /></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" placeholder="${escapeHtml(DISPLAY_PHONE)}" value="${customer ? escapeHtml(customer.phone || "") : ""}" required /></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="optional@email.com" value="${customer ? escapeHtml(customer.email) : ""}" /></div>
+        <div class="field"><label for="bookZip">ZIP</label><input id="bookZip" name="zip" placeholder="34450" /></div>
+        <div class="field full"><label for="address">Address</label><input id="address" name="address" placeholder="Street, apartment, or neighborhood" required /></div>
+        <div class="field"><label for="date">Preferred date</label><input id="date" name="date" type="date" /></div>
+        <div class="field"><label for="timeWindow">Time window</label><select id="timeWindow" name="timeWindow"><option>ASAP / flexible</option><option>8:00 AM – 10:00 AM</option><option>10:30 AM – 12:30 PM</option><option>1:00 PM – 3:00 PM</option><option>3:30 PM – 5:30 PM</option><option>6:00 PM – 8:00 PM</option><option>Call me to choose</option></select></div>
+        <div class="field"><label for="paymentPreference">Payment preference</label><select id="paymentPreference" name="paymentPreference"><option>Pay in person</option><option>Send payment link later</option><option>Cash</option><option>Card / tap to pay</option><option>Not sure</option></select></div>
+        <div class="field"><label for="contactPreference">Contact preference</label><select id="contactPreference" name="contactPreference"><option>Text me</option><option>Call me</option><option>Call first, then text</option><option>Contact caregiver</option><option>Not sure</option></select></div>
+        <div class="field full"><label for="placementNotes">Where should items go?</label><textarea id="placementNotes" name="placementNotes" placeholder="Kitchen, garage, pantry, fridge/freezer first, door only, etc."></textarea></div>
+        <div class="field full"><label for="notes">Extra notes</label><textarea id="notes" name="notes" placeholder="Bags? Stairs? Cold items? Gate code? Pets? If unsure, write “Call me.”"></textarea></div>
+      </div>
+
+      <div class="helperChoiceRow">
+        <label><input type="checkbox" name="smsUpdates" value="yes" checked /> Text updates</label>
+        <label><input type="checkbox" name="coldFirst" value="yes" checked /> Cold items first</label>
+        <label><input type="checkbox" name="callToConfirm" value="yes" /> Call to confirm</label>
+        <label><input type="checkbox" name="accessibilityHelp" value="yes" /> Mobility / senior help</label>
+      </div>
+
+      <p class="pricePromise">You’ll see the estimate before confirming. If anything changes, we’ll contact you first. No surprise charges.</p>
+      <button class="btn primary" style="margin-top:18px;width:100%" type="submit">Send request</button>
+      <div id="formStatus" class="status" aria-live="polite"></div>
+    </form>
+  </div></section>`;
 }
 function faqSection() {
   return `<section id="faq" class="container section"><div class="sectionHeader reveal"><span class="chip">FAQ</span><h2 class="sectionTitle">Quick answers.</h2></div><div class="faq"><details class="card glass reveal"><summary>Do you shop for the groceries too?<span class="plus">+</span></summary><p>No. ${escapeHtml(SERVICE_NAME)} is focused on unloading and carrying groceries after they are already bought or delivered.</p></details><details class="card glass reveal d1"><summary>Can I track my request?<span class="plus">+</span></summary><p>Yes. Create an account to see your submitted requests and their current status.</p></details><details class="card glass reveal d2"><summary>Can you put groceries away?<span class="plus">+</span></summary><p>Yes. You can ask for cold items to go into the fridge or freezer first, then pantry items wherever you want them.</p></details><details class="card glass reveal d3"><summary>Is the estimate the final price?<span class="plus">+</span></summary><p>The estimate is a starting point. The final price is confirmed before help is sent your way.</p></details></div></section>`;
@@ -15478,6 +16681,38 @@ function accountPage(req) {
           </div>
         </article>
 
+        <article class="hubCard" id="preferences">
+          <span class="chip">Preferences</span>
+          <h2 class="hubCardTitle">Saved unload preferences.</h2>
+          <p class="hubMuted">Use this for senior mode, caregiver updates, call-first preferences, and favorite placement notes.</p>
+          <form class="personalForm bookingForm" method="post" action="/account/preferences">${csrfField(req)}
+            <div class="field"><label>Contact style</label><select name="contactPreference"><option ${customer.contactPreference === "Text me" ? "selected" : ""}>Text me</option><option ${customer.contactPreference === "Call me" ? "selected" : ""}>Call me</option><option ${customer.contactPreference === "Call first, then text" ? "selected" : ""}>Call first, then text</option><option ${customer.contactPreference === "Contact caregiver" ? "selected" : ""}>Contact caregiver</option></select></div>
+            <div class="field"><label>Membership interest</label><select name="membershipPlan">${MEMBERSHIP_PLANS.map((plan) => `<option value="${escapeHtml(plan.id)}" ${customer.membershipPlan === plan.id ? "selected" : ""}>${escapeHtml(plan.name)}</option>`).join("")}</select></div>
+            <div class="field"><label>Caregiver phone</label><input name="caregiverPhone" value="${escapeHtml(customer.caregiverPhone || "")}" placeholder="Optional" /></div>
+            <div class="field"><label>Accessibility</label><select name="accessibilityMode"><option value="">Standard</option><option value="senior" ${customer.accessibilityMode === "senior" ? "selected" : ""}>Senior / simple mode</option><option value="large-text" ${customer.accessibilityMode === "large-text" ? "selected" : ""}>Large text</option><option value="high-contrast" ${customer.accessibilityMode === "high-contrast" ? "selected" : ""}>High contrast</option></select></div>
+            <div class="field full"><label>Saved notes library</label><textarea name="notesLibrary" placeholder="Knock loudly, use side door, cold items first, leave water in garage...">${escapeHtml(customer.notesLibrary || "")}</textarea></div>
+            <button class="btn primary full" type="submit">Save preferences</button>
+          </form>
+          <div class="portalFeatureGrid" style="margin-top:16px">
+            <div class="portalFeature"><b>🔁</b><strong>Rebook</strong><span>Book same as last time or use saved preferences.</span></div>
+            <div class="portalFeature"><b>👵</b><strong>Senior friendly</strong><span>Simple mode and call-first preference are saved here.</span></div>
+            <div class="portalFeature"><b>🎁</b><strong>Referral</strong><span>Your code: ${escapeHtml(referralCodeForCustomer(customer))}</span></div>
+            <div class="portalFeature"><b>⭐</b><strong>Review</strong><span>After completion, leave a rating from the reviews page.</span></div>
+          </div>
+        </article>
+
+        <article class="hubCard" id="support">
+          <span class="chip">Support</span>
+          <h2 class="hubCardTitle">Need help with a booking?</h2>
+          <p class="hubMuted">Report an issue, ask for a call, or send a note. This is saved for HQ review.</p>
+          <form class="personalForm bookingForm" method="post" action="/api/issues">
+            <div class="field"><label>Booking ID</label><input name="bookingId" value="${latestActive ? escapeHtml(latestActive.id) : ""}" placeholder="Optional" /></div>
+            <div class="field"><label>Phone</label><input name="phone" value="${escapeHtml(customer.phone || "")}" /></div>
+            <div class="field full"><label>Issue / request</label><textarea name="message" required placeholder="Tell us what happened or what you need help with."></textarea></div>
+            <button class="btn ghost full" type="submit">Send support request</button>
+          </form>
+        </article>
+
         <article class="hubCard">
           <span class="chip">Grocery day planner</span>
           <h2 class="hubCardTitle">Your usual grocery rhythm.</h2>
@@ -15499,6 +16734,197 @@ function accountPage(req) {
   return pageShell({ req, title: `${SERVICE_NAME} — Personal Home Hub`, body });
 }
 
+
+
+function trainingModuleCard(icon, title, description, points) {
+  return `<article class="trainingModule glass">
+    <div class="trainingModuleIcon">${icon}</div>
+    <h3>${escapeHtml(title)}</h3>
+    <p>${escapeHtml(description)}</p>
+    <ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul>
+  </article>`;
+}
+
+function employeeTrainingPage(req, message = "") {
+  const trainingRecords = readTraining().sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+  const latest = trainingRecords[0];
+  const modules = [
+    trainingModuleCard("🤝", "Dropcart morals", "The job is not just lifting bags. It is showing respect inside someone’s personal space.", [
+      "Be honest about price, timing, mistakes, and limits.",
+      "Never mock customers, seniors, homes, groceries, or instructions.",
+      "Do not take photos or videos at a customer’s home unless the customer clearly approves.",
+      "If something feels unsafe, pause and contact HQ instead of forcing it.",
+    ]),
+    trainingModuleCard("👵", "Senior and caregiver respect", "Older customers and caregivers need extra clarity, patience, and calm communication.", [
+      "Speak clearly and do not rush them.",
+      "Ask before entering past the doorway, garage, kitchen, or pantry.",
+      "Confirm where cold items, heavy items, and fragile items should go.",
+      "If a caregiver booked it, keep the caregiver updated when requested.",
+    ]),
+    trainingModuleCard("💪", "Safe lifting basics", "Use safer lifting habits and do not try to prove strength with heavy or awkward loads.", [
+      "Keep the load close to your body.",
+      "Bend your knees and hips instead of rounding your back.",
+      "Do not twist while holding weight. Turn your feet instead.",
+      "Use two trips, a cart, or team lift for heavy cases.",
+      "If it feels too heavy, say so and ask for help.",
+    ]),
+    trainingModuleCard("🧊", "Cold items first", "Groceries are not just bags. Some items matter more because they can melt, leak, or spoil.", [
+      "Ask which bags are fridge/freezer bags.",
+      "Handle frozen, meat, dairy, and cold items first when requested.",
+      "Do not leave cold items in sun or hot garage areas.",
+      "If a bag leaks, tell the customer or HQ immediately.",
+    ]),
+    trainingModuleCard("🏠", "Home boundaries", "Customers choose how far the service goes. We do not wander or assume.", [
+      "Door only means door only.",
+      "Garage means garage unless told otherwise.",
+      "Do not open cabinets, fridges, freezers, or pantries without clear permission.",
+      "Do not enter bedrooms, bathrooms, private rooms, or closed spaces.",
+    ]),
+    trainingModuleCard("📲", "Communication standard", "Good communication makes the business feel safe and professional.", [
+      "Text/call before arrival if the booking asks for it.",
+      "Mark status correctly: confirmed, on the way, arrived, completed.",
+      "If late, say so early.",
+      "If you damage, drop, spill, or lose something, report it immediately.",
+    ]),
+    trainingModuleCard("🚫", "What not to do", "Clear limits protect the customer, employee, and business.", [
+      "Do not shop for groceries unless the business officially adds that service.",
+      "Do not move furniture, appliances, unsafe items, or medical equipment.",
+      "Do not handle medicine, cash envelopes, weapons, private documents, or valuables.",
+      "Do not accept a job you cannot safely complete.",
+    ]),
+    trainingModuleCard("✅", "Job checklist", "Every unload should follow the same basic rhythm.", [
+      "Confirm customer/name/address.",
+      "Confirm where items go.",
+      "Cold items first if requested.",
+      "Heavy items safely and carefully.",
+      "Ask if anything else is needed before marking complete.",
+      "Leave the area clean and respectful.",
+    ]),
+  ];
+
+  const recent = trainingRecords.slice(0, 8).map((r) => `<tr><td>${escapeHtml(r.employee || "Employee")}</td><td>${escapeHtml(String(r.score || 0))}%</td><td>${escapeHtml(r.pledge || "completed")}</td><td>${escapeHtml(new Date(r.completedAt).toLocaleString())}</td></tr>`).join("");
+
+  const body = `${header(req)}
+  <main class="container trainingPage">
+    <section class="trainingHero glass reveal">
+      <div>
+        <span class="chip">Employee training</span>
+        <h1 class="heroTitle">Carry groceries. <span class="shine">Carry trust too.</span></h1>
+        <p class="heroDesc">Dropcart training covers morals, customer respect, senior-friendly service, safe lifting basics, privacy, cold-item handling, home boundaries, and job checklists.</p>
+        <div class="heroActions">
+          <a class="btn primary" href="#training-quiz">Take quiz</a>
+          <a class="btn ghost" href="/employee">Back to employee dashboard</a>
+          <a class="btn ghost" href="/hq">HQ board</a>
+        </div>
+      </div>
+      <div class="trainingBadge">
+        <b>${latest ? escapeHtml(String(latest.score || 0)) + "%" : "New"}</b>
+        <span>${latest ? "latest score" : "training status"}</span>
+      </div>
+    </section>
+
+    ${message ? `<div class="trainingMessage glass">${escapeHtml(message)}</div>` : ""}
+
+    <section class="trainingPrinciples reveal">
+      <div class="trainingPrinciple glass"><b>Respect</b><span>Customers are trusting us near their car, groceries, home, and sometimes family members.</span></div>
+      <div class="trainingPrinciple glass"><b>Safety</b><span>No job is worth hurting yourself, damaging property, or making a customer uncomfortable.</span></div>
+      <div class="trainingPrinciple glass"><b>Clarity</b><span>Confirm the plan before lifting. Communicate changes early.</span></div>
+      <div class="trainingPrinciple glass"><b>Humility</b><span>If something is too heavy, unclear, or unsafe, ask for help.</span></div>
+    </section>
+
+    <section class="trainingModules" id="modules">
+      ${modules.join("")}
+    </section>
+
+    <section class="trainingLiftGuide glass reveal">
+      <div>
+        <span class="chip">Lifting guide</span>
+        <h2>Safe lifting basics.</h2>
+        <p>This is general training, not medical advice. If something feels unsafe or painful, stop and ask for help.</p>
+      </div>
+      <div class="liftSteps">
+        <div><b>1</b><strong>Check the load</strong><span>Look for weight, leaks, glass, awkward shape, and stairs.</span></div>
+        <div><b>2</b><strong>Get close</strong><span>Keep bags or cases close to your body instead of reaching.</span></div>
+        <div><b>3</b><strong>Use legs</strong><span>Bend knees/hips, keep your back controlled, and stand smoothly.</span></div>
+        <div><b>4</b><strong>No twisting</strong><span>Turn your feet and whole body instead of twisting your back.</span></div>
+        <div><b>5</b><strong>Take more trips</strong><span>Two safe trips are better than one risky trip.</span></div>
+        <div><b>6</b><strong>Team lift</strong><span>Use another person for heavy cases, stairs, or awkward bulk items.</span></div>
+      </div>
+    </section>
+
+    <section id="training-quiz" class="trainingQuiz glass reveal">
+      <div class="trainingQuizTop">
+        <div>
+          <span class="chip">Completion quiz</span>
+          <h2>Pass the basics before taking jobs.</h2>
+          <p>Answer these honestly. The goal is not to look tough; it is to protect the customer and the business.</p>
+        </div>
+        <div id="trainingScorePreview" class="scorePreview">0%</div>
+      </div>
+
+      <form id="trainingForm" method="post" action="/employee/training/complete">
+        ${csrfField(req)}
+        <input id="trainingScore" name="score" type="hidden" value="0" />
+
+        <div class="quizQuestion" data-answer="b">
+          <strong>1. A water case feels too heavy and awkward. What should you do?</strong>
+          <label><input type="radio" name="q1" value="a" /> Carry it anyway so the job is faster.</label>
+          <label><input type="radio" name="q1" value="b" /> Use help, split the load, or take a safer trip.</label>
+          <label><input type="radio" name="q1" value="c" /> Drag it across the customer’s floor.</label>
+        </div>
+
+        <div class="quizQuestion" data-answer="c">
+          <strong>2. A customer says “just leave everything by the door.” What does that mean?</strong>
+          <label><input type="radio" name="q2" value="a" /> Go inside and put items away anyway.</label>
+          <label><input type="radio" name="q2" value="b" /> Put some things in the kitchen if it looks easy.</label>
+          <label><input type="radio" name="q2" value="c" /> Respect the boundary and leave items by the door.</label>
+        </div>
+
+        <div class="quizQuestion" data-answer="a">
+          <strong>3. Which items should be prioritized when requested?</strong>
+          <label><input type="radio" name="q3" value="a" /> Cold, frozen, dairy, meat, and leaking bags.</label>
+          <label><input type="radio" name="q3" value="b" /> Paper towels only.</label>
+          <label><input type="radio" name="q3" value="c" /> Whatever bag is closest.</label>
+        </div>
+
+        <div class="quizQuestion" data-answer="b">
+          <strong>4. What should you do if something breaks, spills, or gets dropped?</strong>
+          <label><input type="radio" name="q4" value="a" /> Hide it if nobody saw it.</label>
+          <label><input type="radio" name="q4" value="b" /> Tell the customer or HQ immediately.</label>
+          <label><input type="radio" name="q4" value="c" /> Blame the grocery store.</label>
+        </div>
+
+        <div class="quizQuestion" data-answer="c">
+          <strong>5. Which answer best matches Dropcart morals?</strong>
+          <label><input type="radio" name="q5" value="a" /> Fast matters more than respect.</label>
+          <label><input type="radio" name="q5" value="b" /> The customer should figure it out.</label>
+          <label><input type="radio" name="q5" value="c" /> Be honest, respectful, careful, and clear.</label>
+        </div>
+
+        <div class="pledgeBox">
+          <label><input id="trainingPledge" name="pledge" value="I agree to follow Dropcart training standards." type="checkbox" required /> I agree to follow Dropcart training standards.</label>
+        </div>
+
+        <button class="btn primary" type="submit">Complete training</button>
+      </form>
+    </section>
+
+    <section class="trainingRecords glass reveal">
+      <div class="trainingQuizTop">
+        <div>
+          <span class="chip">Records</span>
+          <h2>Recent completions.</h2>
+          <p>Stored locally in the app data file for now.</p>
+        </div>
+      </div>
+      <div class="trainingTableWrap">
+        <table class="trainingTable"><thead><tr><th>Employee</th><th>Score</th><th>Pledge</th><th>Completed</th></tr></thead><tbody>${recent || `<tr><td colspan="4">No training completions yet.</td></tr>`}</tbody></table>
+      </div>
+    </section>
+  </main>
+  ${footer(req)}`;
+  return pageShell({ req, title: `${SERVICE_NAME} — Employee Training`, body });
+}
 
 function employeePage(req) {
   const bookings = readBookings().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -15539,6 +16965,7 @@ function employeePage(req) {
         </div>
         <div class="opsTopActions">
           <a class="btn primary" href="#jobs">View jobs</a><a class="btn ghost" href="/hq">HQ Device</a>
+          <a class="btn ghost" href="/employee/training">Training</a>
           <a class="btn ghost" href="/employee/customers">Customers</a>
           <a class="btn ghost" href="/employee/export">Export</a>
           <form method="post" action="/employee/logout">${csrfField(req)}<button class="btn ghost" type="submit">Logout</button></form>
@@ -15566,6 +16993,7 @@ function employeePage(req) {
             <div class="opsBriefItem"><div class="opsBriefIcon">🧊</div><div><strong>Ask about cold items</strong><span>Fridge and freezer items should be handled first if requested.</span></div></div>
             <div class="opsBriefItem"><div class="opsBriefIcon">📍</div><div><strong>Confirm location</strong><span>Address, ZIP, stairs, gate code, and where bags should go.</span></div></div>
             <div class="opsBriefItem"><div class="opsBriefIcon">💪</div><div><strong>Watch heavy items</strong><span>Water cases, bulk items, and stairs are the main reason people book.</span></div></div>
+            <div class="opsBriefItem"><div class="opsBriefIcon">🎓</div><div><strong>Training matters</strong><span>Review lifting, boundaries, senior respect, and job morals before taking real jobs.</span><a class="opsMiniTrainingLink" href="/employee/training">Open training</a></div></div>
           </div>
 
           <div class="opsFocusCard">
@@ -15639,6 +17067,20 @@ function hqJobCard(req, b) {
     <div class="hqJobLine">📞 ${escapeHtml(b.phone)}${b.email ? " · " + escapeHtml(b.email) : ""}</div>
     <div class="hqTagRow">${tagHtml}</div>
     <div class="hqJobNotes">${escapeHtml(b.notes || "No notes. Confirm cold items, stairs, water cases, and placement.")}</div>
+    ${b.bookingFor === "someone-else" ? `<div class="hqJobLine">🤝 Caregiver: ${escapeHtml(b.caregiverName || "Not listed")} ${b.caregiverPhone ? "· " + escapeHtml(b.caregiverPhone) : ""}</div>` : ""}
+    <div class="hqTagRow">${bookingSafetyFlags(b).map((flag) => `<span class="hqTag safety">${escapeHtml(flag)}</span>`).join("")}</div>
+    <form class="hqAssignForm" method="post" action="/hq/bookings/${encodeURIComponent(b.id)}/assign">
+      ${csrfField(req)}
+      <select name="assignedTo">
+        ${["Unassigned", "Lukas", "Employee 2", "Employee 3", "On-call helper"].map((name) => `<option ${b.assignedTo === name ? "selected" : ""}>${escapeHtml(name)}</option>`).join("")}
+      </select>
+      <button type="submit">Assign</button>
+    </form>
+    <form class="hqInternalNoteForm" method="post" action="/hq/bookings/${encodeURIComponent(b.id)}/internal-note">
+      ${csrfField(req)}
+      <textarea name="internalNotes" placeholder="Internal notes customers do not see">${escapeHtml(b.internalNotes || "")}</textarea>
+      <button type="submit">Save note</button>
+    </form>
     <div class="hqQuickActions"><a class="btn ghost" href="tel:${escapeHtml(b.phone)}">Call</a><a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsConfirm}">Confirm</a><a class="btn ghost" href="sms:${escapeHtml(b.phone)}?body=${smsOnWay}">On way</a><a class="btn ghost" href="/employee#jobs">Full view</a></div>
     <div class="hqStatusButtons">${statusButtons}</div>
   </article>`;
@@ -15860,6 +17302,26 @@ app.post("/account/rebook-last", requireCustomer, verifyCsrf, (req, res) => {
   res.redirect("/account#history");
 });
 
+
+app.get("/employee/training", requireEmployee, (req, res) => res.send(employeeTrainingPage(req)));
+
+app.post("/employee/training/complete", requireEmployee, verifyCsrf, (req, res) => {
+  const records = readTraining();
+  const employee = req.session?.employee?.username || req.session?.employee?.name || "employee";
+  const score = Math.max(0, Math.min(100, Number(req.body.score) || 0));
+  const pledge = cleanText(req.body.pledge || "Training completed", 160);
+  const record = {
+    id: id("TRN"),
+    employee,
+    score,
+    pledge,
+    completedAt: new Date().toISOString(),
+  };
+  records.unshift(record);
+  saveTraining(records.slice(0, 500));
+  res.send(employeeTrainingPage(req, `Training completion saved. Score: ${score}%.`));
+});
+
 app.get("/employee", requireEmployee, (req, res) => res.send(employeePage(req)));
 app.get("/employee/customers", requireEmployee, (req, res) => res.send(customersPage(req)));
 
@@ -15889,7 +17351,21 @@ app.post("/api/bookings", (req, res) => {
   const estimate = calculateEstimate(req.body);
   const area = checkServiceArea({ zip, address });
   const bookings = readBookings();
-  const booking = { id: id("DC"), customerId: customer?.id || "", status: "new", name, phone, email, address, zip, date, timeWindow, notes, estimate, area, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), source: customer ? "customer-account" : "guest-website" };
+  const serviceType = cleanText(req.body.serviceType || "grocery-unload", 80);
+  const bookingFor = cleanText(req.body.bookingFor || "self", 40);
+  const recipientName = cleanText(req.body.recipientName, 80);
+  const recipientPhone = cleanText(req.body.recipientPhone, 40);
+  const caregiverName = cleanText(req.body.caregiverName, 80);
+  const caregiverPhone = cleanText(req.body.caregiverPhone, 40);
+  const contactPreference = cleanText(req.body.contactPreference || "Text me", 80);
+  const paymentPreference = cleanText(req.body.paymentPreference || "Pay in person", 80);
+  const placementNotes = cleanText(req.body.placementNotes, 700);
+  const smsUpdates = String(req.body.smsUpdates || "").toLowerCase() === "yes";
+  const coldFirst = String(req.body.coldFirst || "").toLowerCase() === "yes";
+  const callToConfirm = String(req.body.callToConfirm || "").toLowerCase() === "yes";
+  const accessibilityHelp = String(req.body.accessibilityHelp || "").toLowerCase() === "yes";
+  const fullNotes = [notes, placementNotes ? `Placement: ${placementNotes}` : "", coldFirst ? "Cold items first requested." : "", callToConfirm ? "Call to confirm." : "", accessibilityHelp ? "Mobility/senior help requested." : ""].filter(Boolean).join("\n");
+  const booking = { id: id("DC"), customerId: customer?.id || "", status: "new", name, phone, email, address, zip, date, timeWindow, notes: fullNotes, serviceType, bookingFor, recipientName, recipientPhone, caregiverName, caregiverPhone, contactPreference, paymentPreference, smsUpdates, coldFirst, callToConfirm, accessibilityHelp, estimate, area, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), source: customer ? "customer-account" : "guest-website" };
   bookings.push(booking);
   saveBookings(bookings);
   bumpAnalytics("bookings");
@@ -15948,6 +17424,125 @@ app.post("/hq/bookings/:id/status", requireEmployee, verifyCsrf, (req, res) => {
   saveBookings(bookings);
   res.redirect("/hq#hqBoard");
 });
+
+
+app.get("/seniors", (req, res) => res.send(seniorLandingPage(req)));
+app.get("/safety", (req, res) => res.send(safetyPage(req)));
+app.get("/memberships", (req, res) => res.send(membershipsPage(req)));
+app.get("/flyer", (req, res) => res.send(flyerPage(req)));
+app.get("/reviews", (req, res) => res.send(reviewsPage(req)));
+app.get("/families", (req, res) => res.send(audiencePage(req, "families")));
+app.get("/costco", (req, res) => res.send(audiencePage(req, "costco")));
+app.get("/sams-club", (req, res) => res.send(audiencePage(req, "costco")));
+app.get("/disabled-help", (req, res) => res.send(audiencePage(req, "disabled-help")));
+app.get("/walmart-pickup", (req, res) => res.send(audiencePage(req, "walmart-pickup")));
+app.get("/instacart-unload", (req, res) => res.send(audiencePage(req, "instacart-unload")));
+
+app.post("/account/preferences", requireCustomer, verifyCsrf, (req, res) => {
+  const customers = readCustomers();
+  const customer = customers.find((c) => c.id === req.customer.id);
+  if (customer) {
+    customer.contactPreference = cleanText(req.body.contactPreference, 80);
+    customer.membershipPlan = cleanText(req.body.membershipPlan, 40);
+    customer.caregiverPhone = cleanText(req.body.caregiverPhone, 40);
+    customer.accessibilityMode = cleanText(req.body.accessibilityMode, 40);
+    customer.notesLibrary = cleanText(req.body.notesLibrary, 1400);
+    customer.updatedAt = new Date().toISOString();
+    saveCustomers(customers);
+  }
+  res.redirect("/account#preferences");
+});
+
+app.post("/api/reviews", (req, res) => {
+  const reviews = readReviews();
+  const review = {
+    id: id("REV"),
+    name: cleanText(req.body.name || "Customer", 80),
+    rating: Math.max(1, Math.min(5, Number(req.body.rating) || 5)),
+    text: cleanText(req.body.text, 1000),
+    bookingId: cleanText(req.body.bookingId, 40),
+    approved: true,
+    createdAt: new Date().toISOString(),
+  };
+  if (!review.text) return res.status(400).send("Review text is required.");
+  reviews.unshift(review);
+  saveReviews(reviews);
+  res.redirect("/reviews");
+});
+
+app.post("/api/issues", (req, res) => {
+  const issues = readIssues();
+  const issue = {
+    id: id("ISSUE"),
+    customerId: currentCustomer(req)?.id || "",
+    bookingId: cleanText(req.body.bookingId, 40),
+    phone: cleanText(req.body.phone, 40),
+    email: normalizeEmail(req.body.email),
+    message: cleanText(req.body.message, 1600),
+    status: "new",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  if (!issue.message) return res.status(400).send("Message is required.");
+  issues.unshift(issue);
+  saveIssues(issues);
+  if (req.customer) return res.redirect("/account#support");
+  res.redirect("/safety");
+});
+
+app.post("/api/referrals", (req, res) => {
+  const referrals = readReferrals();
+  const referral = {
+    id: id("REF"),
+    code: cleanText(req.body.code, 60),
+    referrerName: cleanText(req.body.referrerName, 80),
+    friendName: cleanText(req.body.friendName, 80),
+    friendPhone: cleanText(req.body.friendPhone, 40),
+    status: "new",
+    createdAt: new Date().toISOString(),
+  };
+  referrals.unshift(referral);
+  saveReferrals(referrals);
+  res.json({ ok: true, referral });
+});
+
+app.post("/api/tips", (req, res) => {
+  const tips = readTips();
+  const tip = {
+    id: id("TIP"),
+    bookingId: cleanText(req.body.bookingId, 40),
+    amount: Math.max(0, Math.min(200, Number(req.body.amount) || 0)),
+    note: cleanText(req.body.note, 400),
+    createdAt: new Date().toISOString(),
+    status: "recorded-not-charged",
+  };
+  tips.unshift(tip);
+  saveTips(tips);
+  res.json({ ok: true, message: "Tip recorded as a placeholder. Payment processing is not connected yet.", tip });
+});
+
+app.post("/hq/bookings/:id/assign", requireEmployee, verifyCsrf, (req, res) => {
+  const bookings = readBookings();
+  const booking = bookings.find((b) => b.id === req.params.id);
+  if (booking) {
+    booking.assignedTo = cleanText(req.body.assignedTo || "Unassigned", 80);
+    booking.updatedAt = new Date().toISOString();
+    saveBookings(bookings);
+  }
+  res.redirect("/hq");
+});
+
+app.post("/hq/bookings/:id/internal-note", requireEmployee, verifyCsrf, (req, res) => {
+  const bookings = readBookings();
+  const booking = bookings.find((b) => b.id === req.params.id);
+  if (booking) {
+    booking.internalNotes = cleanText(req.body.internalNotes, 1800);
+    booking.updatedAt = new Date().toISOString();
+    saveBookings(bookings);
+  }
+  res.redirect("/hq");
+});
+
 
 app.use((req, res) => {
   res.status(404).send(pageShell({ req, title: `${SERVICE_NAME} — Not Found`, body: `${header(req)}<main class="container section"><div class="glass" style="padding:42px;border-radius:38px"><span class="chip">404</span><h1 class="adminTitle" style="margin-top:18px">Page not found.</h1><p class="sectionSub" style="margin-left:0;text-align:left">That route does not exist.</p><a class="btn primary" style="margin-top:24px" href="/">Back home</a></div></main>${footer(req)}` }));
