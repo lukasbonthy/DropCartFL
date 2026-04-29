@@ -10716,6 +10716,178 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
       }
     }
 
+
+    /* ============================================================
+       v43 Cursor-Reactive Morphs
+       Morph button matches Theme button and only says "Morph".
+       ============================================================ */
+
+    #morphLauncher.morphLauncher,
+    #morphLauncher.morphStudioButton {
+      pointer-events: auto !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 9px !important;
+      min-height: 54px !important;
+      padding: 14px 18px !important;
+      border: 0 !important;
+      border-radius: 22px !important;
+      color: white !important;
+      background:
+        radial-gradient(170px circle at 20% 0%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(135deg, rgba(53,215,255,.82), rgba(124,92,255,.84), rgba(255,79,216,.52)) !important;
+      box-shadow:
+        0 20px 64px rgba(53,215,255,.18),
+        0 12px 42px rgba(124,92,255,.25),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+      font-size: 14px !important;
+      font-weight: 950 !important;
+      letter-spacing: -.02em !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease !important;
+    }
+
+    #morphLauncher.morphLauncher span,
+    #morphLauncher.morphStudioButton span {
+      display: grid !important;
+      place-items: center !important;
+      width: 26px !important;
+      height: 26px !important;
+      border-radius: 10px !important;
+      background: rgba(255,255,255,.15) !important;
+      margin: 0 !important;
+    }
+
+    #morphLauncher.morphLauncher::after,
+    #morphLauncher.morphStudioButton::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    #morphLauncher.morph-reacting {
+      transform:
+        translate3d(var(--morph-move-x, 0px), var(--morph-move-y, 0px), 0)
+        scale(1.025) !important;
+      filter: saturate(1.12) brightness(1.06) !important;
+      box-shadow:
+        0 24px 74px rgba(53,215,255,.22),
+        0 16px 54px rgba(124,92,255,.32),
+        0 0 46px color-mix(in srgb, var(--theme-c, #35d7ff) 30%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.24) !important;
+    }
+
+    .morphModalOption,
+    .morphismOption {
+      transform-style: preserve-3d !important;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease, filter .15s ease !important;
+    }
+
+    .morphModalOption.morph-reacting,
+    .morphismOption.morph-reacting {
+      transform:
+        perspective(760px)
+        rotateX(var(--morph-rx, 0deg))
+        rotateY(var(--morph-ry, 0deg))
+        translateY(-3px)
+        scale(1.018) !important;
+      border-color: rgba(255,255,255,.28) !important;
+      box-shadow:
+        0 18px 54px rgba(0,0,0,.30),
+        0 0 38px color-mix(in srgb, var(--theme-c, #35d7ff) 18%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+      filter: saturate(1.08) brightness(1.05) !important;
+    }
+
+    .morphModalOption.morph-reacting::before,
+    .morphismOption.morph-reacting::before {
+      content: "" !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
+      background:
+        radial-gradient(
+          180px circle at var(--morph-glow-x, 50%) var(--morph-glow-y, 50%),
+          rgba(255,255,255,.20),
+          transparent 48%
+        ) !important;
+      opacity: .9 !important;
+    }
+
+    body[class*="morph-"] .card.morph-reacting,
+    body[class*="morph-"] .hubCard.morph-reacting,
+    body[class*="morph-"] .formBox.morph-reacting,
+    body[class*="morph-"] .final.morph-reacting,
+    body[class*="morph-"] .v20-showcase.morph-reacting,
+    body[class*="morph-"] .v20-big-panel.morph-reacting,
+    body[class*="morph-"] .v20-route-card.morph-reacting,
+    body[class*="morph-"] .v20-floating-tile.morph-reacting,
+    body[class*="morph-"] .v20-homepage-strip.morph-reacting,
+    body[class*="morph-"] .requestCard.morph-reacting,
+    body[class*="morph-"] .todayCard.morph-reacting,
+    body[class*="morph-"] .bookingCard.morph-reacting,
+    body[class*="morph-"] .opsPanel.morph-reacting,
+    body[class*="morph-"] .opsJobCard.morph-reacting,
+    body[class*="morph-"] .hqHeroCard.morph-reacting,
+    body[class*="morph-"] .hqNextCard.morph-reacting,
+    body[class*="morph-"] .hqJob.morph-reacting {
+      transform:
+        perspective(1150px)
+        rotateX(var(--morph-rx, 0deg))
+        rotateY(var(--morph-ry, 0deg))
+        translateY(-5px)
+        scale(1.006) !important;
+      border-color: rgba(255,255,255,.22) !important;
+      box-shadow:
+        0 28px 96px rgba(0,0,0,.34),
+        0 0 64px color-mix(in srgb, var(--theme-a, #7c5cff) 18%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.14) !important;
+      filter: saturate(1.04) brightness(1.025) !important;
+    }
+
+    body[class*="morph-"] .card.morph-reacting::before,
+    body[class*="morph-"] .hubCard.morph-reacting::before,
+    body[class*="morph-"] .formBox.morph-reacting::before,
+    body[class*="morph-"] .v20-showcase.morph-reacting::before,
+    body[class*="morph-"] .opsPanel.morph-reacting::before,
+    body[class*="morph-"] .hqJob.morph-reacting::before {
+      opacity: .95 !important;
+    }
+
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      .morphModalOption.morph-reacting,
+      .morphismOption.morph-reacting,
+      body[class*="morph-"] .card.morph-reacting,
+      body[class*="morph-"] .hubCard.morph-reacting,
+      body[class*="morph-"] .formBox.morph-reacting,
+      body[class*="morph-"] .final.morph-reacting,
+      body[class*="morph-"] .v20-showcase.morph-reacting,
+      body[class*="morph-"] .opsPanel.morph-reacting,
+      body[class*="morph-"] .hqJob.morph-reacting {
+        transform: none !important;
+      }
+
+      #morphLauncher.morph-reacting {
+        transform: none !important;
+      }
+    }
+
+    @media(max-width:720px) {
+      #morphLauncher.morphLauncher,
+      #morphLauncher.morphStudioButton {
+        right: 12px !important;
+        left: auto !important;
+        bottom: calc(146px + var(--safe-bottom, 0px)) !important;
+        min-height: 48px !important;
+        padding: 12px 14px !important;
+        border-radius: 18px !important;
+        font-size: 13px !important;
+      }
+    }
+
   </style>
 </head>
 <body class="${mobileClass}" data-device-mode="${escapeHtml(deviceMode)}" data-customer-name="${customer ? escapeHtml((customer.name || "").split(" ")[0]) : ""}">
@@ -10843,9 +11015,9 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
   <div id="morphDebugToast"></div>
 
-  <button id="morphLauncher" class="morphLauncher" type="button" onclick="window.DropcartMorphModal?.open?.(); return false;">
+  <button id="morphLauncher" class="morphLauncher sensoryButton morphStudioButton" type="button" onclick="window.DropcartMorphModal?.toggle?.(); return false;">
     <span>◇</span>
-    Morph Studio
+    Morph
   </button>
 
 
@@ -12415,6 +12587,95 @@ function pageShell({ req, title = SERVICE_NAME, description = "Local grocery unl
 
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMoreMorphs, { once: true });
       else bindMoreMorphs();
+    })();
+  </script>
+
+
+  <script>
+    (function initMorphCursorReaction(){
+      const hoverOk = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (!hoverOk) return;
+
+      const morphableSelector = [
+        '#morphLauncher',
+        '.morphModalOption',
+        '.morphismOption',
+        '.card',
+        '.hubCard',
+        '.formBox',
+        '.final',
+        '.v20-showcase',
+        '.v20-big-panel',
+        '.v20-route-card',
+        '.v20-floating-tile',
+        '.v20-homepage-strip',
+        '.requestCard',
+        '.todayCard',
+        '.bookingCard',
+        '.opsPanel',
+        '.opsJobCard',
+        '.hqHeroCard',
+        '.hqNextCard',
+        '.hqJob'
+      ].join(',');
+
+      function isSiteMorphActive(){
+        return Array.from(document.body.classList).some((name) => name.indexOf('morph-') === 0);
+      }
+
+      function updateElement(el, event){
+        if (!el) return;
+
+        const isOption = el.matches('.morphModalOption, .morphismOption, #morphLauncher');
+        if (!isOption && !isSiteMorphActive()) return;
+
+        const rect = el.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        const centeredX = x - 0.5;
+        const centeredY = y - 0.5;
+
+        const strength = el.matches('#morphLauncher') ? 10 : 9;
+        const moveStrength = el.matches('#morphLauncher') ? 7 : 0;
+
+        el.style.setProperty('--morph-rx', (-centeredY * strength).toFixed(2) + 'deg');
+        el.style.setProperty('--morph-ry', (centeredX * strength).toFixed(2) + 'deg');
+        el.style.setProperty('--morph-glow-x', (x * 100).toFixed(1) + '%');
+        el.style.setProperty('--morph-glow-y', (y * 100).toFixed(1) + '%');
+        el.style.setProperty('--morph-move-x', (centeredX * moveStrength).toFixed(2) + 'px');
+        el.style.setProperty('--morph-move-y', (centeredY * moveStrength).toFixed(2) + 'px');
+        el.classList.add('morph-reacting');
+      }
+
+      function resetElement(el){
+        if (!el) return;
+        el.classList.remove('morph-reacting');
+        el.style.removeProperty('--morph-rx');
+        el.style.removeProperty('--morph-ry');
+        el.style.removeProperty('--morph-glow-x');
+        el.style.removeProperty('--morph-glow-y');
+        el.style.removeProperty('--morph-move-x');
+        el.style.removeProperty('--morph-move-y');
+      }
+
+      document.addEventListener('pointermove', function(event){
+        const el = event.target.closest(morphableSelector);
+        if (!el) return;
+        updateElement(el, event);
+      }, { passive: true });
+
+      document.addEventListener('pointerout', function(event){
+        const el = event.target.closest(morphableSelector);
+        if (!el) return;
+        if (event.relatedTarget && el.contains(event.relatedTarget)) return;
+        resetElement(el);
+      }, { passive: true });
+
+      window.addEventListener('blur', function(){
+        document.querySelectorAll('.morph-reacting').forEach(resetElement);
+      });
     })();
   </script>
 
