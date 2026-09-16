@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: dropcart-v26
+    runtime: node
+    buildCommand: rm -rf .runtime && mkdir -p .runtime && unzip -q dropcart-v26-render-ready.zip -d .runtime && cd .runtime && pnpm install --frozen-lockfile=false && pnpm build
+    startCommand: cd .runtime && pnpm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: NODE_ENV
+        value: production
