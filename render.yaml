@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: dropcart
+    runtime: node
+    buildCommand: pnpm install --frozen-lockfile=false && pnpm build
+    startCommand: pnpm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: NODE_ENV
+        value: production
