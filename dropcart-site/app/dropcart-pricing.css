@@ -1,0 +1,64 @@
+/* Pricing */
+.pricing-section { padding-block: 78px 82px; }
+.pricing-intro { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 34px; }
+.pricing-intro > p { max-width: 430px; color: #66735e; font-size: 1rem; line-height: 1.75; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.pricing-card { position: relative; display: flex; min-height: 322px; flex-direction: column; padding: 28px; overflow: hidden; border: 1px solid #dde5d5; border-radius: 27px; background: linear-gradient(150deg, #fff 45%, #f8faF4); box-shadow: 0 14px 35px -32px #173d2d99; transform-origin: 50% 90%; }
+.pricing-card::after { content: ""; position: absolute; pointer-events: none; width: 190px; height: 190px; right: -88px; bottom: -108px; border-radius: 50%; background: radial-gradient(circle, #dff4be 0, transparent 68%); opacity: .72; }
+.pricing-card.featured { color: #f7faef; border-color: #31543d; background: radial-gradient(circle at 90% 0, #46694066, transparent 42%), linear-gradient(150deg, #234733, #173528); box-shadow: 0 22px 45px -31px #112e20cc; }
+.pricing-card.featured::after { background: radial-gradient(circle, #acd66e38 0, transparent 68%); }
+.pricing-popular { position: absolute; top: 20px; right: 20px; padding: 7px 10px; border: 1px solid #d8f3ad44; border-radius: 999px; background: #d6f59f17; color: #dffab5; font-size: .6875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.pricing-icon { display: grid; place-items: center; width: 45px; height: 45px; margin-bottom: 24px; border: 1px solid #dce7cf; border-radius: 15px; background: #eef5e4; color: #3f6038; box-shadow: inset 0 1px 0 #fff; }
+.pricing-card.featured .pricing-icon { border-color: #dffab52b; background: #e4ffbd12; color: #d9f5a7; box-shadow: none; }
+.pricing-name { font-size: 1.05rem; font-weight: 700; letter-spacing: -.035em; }
+.pricing-bags { margin-top: 4px; color: #74806c; font-size: .875rem; }
+.pricing-card.featured .pricing-bags { color: #b9c9b4; }
+.pricing-price { display: flex; align-items: baseline; gap: 8px; margin-top: 18px; }
+.pricing-price strong { font-size: clamp(2.1rem, 3vw, 2.75rem); line-height: 1; font-weight: 700; letter-spacing: -.075em; }
+.pricing-price span { color: #7d8875; font-size: .8125rem; }
+.pricing-card.featured .pricing-price span { color: #b9c9b4; }
+.pricing-note-copy { margin-top: 12px; color: #64715d; font-size: .875rem; line-height: 1.55; }
+.pricing-card.featured .pricing-note-copy { color: #c2d0bc; }
+.pricing-book { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px; margin-top: auto; padding-top: 22px; color: #315533; font-size: .8125rem; font-weight: 700; }
+.pricing-card.featured .pricing-book { color: #ddf8af; }
+.pricing-book svg { transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.pricing-book:hover svg { transform: translate3d(3px,-2px,0) rotate(4deg); }
+.stairs-price-note { display: flex; align-items: center; gap: 15px; margin-top: 18px; padding: 18px 20px; border: 1px solid #d8e2cf; border-radius: 20px; background: linear-gradient(135deg, #eef5e6, #e5efda); color: #40573b; }
+.stairs-price-icon { display: grid; place-items: center; flex: 0 0 auto; width: 40px; height: 40px; border-radius: 13px; border: 1px solid #cfddc3; background: #f9fff2; }
+.stairs-price-note strong { display: block; margin-bottom: 3px; font-size: .875rem; }
+.stairs-price-note p { color: #67775e; font-size: .8125rem; line-height: 1.5; }
+.stairs-price-note b { color: #2b4c2f; }
+.load-choice-card { min-height: 105px; }
+.load-choice-price { position: relative; z-index: 1; margin-top: 4px; font-size: .875rem; font-weight: 800; letter-spacing: -.035em; color: #2f542f; }
+.stairs-choice { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid #e0e6d7; border-radius: 13px; background: #fbfdf8; color: #40503c; font-size: .875rem; }
+.stairs-choice strong { flex: 0 0 auto; color: #315432; font-size: .8125rem; }
+.booking-price-preview { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 15px; border: 1px solid #d5e2c9; border-radius: 14px; background: linear-gradient(135deg, #eff8e4, #f8fcec); color: #52624a; font-size: .8125rem; }
+.booking-price-preview strong { color: #24462a; font-size: 1.15rem; letter-spacing: -.045em; }
+.price-breakdown { overflow: hidden; border: 1px solid #d9e3d0; border-radius: 16px; background: #fbfdf8; }
+.price-breakdown > div { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 11px 14px; color: #697461; font-size: .8125rem; }
+.price-breakdown > div + div { border-top: 1px solid #e6ebdf; }
+.price-breakdown > div strong { color: #344932; font-weight: 700; }
+.price-breakdown .price-total { padding-block: 14px; background: linear-gradient(135deg, #e7f5d8, #f1f8e8); color: #2c472d; font-size: .9375rem; font-weight: 700; }
+.price-breakdown .price-total strong { color: #203f26; font-size: 1.25rem; letter-spacing: -.045em; }
+.price-breakdown > p { padding: 11px 14px; border-top: 1px solid #e0e8d7; color: #73806b; font-size: .75rem; line-height: 1.55; }
+@media (max-width: 940px) {
+  .pricing-section { padding-block: 68px; }
+  .pricing-intro { align-items: start; }
+  .pricing-grid { gap: 14px; }
+  .pricing-card { min-height: 300px; padding: 24px; }
+}
+@media (max-width: 760px) {
+  .pricing-intro { display: block; }
+  .pricing-intro > p { margin-top: 18px; max-width: 520px; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card { min-height: 0; }
+  .pricing-book { margin-top: 26px; }
+}
+@media (max-width: 640px) {
+  .pricing-section { padding-block: 54px 60px; }
+  .pricing-card { padding: 24px 22px; border-radius: 23px; }
+  .pricing-price strong { font-size: 2.35rem; }
+  .stairs-price-note { align-items: flex-start; }
+  .load-choice-card { min-height: 112px; padding-inline: 3px; }
+  .load-choice-price { font-size: .8125rem; }
+}

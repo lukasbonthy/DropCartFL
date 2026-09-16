@@ -1,0 +1,68 @@
+/* Fluid motion v2: Motion owns choreography; CSS owns polish. */
+.booking-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.booking-card-glow {
+  position: absolute;
+  z-index: 0;
+  inset: -1px;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 78% 7%, #dfffb94a 0, transparent 24%),
+    radial-gradient(circle at 10% 95%, #ecffd91f 0, transparent 28%);
+  opacity: .72;
+}
+.booking-card > :not(.booking-card-glow) { position: relative; z-index: 1; }
+.booking-header-icon { transform-origin: 50% 55%; box-shadow: inset 0 1px 0 #fff, 0 5px 14px #3153320c; }
+.booking-step { transition: color .22s ease; }
+.step-dot { position: relative; isolation: isolate; overflow: visible; }
+.booking-step.active .step-dot { color: #78806e; background: #edf1e7; box-shadow: none; transform: none; }
+.booking-step.complete .step-dot { color: #315332; background: #e5f0d8; }
+.booking-active-step { position: absolute; z-index: 0; inset: 0; border-radius: inherit; background: linear-gradient(145deg, #2a5236, #1c3e29); box-shadow: 0 5px 13px -7px #163d24aa, inset 0 1px 0 #ffffff1f; }
+.step-dot-content { position: relative; z-index: 1; display: grid; place-items: center; width: 100%; height: 100%; }
+.booking-step.current { color: #244229; font-weight: 700; }
+.booking-step.current .step-dot-content { color: #fff; }
+.booking-progress-track { position: relative; height: 4px; margin-bottom: 21px; overflow: hidden; border-radius: 99px; background: #edf1e7; }
+.booking-progress-indicator { position: absolute; inset: 0; transform-origin: 0 50%; border-radius: inherit; background: linear-gradient(90deg, #9bc75f, #c7ed8e); box-shadow: 0 0 14px #9ccd6355; }
+.booking-step-panel { transform-origin: 50% 12%; will-change: transform, opacity, filter; }
+.choice-card { isolation: isolate; overflow: hidden; }
+.choice-card[data-selected="true"] { color: #234323; background: #fdfefa; border-color: #a9cb74; box-shadow: 0 3px 8px #79a14b0b; }
+.choice-selection-surface { position: absolute; z-index: 0; inset: 2px; border-radius: 10px; background: linear-gradient(140deg, #e6fac4, #cef09a); box-shadow: inset 0 1px 0 #fbfff4, 0 4px 12px #7fa25014; }
+.choice-card > :not(.choice-selection-surface):not([data-slot="radio-group-item"]) { position: relative; z-index: 1; }
+.form-input, .form-textarea { transition: border-color .24s ease, box-shadow .3s cubic-bezier(.16, 1, .3, 1), background .24s ease, transform .3s cubic-bezier(.16, 1, .3, 1); }
+.form-input:focus, .form-textarea:focus { transform: translate3d(0, -1px, 0); background: #fff; }
+.submit-button, .pill-button, .brand-mark, .benefit > svg, .step-icon, .care-icon { backface-visibility: hidden; }
+.submit-button { transition: box-shadow .28s ease, background .28s ease; }
+.submit-button::before { transition: left .7s cubic-bezier(.16, 1, .3, 1); }
+.submit-button:hover::before { left: 115%; }
+.submit-button > svg:not(.animate-spin) { transition: transform .34s cubic-bezier(.16, 1, .3, 1), background .25s ease; }
+.submit-button:hover > svg:not(.animate-spin) { transform: translate3d(3px, 0, 0) rotate(-5deg); }
+.brand-mark { transition: transform .38s cubic-bezier(.16, 1, .3, 1), box-shadow .35s ease; }
+.brand:hover .brand-mark { transform: rotate(-3deg) translate3d(0, -2px, 0) scale(1.035); box-shadow: inset 0 2px 1px #ffffffa6, 0 8px 18px #233f1122; }
+.brand:hover .brand-mark svg { transform: rotate(3deg); }
+.nav-link { transition: color .22s ease, background .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s ease; }
+.nav-link:hover { box-shadow: 0 5px 16px -12px #15372599; }
+.benefit > svg, .step-icon, .care-icon { transition: transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s ease, background .3s ease; }
+.benefit:hover > svg { transform: rotate(-4deg) scale(1.045); box-shadow: 0 10px 20px -15px #435a3277; background: #f4f7ef; }
+.step-card:hover .step-icon { transform: translate3d(0, -2px, 0) rotate(-4deg) scale(1.04); box-shadow: inset 0 1px 0 #ffffffae, 0 10px 22px #2f4c2914; }
+.care-panel:hover .care-icon { transform: rotate(-3deg) scale(1.035); }
+.faq-section [data-slot="accordion-item"] { transition: border-color .28s ease, background .28s ease, box-shadow .32s cubic-bezier(.16, 1, .3, 1), transform .32s cubic-bezier(.16, 1, .3, 1); }
+.faq-section [data-slot="accordion-item"]:hover { transform: translate3d(0, -2px, 0); box-shadow: 0 10px 24px -20px #213d2d77; }
+.faq-section [data-slot="accordion-item"][data-state="open"] { box-shadow: 0 14px 32px -28px #1d3a2966; }
+.faq-section [data-slot="accordion-trigger"] > svg { transition: transform .42s cubic-bezier(.16, 1, .3, 1), background .28s ease; }
+.faq-section [data-slot="accordion-item"][data-state="open"] [data-slot="accordion-trigger"] > svg { background: #e3f1d0; }
+.faq-section [data-slot="accordion-content"] { animation-duration: .34s; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+.grocery-visual { transform-origin: 58% 68%; will-change: transform, opacity; }
+.hero-art { will-change: transform; }
+@media (hover: none), (pointer: coarse) {
+  .booking-card { transform-style: flat; will-change: auto; }
+  .faq-section [data-slot="accordion-item"]:hover { transform: none; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booking-card, .hero-art, .grocery-visual, .booking-step-panel { will-change: auto; }
+  .booking-card { transform-style: flat; }
+}
