@@ -3,7 +3,7 @@ services:
     name: dropcart-v26
     runtime: node
     buildCommand: rm -rf .runtime && mkdir -p .runtime && unzip -q dropcart-v26-render-ready.zip -d .runtime && cd .runtime && pnpm install --frozen-lockfile=false && pnpm build
-    startCommand: cd .runtime && pnpm start
+    startCommand: cd .runtime && node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 0.0.0.0 --port ${PORT:-10000}
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
