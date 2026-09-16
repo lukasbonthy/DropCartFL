@@ -2,11 +2,13 @@ services:
   - type: web
     name: dropcart
     runtime: node
-    buildCommand: pnpm install --frozen-lockfile=false && pnpm build
-    startCommand: pnpm start
+    buildCommand: rm -rf .runtime && mkdir -p .runtime && unzip -q dropcart-v26-render-ready.zip -d .runtime && node render-overlay/patch-v26-hero.mjs && cd .runtime && pnpm install --frozen-lockfile=false && pnpm build
+    startCommand: cd .runtime && node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 0.0.0.0 --port ${PORT:-10000}
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
         value: 22.13.0
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
