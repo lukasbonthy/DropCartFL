@@ -21,7 +21,7 @@ mkdirSync(scriptsDir, { recursive: true });
 const shimInstallerPath = join(scriptsDir, "install-render-entry-shim.mjs");
 writeFileSync(
   shimInstallerPath,
-  `import { writeFileSync } from "node:fs";\nimport { join } from "node:path";\nconst target = join(process.cwd(), "node_modules/wrangler/bin/wrangler.js");\nwriteFileSync(target, 'import "../../../scripts/render-express.mjs";\\n');\nconsole.log("Installed Render Express entry shim.");\n`,
+  `import { writeFileSync } from "node:fs";\nimport { join } from "node:path";\nconst target = join(process.cwd(), "node_modules/wrangler/bin/wrangler.js");\nwriteFileSync(target, 'import { join } from "node:path"; import { pathToFileURL } from "node:url"; await import(pathToFileURL(join(process.cwd(), "scripts/render-express.mjs")).href);\\n');\nconsole.log("Installed Render Express entry shim.");\n`,
 );
 
 const packagePath = join(runtimeRoot, "package.json");
