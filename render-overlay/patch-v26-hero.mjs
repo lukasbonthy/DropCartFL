@@ -35,7 +35,7 @@ writeFileSync(cssPath, `/* Desktop-only grocery-photo feathering for Dropcart V2
     pointer-events: none;
   }
 
-  .grocery-visual {
+  .hero-art .grocery-visual {
     position: relative;
     z-index: 1;
     object-position: 64% 48% !important;
