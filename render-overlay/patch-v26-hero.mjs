@@ -40,17 +40,21 @@ writeFileSync(cssPath, `/* Desktop-only grocery-photo feathering for Dropcart V2
     z-index: 1;
     object-position: 64% 48% !important;
     -webkit-mask-image:
-      linear-gradient(to bottom, transparent 0%, black 16%, black 100%),
+      linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%),
       linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     -webkit-mask-composite: source-in;
     mask-image:
-      linear-gradient(to bottom, transparent 0%, black 16%, black 100%),
+      linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%),
       linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     mask-composite: intersect;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
+  }
+
+  .hero-side-note {
+    display: none !important;
   }
 
   .booking-card {
