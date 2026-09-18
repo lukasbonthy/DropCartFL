@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -12,7 +13,12 @@ import {
 } from "lucide-react";
 import "../employee.css";
 
+function beginSmoothNavigation() {
+  window.dispatchEvent(new Event("dropcart:navigation-start"));
+}
+
 export default function EmployeeLoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -22,9 +28,14 @@ export default function EmployeeLoginPage() {
 
   useEffect(() => {
     fetch("/api/employee/dashboard", { cache: "no-store" })
-      .then((response) => { if (response.ok) window.location.replace("/employee"); })
+      .then((response) => {
+        if (response.ok) {
+          beginSmoothNavigation();
+          router.replace("/employee");
+        }
+      })
       .catch(() => undefined);
-  }, []);
+  }, [router]);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -46,7 +57,8 @@ export default function EmployeeLoginPage() {
         throw new Error("We couldn't sign you into the employee portal. Check your email and password.");
       }
 
-      window.location.assign(result?.redirectTo || "/employee");
+      beginSmoothNavigation();
+      router.push(result?.redirectTo || "/employee");
     } catch (caught) {
       setError(
         caught instanceof Error
