@@ -1,0 +1,186 @@
+/* Dropcart global interaction + route motion.
+   Keep it subtle: motion should preserve context, not call attention to itself. */
+
+@view-transition {
+  navigation: auto;
+}
+
+html,
+body {
+  background: var(--background, #f7f8f4);
+}
+
+.dropcart-page-shell {
+  min-height: 100dvh;
+  transform-origin: 50% 18%;
+}
+
+/* Same-origin document navigations: soft fade/rise instead of a white flash. */
+::view-transition-old(root) {
+  animation: 135ms cubic-bezier(.4, 0, 1, 1) both dropcart-page-out;
+}
+
+::view-transition-new(root) {
+  animation: 330ms cubic-bezier(.16, 1, .3, 1) both dropcart-page-in;
+}
+
+@keyframes dropcart-page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(.999);
+  }
+}
+
+@keyframes dropcart-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(9px) scale(.997);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Consistent press feedback without fighting Motion's transform values.
+   Individual transform longhands compose with existing transform animations. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+.pill-button,
+.submit-button,
+.pricing-book,
+.nav-link,
+.employee-primary,
+.employee-secondary,
+.employee-login-submit,
+.employee-refresh,
+.employee-icon-button,
+.employee-shift-toggle,
+.employee-tabs button,
+.employee-mobile-nav a,
+.employee-mobile-nav button,
+.mobile-app-dock a {
+  transition:
+    scale 160ms cubic-bezier(.16, 1, .3, 1),
+    translate 220ms cubic-bezier(.16, 1, .3, 1),
+    box-shadow 240ms cubic-bezier(.16, 1, .3, 1),
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+  transform-origin: 50% 55%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button:not(:disabled):hover,
+  [role="button"]:not([aria-disabled="true"]):hover,
+  .pill-button:hover,
+  .submit-button:hover,
+  .pricing-book:hover,
+  .employee-primary:hover,
+  .employee-secondary:hover,
+  .employee-login-submit:hover,
+  .employee-refresh:hover,
+  .employee-icon-button:hover {
+    translate: 0 -1px;
+  }
+}
+
+button:not(:disabled):active,
+[role="button"]:not([aria-disabled="true"]):active,
+.pill-button:active,
+.submit-button:active,
+.pricing-book:active,
+.nav-link:active,
+.employee-primary:active,
+.employee-secondary:active,
+.employee-login-submit:active,
+.employee-refresh:active,
+.employee-icon-button:active,
+.employee-shift-toggle:active,
+.employee-tabs button:active,
+.employee-mobile-nav a:active,
+.employee-mobile-nav button:active,
+.mobile-app-dock a:active {
+  scale: .982;
+  translate: 0 0;
+  transition-duration: 90ms;
+}
+
+/* Form focus and feedback should glide in instead of snapping. */
+input,
+textarea,
+select {
+  transition:
+    border-color 180ms ease,
+    box-shadow 240ms cubic-bezier(.16, 1, .3, 1),
+    background-color 180ms ease,
+    translate 220ms cubic-bezier(.16, 1, .3, 1);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  translate: 0 -1px;
+}
+
+[role="alert"] {
+  animation: dropcart-feedback-in 280ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes dropcart-feedback-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Pages often swap state after submit; keep loading/disabled buttons alive. */
+button:disabled,
+[aria-disabled="true"] {
+  transition: opacity 180ms ease, filter 180ms ease;
+}
+
+/* Mobile taps should feel app-like instead of browser-like. */
+@media (max-width: 640px) {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  .pill-button,
+  .submit-button,
+  .pricing-book,
+  .employee-primary,
+  .employee-secondary,
+  .employee-login-submit {
+    touch-action: manipulation;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  [role="alert"] {
+    animation: none !important;
+  }
+
+  .dropcart-page-shell {
+    transform: none !important;
+  }
+
+  button,
+  [role="button"],
+  a,
+  input,
+  textarea,
+  select {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
