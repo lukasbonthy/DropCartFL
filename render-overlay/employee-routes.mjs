@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { Pool } from "pg";
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 5 });
@@ -20,6 +21,13 @@ function requireEmployee(req, res, next) {
   next();
 }
 
+function secureEqual(left, right) {
+  const a = Buffer.from(String(left ?? ""), "utf8");
+  const b = Buffer.from(String(right ?? ""), "utf8");
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
+}
+
 function earningsCents(load, stairs) {
   return (load === "small" ? 1499 : load === "large" ? 2799 : 1999) + (stairs ? 500 : 0);
 }
@@ -30,6 +38,47 @@ function employeeName(req) {
 
 export function installEmployeeRoutes(app) {
   void ensureEmployeeTables().catch((error) => console.error("[employee] table setup failed", error));
+
+  app.post("/api/employee/login", (req, res) => {
+    const email = String(req.body?.email || "").trim().toLowerCase();
+    const password = String(req.body?.password || "");
+    const configuredEmail = String(process.env.TEST_EMPLOYEE_EMAIL || "").trim().toLowerCase();
+    const configuredPassword = String(process.env.TEST_EMPLOYEE_PASSWORD || "");
+
+    const valid =
+      configuredEmail &&
+      configuredPassword &&
+      allowedEmails().includes(configuredEmail) &&
+      secureEqual(email, configuredEmail) &&
+      secureEqual(password, configuredPassword);
+
+    if (!valid) {
+      return res.status(401).json({
+        ok: false,
+        error: "We couldn't sign you into the employee portal. Check your email and password.",
+      });
+    }
+
+    req.session.user = {
+      userId: `employee:${configuredEmail}`,
+      email: configuredEmail,
+      displayName: "Test Employee",
+    };
+    req.session.cookie.maxAge = req.body?.remember
+      ? 14 * 24 * 60 * 60 * 1000
+      : 12 * 60 * 60 * 1000;
+
+    req.session.save((error) => {
+      if (error) {
+        console.error("[employee] login session failed", error);
+        return res.status(500).json({
+          ok: false,
+          error: "Employee sign-in is temporarily unavailable.",
+        });
+      }
+      return res.json({ ok: true, redirectTo: "/employee" });
+    });
+  });
 
   app.get("/api/employee/dashboard", requireEmployee, async (req, res) => {
     try {
