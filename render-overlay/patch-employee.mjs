@@ -70,6 +70,39 @@ async function syncBookingToPostgres(data: BookingData, reference: string, statu
   writeFileSync(bookingStorePath, bookingStore);
 }
 
+
+const authPagePath = join(runtime, "components", "auth-page.tsx");
+let authPage = readFileSync(authPagePath, "utf8");
+if (!authPage.includes("Employee access</strong>")) {
+  const employeeLoginSection = `
+            {!signup && (
+              <a
+                href="/employee/login"
+                className="mt-3 flex min-h-14 items-center justify-between gap-3 rounded-2xl border border-[#dfe8e1] bg-[#f7faf7] px-4 py-3 no-underline transition hover:-translate-y-px hover:border-[#c9dbcd] hover:bg-[#f2f7f2]"
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-[#e4f1e6] text-[#155b36]">
+                    <ShieldCheck size={16} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <strong className="block text-xs font-semibold text-[#203026]">Employee access</strong>
+                    <span className="mt-0.5 block text-[11px] text-muted-foreground">Sign in to the staff portal</span>
+                  </span>
+                </span>
+                <ArrowRight size={16} className="shrink-0 text-[#698171]" aria-hidden="true" />
+              </a>
+            )}
+`;
+  const authSwitchEnd = `            </div>
+
+            <div className="auth-secure-line">`;
+  if (!authPage.includes(authSwitchEnd)) throw new Error("Could not find auth mode switch insertion point.");
+  authPage = authPage.replace(authSwitchEnd, `            </div>
+${employeeLoginSection}
+            <div className="auth-secure-line">`);
+  writeFileSync(authPagePath, authPage);
+}
+
 const serverPath = join(scriptsDir, "render-express.mjs");
 let server = readFileSync(serverPath, "utf8");
 if (!server.includes("employee-routes.mjs")) {
