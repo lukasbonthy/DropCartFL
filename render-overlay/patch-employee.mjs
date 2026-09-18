@@ -107,9 +107,16 @@ const serverPath = join(scriptsDir, "render-express.mjs");
 let server = readFileSync(serverPath, "utf8");
 if (!server.includes("employee-routes.mjs")) {
   server = 'import { installEmployeeRoutes } from "./employee-routes.mjs";\n' + server;
-  const marker = "app.listen(";
-  if (!server.includes(marker)) throw new Error("render-express.mjs does not contain app.listen()");
-  server = server.replace(marker, "installEmployeeRoutes(app);\n\n" + marker);
-  writeFileSync(serverPath, server);
 }
+server = server.replace(/\n?installEmployeeRoutes\(app\);\n?/g, "\n");
+const employeeRouteMarkers = [
+  'app.post("/api/auth/signup"',
+  "app.post('/api/auth/signup'",
+  'app.post("/api/auth/login"',
+  "app.post('/api/auth/login'",
+];
+const routeMarker = employeeRouteMarkers.find((candidate) => server.includes(candidate));
+if (!routeMarker) throw new Error("Could not find the auth route insertion point in render-express.mjs");
+server = server.replace(routeMarker, "installEmployeeRoutes(app);\n\n" + routeMarker);
+writeFileSync(serverPath, server);
 console.log("Installed Dropcart employee portal.");
