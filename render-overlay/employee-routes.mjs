@@ -1,7 +1,9 @@
 import { timingSafeEqual } from "node:crypto";
+import express from "express";
 import { Pool } from "pg";
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 5 });
+const employeeJson = express.json({ limit: "32kb" });
 
 async function ensureEmployeeTables() {
   await pool.query("CREATE TABLE IF NOT EXISTS employee_assignments (booking_id TEXT PRIMARY KEY, employee_email TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'accepted', accepted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
@@ -39,23 +41,45 @@ function employeeName(req) {
 export function installEmployeeRoutes(app) {
   void ensureEmployeeTables().catch((error) => console.error("[employee] table setup failed", error));
 
-  app.post("/api/employee/login", (req, res) => {
+  app.post("/api/employee/login", employeeJson, (req, res) => {
     const email = String(req.body?.email || "").trim().toLowerCase();
     const password = String(req.body?.password || "");
     const configuredEmail = String(process.env.TEST_EMPLOYEE_EMAIL || "").trim().toLowerCase();
     const configuredPassword = String(process.env.TEST_EMPLOYEE_PASSWORD || "");
 
+    const emailAllowed = Boolean(configuredEmail) && allowedEmails().includes(configuredEmail);
+    const emailMatches = Boolean(configuredEmail) && secureEqual(email, configuredEmail);
+    const passwordMatches = Boolean(configuredPassword) && secureEqual(password, configuredPassword);
+
     const valid =
       configuredEmail &&
       configuredPassword &&
-      allowedEmails().includes(configuredEmail) &&
-      secureEqual(email, configuredEmail) &&
-      secureEqual(password, configuredPassword);
+      emailAllowed &&
+      emailMatches &&
+      passwordMatches;
 
     if (!valid) {
+      console.warn("[employee] login rejected", {
+        bodyParsed: Boolean(req.body),
+        emailReceived: Boolean(email),
+        passwordReceived: Boolean(password),
+        configuredEmail: Boolean(configuredEmail),
+        configuredPassword: Boolean(configuredPassword),
+        emailAllowed,
+        emailMatches,
+        passwordMatches,
+      });
       return res.status(401).json({
         ok: false,
         error: "We couldn't sign you into the employee portal. Check your email and password.",
+      });
+    }
+
+    if (!req.session) {
+      console.error("[employee] login missing session middleware");
+      return res.status(500).json({
+        ok: false,
+        error: "Employee sign-in is temporarily unavailable.",
       });
     }
 
@@ -76,6 +100,7 @@ export function installEmployeeRoutes(app) {
           error: "Employee sign-in is temporarily unavailable.",
         });
       }
+      console.info("[employee] login succeeded");
       return res.json({ ok: true, redirectTo: "/employee" });
     });
   });
@@ -114,7 +139,7 @@ export function installEmployeeRoutes(app) {
     }
   });
 
-  app.post("/api/employee/availability", requireEmployee, async (req, res) => {
+  app.post("/api/employee/availability", employeeJson, requireEmployee, async (req, res) => {
     try {
       await ensureEmployeeTables();
       const online = Boolean(req.body?.online);
