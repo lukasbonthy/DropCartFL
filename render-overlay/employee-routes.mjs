@@ -41,6 +41,13 @@ function employeeName(req) {
 export function installEmployeeRoutes(app) {
   void ensureEmployeeTables().catch((error) => console.error("[employee] table setup failed", error));
 
+  app.get("/api/employee/access", (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    const email = String(req.session?.user?.email || "").trim().toLowerCase();
+    if (!email) return res.status(401).json({ authenticated: false, employee: false });
+    return res.json({ authenticated: true, employee: allowedEmails().includes(email) });
+  });
+
   app.post("/api/employee/login", employeeJson, (req, res) => {
     const email = String(req.body?.email || "").trim().toLowerCase();
     const password = String(req.body?.password || "");
