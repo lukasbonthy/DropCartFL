@@ -12,12 +12,16 @@ import {
   Clock3,
   ExternalLink,
   MapPin,
+  MessageCircle,
   Navigation,
+  KeyRound,
+  LocateFixed,
   PackageCheck,
   Phone,
   Power,
   RefreshCw,
   Route,
+  Send,
   ShoppingBag,
   Sparkles,
   UserRound,
@@ -41,6 +45,7 @@ type Job = {
   groceryLoad: string;
   stairs: boolean;
   notes: string;
+  codeWord: string;
   assignmentStatus: string | null;
   earningsCents: number;
 };
@@ -57,6 +62,14 @@ type NotificationSettings = {
   smsEnabled: boolean;
   callEnabled: boolean;
   providerConfigured: boolean;
+};
+
+type DriverMessage = {
+  id: number;
+  senderRole: "customer" | "employee";
+  senderLabel: string;
+  body: string;
+  createdAt: number;
 };
 
 const money = (cents: number) => "$" + (cents / 100).toFixed(2);
@@ -99,6 +112,13 @@ export default function EmployeePage() {
   const [browserAlerts, setBrowserAlerts] = useState(false);
   const seenOpenJobs = useRef<Set<string> | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
+  const [trackingEnabled, setTrackingEnabled] = useState(false);
+  const [trackingError, setTrackingError] = useState("");
+  const trackingWatch = useRef<number | null>(null);
+  const lastLocationSent = useRef(0);
+  const [driverMessages, setDriverMessages] = useState<DriverMessage[]>([]);
+  const [driverMessage, setDriverMessage] = useState("");
+  const [driverMessageBusy, setDriverMessageBusy] = useState(false);
 
   async function playUrgentChime() {
     try {
@@ -248,6 +268,95 @@ export default function EmployeePage() {
     return () => window.clearInterval(poll);
   }, []);
 
+  async function postDriverLocation(jobId: string, position: GeolocationPosition) {
+    const now = Date.now();
+    if (now - lastLocationSent.current < 4500) return;
+    lastLocationSent.current = now;
+
+    const response = await fetch("/api/employee/jobs/" + encodeURIComponent(jobId) + "/location", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+        heading: position.coords.heading,
+        speed: position.coords.speed,
+      }),
+    });
+
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      throw new Error(body?.error || "We couldn't update live location.");
+    }
+  }
+
+  function stopDriverTracking() {
+    if (trackingWatch.current !== null && "geolocation" in navigator) {
+      navigator.geolocation.clearWatch(trackingWatch.current);
+    }
+    trackingWatch.current = null;
+    setTrackingEnabled(false);
+    setTrackingError("");
+  }
+
+  async function startDriverTracking() {
+    if (!activeJob) return;
+    if (!("geolocation" in navigator)) {
+      setTrackingError("This browser doesn't support live location.");
+      return;
+    }
+
+    setTrackingError("");
+    lastLocationSent.current = 0;
+
+    trackingWatch.current = navigator.geolocation.watchPosition(
+      (position) => {
+        setTrackingEnabled(true);
+        void postDriverLocation(activeJob.id, position).catch((caught) => {
+          setTrackingError(caught instanceof Error ? caught.message : "Live location could not be updated.");
+        });
+      },
+      (geoError) => {
+        setTrackingEnabled(false);
+        setTrackingError(
+          geoError.code === geoError.PERMISSION_DENIED
+            ? "Location permission is off. Allow Dropcart to use your location, then try again."
+            : "We couldn't get your current location.",
+        );
+      },
+      { enableHighAccuracy: true, maximumAge: 3000, timeout: 12000 },
+    );
+  }
+
+  async function loadDriverMessages(jobId: string) {
+    const response = await fetch("/api/employee/jobs/" + encodeURIComponent(jobId) + "/messages", { cache: "no-store" });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(body?.error || "We couldn't load customer messages.");
+    setDriverMessages(Array.isArray(body.messages) ? body.messages : []);
+  }
+
+  async function sendDriverMessage() {
+    if (!activeJob || !driverMessage.trim() || driverMessageBusy) return;
+    setDriverMessageBusy(true);
+    setError("");
+    try {
+      const response = await fetch("/api/employee/jobs/" + encodeURIComponent(activeJob.id) + "/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body: driverMessage.trim() }),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body?.error || "We couldn't send that message.");
+      setDriverMessage("");
+      await loadDriverMessages(activeJob.id);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "We couldn't send that message.");
+    } finally {
+      setDriverMessageBusy(false);
+    }
+  }
+
   async function setOnline(online: boolean) {
     setChangingShift(true);
     setError("");
@@ -294,6 +403,33 @@ export default function EmployeePage() {
     ) || null,
     [data],
   );
+
+  useEffect(() => {
+    if (!activeJob) {
+      setDriverMessages([]);
+      if (trackingWatch.current !== null && "geolocation" in navigator) {
+        navigator.geolocation.clearWatch(trackingWatch.current);
+        trackingWatch.current = null;
+      }
+      setTrackingEnabled(false);
+      return;
+    }
+
+    void loadDriverMessages(activeJob.id).catch(() => undefined);
+    const messagePoll = window.setInterval(() => {
+      void loadDriverMessages(activeJob.id).catch(() => undefined);
+    }, 5000);
+
+    return () => window.clearInterval(messagePoll);
+  }, [activeJob?.id]);
+
+  useEffect(() => {
+    return () => {
+      if (trackingWatch.current !== null && "geolocation" in navigator) {
+        navigator.geolocation.clearWatch(trackingWatch.current);
+      }
+    };
+  }, []);
 
   const visibleJobs = useMemo(() => {
     if (!data) return [];
@@ -524,6 +660,68 @@ export default function EmployeePage() {
                   <a className="employee-secondary employee-secondary-large" href={"tel:" + activeJob.phone}>
                     <Phone size={17} /> Call
                   </a>
+                  <button
+                    type="button"
+                    className={`employee-secondary employee-secondary-large ${trackingEnabled ? "employee-tracking-on" : ""}`}
+                    onClick={trackingEnabled ? stopDriverTracking : startDriverTracking}
+                  >
+                    <LocateFixed size={17} /> {trackingEnabled ? "Stop live tracking" : "Share live location"}
+                  </button>
+                </div>
+
+                {trackingError && <div className="employee-tracking-error" role="alert">{trackingError}</div>}
+
+                {activeJob.codeWord && (
+                  <div className="employee-safety-code">
+                    <span><KeyRound size={18} /></span>
+                    <div>
+                      <small>Customer safety code</small>
+                      <strong>{activeJob.codeWord}</strong>
+                      <p>Say this exact code word when the customer asks. Do not send it in chat first.</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="employee-driver-chat">
+                  <div className="employee-driver-chat-head">
+                    <div>
+                      <small>Direct messages</small>
+                      <strong>Chat with {activeJob.customerName.split(" ")[0]}</strong>
+                    </div>
+                    <MessageCircle size={18} />
+                  </div>
+
+                  <div className="employee-driver-messages">
+                    {driverMessages.length === 0 ? (
+                      <div className="employee-driver-message-empty">No messages yet.</div>
+                    ) : (
+                      driverMessages.map((item) => (
+                        <div key={item.id} className={`employee-driver-message ${item.senderRole === "employee" ? "mine" : "customer"}`}>
+                          <div><strong>{item.senderRole === "employee" ? "You" : activeJob.customerName.split(" ")[0]}</strong><time>{formatTime(item.createdAt)}</time></div>
+                          <p>{item.body}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  <div className="employee-driver-compose">
+                    <input
+                      value={driverMessage}
+                      onChange={(event) => setDriverMessage(event.target.value)}
+                      maxLength={1000}
+                      placeholder="Message the customer…"
+                      aria-label="Message the customer"
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" && !event.shiftKey) {
+                          event.preventDefault();
+                          void sendDriverMessage();
+                        }
+                      }}
+                    />
+                    <button type="button" onClick={() => void sendDriverMessage()} disabled={!driverMessage.trim() || driverMessageBusy}>
+                      <Send size={16} /> {driverMessageBusy ? "Sending…" : "Send"}
+                    </button>
+                  </div>
                 </div>
               </div>
             </article>
