@@ -101,11 +101,15 @@ async function ensureTables(pool: PgPool) {
       stairs BOOLEAN NOT NULL DEFAULT FALSE,
       notes TEXT NOT NULL DEFAULT '',
       contact_consent BOOLEAN NOT NULL DEFAULT FALSE,
+      code_word TEXT NOT NULL DEFAULT '',
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
   await pool.query(
     "ALTER TABLE dropcart_bookings ADD COLUMN IF NOT EXISTS contact_consent BOOLEAN NOT NULL DEFAULT FALSE",
+  );
+  await pool.query(
+    "ALTER TABLE dropcart_bookings ADD COLUMN IF NOT EXISTS code_word TEXT NOT NULL DEFAULT ''",
   );
   await pool.query(`
     CREATE TABLE IF NOT EXISTS employee_notification_settings (
@@ -132,8 +136,8 @@ export async function syncBookingToPostgresAndNotify(
 
     await pool.query(
       `INSERT INTO dropcart_bookings
-        (id, reference, created_at, arrival_at, eta_minutes, status, customer_name, phone, address, city, state, zip, grocery_load, stairs, notes, contact_consent, updated_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,NOW())
+        (id, reference, created_at, arrival_at, eta_minutes, status, customer_name, phone, address, city, state, zip, grocery_load, stairs, notes, contact_consent, code_word, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,NOW())
        ON CONFLICT (id) DO UPDATE SET
          reference=EXCLUDED.reference,
          arrival_at=EXCLUDED.arrival_at,
@@ -149,6 +153,7 @@ export async function syncBookingToPostgresAndNotify(
          stairs=EXCLUDED.stairs,
          notes=EXCLUDED.notes,
          contact_consent=EXCLUDED.contact_consent,
+         code_word=EXCLUDED.code_word,
          updated_at=NOW()`,
       [
         data.requestId,
@@ -167,6 +172,7 @@ export async function syncBookingToPostgresAndNotify(
         data.stairs,
         data.notes,
         Boolean(data.consent),
+        data.codeWord || "",
       ],
     );
 
