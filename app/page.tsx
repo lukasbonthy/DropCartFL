@@ -40,7 +40,6 @@ export default function Home() {
 
   return (
     <>
-      <a href="#book" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:rounded-xl focus:bg-white focus:p-4">Skip to booking</a>
       <motion.header className="topbar shell" initial={reduceMotion ? false : { opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
         <a href="/" className="brand" aria-label="Dropcart home"><Brand /></a>
         <nav aria-label="Main navigation" className="nav-capsule">
