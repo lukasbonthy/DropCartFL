@@ -53,8 +53,8 @@ export function PageTransition({ children }: { children: ReactNode }) {
     fallbackTimer.current = window.setTimeout(() => setPending(false), 10000);
   }, []);
 
-  // Login and signup are a paired flow, so warm the opposite screen immediately.
-  // The switch then feels like changing a panel instead of loading a new document.
+  // Login and signup are one flow. Warm the opposite route immediately so the
+  // browser never needs a full-document navigation just to change auth mode.
   useEffect(() => {
     if (pathname !== "/login" && pathname !== "/signup") return;
     const target = pathname === "/login" ? "/signup" : "/login";
@@ -67,7 +67,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
     if (previousPath.current !== pathname) {
       previousPath.current = pathname;
       const authSwap = navigationKind === "auth-forward" || navigationKind === "auth-backward";
-      finishNavigation(reduceMotion ? 0 : authSwap ? 320 : 170);
+      finishNavigation(reduceMotion ? 0 : authSwap ? 230 : 150);
     }
   }, [pathname, navigationKind, reduceMotion, finishNavigation]);
 
@@ -108,22 +108,20 @@ export function PageTransition({ children }: { children: ReactNode }) {
       const current = new URL(window.location.href);
       const samePath = url.pathname === current.pathname;
       const sameSearch = url.search === current.search;
-
-      // Hash-only jumps should keep their native smooth scroll.
       if (samePath && sameSearch) return;
 
       const kind = authNavigationKind(current.pathname, url.pathname);
       beginNavigation(kind);
 
-      // Raw anchors become client navigations so login/signup never hard-refresh
-      // the document or restart font loading.
+      // Upgrade plain same-origin anchors to client routing. This is the key
+      // part that prevents the white "new website" document reload flash.
       if (!event.defaultPrevented) {
         event.preventDefault();
         router.push(url.pathname + url.search + url.hash);
       }
 
       if (samePath && !sameSearch) {
-        window.setTimeout(() => finishNavigation(reduceMotion ? 0 : 280), 30);
+        window.setTimeout(() => finishNavigation(reduceMotion ? 0 : 240), 30);
       }
     }
 
@@ -172,39 +170,41 @@ export function PageTransition({ children }: { children: ReactNode }) {
     <>
       <div className="dropcart-page-shell">{children}</div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {pending && !reduceMotion && authSwap ? (
           <motion.div
             key="dropcart-auth-swap"
             className="dropcart-auth-transition"
-            initial={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.13, ease: smoothEase }}
             aria-hidden="true"
           >
             <motion.div
-              className="dropcart-auth-wipe"
-              initial={{ x: authDirection > 0 ? "104%" : "-104%" }}
-              animate={{ x: "0%" }}
-              exit={{ x: authDirection > 0 ? "-104%" : "104%" }}
-              transition={{ duration: 0.24, ease: smoothEase }}
-            >
-              <motion.div
-                className="dropcart-auth-wipe-glow"
-                initial={{ opacity: 0.15 }}
-                animate={{ opacity: 0.7 }}
-                exit={{ opacity: 0.1 }}
-                transition={{ duration: 0.2, ease: smoothEase }}
-              />
-            </motion.div>
-
-            <motion.div
-              className="dropcart-auth-sheen"
-              initial={{ x: authDirection > 0 ? "115vw" : "-115vw", opacity: 0 }}
-              animate={{ x: 0, opacity: 0.9 }}
-              exit={{ x: authDirection > 0 ? "-115vw" : "115vw", opacity: 0 }}
-              transition={{ duration: 0.3, ease: smoothEase }}
+              className="dropcart-auth-tint"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: smoothEase }}
             />
+            <motion.div
+              className="dropcart-auth-ribbon"
+              initial={{
+                x: authDirection > 0 ? "112vw" : "-112vw",
+                rotate: authDirection > 0 ? 5 : -5,
+                opacity: 0,
+              }}
+              animate={{ x: 0, rotate: 0, opacity: 1 }}
+              exit={{
+                x: authDirection > 0 ? "-112vw" : "112vw",
+                rotate: authDirection > 0 ? -4 : 4,
+                opacity: 0,
+              }}
+              transition={{ duration: 0.28, ease: smoothEase }}
+            >
+              <span />
+            </motion.div>
           </motion.div>
         ) : pending && !reduceMotion ? (
           <motion.div
@@ -213,7 +213,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.16, ease: smoothEase }}
+            transition={{ duration: 0.13, ease: smoothEase }}
             aria-hidden="true"
           >
             <motion.div
@@ -221,24 +221,24 @@ export function PageTransition({ children }: { children: ReactNode }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.18, ease: smoothEase }}
+              transition={{ duration: 0.15, ease: smoothEase }}
             />
             <div className="dropcart-route-track">
               <motion.div
                 className="dropcart-route-progress"
-                initial={{ scaleX: 0.04, opacity: 0 }}
-                animate={{ scaleX: 0.84, opacity: 1 }}
+                initial={{ scaleX: 0.05, opacity: 0 }}
+                animate={{ scaleX: 0.86, opacity: 1 }}
                 exit={{ scaleX: 1, opacity: 0 }}
                 transition={{
-                  scaleX: { duration: 1.45, ease: smoothEase },
-                  opacity: { duration: 0.14 },
+                  scaleX: { duration: 1.2, ease: smoothEase },
+                  opacity: { duration: 0.12 },
                 }}
               />
               <motion.div
                 className="dropcart-route-sheen"
                 initial={{ x: "-140%" }}
                 animate={{ x: "170%" }}
-                transition={{ duration: 0.9, ease: "easeInOut", repeat: Infinity }}
+                transition={{ duration: 0.85, ease: "easeInOut", repeat: Infinity }}
               />
             </div>
           </motion.div>
