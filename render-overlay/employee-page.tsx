@@ -160,7 +160,7 @@ export default function EmployeePage() {
           <p className="employee-eyebrow">Employee portal</p>
           <h1>Employee access is required.</h1>
           <p>{error}</p>
-          <a className="employee-primary" href="/account">Go to my account <ArrowUpRight size={17} /></a>
+          <a className="employee-primary" href="/employee/login">Employee sign in <ArrowUpRight size={17} /></a>
         </div>
       </main>
     );
