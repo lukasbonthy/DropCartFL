@@ -17,3 +17,6 @@ await import(`${pathToFileURL(join(overlayDir, "patch-express-auth.mjs")).href}?
 
 // The active Render service still uses this legacy launcher, so include the employee portal here too.
 await import(`${pathToFileURL(join(overlayDir, "patch-employee.mjs")).href}?employee=${Date.now()}`);
+
+// Apply global button/state/page transition polish after auth and employee overlays.
+await import(`${pathToFileURL(join(overlayDir, "patch-smooth-flow.mjs")).href}?motion=${Date.now()}`);
