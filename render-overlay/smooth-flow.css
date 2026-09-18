@@ -1,10 +1,19 @@
 /* Dropcart interaction + route motion.
-   One navigation system only: no full-page scaling/snapshot transitions.
-   Page-owned text/hero animations remain untouched. */
+   Navigation overlays never transform the live page, keeping fonts crisp. */
+
+:root {
+  --dropcart-page-bg: #f5f8f3;
+}
+
+html,
+body,
+.dropcart-page-shell {
+  background-color: var(--background, var(--dropcart-page-bg));
+}
 
 html,
 body {
-  background: var(--background, #f7f8f4);
+  min-height: 100%;
 }
 
 html {
@@ -15,9 +24,9 @@ html {
   min-height: 100dvh;
 }
 
-/* Login <-> signup is intentionally its own transition. The moving surface
-   covers the swap while the live auth DOM stays untransformed underneath,
-   so text stays crisp and page-owned type animations are not overwritten. */
+/* Login <-> signup:
+   No opaque white wipe. The existing screen remains visible while a translucent
+   green ribbon crosses it, hiding the content swap without looking like a reload. */
 .dropcart-auth-transition {
   position: fixed;
   inset: 0;
@@ -27,64 +36,47 @@ html {
   contain: layout paint;
 }
 
-.dropcart-auth-wipe {
-  position: absolute;
-  inset: -4%;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 30%, rgb(237 247 233 / 0.96), transparent 48%),
-    linear-gradient(135deg, #f8faf6 0%, #f3f7f1 48%, #eef5ed 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.92),
-    0 0 80px rgb(31 94 57 / 0.08);
-}
-
-.dropcart-auth-wipe::before {
-  content: "";
+.dropcart-auth-tint {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.74) 48%, transparent 66%),
-    radial-gradient(circle at 66% 40%, rgb(183 222 131 / 0.16), transparent 30%);
-  opacity: 0.8;
+    radial-gradient(circle at 50% 36%, rgb(206 235 198 / 0.16), transparent 48%),
+    rgb(239 247 237 / 0.08);
+  backdrop-filter: saturate(1.03);
 }
 
-.dropcart-auth-wipe-glow {
+.dropcart-auth-ribbon {
   position: absolute;
-  inset: 0 auto 0 50%;
-  width: min(28vw, 330px);
-  translate: -50% 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgb(80 149 87 / 0.10),
-    rgb(255 255 255 / 0.82),
-    rgb(80 149 87 / 0.10),
-    transparent
-  );
-  filter: blur(18px);
-}
-
-.dropcart-auth-sheen {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(50% - 1px);
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    transparent 4%,
-    rgb(100 171 101 / 0.18) 24%,
-    rgb(255 255 255 / 0.96) 50%,
-    rgb(100 171 101 / 0.18) 76%,
-    transparent 96%
-  );
+  top: -10vh;
+  bottom: -10vh;
+  left: calc(50% - min(21vw, 260px));
+  width: min(42vw, 520px);
+  overflow: hidden;
+  border-inline: 1px solid rgb(84 145 87 / 0.08);
+  background:
+    linear-gradient(
+      100deg,
+      rgb(231 245 225 / 0.02) 0%,
+      rgb(207 235 196 / 0.26) 28%,
+      rgb(246 251 243 / 0.52) 50%,
+      rgb(207 235 196 / 0.26) 72%,
+      rgb(231 245 225 / 0.02) 100%
+    );
   box-shadow:
-    0 0 22px rgb(83 155 91 / 0.22),
-    0 0 54px rgb(255 255 255 / 0.75);
+    0 0 38px rgb(68 139 73 / 0.08),
+    inset 0 0 44px rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(2px);
 }
 
-/* Generic route feedback sits above the live DOM instead of transforming it. */
+.dropcart-auth-ribbon > span {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0.58) 49%, transparent 63%),
+    radial-gradient(circle at 50% 42%, rgb(135 193 117 / 0.16), transparent 38%);
+}
+
+/* Generic route feedback is translucent, not a page-covering flash. */
 .dropcart-route-layer {
   position: fixed;
   inset: 0;
@@ -98,8 +90,8 @@ html {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% -18%, rgb(223 242 220 / 0.34), transparent 43%),
-    linear-gradient(180deg, rgb(247 250 246 / 0.16), rgb(247 250 246 / 0.05));
+    radial-gradient(circle at 50% -18%, rgb(223 242 220 / 0.22), transparent 43%),
+    linear-gradient(180deg, rgb(247 250 246 / 0.07), transparent 58%);
 }
 
 .dropcart-route-track {
@@ -107,8 +99,8 @@ html {
   inset: 0 0 auto;
   height: 3px;
   overflow: hidden;
-  background: rgb(29 92 58 / 0.055);
-  box-shadow: 0 1px 0 rgb(255 255 255 / 0.55);
+  background: rgb(29 92 58 / 0.045);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.32);
 }
 
 .dropcart-route-progress {
@@ -130,17 +122,83 @@ html {
   bottom: -2px;
   left: 0;
   width: 34%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgb(255 255 255 / 0.82),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.82), transparent);
   filter: blur(0.3px);
 }
 
 html.dropcart-route-pending {
   cursor: progress;
+}
+
+/* Employee shortcut shown only after /api/employee/access confirms the account. */
+.dropcart-account-employee-shortcut {
+  position: fixed;
+  z-index: 80;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 10px 8px 9px;
+  border: 1px solid rgb(39 103 64 / 0.13);
+  border-radius: 16px;
+  color: #173f29;
+  background: rgb(250 253 249 / 0.92);
+  box-shadow: 0 12px 34px -22px rgb(23 63 41 / 0.42), inset 0 1px 0 #fff;
+  backdrop-filter: blur(18px) saturate(1.08);
+  text-decoration: none;
+  font: inherit;
+  opacity: 0;
+  transform: translateY(-7px) scale(.985);
+  animation: dropcart-employee-shortcut-in 360ms cubic-bezier(.16, 1, .3, 1) 80ms forwards;
+}
+
+.dropcart-account-employee-shortcut:hover {
+  translate: 0 -1px;
+  border-color: rgb(39 103 64 / 0.22);
+  box-shadow: 0 16px 36px -22px rgb(23 63 41 / 0.5), inset 0 1px 0 #fff;
+}
+
+.dropcart-account-employee-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 11px;
+  color: white;
+  background: linear-gradient(145deg, #23613d, #12482d);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), 0 7px 16px -10px #164c30;
+}
+
+.dropcart-account-employee-copy {
+  display: grid;
+  line-height: 1.08;
+}
+
+.dropcart-account-employee-copy strong {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.dropcart-account-employee-copy small {
+  margin-top: 3px;
+  color: #6d7e72;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.dropcart-account-employee-arrow {
+  margin-left: 2px;
+  color: #65806c;
+}
+
+@keyframes dropcart-employee-shortcut-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 button:not(:disabled),
@@ -258,8 +316,21 @@ button:disabled,
     height: 2.5px;
   }
 
-  .dropcart-auth-wipe-glow {
-    width: 46vw;
+  .dropcart-auth-ribbon {
+    left: 17vw;
+    width: 66vw;
+  }
+
+  .dropcart-account-employee-shortcut {
+    top: auto;
+    right: 14px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+    min-height: 42px;
+    border-radius: 15px;
+  }
+
+  .dropcart-account-employee-copy small {
+    display: none;
   }
 }
 
@@ -271,6 +342,12 @@ button:disabled,
   .dropcart-route-layer,
   .dropcart-auth-transition {
     display: none !important;
+  }
+
+  .dropcart-account-employee-shortcut {
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 
   [role="alert"] {
