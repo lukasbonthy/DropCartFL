@@ -9,6 +9,21 @@ const scriptsDir = join(runtime, "scripts");
 mkdirSync(appDir, { recursive: true });
 mkdirSync(loginDir, { recursive: true });
 mkdirSync(scriptsDir, { recursive: true });
+mkdirSync(join(runtime, "public"), { recursive: true });
+
+writeFileSync(
+  join(runtime, "public", "employee-alert-sw.js"),
+  `self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((windows) => {
+      const existing = windows.find((client) => client.url.includes("/employee"));
+      if (existing) return existing.focus();
+      return clients.openWindow("/employee");
+    }),
+  );
+});\n`,
+);
 
 copyFileSync(join(root, "render-overlay", "employee-page.tsx"), join(appDir, "page.tsx"));
 copyFileSync(join(root, "render-overlay", "employee-login-page.tsx"), join(loginDir, "page.tsx"));
