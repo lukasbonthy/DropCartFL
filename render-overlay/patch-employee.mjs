@@ -4,11 +4,14 @@ import { join } from "node:path";
 const root = process.cwd();
 const runtime = join(root, ".runtime");
 const appDir = join(runtime, "app", "employee");
+const loginDir = join(runtime, "app", "employee", "login");
 const scriptsDir = join(runtime, "scripts");
 mkdirSync(appDir, { recursive: true });
+mkdirSync(loginDir, { recursive: true });
 mkdirSync(scriptsDir, { recursive: true });
 
 copyFileSync(join(root, "render-overlay", "employee-page.tsx"), join(appDir, "page.tsx"));
+copyFileSync(join(root, "render-overlay", "employee-login-page.tsx"), join(loginDir, "page.tsx"));
 copyFileSync(join(root, "render-overlay", "employee.css"), join(appDir, "employee.css"));
 copyFileSync(join(root, "render-overlay", "employee-routes.mjs"), join(scriptsDir, "employee-routes.mjs"));
 
