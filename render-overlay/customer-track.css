@@ -1,0 +1,85 @@
+.track-page {
+  min-height: 100dvh;
+  padding: 24px 18px 72px;
+  color: #203026;
+  background:
+    radial-gradient(circle at 20% -10%, rgba(211, 236, 205, .7), transparent 34%),
+    linear-gradient(180deg, #f8faf6, #f2f6f1 72%);
+}
+.track-shell { width: min(1120px, 100%); margin: 0 auto; }
+.track-topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px; }
+.track-brand { display:inline-flex; align-items:center; gap:9px; color:#1d4c31; text-decoration:none; font-size:19px; letter-spacing:-.03em; }
+.track-brand > span { display:grid; place-items:center; width:34px; height:34px; border-radius:12px; color:#fff; background:linear-gradient(145deg,#276a42,#164d30); box-shadow:inset 0 1px 0 rgba(255,255,255,.2); }
+.track-refresh,.track-back { display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 13px; border:1px solid #dbe6dc; border-radius:13px; color:#3c5143; background:rgba(255,255,255,.82); text-decoration:none; font:inherit; font-size:12px; font-weight:750; box-shadow:inset 0 1px 0 #fff; }
+.track-refresh { cursor:pointer; }
+.track-refresh:disabled { opacity:.58; cursor:wait; }
+.track-hero { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; padding:26px; border:1px solid #dce7de; border-radius:26px; background:rgba(255,255,255,.88); box-shadow:0 28px 80px -58px rgba(26,74,43,.48),inset 0 1px 0 #fff; }
+.track-eyebrow { margin:0 0 7px; color:#63806c; font-size:10px; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
+.track-hero h1,.track-section-heading h2,.track-safety-card h2,.track-state-card h1 { margin:0; letter-spacing:-.035em; }
+.track-hero h1 { font-size:clamp(28px,4vw,46px); font-weight:650; }
+.track-hero > div > p:last-child { margin:8px 0 0; color:#758278; font-size:13px; }
+.track-status,.track-live,.track-stale { display:inline-flex; align-items:center; gap:7px; white-space:nowrap; color:#326245; background:#edf7ee; border:1px solid #cfe2d2; border-radius:999px; padding:8px 11px; font-size:10px; font-weight:800; }
+.track-status i,.track-live i,.track-stale i { width:7px; height:7px; border-radius:50%; background:#2d9b58; box-shadow:0 0 0 4px rgba(45,155,88,.1); }
+.track-stale { color:#7b6b43; background:#faf6ea; border-color:#ece0bd; }
+.track-stale i { background:#b18a2e; box-shadow:none; }
+.track-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(280px,.65fr); gap:18px; margin-top:18px; }
+.track-map-card,.track-info-card,.track-safety-card,.track-chat-card,.track-state-card { border:1px solid #dce7de; background:rgba(255,255,255,.9); box-shadow:0 24px 64px -52px rgba(28,74,44,.46),inset 0 1px 0 #fff; }
+.track-map-card { padding:18px; border-radius:24px; }
+.track-section-heading { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:14px; }
+.track-section-heading h2 { font-size:19px; }
+.track-map-frame { position:relative; overflow:hidden; height:360px; border-radius:19px; border:1px solid #dce7de; background:#eaf1e9; }
+.track-map-frame iframe { width:100%; height:100%; border:0; }
+.track-map-badge { position:absolute; left:12px; bottom:12px; display:inline-flex; align-items:center; gap:7px; padding:8px 10px; border:1px solid rgba(255,255,255,.8); border-radius:12px; color:#294435; background:rgba(250,253,249,.9); backdrop-filter:blur(12px); font-size:10px; font-weight:750; box-shadow:0 12px 30px -22px rgba(18,55,32,.6); }
+.track-map-note { margin:10px 2px 0; color:#7a887e; font-size:10px; line-height:1.5; }
+.track-map-empty { min-height:300px; display:grid; place-items:center; align-content:center; text-align:center; padding:30px; border:1px dashed #ccdccc; border-radius:19px; color:#587063; background:linear-gradient(180deg,#f7faf6,#f2f7f1); }
+.track-map-empty strong { margin-top:10px; font-size:14px; }
+.track-map-empty p { max-width:390px; margin:6px 0 0; color:#819086; font-size:11px; line-height:1.55; }
+.track-side { display:grid; align-content:start; gap:14px; }
+.track-info-card { display:flex; align-items:center; gap:12px; padding:16px; border-radius:19px; }
+.track-info-icon { display:grid; place-items:center; width:38px; height:38px; border-radius:13px; color:#1f633d; background:#e9f4e9; }
+.track-info-card span { display:block; color:#829087; font-size:10px; }
+.track-info-card strong { display:block; margin-top:2px; font-size:15px; }
+.track-safety-card { padding:18px; border-radius:22px; background:linear-gradient(150deg,rgba(239,248,235,.96),rgba(255,255,255,.94)); }
+.track-safety-title { display:flex; align-items:center; gap:10px; }
+.track-safety-title > span { display:grid; place-items:center; width:38px; height:38px; border-radius:13px; color:#fff; background:linear-gradient(145deg,#2c6e46,#164d30); }
+.track-safety-card h2 { font-size:18px; }
+.track-code-word { margin:16px 0 11px; padding:16px; border:1px solid #cfe1d1; border-radius:16px; color:#17462c; background:rgba(255,255,255,.82); font-size:22px; font-weight:850; letter-spacing:.02em; text-align:center; box-shadow:inset 0 1px 0 #fff; }
+.track-safety-card > p { margin:10px 0 0; color:#6f8074; font-size:11px; line-height:1.55; }
+.track-chat-card { margin-top:18px; padding:18px; border-radius:24px; }
+.track-messages { display:flex; flex-direction:column; gap:10px; max-height:390px; overflow:auto; padding:14px; border:1px solid #e0e8e1; border-radius:18px; background:#f8faf7; }
+.track-message { max-width:min(78%,580px); padding:10px 12px; border-radius:15px; border:1px solid #dce5dd; background:#fff; }
+.track-message.mine { align-self:flex-end; color:#fff; border-color:#225c39; background:linear-gradient(145deg,#286a43,#185233); }
+.track-message.driver { align-self:flex-start; }
+.track-message > div { display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.track-message strong,.track-message time { font-size:9px; }
+.track-message time { opacity:.65; }
+.track-message p { margin:5px 0 0; font-size:12px; line-height:1.5; }
+.track-message-empty { display:grid; place-items:center; padding:34px 18px; text-align:center; color:#75857a; }
+.track-message-empty strong { margin-top:8px; color:#3e5144; font-size:13px; }
+.track-message-empty p { margin:5px 0 0; font-size:11px; }
+.track-compose { display:grid; grid-template-columns:1fr auto; gap:9px; margin-top:10px; }
+.track-compose input { min-width:0; min-height:46px; padding:0 14px; border:1px solid #dce6dd; border-radius:14px; outline:none; background:#fff; font:inherit; font-size:13px; }
+.track-compose input:focus { border-color:#8cb897; box-shadow:0 0 0 4px rgba(65,133,79,.09); }
+.track-compose button { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:0 17px; border:0; border-radius:14px; color:#fff; background:linear-gradient(145deg,#286a43,#164d30); font:inherit; font-size:12px; font-weight:800; cursor:pointer; }
+.track-compose button:disabled { opacity:.48; cursor:not-allowed; }
+.track-security-note { display:flex; align-items:center; gap:7px; margin-top:10px; color:#7b897e; font-size:10px; }
+.track-error { margin-bottom:14px; padding:12px 14px; border:1px solid #efd0cc; border-radius:14px; color:#8b342b; background:#fff2f0; font-size:12px; }
+.track-state-card { max-width:590px; margin:9vh auto 0; padding:28px; border-radius:25px; text-align:center; }
+.track-state-card .track-back { float:left; margin-bottom:34px; }
+.track-state-icon { clear:both; display:grid; place-items:center; width:54px; height:54px; margin:0 auto 16px; border-radius:18px; color:#fff; background:linear-gradient(145deg,#2b6a45,#174d30); }
+.track-state-card p { color:#748278; line-height:1.6; font-size:13px; }
+.track-reference { display:inline-block; margin-top:10px; padding:8px 11px; border-radius:11px; background:#f0f5ef; font:700 12px ui-monospace,monospace; }
+.spin { animation:track-spin 1s linear infinite; }
+@keyframes track-spin { to { transform:rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .track-page { padding:16px 12px 94px; }
+  .track-hero { padding:20px; border-radius:22px; }
+  .track-hero { flex-direction:column; }
+  .track-grid { grid-template-columns:1fr; }
+  .track-map-frame { height:310px; }
+  .track-chat-card,.track-map-card { border-radius:20px; padding:14px; }
+  .track-message { max-width:88%; }
+  .track-compose { grid-template-columns:1fr; }
+  .track-compose button { width:100%; }
+}
