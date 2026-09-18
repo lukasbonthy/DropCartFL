@@ -15,8 +15,76 @@ html {
   min-height: 100dvh;
 }
 
-/* Route feedback sits above the live DOM instead of transforming/rasterizing it.
-   This keeps type crisp and preserves each page's own entrance choreography. */
+/* Login <-> signup is intentionally its own transition. The moving surface
+   covers the swap while the live auth DOM stays untransformed underneath,
+   so text stays crisp and page-owned type animations are not overwritten. */
+.dropcart-auth-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483100;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.dropcart-auth-wipe {
+  position: absolute;
+  inset: -4%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 30%, rgb(237 247 233 / 0.96), transparent 48%),
+    linear-gradient(135deg, #f8faf6 0%, #f3f7f1 48%, #eef5ed 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.92),
+    0 0 80px rgb(31 94 57 / 0.08);
+}
+
+.dropcart-auth-wipe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.74) 48%, transparent 66%),
+    radial-gradient(circle at 66% 40%, rgb(183 222 131 / 0.16), transparent 30%);
+  opacity: 0.8;
+}
+
+.dropcart-auth-wipe-glow {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: min(28vw, 330px);
+  translate: -50% 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(80 149 87 / 0.10),
+    rgb(255 255 255 / 0.82),
+    rgb(80 149 87 / 0.10),
+    transparent
+  );
+  filter: blur(18px);
+}
+
+.dropcart-auth-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 4%,
+    rgb(100 171 101 / 0.18) 24%,
+    rgb(255 255 255 / 0.96) 50%,
+    rgb(100 171 101 / 0.18) 76%,
+    transparent 96%
+  );
+  box-shadow:
+    0 0 22px rgb(83 155 91 / 0.22),
+    0 0 54px rgb(255 255 255 / 0.75);
+}
+
+/* Generic route feedback sits above the live DOM instead of transforming it. */
 .dropcart-route-layer {
   position: fixed;
   inset: 0;
@@ -75,8 +143,6 @@ html.dropcart-route-pending {
   cursor: progress;
 }
 
-/* Consistent press feedback without fighting Motion's transform values.
-   Individual transform longhands compose with existing component transforms. */
 button:not(:disabled),
 [role="button"]:not([aria-disabled="true"]),
 .pill-button,
@@ -140,7 +206,6 @@ button:not(:disabled):active,
   transition-duration: 90ms;
 }
 
-/* Form focus and feedback should glide in instead of snapping. */
 input,
 textarea,
 select {
@@ -192,6 +257,10 @@ button:disabled,
   .dropcart-route-track {
     height: 2.5px;
   }
+
+  .dropcart-auth-wipe-glow {
+    width: 46vw;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -199,7 +268,8 @@ button:disabled,
     scroll-behavior: auto;
   }
 
-  .dropcart-route-layer {
+  .dropcart-route-layer,
+  .dropcart-auth-transition {
     display: none !important;
   }
 
