@@ -13,6 +13,10 @@ copyFileSync(
   join(componentsDir, "page-transition.tsx"),
 );
 copyFileSync(
+  join(root, "render-overlay", "account-employee-shortcut.tsx"),
+  join(componentsDir, "account-employee-shortcut.tsx"),
+);
+copyFileSync(
   join(root, "render-overlay", "smooth-flow.css"),
   join(appDir, "smooth-flow.css"),
 );
@@ -22,7 +26,7 @@ let layout = readFileSync(layoutPath, "utf8");
 
 if (!layout.includes('import { PageTransition } from "@/components/page-transition";')) {
   layout = layout.replace(
-    'import type { Metadata } from "next";',
+    'import type { Metadata } from "next";\nimport { AccountEmployeeShortcut } from "@/components/account-employee-shortcut";',
     'import type { Metadata } from "next";\nimport { PageTransition } from "@/components/page-transition";',
   );
 }
@@ -55,6 +59,16 @@ if (!layout.includes("<PageTransition>{children}</PageTransition>")) {
       '<body$1><PageTransition>{children}</PageTransition></body>',
     );
   }
+}
+
+if (!layout.includes("<AccountEmployeeShortcut />")) {
+  if (!layout.includes("<PageTransition>{children}</PageTransition>")) {
+    throw new Error("Could not locate PageTransition for employee account shortcut.");
+  }
+  layout = layout.replace(
+    "<PageTransition>{children}</PageTransition>",
+    "<PageTransition>{children}</PageTransition><AccountEmployeeShortcut />",
+  );
 }
 
 writeFileSync(layoutPath, layout);
