@@ -61,7 +61,7 @@ writeFileSync(layoutPath, layout);
 
 const homePath = join(appDir, "page.tsx");
 let home = readFileSync(homePath, "utf8");
-const skipBookingPattern = /\s*<a href="#book" className="sr-only[^]*?<\/a>\s*/m;
+const skipBookingPattern = /\s*<a\b[^>]*>[\s\S]*?Skip to booking[\s\S]*?<\/a>\s*/i;
 if (skipBookingPattern.test(home)) {
   home = home.replace(skipBookingPattern, "\n");
   writeFileSync(homePath, home);
