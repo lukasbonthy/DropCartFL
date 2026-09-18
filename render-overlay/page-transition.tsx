@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 
 const smoothEase = [0.16, 1, 0.3, 1] as const;
+type NavigationKind = "route" | "auth-forward" | "auth-backward";
 
 function internalDestination(anchor: HTMLAnchorElement) {
   const href = anchor.getAttribute("href");
@@ -20,11 +21,18 @@ function internalDestination(anchor: HTMLAnchorElement) {
   return url;
 }
 
+function authNavigationKind(from: string, to: string): NavigationKind {
+  if (from === "/login" && to === "/signup") return "auth-forward";
+  if (from === "/signup" && to === "/login") return "auth-backward";
+  return "route";
+}
+
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const [pending, setPending] = useState(false);
+  const [navigationKind, setNavigationKind] = useState<NavigationKind>("route");
   const startedAt = useRef(0);
   const fallbackTimer = useRef<number | null>(null);
   const previousPath = useRef(pathname);
@@ -36,32 +44,49 @@ export function PageTransition({ children }: { children: ReactNode }) {
     window.setTimeout(() => setPending(false), delay);
   }, []);
 
-  const beginNavigation = useCallback(() => {
+  const beginNavigation = useCallback((kind: NavigationKind = "route") => {
     startedAt.current = performance.now();
+    setNavigationKind(kind);
     setPending(true);
 
     if (fallbackTimer.current) window.clearTimeout(fallbackTimer.current);
     fallbackTimer.current = window.setTimeout(() => setPending(false), 10000);
   }, []);
 
+  // Login and signup are a paired flow, so warm the opposite screen immediately.
+  // The switch then feels like changing a panel instead of loading a new document.
+  useEffect(() => {
+    if (pathname !== "/login" && pathname !== "/signup") return;
+    const target = pathname === "/login" ? "/signup" : "/login";
+    if (prefetched.current.has(target)) return;
+    prefetched.current.add(target);
+    router.prefetch(target);
+  }, [pathname, router]);
+
   useEffect(() => {
     if (previousPath.current !== pathname) {
       previousPath.current = pathname;
-      finishNavigation(reduceMotion ? 0 : 170);
+      const authSwap = navigationKind === "auth-forward" || navigationKind === "auth-backward";
+      finishNavigation(reduceMotion ? 0 : authSwap ? 320 : 170);
     }
-  }, [pathname, reduceMotion, finishNavigation]);
+  }, [pathname, navigationKind, reduceMotion, finishNavigation]);
 
   useEffect(() => {
     function onCustomStart() {
-      beginNavigation();
+      beginNavigation("route");
     }
 
     function onPopState() {
-      beginNavigation();
+      const from = window.location.pathname;
+      window.setTimeout(() => {
+        const to = window.location.pathname;
+        beginNavigation(authNavigationKind(from, to));
+      }, 0);
     }
 
     function onPageShow() {
       setPending(false);
+      setNavigationKind("route");
     }
 
     function onClick(event: MouseEvent) {
@@ -84,19 +109,19 @@ export function PageTransition({ children }: { children: ReactNode }) {
       const samePath = url.pathname === current.pathname;
       const sameSearch = url.search === current.search;
 
-      // Hash-only jumps should keep their native smooth scroll and never trigger a route veil.
+      // Hash-only jumps should keep their native smooth scroll.
       if (samePath && sameSearch) return;
 
-      beginNavigation();
+      const kind = authNavigationKind(current.pathname, url.pathname);
+      beginNavigation(kind);
 
-      // Next <Link> already prevents the browser navigation. Raw <a> tags do not,
-      // so upgrade those to client navigation to avoid full-page/font reload flashes.
+      // Raw anchors become client navigations so login/signup never hard-refresh
+      // the document or restart font loading.
       if (!event.defaultPrevented) {
         event.preventDefault();
         router.push(url.pathname + url.search + url.hash);
       }
 
-      // usePathname does not change for a query-only navigation.
       if (samePath && !sameSearch) {
         window.setTimeout(() => finishNavigation(reduceMotion ? 0 : 280), 30);
       }
@@ -140,13 +165,50 @@ export function PageTransition({ children }: { children: ReactNode }) {
     return () => document.documentElement.classList.remove("dropcart-route-pending");
   }, [pending]);
 
+  const authSwap = navigationKind === "auth-forward" || navigationKind === "auth-backward";
+  const authDirection = navigationKind === "auth-backward" ? -1 : 1;
+
   return (
     <>
       <div className="dropcart-page-shell">{children}</div>
 
-      <AnimatePresence>
-        {pending && !reduceMotion && (
+      <AnimatePresence mode="wait">
+        {pending && !reduceMotion && authSwap ? (
           <motion.div
+            key="dropcart-auth-swap"
+            className="dropcart-auth-transition"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 1 }}
+            aria-hidden="true"
+          >
+            <motion.div
+              className="dropcart-auth-wipe"
+              initial={{ x: authDirection > 0 ? "104%" : "-104%" }}
+              animate={{ x: "0%" }}
+              exit={{ x: authDirection > 0 ? "-104%" : "104%" }}
+              transition={{ duration: 0.24, ease: smoothEase }}
+            >
+              <motion.div
+                className="dropcart-auth-wipe-glow"
+                initial={{ opacity: 0.15 }}
+                animate={{ opacity: 0.7 }}
+                exit={{ opacity: 0.1 }}
+                transition={{ duration: 0.2, ease: smoothEase }}
+              />
+            </motion.div>
+
+            <motion.div
+              className="dropcart-auth-sheen"
+              initial={{ x: authDirection > 0 ? "115vw" : "-115vw", opacity: 0 }}
+              animate={{ x: 0, opacity: 0.9 }}
+              exit={{ x: authDirection > 0 ? "-115vw" : "115vw", opacity: 0 }}
+              transition={{ duration: 0.3, ease: smoothEase }}
+            />
+          </motion.div>
+        ) : pending && !reduceMotion ? (
+          <motion.div
+            key="dropcart-route"
             className="dropcart-route-layer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -180,7 +242,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
               />
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </>
   );
