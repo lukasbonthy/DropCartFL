@@ -58,4 +58,14 @@ if (!layout.includes("<PageTransition>{children}</PageTransition>")) {
 }
 
 writeFileSync(layoutPath, layout);
+
+const homePath = join(appDir, "page.tsx");
+let home = readFileSync(homePath, "utf8");
+const skipBookingPattern = /\s*<a href="#book" className="sr-only[^]*?<\/a>\s*/m;
+if (skipBookingPattern.test(home)) {
+  home = home.replace(skipBookingPattern, "\n");
+  writeFileSync(homePath, home);
+  console.log("Removed Skip to booking link.");
+}
+
 console.log("Installed Dropcart smooth page + interaction motion.");
