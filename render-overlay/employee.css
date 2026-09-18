@@ -86,3 +86,21 @@
 }
 @media(max-width:370px){.employee-hero h1{font-size:40px}.employee-stat-card{padding:11px}.employee-stat-icon{display:none}.employee-active-meta{grid-template-columns:1fr}.employee-active-meta span:last-child{grid-column:auto}.employee-step small{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.employee-shift-toggle,.employee-primary,.employee-secondary{transition:none}.employee-mobile-nav a,.employee-mobile-nav button{scroll-behavior:auto}}
+
+.employee-login-page{min-height:100vh;background:radial-gradient(circle at 50% -10%,#e8f3e9 0,transparent 34%),#f5f7f3;padding:28px 18px;display:grid;place-items:center;color:var(--employee-ink)}
+.employee-login-shell{width:min(100%,430px)}
+.employee-login-back{display:inline-flex;align-items:center;gap:7px;color:#5d6b62;text-decoration:none;font-size:12px;font-weight:700;margin-bottom:16px}
+.employee-login-card{background:#fff;border:1px solid var(--employee-line);border-radius:28px;padding:30px;box-shadow:0 22px 60px rgba(21,58,35,.09)}
+.employee-login-brand{display:flex;align-items:center;gap:10px;margin-bottom:24px}.employee-login-brand strong{font-size:18px;letter-spacing:-.04em}.employee-login-logo{width:38px;height:38px;border-radius:12px;background:var(--employee-green);color:#fff;display:grid;place-items:center;box-shadow:0 8px 18px rgba(21,91,54,.18)}
+.employee-login-badge{width:max-content;display:flex;align-items:center;gap:6px;padding:7px 9px;border-radius:99px;background:#eaf4eb;color:#4a7555;font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.11em}
+.employee-login-card h1{font-size:38px;line-height:1;letter-spacing:-.045em;margin:17px 0 0}.employee-login-copy{font-size:13px;line-height:1.6;color:var(--employee-muted);margin:12px 0 22px}
+.employee-login-form{display:grid;gap:15px}.employee-login-form>label>span{display:block;font-size:11px;font-weight:750;color:#4f5e55;margin-bottom:7px}
+.employee-login-form input[type="email"],.employee-login-form input[type="password"],.employee-login-form input[type="text"]{width:100%;height:52px;border:1px solid #dce5dd;background:#f9fbf8;border-radius:14px;padding:0 14px;color:var(--employee-ink);font:600 13px inherit;outline:none;box-sizing:border-box;transition:border-color .15s ease,box-shadow .15s ease}
+.employee-login-form input:focus{border-color:#8db79a;box-shadow:0 0 0 3px rgba(99,157,113,.11)}.employee-login-form input:disabled{opacity:.7}
+.employee-password-field{position:relative}.employee-password-field input{padding-right:48px!important}.employee-password-field button{position:absolute;right:7px;top:7px;width:38px;height:38px;border:0;background:transparent;color:#738078;display:grid;place-items:center;border-radius:10px;cursor:pointer}.employee-password-field button:hover{background:#eef3ee}
+.employee-remember{display:flex!important;align-items:center;gap:8px}.employee-remember input{width:16px;height:16px;accent-color:var(--employee-green)}.employee-remember span{margin:0!important;font-size:11px!important;font-weight:650!important;color:#65736a!important}
+.employee-login-error{padding:11px 12px;border-radius:12px;background:#fff0ee;border:1px solid #f0d1cc;color:#953e34;font-size:11px;line-height:1.45}
+.employee-login-submit{height:54px;border:0;border-radius:14px;background:var(--employee-green);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font:800 13px inherit;cursor:pointer;box-shadow:0 10px 22px rgba(21,91,54,.15);transition:.16s ease}.employee-login-submit:hover{transform:translateY(-1px);filter:brightness(1.03)}.employee-login-submit:disabled{opacity:.65;cursor:wait;transform:none}
+.employee-login-security{display:flex;align-items:center;justify-content:center;gap:6px;color:#78857d;font-size:10px;margin-top:15px}
+.employee-login-footnote{text-align:center;color:#7a867e;font-size:11px;margin:14px 0 0}.employee-login-footnote a{color:var(--employee-green);font-weight:750}
+@media(max-width:520px){.employee-login-page{padding:14px;align-items:start}.employee-login-shell{padding-top:16px}.employee-login-card{border-radius:22px;padding:22px}.employee-login-card h1{font-size:34px}.employee-login-submit{height:56px}}
