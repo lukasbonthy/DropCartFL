@@ -33,6 +33,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
   const reduceMotion = useReducedMotion();
   const [pending, setPending] = useState(false);
   const [navigationKind, setNavigationKind] = useState<NavigationKind>("route");
+  const [employeeAccess, setEmployeeAccess] = useState(false);
   const startedAt = useRef(0);
   const fallbackTimer = useRef<number | null>(null);
   const previousPath = useRef(pathname);
@@ -62,6 +63,31 @@ export function PageTransition({ children }: { children: ReactNode }) {
     prefetched.current.add(target);
     router.prefetch(target);
   }, [pathname, router]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (pathname !== "/account") {
+      setEmployeeAccess(false);
+      return;
+    }
+
+    fetch("/api/employee/access", {
+      cache: "no-store",
+      credentials: "same-origin",
+    })
+      .then(async (response) => {
+        const body = await response.json().catch(() => ({}));
+        if (!cancelled) setEmployeeAccess(Boolean(response.ok && body?.employee));
+      })
+      .catch(() => {
+        if (!cancelled) setEmployeeAccess(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (previousPath.current !== pathname) {
@@ -169,6 +195,27 @@ export function PageTransition({ children }: { children: ReactNode }) {
   return (
     <>
       <div className="dropcart-page-shell">{children}</div>
+
+      {pathname === "/account" && employeeAccess && (
+        <a
+          href="/employee"
+          className="dropcart-account-employee-shortcut"
+          aria-label="Open employee dashboard"
+        >
+          <span className="dropcart-account-employee-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+              <path d="M9 7V5.7A1.7 1.7 0 0 1 10.7 4h2.6A1.7 1.7 0 0 1 15 5.7V7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+              <rect x="4" y="7" width="16" height="12" rx="2.5" stroke="currentColor" strokeWidth="1.8"/>
+              <path d="M4 11.5c4.9 2.1 11.1 2.1 16 0M10 12.8h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </span>
+          <span className="dropcart-account-employee-copy">
+            <strong>Employee dashboard</strong>
+            <small>Open your shift workspace</small>
+          </span>
+          <span className="dropcart-account-employee-arrow" aria-hidden="true">↗</span>
+        </a>
+      )}
 
       <AnimatePresence>
         {pending && !reduceMotion && authSwap ? (
