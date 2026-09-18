@@ -15,11 +15,72 @@ copyFileSync(join(root, "render-overlay", "employee-login-page.tsx"), join(login
 copyFileSync(join(root, "render-overlay", "employee.css"), join(appDir, "employee.css"));
 copyFileSync(join(root, "render-overlay", "employee-routes.mjs"), join(scriptsDir, "employee-routes.mjs"));
 
+const bookingFormPath = join(runtime, "components", "booking-form.tsx");
+let bookingForm = readFileSync(bookingFormPath, "utf8");
+bookingForm = bookingForm.replace(
+  "You can contact me about this unload. I understand my booking needs team confirmation.",
+  "You can text or call me about this unload. I understand my booking needs team confirmation.",
+);
+writeFileSync(bookingFormPath, bookingForm);
+
 const bookingStorePath = join(runtime, "lib", "booking-store.ts");
 let bookingStore = readFileSync(bookingStorePath, "utf8");
 
 if (!bookingStore.includes("syncBookingToPostgres")) {
   const helper = `
+function normalizeDropcartPhone(value: string) {
+  const raw = String(value || "").trim();
+  const digits = raw.replace(/\\D/g, "");
+  if (digits.length === 10) return "+1" + digits;
+  if (digits.length === 11 && digits.startsWith("1")) return "+" + digits;
+  if (raw.startsWith("+") && digits.length >= 10) return "+" + digits;
+  return "";
+}
+
+function dropcartTwilioConfigured() {
+  return Boolean(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_FROM_NUMBER);
+}
+
+async function dropcartTwilioPost(resource: string, params: Record<string, string>) {
+  if (!dropcartTwilioConfigured()) return { ok: false, skipped: true };
+  const sid = String(process.env.TWILIO_ACCOUNT_SID);
+  const token = String(process.env.TWILIO_AUTH_TOKEN);
+  const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${sid}/${resource}.json`, {
+    method: "POST",
+    headers: {
+      Authorization: "Basic " + btoa(`${sid}:${token}`),
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams(params),
+  });
+  if (!response.ok) {
+    console.error("[notify] Twilio request failed", resource, response.status);
+    return { ok: false, skipped: false };
+  }
+  return { ok: true, skipped: false };
+}
+
+async function dropcartSendSms(to: string, body: string) {
+  const phone = normalizeDropcartPhone(to);
+  if (!phone) return;
+  await dropcartTwilioPost("Messages", {
+    To: phone,
+    From: String(process.env.TWILIO_FROM_NUMBER || ""),
+    Body: body,
+  });
+}
+
+async function dropcartMakeCall(to: string, message: string) {
+  const phone = normalizeDropcartPhone(to);
+  if (!phone) return;
+  const safe = String(message).replaceAll("&", "and").replaceAll("<", "").replaceAll(">", "");
+  await dropcartTwilioPost("Calls", {
+    To: phone,
+    From: String(process.env.TWILIO_FROM_NUMBER || ""),
+    Twiml: `<Response><Say>${safe}</Say><Pause length="1"/><Say>Open the Dropcart employee dashboard now.</Say></Response>`,
+  });
+}
+
 async function syncBookingToPostgres(data: BookingData, reference: string, status: string, now: number) {
   if (!process.env.DATABASE_URL) return;
   try {
@@ -49,15 +110,37 @@ async function syncBookingToPostgres(data: BookingData, reference: string, statu
     )\`);
     await pool.query(
       \`INSERT INTO dropcart_bookings
-        (id, reference, created_at, arrival_at, eta_minutes, status, customer_name, phone, address, city, state, zip, grocery_load, stairs, notes, updated_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,NOW())
+        (id, reference, created_at, arrival_at, eta_minutes, status, customer_name, phone, address, city, state, zip, grocery_load, stairs, notes, contact_consent, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,NOW())
        ON CONFLICT (id) DO UPDATE SET
          reference=EXCLUDED.reference, arrival_at=EXCLUDED.arrival_at, eta_minutes=EXCLUDED.eta_minutes,
          status=EXCLUDED.status, customer_name=EXCLUDED.customer_name, phone=EXCLUDED.phone,
          address=EXCLUDED.address, city=EXCLUDED.city, state=EXCLUDED.state, zip=EXCLUDED.zip,
          grocery_load=EXCLUDED.grocery_load, stairs=EXCLUDED.stairs, notes=EXCLUDED.notes, updated_at=NOW()\`,
-      [data.requestId, reference, now, now + data.eta * 60000, data.eta, status, data.name, data.phone, data.address, data.city, "FL", data.zip, data.load, data.stairs, data.notes],
+      [data.requestId, reference, now, now + data.eta * 60000, data.eta, status, data.name, data.phone, data.address, data.city, "FL", data.zip, data.load, data.stairs, data.notes, Boolean(data.consent)],
     );
+
+    if (data.consent) {
+      void dropcartSendSms(
+        data.phone,
+        `Dropcart: We received ${reference}. We’ll text you when a team member claims it. Reply STOP to opt out.`,
+      ).catch((error) => console.error("[notify] customer receipt SMS failed", error));
+    }
+
+    const alertRows = await pool.query(
+      "SELECT phone, sms_enabled, call_enabled FROM employee_notification_settings WHERE phone <> '' AND (sms_enabled = TRUE OR call_enabled = TRUE)",
+    );
+    const loadLabel = data.load === "small" ? "1 to 5 bags" : data.load === "large" ? "16 plus bags" : "6 to 15 bags";
+    for (const alert of alertRows.rows) {
+      const text = `URGENT Dropcart: New unload ${reference}. ${loadLabel}, ${data.city}. Open the employee dashboard now.`;
+      if (alert.sms_enabled) {
+        void dropcartSendSms(alert.phone, text).catch((error) => console.error("[notify] employee SMS failed", error));
+      }
+      if (alert.call_enabled) {
+        void dropcartMakeCall(alert.phone, `Urgent Dropcart booking. New unload ${reference} in ${data.city}.`)
+          .catch((error) => console.error("[notify] employee call failed", error));
+      }
+    }
   } catch (error) {
     console.error("[employee] booking mirror failed", error);
   }
