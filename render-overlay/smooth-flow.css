@@ -1,49 +1,82 @@
-/* Dropcart global interaction + route motion.
-   Keep it subtle: motion should preserve context, not call attention to itself. */
-
-@view-transition {
-  navigation: auto;
-}
+/* Dropcart interaction + route motion.
+   One navigation system only: no full-page scaling/snapshot transitions.
+   Page-owned text/hero animations remain untouched. */
 
 html,
 body {
   background: var(--background, #f7f8f4);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .dropcart-page-shell {
   min-height: 100dvh;
-  transform-origin: 50% 18%;
 }
 
-/* Same-origin document navigations: soft fade/rise instead of a white flash. */
-::view-transition-old(root) {
-  animation: 135ms cubic-bezier(.4, 0, 1, 1) both dropcart-page-out;
+/* Route feedback sits above the live DOM instead of transforming/rasterizing it.
+   This keeps type crisp and preserves each page's own entrance choreography. */
+.dropcart-route-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout paint;
 }
 
-::view-transition-new(root) {
-  animation: 330ms cubic-bezier(.16, 1, .3, 1) both dropcart-page-in;
+.dropcart-route-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% -18%, rgb(223 242 220 / 0.34), transparent 43%),
+    linear-gradient(180deg, rgb(247 250 246 / 0.16), rgb(247 250 246 / 0.05));
 }
 
-@keyframes dropcart-page-out {
-  to {
-    opacity: 0;
-    transform: translateY(-4px) scale(.999);
-  }
+.dropcart-route-track {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  overflow: hidden;
+  background: rgb(29 92 58 / 0.055);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.55);
 }
 
-@keyframes dropcart-page-in {
-  from {
-    opacity: 0;
-    transform: translateY(9px) scale(.997);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.dropcart-route-progress {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 50%;
+  background: linear-gradient(
+    90deg,
+    rgb(26 105 61 / 0.74),
+    rgb(93 169 94 / 0.92) 54%,
+    rgb(183 222 131 / 0.96)
+  );
+  box-shadow: 0 0 18px rgb(68 151 78 / 0.28);
+}
+
+.dropcart-route-sheen {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.82),
+    transparent
+  );
+  filter: blur(0.3px);
+}
+
+html.dropcart-route-pending {
+  cursor: progress;
 }
 
 /* Consistent press feedback without fighting Motion's transform values.
-   Individual transform longhands compose with existing transform animations. */
+   Individual transform longhands compose with existing component transforms. */
 button:not(:disabled),
 [role="button"]:not([aria-disabled="true"]),
 .pill-button,
@@ -139,13 +172,11 @@ select:focus {
   }
 }
 
-/* Pages often swap state after submit; keep loading/disabled buttons alive. */
 button:disabled,
 [aria-disabled="true"] {
   transition: opacity 180ms ease, filter 180ms ease;
 }
 
-/* Mobile taps should feel app-like instead of browser-like. */
 @media (max-width: 640px) {
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -157,21 +188,23 @@ button:disabled,
   .employee-login-submit {
     touch-action: manipulation;
   }
+
+  .dropcart-route-track {
+    height: 2.5px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  @view-transition {
-    navigation: none;
+  html {
+    scroll-behavior: auto;
   }
 
-  ::view-transition-old(root),
-  ::view-transition-new(root),
+  .dropcart-route-layer {
+    display: none !important;
+  }
+
   [role="alert"] {
     animation: none !important;
-  }
-
-  .dropcart-page-shell {
-    transform: none !important;
   }
 
   button,
@@ -181,6 +214,5 @@ button:disabled,
   textarea,
   select {
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
