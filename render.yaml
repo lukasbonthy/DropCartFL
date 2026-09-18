@@ -2,7 +2,7 @@ services:
   - type: web
     name: dropcart
     runtime: node
-    buildCommand: rm -rf .runtime && mkdir -p .runtime && unzip -q dropcart-v26-render-ready.zip -d .runtime && node render-overlay/patch-v26-hero.mjs && node render-overlay/patch-express-auth.mjs && cd .runtime && pnpm install --frozen-lockfile=false && pnpm build
+    buildCommand: rm -rf .runtime && mkdir -p .runtime && unzip -q dropcart-v26-render-ready.zip -d .runtime && node render-overlay/patch-v26-hero.mjs && node render-overlay/patch-express-auth.mjs && node render-overlay/patch-employee.mjs && cd .runtime && pnpm install --frozen-lockfile=false && pnpm build
     startCommand: cd .runtime && pnpm start
     healthCheckPath: /healthz
     envVars:
