@@ -5,10 +5,96 @@ import { Pool } from "pg";
 const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 5 });
 const employeeJson = express.json({ limit: "32kb" });
 
+function normalizePhone(value) {
+  const digits = String(value || "").replace(/\D/g, "");
+  if (digits.length === 10) return "+1" + digits;
+  if (digits.length === 11 && digits.startsWith("1")) return "+" + digits;
+  if (String(value || "").trim().startsWith("+") && digits.length >= 10) return "+" + digits;
+  return "";
+}
+
+function twilioConfigured() {
+  return Boolean(
+    process.env.TWILIO_ACCOUNT_SID &&
+    process.env.TWILIO_AUTH_TOKEN &&
+    process.env.TWILIO_FROM_NUMBER
+  );
+}
+
+async function twilioPost(resource, params) {
+  if (!twilioConfigured()) {
+    console.info("[notify] Twilio not configured; skipping", resource);
+    return { ok: false, skipped: true };
+  }
+
+  const sid = process.env.TWILIO_ACCOUNT_SID;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  const response = await fetch(
+    `https://api.twilio.com/2010-04-01/Accounts/${sid}/${resource}.json`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa(`${sid}:${token}`),
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(params),
+    },
+  );
+
+  if (!response.ok) {
+    const detail = await response.text().catch(() => "");
+    console.error("[notify] Twilio request failed", resource, response.status, detail.slice(0, 300));
+    return { ok: false, skipped: false };
+  }
+
+  return { ok: true, skipped: false };
+}
+
+async function sendSms(to, body) {
+  const phone = normalizePhone(to);
+  if (!phone) return { ok: false, skipped: true };
+  return twilioPost("Messages", {
+    To: phone,
+    From: process.env.TWILIO_FROM_NUMBER || "",
+    Body: body,
+  });
+}
+
+async function makeUrgentCall(to, message) {
+  const phone = normalizePhone(to);
+  if (!phone) return { ok: false, skipped: true };
+  const safe = String(message)
+    .replaceAll("&", "and")
+    .replaceAll("<", "")
+    .replaceAll(">", "");
+  return twilioPost("Calls", {
+    To: phone,
+    From: process.env.TWILIO_FROM_NUMBER || "",
+    Twiml: `<Response><Say>${safe}</Say><Pause length="1"/><Say>Open the Dropcart employee dashboard now.</Say></Response>`,
+  });
+}
+
+async function customerStatusText(booking, status) {
+  if (!booking?.contact_consent || !booking?.phone) return;
+  const ref = booking.reference || "your booking";
+  const messages = {
+    accepted: `Dropcart: ${ref} has been claimed by a team member. We’ll keep you updated here. Reply STOP to opt out.`,
+    en_route: `Dropcart: Your helper is on the way for ${ref}. Please have your groceries ready for unloading.`,
+    arrived: `Dropcart: Your helper has arrived for ${ref}.`,
+    completed: `Dropcart: ${ref} is marked complete. Thanks for using Dropcart!`,
+  };
+  const body = messages[status];
+  if (!body) return;
+  await sendSms(booking.phone, body);
+}
+
+
 async function ensureEmployeeTables() {
   await pool.query("CREATE TABLE IF NOT EXISTS employee_assignments (booking_id TEXT PRIMARY KEY, employee_email TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'accepted', accepted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
   await pool.query("CREATE TABLE IF NOT EXISTS employee_profiles (employee_email TEXT PRIMARY KEY, online BOOLEAN NOT NULL DEFAULT FALSE, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
-  await pool.query("CREATE TABLE IF NOT EXISTS dropcart_bookings (id TEXT PRIMARY KEY, reference TEXT NOT NULL UNIQUE, created_at BIGINT NOT NULL, arrival_at BIGINT NOT NULL, eta_minutes INTEGER NOT NULL, status TEXT NOT NULL, customer_name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL, city TEXT NOT NULL, state TEXT NOT NULL, zip TEXT NOT NULL, grocery_load TEXT NOT NULL, stairs BOOLEAN NOT NULL DEFAULT FALSE, notes TEXT NOT NULL DEFAULT '', updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
+  await pool.query("CREATE TABLE IF NOT EXISTS dropcart_bookings (id TEXT PRIMARY KEY, reference TEXT NOT NULL UNIQUE, created_at BIGINT NOT NULL, arrival_at BIGINT NOT NULL, eta_minutes INTEGER NOT NULL, status TEXT NOT NULL, customer_name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL, city TEXT NOT NULL, state TEXT NOT NULL, zip TEXT NOT NULL, grocery_load TEXT NOT NULL, stairs BOOLEAN NOT NULL DEFAULT FALSE, notes TEXT NOT NULL DEFAULT '', contact_consent BOOLEAN NOT NULL DEFAULT FALSE, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
+  await pool.query("ALTER TABLE dropcart_bookings ADD COLUMN IF NOT EXISTS contact_consent BOOLEAN NOT NULL DEFAULT FALSE");
+  await pool.query("CREATE TABLE IF NOT EXISTS employee_notification_settings (employee_email TEXT PRIMARY KEY, phone TEXT NOT NULL DEFAULT '', sms_enabled BOOLEAN NOT NULL DEFAULT TRUE, call_enabled BOOLEAN NOT NULL DEFAULT TRUE, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
 }
 
 function allowedEmails() {
@@ -46,6 +132,76 @@ export function installEmployeeRoutes(app) {
     const email = String(req.session?.user?.email || "").trim().toLowerCase();
     if (!email) return res.status(401).json({ authenticated: false, employee: false });
     return res.json({ authenticated: true, employee: allowedEmails().includes(email) });
+  });
+
+  app.get("/api/employee/notification-settings", requireEmployee, async (req, res) => {
+    try {
+      await ensureEmployeeTables();
+      const result = await pool.query(
+        "SELECT phone, sms_enabled, call_enabled FROM employee_notification_settings WHERE employee_email = $1",
+        [req.employeeEmail],
+      );
+      const row = result.rows[0] || {};
+      res.json({
+        phone: row.phone || "",
+        smsEnabled: row.sms_enabled ?? true,
+        callEnabled: row.call_enabled ?? true,
+        providerConfigured: twilioConfigured(),
+      });
+    } catch (error) {
+      console.error("[notify] settings load failed", error);
+      res.status(500).json({ error: "We couldn't load notification settings." });
+    }
+  });
+
+  app.post("/api/employee/notification-settings", employeeJson, requireEmployee, async (req, res) => {
+    try {
+      await ensureEmployeeTables();
+      const phone = normalizePhone(req.body?.phone);
+      const smsEnabled = Boolean(req.body?.smsEnabled);
+      const callEnabled = Boolean(req.body?.callEnabled);
+
+      if ((smsEnabled || callEnabled) && !phone) {
+        return res.status(400).json({ error: "Enter a valid U.S. phone number for alerts." });
+      }
+
+      await pool.query(
+        `INSERT INTO employee_notification_settings (employee_email, phone, sms_enabled, call_enabled, updated_at)
+         VALUES ($1,$2,$3,$4,NOW())
+         ON CONFLICT (employee_email) DO UPDATE SET
+           phone=EXCLUDED.phone, sms_enabled=EXCLUDED.sms_enabled,
+           call_enabled=EXCLUDED.call_enabled, updated_at=NOW()`,
+        [req.employeeEmail, phone, smsEnabled, callEnabled],
+      );
+
+      res.json({ ok: true, phone, smsEnabled, callEnabled, providerConfigured: twilioConfigured() });
+    } catch (error) {
+      console.error("[notify] settings save failed", error);
+      res.status(500).json({ error: "We couldn't save notification settings." });
+    }
+  });
+
+  app.post("/api/employee/notification-settings/test", requireEmployee, async (req, res) => {
+    try {
+      await ensureEmployeeTables();
+      const result = await pool.query(
+        "SELECT phone, sms_enabled, call_enabled FROM employee_notification_settings WHERE employee_email = $1",
+        [req.employeeEmail],
+      );
+      const row = result.rows[0];
+      if (!row?.phone) return res.status(400).json({ error: "Save an alert phone number first." });
+      if (!twilioConfigured()) return res.status(503).json({ error: "Phone alerts are ready in Dropcart, but Twilio credentials have not been connected yet." });
+
+      const tasks = [];
+      if (row.sms_enabled) tasks.push(sendSms(row.phone, "Dropcart test alert: SMS notifications are working."));
+      if (row.call_enabled) tasks.push(makeUrgentCall(row.phone, "This is a Dropcart test alert. Your urgent booking call is working."));
+      if (!tasks.length) return res.status(400).json({ error: "Turn on text or phone-call alerts first." });
+      await Promise.all(tasks);
+      res.json({ ok: true });
+    } catch (error) {
+      console.error("[notify] test failed", error);
+      res.status(500).json({ error: "We couldn't send the test alert." });
+    }
   });
 
   app.post("/api/employee/login", employeeJson, (req, res) => {
@@ -172,6 +328,8 @@ export function installEmployeeRoutes(app) {
       );
       if (!result.rowCount) return res.status(409).json({ error: "That unload was just claimed by someone else." });
       await pool.query("UPDATE dropcart_bookings SET status = 'assigned', updated_at = NOW() WHERE id = $1", [req.params.id]);
+      const booking = await pool.query("SELECT reference, phone, contact_consent FROM dropcart_bookings WHERE id = $1", [req.params.id]);
+      void customerStatusText(booking.rows[0], "accepted").catch((error) => console.error("[notify] customer accepted SMS failed", error));
       res.json({ ok: true });
     } catch (error) {
       console.error("[employee] accept failed", error);
@@ -190,6 +348,8 @@ export function installEmployeeRoutes(app) {
       );
       if (!result.rowCount) return res.status(404).json({ error: "That unload isn't assigned to you." });
       if (status === "completed") await pool.query("UPDATE dropcart_bookings SET status = 'completed', updated_at = NOW() WHERE id = $1", [req.params.id]);
+      const booking = await pool.query("SELECT reference, phone, contact_consent FROM dropcart_bookings WHERE id = $1", [req.params.id]);
+      void customerStatusText(booking.rows[0], status).catch((error) => console.error("[notify] customer status SMS failed", error));
       res.json({ ok: true });
     } catch (error) {
       console.error("[employee] status update failed", error);
