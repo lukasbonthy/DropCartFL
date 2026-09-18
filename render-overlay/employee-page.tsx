@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -52,6 +52,13 @@ type Dashboard = {
   online: boolean;
 };
 
+type NotificationSettings = {
+  phone: string;
+  smsEnabled: boolean;
+  callEnabled: boolean;
+  providerConfigured: boolean;
+};
+
 const money = (cents: number) => "$" + (cents / 100).toFixed(2);
 const formatTime = (timestamp: number) =>
   new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(timestamp);
@@ -82,18 +89,163 @@ export default function EmployeePage() {
   const [busy, setBusy] = useState("");
   const [tab, setTab] = useState<"jobs" | "today">("jobs");
   const [changingShift, setChangingShift] = useState(false);
+  const [notificationSettings, setNotificationSettings] = useState<NotificationSettings>({
+    phone: "",
+    smsEnabled: true,
+    callEnabled: true,
+    providerConfigured: false,
+  });
+  const [notificationBusy, setNotificationBusy] = useState("");
+  const [browserAlerts, setBrowserAlerts] = useState(false);
+  const seenOpenJobs = useRef<Set<string> | null>(null);
+  const audioContext = useRef<AudioContext | null>(null);
+
+  async function playUrgentChime() {
+    try {
+      const AudioCtor = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtor) return;
+      audioContext.current ||= new AudioCtor();
+      if (audioContext.current.state === "suspended") await audioContext.current.resume();
+      const context = audioContext.current;
+      const now = context.currentTime;
+      [0, 0.34, 0.68, 1.08].forEach((offset, index) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.type = "sine";
+        oscillator.frequency.value = index % 2 === 0 ? 880 : 1175;
+        gain.gain.setValueAtTime(0.0001, now + offset);
+        gain.gain.exponentialRampToValueAtTime(0.18, now + offset + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + offset + 0.22);
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start(now + offset);
+        oscillator.stop(now + offset + 0.24);
+      });
+    } catch {
+      // The phone-call alert remains the reliable background fallback.
+    }
+  }
+
+  async function showBrowserAlert(job: Job) {
+    if (localStorage.getItem("dropcart-browser-alerts") !== "on") return;
+    void playUrgentChime();
+    if ("vibrate" in navigator) navigator.vibrate?.([220, 100, 220, 100, 420]);
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+
+    const title = "New Dropcart booking";
+    const options: NotificationOptions = {
+      body: `${job.reference} • ${loadLabel(job.groceryLoad)} • ${job.city}`,
+      tag: "dropcart-" + job.id,
+      requireInteraction: true,
+    };
+
+    try {
+      if ("serviceWorker" in navigator) {
+        const registration = await navigator.serviceWorker.ready;
+        await registration.showNotification(title, options);
+      } else {
+        new Notification(title, options);
+      }
+    } catch {
+      try { new Notification(title, options); } catch { /* mobile browsers may require a service worker */ }
+    }
+  }
+
+  async function enableBrowserAlerts() {
+    setNotificationBusy("browser");
+    try {
+      if ("serviceWorker" in navigator) {
+        await navigator.serviceWorker.register("/employee-alert-sw.js");
+      }
+      if ("Notification" in window && Notification.permission === "default") {
+        await Notification.requestPermission();
+      }
+      localStorage.setItem("dropcart-browser-alerts", "on");
+      setBrowserAlerts(true);
+      await playUrgentChime();
+    } finally {
+      setNotificationBusy("");
+    }
+  }
+
+  async function loadNotificationSettings() {
+    const response = await fetch("/api/employee/notification-settings", { cache: "no-store" });
+    const body = await response.json().catch(() => ({}));
+    if (response.ok) {
+      setNotificationSettings({
+        phone: String(body.phone || ""),
+        smsEnabled: Boolean(body.smsEnabled),
+        callEnabled: Boolean(body.callEnabled),
+        providerConfigured: Boolean(body.providerConfigured),
+      });
+    }
+  }
+
+  async function saveNotificationSettings() {
+    setNotificationBusy("save");
+    setError("");
+    try {
+      const response = await fetch("/api/employee/notification-settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(notificationSettings),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body?.error || "We couldn't save alert settings.");
+      setNotificationSettings((current) => ({
+        ...current,
+        phone: String(body.phone || current.phone),
+        providerConfigured: Boolean(body.providerConfigured),
+      }));
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "We couldn't save alert settings.");
+    } finally {
+      setNotificationBusy("");
+    }
+  }
+
+  async function testNotificationSettings() {
+    setNotificationBusy("test");
+    setError("");
+    try {
+      await saveNotificationSettings();
+      const response = await fetch("/api/employee/notification-settings/test", { method: "POST" });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body?.error || "We couldn't send the test alert.");
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "We couldn't send the test alert.");
+    } finally {
+      setNotificationBusy("");
+    }
+  }
 
   async function load() {
     const response = await fetch("/api/employee/dashboard", { cache: "no-store" });
     const body = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(body?.error || "We couldn't load the employee dashboard.");
+
+    const openJobs = (body.jobs || []).filter((job: Job) => job.assignmentStatus === null);
+    const nextIds = new Set<string>(openJobs.map((job: Job) => job.id));
+    if (seenOpenJobs.current) {
+      const newJobs = openJobs.filter((job: Job) => !seenOpenJobs.current?.has(job.id));
+      if (newJobs[0]) void showBrowserAlert(newJobs[0]);
+    }
+    seenOpenJobs.current = nextIds;
     setData(body);
   }
 
   useEffect(() => {
+    setBrowserAlerts(localStorage.getItem("dropcart-browser-alerts") === "on");
     load().catch((caught) =>
       setError(caught instanceof Error ? caught.message : "Unable to load dashboard."),
     );
+    void loadNotificationSettings();
+
+    const poll = window.setInterval(() => {
+      load().catch(() => undefined);
+    }, 10000);
+
+    return () => window.clearInterval(poll);
   }, []);
 
   async function setOnline(online: boolean) {
@@ -178,7 +330,12 @@ export default function EmployeePage() {
           </a>
 
           <div className="employee-top-actions">
-            <button className="employee-icon-button" aria-label="Notifications">
+            <button
+              className={`employee-icon-button ${browserAlerts ? "alerts-on" : ""}`}
+              aria-label={browserAlerts ? "Browser booking alerts enabled" : "Enable browser booking alerts"}
+              onClick={enableBrowserAlerts}
+              type="button"
+            >
               <Bell size={18} />
               <span className="employee-notification-dot" />
             </button>
@@ -234,6 +391,71 @@ export default function EmployeePage() {
             <span className="employee-stat-icon"><WalletCards size={17} /></span>
             <div><strong>{money(data?.stats.todayCents || 0)}</strong><small>Job value today</small></div>
           </article>
+        </section>
+
+        <section className="employee-alert-card" aria-label="Urgent booking alerts">
+          <div className="employee-alert-copy">
+            <span className="employee-alert-icon"><Bell size={18} /></span>
+            <div>
+              <strong>Urgent booking alerts</strong>
+              <p>Hear a browser chime while this dashboard is open, and let Dropcart ring or text your phone when a new booking arrives.</p>
+            </div>
+          </div>
+
+          <div className="employee-alert-controls">
+            <button
+              type="button"
+              className={`employee-secondary ${browserAlerts ? "is-on" : ""}`}
+              onClick={enableBrowserAlerts}
+              disabled={notificationBusy === "browser"}
+            >
+              <Bell size={16} />
+              {browserAlerts ? "Browser sound on" : "Enable browser sound"}
+            </button>
+
+            <label className="employee-alert-phone">
+              <span>Alert phone</span>
+              <input
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                value={notificationSettings.phone}
+                onChange={(event) => setNotificationSettings((current) => ({ ...current, phone: event.target.value }))}
+                placeholder="(352) 555-0123"
+              />
+            </label>
+
+            <label className="employee-alert-check">
+              <input
+                type="checkbox"
+                checked={notificationSettings.callEnabled}
+                onChange={(event) => setNotificationSettings((current) => ({ ...current, callEnabled: event.target.checked }))}
+              />
+              <span>Ring my phone</span>
+            </label>
+
+            <label className="employee-alert-check">
+              <input
+                type="checkbox"
+                checked={notificationSettings.smsEnabled}
+                onChange={(event) => setNotificationSettings((current) => ({ ...current, smsEnabled: event.target.checked }))}
+              />
+              <span>Text me</span>
+            </label>
+
+            <button type="button" className="employee-primary" onClick={saveNotificationSettings} disabled={!!notificationBusy}>
+              {notificationBusy === "save" ? "Saving…" : "Save alerts"}
+            </button>
+            <button type="button" className="employee-secondary" onClick={testNotificationSettings} disabled={!!notificationBusy}>
+              {notificationBusy === "test" ? "Sending…" : "Test alert"}
+            </button>
+          </div>
+
+          {!notificationSettings.providerConfigured && (
+            <p className="employee-alert-provider-note">
+              Phone ring/text alerts are built in but need the Twilio credentials connected on Render before they can send.
+            </p>
+          )}
         </section>
 
         {error && <div className="employee-error" role="alert">{error}</div>}
