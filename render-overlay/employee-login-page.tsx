@@ -34,7 +34,7 @@ export default function EmployeeLoginPage() {
     setError("");
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/employee/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), password, remember }),
@@ -46,16 +46,7 @@ export default function EmployeeLoginPage() {
         throw new Error("We couldn't sign you into the employee portal. Check your email and password.");
       }
 
-      const employeeCheck = await fetch("/api/employee/dashboard", {
-        cache: "no-store",
-      });
-
-      if (!employeeCheck.ok) {
-        await fetch("/api/auth/logout", { method: "POST" }).catch(() => undefined);
-        throw new Error("We couldn't sign you into the employee portal. Check your email and password.");
-      }
-
-      window.location.assign("/employee");
+      window.location.assign(result?.redirectTo || "/employee");
     } catch (caught) {
       setError(
         caught instanceof Error
