@@ -14,3 +14,6 @@ await import(`${pathToFileURL(expandedPath).href}?v27=${Date.now()}`);
 // DropCartFL-1 still runs this legacy overlay entrypoint in its manually configured
 // Render build command, so chain the Express/Postgres auth overlay from here too.
 await import(`${pathToFileURL(join(overlayDir, "patch-express-auth.mjs")).href}?auth=${Date.now()}`);
+
+// The active Render service still uses this legacy launcher, so include the employee portal here too.
+await import(`${pathToFileURL(join(overlayDir, "patch-employee.mjs")).href}?employee=${Date.now()}`);
