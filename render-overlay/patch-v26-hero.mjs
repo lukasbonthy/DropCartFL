@@ -20,6 +20,3 @@ await import(`${pathToFileURL(join(overlayDir, "patch-employee.mjs")).href}?empl
 
 // Apply global button/state/page transition polish after auth and employee overlays.
 await import(`${pathToFileURL(join(overlayDir, "patch-smooth-flow.mjs")).href}?motion=${Date.now()}`);
-
-// The production Render build uses this entrypoint; keep the refreshed UI here.
-await import(`${pathToFileURL(join(overlayDir, "patch-premium.mjs")).href}?premium=${Date.now()}`);

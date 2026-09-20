@@ -190,7 +190,7 @@ export default function EmployeePage() {
 
   async function loadNotificationSettings() {
     const response = await fetch("/api/employee/notification-settings", { cache: "no-store" });
-    const body = await response.json().catch(() => ({})) as Partial<NotificationSettings>;
+    const body = await response.json().catch(() => ({}));
     if (response.ok) {
       setNotificationSettings({
         phone: String(body.phone || ""),
@@ -210,7 +210,7 @@ export default function EmployeePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(notificationSettings),
       });
-      const body = await response.json().catch(() => ({})) as Partial<NotificationSettings> & { error?: string };
+      const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body?.error || "We couldn't save alert settings.");
       setNotificationSettings((current) => ({
         ...current,
@@ -230,7 +230,7 @@ export default function EmployeePage() {
     try {
       await saveNotificationSettings();
       const response = await fetch("/api/employee/notification-settings/test", { method: "POST" });
-      const body = await response.json().catch(() => ({})) as { error?: string };
+      const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body?.error || "We couldn't send the test alert.");
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "We couldn't send the test alert.");
@@ -241,7 +241,7 @@ export default function EmployeePage() {
 
   async function load() {
     const response = await fetch("/api/employee/dashboard", { cache: "no-store" });
-    const body = await response.json().catch(() => ({})) as Dashboard & { error?: string };
+    const body = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(body?.error || "We couldn't load the employee dashboard.");
 
     const openJobs = (body.jobs || []).filter((job: Job) => job.assignmentStatus === null);
@@ -286,7 +286,7 @@ export default function EmployeePage() {
     });
 
     if (!response.ok) {
-      const body = await response.json().catch(() => ({})) as { error?: string };
+      const body = await response.json().catch(() => ({}));
       throw new Error(body?.error || "We couldn't update live location.");
     }
   }
@@ -331,7 +331,7 @@ export default function EmployeePage() {
 
   async function loadDriverMessages(jobId: string) {
     const response = await fetch("/api/employee/jobs/" + encodeURIComponent(jobId) + "/messages", { cache: "no-store" });
-    const body = await response.json().catch(() => ({})) as { messages?: DriverMessage[]; error?: string };
+    const body = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(body?.error || "We couldn't load customer messages.");
     setDriverMessages(Array.isArray(body.messages) ? body.messages : []);
   }
@@ -346,7 +346,7 @@ export default function EmployeePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ body: driverMessage.trim() }),
       });
-      const body = await response.json().catch(() => ({})) as { error?: string };
+      const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body?.error || "We couldn't send that message.");
       setDriverMessage("");
       await loadDriverMessages(activeJob.id);
@@ -366,7 +366,7 @@ export default function EmployeePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ online }),
       });
-      const body = await response.json().catch(() => ({})) as { online?: boolean; error?: string };
+      const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body?.error || "We couldn't update your shift.");
       setData((current) => current ? { ...current, online: Boolean(body.online) } : current);
     } catch (caught) {
@@ -387,7 +387,7 @@ export default function EmployeePage() {
         "/api/employee/jobs/" + encodeURIComponent(id) + "/" + action,
         { method: "POST" },
       );
-      const body = await response.json().catch(() => ({})) as { error?: string };
+      const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body?.error || "That update couldn't be saved.");
       await load();
     } catch (caught) {

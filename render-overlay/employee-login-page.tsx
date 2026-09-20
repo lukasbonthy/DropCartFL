@@ -51,7 +51,7 @@ export default function EmployeeLoginPage() {
         body: JSON.stringify({ email: email.trim(), password, remember }),
       });
 
-      const result = await response.json().catch(() => ({})) as { ok?: boolean; redirectTo?: string };
+      const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result?.ok) {
         throw new Error("We couldn't sign you into the employee portal. Check your email and password.");

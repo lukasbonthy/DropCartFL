@@ -107,7 +107,7 @@ export default function TrackBookingPage() {
           encodeURIComponent(token),
         { cache: "no-store" },
       );
-      const body = await response.json().catch(() => ({})) as TrackingPayload & { error?: string };
+      const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body?.error || "We couldn't load your booking.");
       setData(body);
       setError("");
@@ -145,7 +145,7 @@ export default function TrackBookingPage() {
           body: JSON.stringify({ token, body }),
         },
       );
-      const result = await response.json().catch(() => ({})) as { error?: string };
+      const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result?.error || "We couldn't send your message.");
       setMessage("");
       await load(false);

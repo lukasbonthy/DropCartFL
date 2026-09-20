@@ -77,7 +77,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
       credentials: "same-origin",
     })
       .then(async (response) => {
-        const body = await response.json().catch(() => ({})) as { employee?: boolean };
+        const body = await response.json().catch(() => ({}));
         if (!cancelled) setEmployeeAccess(Boolean(response.ok && body?.employee));
       })
       .catch(() => {
@@ -103,10 +103,11 @@ export function PageTransition({ children }: { children: ReactNode }) {
     }
 
     function onPopState() {
-      // The browser has already changed its URL. Starting a new pending state
-      // here races the router and can leave a progress layer stuck on screen.
-      setPending(false);
-      setNavigationKind("route");
+      const from = window.location.pathname;
+      window.setTimeout(() => {
+        const to = window.location.pathname;
+        beginNavigation(authNavigationKind(from, to));
+      }, 0);
     }
 
     function onPageShow() {
@@ -188,6 +189,8 @@ export function PageTransition({ children }: { children: ReactNode }) {
     return () => document.documentElement.classList.remove("dropcart-route-pending");
   }, [pending]);
 
+  const authSwap = navigationKind === "auth-forward" || navigationKind === "auth-backward";
+  const authDirection = navigationKind === "auth-backward" ? -1 : 1;
 
   return (
     <>
@@ -215,21 +218,78 @@ export function PageTransition({ children }: { children: ReactNode }) {
       )}
 
       <AnimatePresence>
-        {pending && !reduceMotion && (
+        {pending && !reduceMotion && authSwap ? (
           <motion.div
-            key="dropcart-progress"
-            className="dropcart-route-layer"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.16, ease: smoothEase }}
+            key="dropcart-auth-swap"
+            className="dropcart-auth-transition"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.13, ease: smoothEase }}
             aria-hidden="true"
           >
+            <motion.div
+              className="dropcart-auth-tint"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: smoothEase }}
+            />
+            <motion.div
+              className="dropcart-auth-ribbon"
+              initial={{
+                x: authDirection > 0 ? "112vw" : "-112vw",
+                rotate: authDirection > 0 ? 5 : -5,
+                opacity: 0,
+              }}
+              animate={{ x: 0, rotate: 0, opacity: 1 }}
+              exit={{
+                x: authDirection > 0 ? "-112vw" : "112vw",
+                rotate: authDirection > 0 ? -4 : 4,
+                opacity: 0,
+              }}
+              transition={{ duration: 0.28, ease: smoothEase }}
+            >
+              <span />
+            </motion.div>
+          </motion.div>
+        ) : pending && !reduceMotion ? (
+          <motion.div
+            key="dropcart-route"
+            className="dropcart-route-layer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.13, ease: smoothEase }}
+            aria-hidden="true"
+          >
+            <motion.div
+              className="dropcart-route-veil"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15, ease: smoothEase }}
+            />
             <div className="dropcart-route-track">
-              <motion.div className="dropcart-route-progress"
-                initial={{ scaleX: 0.06 }} animate={{ scaleX: 0.88 }} exit={{ scaleX: 1 }}
-                transition={{ duration: 0.9, ease: smoothEase }} />
+              <motion.div
+                className="dropcart-route-progress"
+                initial={{ scaleX: 0.05, opacity: 0 }}
+                animate={{ scaleX: 0.86, opacity: 1 }}
+                exit={{ scaleX: 1, opacity: 0 }}
+                transition={{
+                  scaleX: { duration: 1.2, ease: smoothEase },
+                  opacity: { duration: 0.12 },
+                }}
+              />
+              <motion.div
+                className="dropcart-route-sheen"
+                initial={{ x: "-140%" }}
+                animate={{ x: "170%" }}
+                transition={{ duration: 0.85, ease: "easeInOut", repeat: Infinity }}
+              />
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </>
   );
