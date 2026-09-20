@@ -29,3 +29,6 @@ next-env.d.ts
 /outputs/
 /work/
 *.tsbuildinfo
+/.runtime/
+/render-overlay/.v27-expanded.mjs
+/render-overlay/.v30-auth-expanded.mjs

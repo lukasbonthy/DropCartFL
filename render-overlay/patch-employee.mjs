@@ -37,10 +37,10 @@ copyFileSync(join(root, "render-overlay", "customer-track.css"), join(trackDir, 
 
 const bookingDataPath = join(runtime, "lib", "booking-data.ts");
 let bookingData = readFileSync(bookingDataPath, "utf8");
-if (!bookingData.includes("codeWord:")) {
+if (!bookingData.includes("codeWord:z.")) {
   bookingData = bookingData.replace(
-    'notes:z.string().trim().max(1000,"Please keep notes under 1,000 characters."),consent:',
-    'notes:z.string().trim().max(1000,"Please keep notes under 1,000 characters."),codeWord:z.string().trim().max(40,"Keep the code word under 40 characters."),consent:',
+    'notes:z.string().trim().max(1000,"Please keep notes under 1,000 characters."),',
+    'notes:z.string().trim().max(1000,"Please keep notes under 1,000 characters."),\n codeWord:z.string().trim().max(40,"Keep the code word under 40 characters.").default(""),',
   );
   bookingData = bookingData.replace(
     'export const detailsSchema=bookingSchema.pick({name:true,phone:true,load:true,stairs:true,notes:true});',
@@ -127,7 +127,7 @@ writeFileSync(bookingStorePath, bookingStore);
 
 const authPagePath = join(runtime, "components", "auth-page.tsx");
 let authPage = readFileSync(authPagePath, "utf8");
-if (!authPage.includes("Employee access</strong>")) {
+if (!authPage.includes('href="/employee/login"')) {
   const employeeLoginSection = `
             {!signup && (
               <a
