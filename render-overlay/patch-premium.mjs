@@ -34,6 +34,11 @@ ${marker}`);
   return value;
 });
 
+edit("components/booking-form.tsx", value => value.replace(
+  'requestAnimationFrame(()=>document.getElementById("booking-title")?.focus({preventScroll:true}));',
+  'requestAnimationFrame(()=>{const heading=document.getElementById("booking-title");heading?.focus({preventScroll:true});heading?.scrollIntoView({block:"start",behavior:reduceMotion?"instant":"smooth"});});',
+));
+
 // Make tracking reachable from both the latest request and its history row.
 edit("components/account-dashboard.tsx", value => value.includes("Track & message") ? value : value.replace('<a href="/#book"><ShoppingBag size={15} aria-hidden="true"/> Book another</a>', '<a href={"/track?ref=" + encodeURIComponent(booking.reference)}><Navigation size={15} aria-hidden="true"/> Track & message</a>\n      <a href="/#book"><ShoppingBag size={15} aria-hidden="true"/> Book another</a>').replace('  MapPin,', '  MapPin,\n  Navigation,').replace('<a href="/#book">Book again <ArrowUpRight size={14} aria-hidden="true"/></a>', '<a href={"/track?ref=" + encodeURIComponent(booking.reference)}>Track & message <ArrowUpRight size={14} aria-hidden="true"/></a><a href="/#book">Book again <ArrowUpRight size={14} aria-hidden="true"/></a>'));
 

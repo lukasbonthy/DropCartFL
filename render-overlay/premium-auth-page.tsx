@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Eye, EyeOff, LoaderCircle, LockKeyhole, MapPin, ShieldCheck, ShoppingBag } from "lucide-react";
 import { DropcartWordmark } from "@/components/dropcart-wordmark";
 
@@ -40,11 +39,11 @@ export function AuthPage({ mode, returnTo = "/account" }: Props) {
   }
 
   return <main className="dc-auth">
-    <header className="dc-auth-header"><Link href="/" className="brand dc-brand" aria-label="Dropcart home"><DropcartWordmark/></Link><Link href="/" className="dc-auth-back"><ArrowLeft size={17} aria-hidden="true"/><span>Back to home</span></Link></header>
+    <header className="dc-auth-header"><a href="/" className="brand dc-brand" aria-label="Dropcart home"><DropcartWordmark/></a><a href="/" className="dc-auth-back"><ArrowLeft size={17} aria-hidden="true"/><span>Back to home</span></a></header>
     <div className="dc-auth-layout">
       <aside className="dc-auth-story" aria-label="A lighter day with Dropcart"><span className="dc-location"><MapPin size={15} aria-hidden="true"/> Inverness, Florida</span><div className="dc-auth-story-copy"><p className="dc-eyebrow">A LITTLE HELP GOES A LONG WAY</p><h1>Good to<br/> have a hand.</h1><p>Your groceries. Your home.<br/>One less thing on your list.</p></div><img src="/groceries.webp" width="1536" height="1024" alt="Fresh groceries ready to bring inside"/><div className="dc-auth-story-foot"><ShoppingBag size={21} aria-hidden="true"/><span>Less lifting. More living.</span></div></aside>
       <section className="dc-auth-panel" aria-labelledby="auth-title">
-        <div className="dc-auth-tabs" aria-label="Account action"><Link href={modeHref("login")} className={!signup ? "is-active" : ""} aria-current={!signup ? "page" : undefined}>Log in</Link><Link href={modeHref("signup")} className={signup ? "is-active" : ""} aria-current={signup ? "page" : undefined}>Create account</Link></div>
+        <div className="dc-auth-tabs" aria-label="Account action"><a href={modeHref("login")} className={!signup ? "is-active" : ""} aria-current={!signup ? "page" : undefined}>Log in</a><a href={modeHref("signup")} className={signup ? "is-active" : ""} aria-current={signup ? "page" : undefined}>Create account</a></div>
         <div className="dc-auth-form-content" key={mode}>
           <p className="dc-eyebrow">{signup ? "YOUR LIGHTER DAY STARTS HERE" : "MAKE YOURSELF AT HOME"}</p><h2 id="auth-title">{signup ? "A little less to do." : "Welcome back."}</h2><p className="dc-auth-intro">{signup ? "Create your free account to keep your unloads and booking history together." : "Your next unload, saved details, and booking history. All right here."}</p>
           <form className="dc-auth-form" onSubmit={submit} noValidate>
@@ -57,8 +56,8 @@ export function AuthPage({ mode, returnTo = "/account" }: Props) {
             <button type="submit" className="dc-button dc-button-dark dc-auth-submit" disabled={loading}>{loading ? <><span>{signup ? "Creating your account…" : "Signing you in…"}</span><LoaderCircle size={20} className="dc-spin" aria-hidden="true"/></> : <><span>{signup ? "Create my account" : "Let’s lighten the load"}</span><ArrowRight size={20} aria-hidden="true"/></>}</button>
             <p className="dc-auth-secure"><LockKeyhole size={14} aria-hidden="true"/> Your account stays private.</p>
           </form>
-          <p className="dc-auth-switch">{signup ? "Already have an account?" : "New to Dropcart?"} <Link href={modeHref(signup ? "login" : "signup")}>{signup ? "Log in" : "Create a free account"}</Link></p>
-          {!signup && <Link href="/employee/login" className="dc-employee-access"><ShieldCheck size={22} aria-hidden="true"/><span><strong>Part of the Dropcart team?</strong><small>Go to the employee portal</small></span><ArrowUpRight size={19} aria-hidden="true"/></Link>}
+          <p className="dc-auth-switch">{signup ? "Already have an account?" : "New to Dropcart?"} <a href={modeHref(signup ? "login" : "signup")}>{signup ? "Log in" : "Create a free account"}</a></p>
+          {!signup && <a href="/employee/login" className="dc-employee-access"><ShieldCheck size={22} aria-hidden="true"/><span><strong>Part of the Dropcart team?</strong><small>Go to the employee portal</small></span><ArrowUpRight size={19} aria-hidden="true"/></a>}
           {signup && <div className="dc-auth-benefits"><span><Check size={15} aria-hidden="true"/> Free account</span><span><Check size={15} aria-hidden="true"/> No subscription</span></div>}
         </div>
       </section>
