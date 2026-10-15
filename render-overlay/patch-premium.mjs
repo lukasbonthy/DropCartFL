@@ -84,6 +84,15 @@ if (!form.includes('booking-mini-summary')) {
   );
 }
 writeFileSync(formPath, form);
+console.log("Premium patch diagnostics:", JSON.stringify({
+ quoteMounted: page.includes('<QuoteBuilder />'),
+ listenerConnected: form.includes('window.addEventListener(LOAD_SELECTION_EVENT'),
+ pageHasPricingGrid: page.includes('pricing-grid'),
+ pageHasStairsNote: page.includes('stairs-price-note'),
+ pageHasSection: page.includes('id="pricing"'),
+ pageHead: page.slice(0, 460),
+ formHead: form.slice(0, 460)
+}));
 if (!page.includes('<QuoteBuilder />') || !form.includes('window.addEventListener(LOAD_SELECTION_EVENT')) {
   throw new Error("Dropcart premium: pricing estimator must be connected to booking.");
 }
