@@ -47,7 +47,7 @@ if (!page.includes('className="hero-promises"')) {
 if (!page.includes('onClick={() => selectBookingLoad')) {
   page = page.replace(
     '<a className="pricing-book" href="#book">',
-    '<a className="pricing-book" href="#book" onClick={() => selectBookingLoad({ load: (["small", "medium", "large"] as const)[index], stairs: false })}>',
+    '<a className="pricing-book" href="#book" onClick={event => { event.preventDefault(); selectBookingLoad({ load: (["small", "medium", "large"] as const)[index], stairs: false }); }}>',
   );
 }
 if (!page.includes('<QuoteBuilder />')) {
