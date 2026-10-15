@@ -20,3 +20,6 @@ await import(`${pathToFileURL(join(overlayDir, "patch-employee.mjs")).href}?empl
 
 // Apply global button/state/page transition polish after auth and employee overlays.
 await import(`${pathToFileURL(join(overlayDir, "patch-smooth-flow.mjs")).href}?motion=${Date.now()}`);
+
+// Opt-in to real SwiflyTV refraction while keeping the original Dropcart layout.
+await import(`${pathToFileURL(join(overlayDir, "patch-glass.mjs")).href}?glass=${Date.now()}`);
