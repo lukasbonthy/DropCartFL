@@ -87,7 +87,7 @@ main { overflow: clip; }
   box-shadow: 0 28px 75px -23px #04170d8a, 0 0 0 7px #ffffff12, inset 0 2px 1px #fff;
 }
 .booking-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(110deg, #ffffff7a, transparent 37%, transparent 70%, #dcffc318); }
-.booking-card > * { position: relative; }
+.booking-card > :not(.booking-card-glow) { position: relative; }
 .booking-header-icon { border-radius: 15px; }
 .form-input, .form-textarea { border: 1px solid #dce7d8; background: #ffffffa8 !important; box-shadow: inset 0 1px 2px #183b2107, 0 1px 0 #fff; }
 .form-input:focus, .form-textarea:focus { border-color: #78a85f; box-shadow: 0 0 0 4px #9cd66f2e, inset 0 1px 2px #183b2105; }
