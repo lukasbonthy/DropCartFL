@@ -10,6 +10,8 @@ const formPath = join(runtime, "components", "booking-form.tsx");
 const layoutPath = join(runtime, "app", "layout.tsx");
 copyFileSync(join(root, "app", "dropcart-relaunch.css"), join(runtime, "app", "dropcart-relaunch.css"));
 copyFileSync(join(root, "public", "dropcart-liquid-glass-init.js"), join(runtime, "public", "dropcart-liquid-glass-init.js"));
+// Keep tracking return behavior synchronized with the latest customer-page overlay.
+copyFileSync(join(root, "render-overlay", "customer-track-page.tsx"), join(runtime, "app", "track", "page.tsx"));
 
 function requiredReplace(source, what, replacement, label) {
   if (!source.includes(what)) throw new Error("Dropcart experience patch: missing " + label);
