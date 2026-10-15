@@ -23,3 +23,6 @@ await import(`${pathToFileURL(join(overlayDir, "patch-smooth-flow.mjs")).href}?m
 
 // Opt-in to real SwiflyTV refraction while keeping the original Dropcart layout.
 await import(`${pathToFileURL(join(overlayDir, "patch-glass.mjs")).href}?glass=${Date.now()}`);
+
+// Final, single-source-of-truth customer design patch, after auth + glass.
+await import(`${pathToFileURL(join(overlayDir, "patch-relaunch.mjs")).href}?relaunch=${Date.now()}`);
