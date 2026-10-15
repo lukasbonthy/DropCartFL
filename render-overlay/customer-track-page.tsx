@@ -90,7 +90,12 @@ export default function TrackBookingPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const ref = String(params.get("ref") || "").trim().toUpperCase();
+    const explicit = String(params.get("ref") || "").trim().toUpperCase();
+    const last = String(localStorage.getItem("dropcart-last-reference") || "").trim().toUpperCase();
+    // Restore only if this browser retains the matching private access key.
+    // Never expose the key in a URL.
+    const ref = explicit || (/^[A-Z0-9-]{4,64}$/.test(last) &&
+      localStorage.getItem("dropcart-access-" + last) ? last : "");
     setReference(ref);
     if (ref) setToken(localStorage.getItem("dropcart-access-" + ref) || "");
   }, []);
