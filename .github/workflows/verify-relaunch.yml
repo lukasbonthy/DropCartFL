@@ -6,6 +6,7 @@ on:
       - "app/**"
       - "components/**"
       - "render-overlay/patch-relaunch.mjs"
+      - "render-overlay/customer-track-page.tsx"
       - "render-overlay/patch-v26-hero.mjs"
       - "public/dropcart-liquid-glass-init.js"
       - ".github/workflows/verify-relaunch.yml"
@@ -37,6 +38,7 @@ jobs:
           grep -q "dropcart:choose-load" .runtime/components/home-page.tsx
           grep -q "dropcart:choose-load" .runtime/components/booking-form.tsx
           grep -q "dropcart-last-reference" .runtime/components/booking-form.tsx
+          grep -q "dropcart-last-reference" .runtime/app/track/page.tsx
       - name: Compile the real production app
         run: |
           npm install --global pnpm@11.25.0
