@@ -25,7 +25,10 @@ if (!globals.includes('dropcart-premium.css')) {
 }
 writeFileSync(globalsPath, globals);
 
-const pagePath = join(app, "page.tsx");
+// The v30 auth overlay moves the interactive homepage into a client component
+// while app/page.tsx becomes a server wrapper carrying the authenticated user.
+const interactiveHome = join(components, "home-page.tsx");
+const pagePath = existsSync(interactiveHome) ? interactiveHome : join(app, "page.tsx");
 let page = readFileSync(pagePath, "utf8");
 if (!page.includes('import { QuoteBuilder, selectBookingLoad }')) {
   const anchor = 'import { BookingForm } from "@/components/booking-form";';
@@ -91,6 +94,7 @@ console.log("Premium patch diagnostics:", JSON.stringify({
  pageHasStairsNote: page.includes('stairs-price-note'),
  pageHasSection: page.includes('id="pricing"'),
  pageHead: page.slice(0, 460),
+ interactiveHome: existsSync(interactiveHome),
  formHead: form.slice(0, 460)
 }));
 if (!page.includes('<QuoteBuilder />') || !form.includes('window.addEventListener(LOAD_SELECTION_EVENT')) {
