@@ -1,0 +1,45 @@
+name: Verify Dropcart experience
+
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "components/**"
+      - "render-overlay/patch-relaunch.mjs"
+      - "render-overlay/patch-v26-hero.mjs"
+      - "public/dropcart-liquid-glass-init.js"
+      - ".github/workflows/verify-relaunch.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.0"
+      - name: Syntax-check customer overlays
+        run: |
+          node --check render-overlay/patch-relaunch.mjs
+          node --check public/dropcart-liquid-glass-init.js
+      - name: Patch actual Render production app
+        run: |
+          mkdir -p .runtime
+          unzip -q dropcart-v26-render-ready.zip -d .runtime
+          node render-overlay/patch-v26-hero.mjs
+          grep -q "dropcart-relaunch.css" .runtime/app/layout.tsx
+          grep -q "Track a booking" .runtime/components/home-page.tsx
+          grep -q "dropcart:choose-load" .runtime/components/home-page.tsx
+          grep -q "dropcart:choose-load" .runtime/components/booking-form.tsx
+          grep -q "dropcart-last-reference" .runtime/components/booking-form.tsx
+      - name: Compile the real production app
+        run: |
+          npm install --global pnpm@11.25.0
+          cd .runtime
+          pnpm install --frozen-lockfile=false
+          pnpm build
