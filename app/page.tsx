@@ -55,6 +55,13 @@ export default function Home() {
         </motion.a>
       </motion.header>
 
+      <nav className="mobile-glass-dock" aria-label="Mobile quick navigation">
+        <a href="#book"><ShoppingBag size={18} aria-hidden="true" /><span>Book</span></a>
+        <a href="#pricing"><ShoppingBasket size={18} aria-hidden="true" /><span>Pricing</span></a>
+        <a href="#how-it-works"><House size={18} aria-hidden="true" /><span>How</span></a>
+        <a href="/track"><MapPin size={18} aria-hidden="true" /><span>Track</span></a>
+      </nav>
+
       <main>
         <section className="hero" aria-label="Grocery unloading and booking">
           <motion.div className="hero-copy" variants={heroParent} initial="hidden" animate="shown">
