@@ -1,0 +1,45 @@
+name: Verify true Swifly glass
+
+on:
+  pull_request:
+    paths:
+      - "public/dropcart-liquid-*"
+      - "app/dropcart-glass.css"
+      - "app/globals.css"
+      - "app/layout.tsx"
+      - "render-overlay/patch-glass.mjs"
+      - "render-overlay/patch-v26-hero.mjs"
+      - ".github/workflows/verify-real-glass.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.0"
+      - name: Check JavaScript
+        run: |
+          node --check public/dropcart-liquid-glass-engine.js
+          node --check public/dropcart-liquid-glass-init.js
+          node --check render-overlay/patch-glass.mjs
+      - name: Expand production ZIP and apply all deployment overlays
+        run: |
+          mkdir -p .runtime
+          unzip -q dropcart-v26-render-ready.zip -d .runtime
+          node render-overlay/patch-v26-hero.mjs
+          test -s .runtime/public/dropcart-liquid-glass-engine.js
+          grep -q 'dropcart-glass.css' .runtime/app/globals.css
+          grep -q 'dropcart-liquid-glass-init.js' .runtime/app/layout.tsx
+      - name: Build actual production app
+        run: |
+          npm install --global pnpm@11.25.0
+          cd .runtime
+          pnpm install --frozen-lockfile=false
+          pnpm build
