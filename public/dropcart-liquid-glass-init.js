@@ -5,7 +5,7 @@
   const CONFIG = [
     { selector: ".nav-capsule", theme: "light", tint: .07, distortionScale: -110, mapBlur: 8 },
     { selector: ".art-label", theme: "dark", tint: .14, distortionScale: -120, mapBlur: 7 },
-    { selector: ".hero .eyebrow", theme: "dark", tint: .13, distortionScale: -90, mapBlur: 6 },
+    { selector: ".dc-hero-action:nth-child(2)", theme: "dark", tint: .08, distortionScale: -90, mapBlur: 6 },
   ];
   const instances = new Map();
   const selectors = CONFIG.map(item => item.selector).join(",");

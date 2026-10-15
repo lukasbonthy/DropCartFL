@@ -39,12 +39,25 @@ export function BookingForm(){
  const [receipt,setReceipt]=useState<Receipt|null>(null);
  const requestId=useRef("");
  const submitting=useRef(false);
+ const [selectedFromPricing,setSelectedFromPricing]=useState(false);
  const reduceMotion=useReducedMotion();
  const tiltX=useMotionValue(0);
  const tiltY=useMotionValue(0);
  const smoothTiltX=useSpring(tiltX,{stiffness:190,damping:34,mass:.72});
  const smoothTiltY=useSpring(tiltY,{stiffness:190,damping:34,mass:.72});
  const field=(key:keyof Draft,value:string|number|boolean)=>{setDraft(prev=>({...prev,[key]:value}));setErrors(prev=>({...prev,[key]:""}));};
+
+ useEffect(() => {
+  const choose = (event: Event) => {
+   const load = (event as CustomEvent<{load?: string}>).detail?.load;
+   if (load !== "small" && load !== "medium" && load !== "large") return;
+   setDraft(prev => ({ ...prev, load }));
+   setSelectedFromPricing(true);
+   setErrors(prev => ({ ...prev, load: "" }));
+  };
+  window.addEventListener("dropcart:choose-load", choose);
+  return () => window.removeEventListener("dropcart:choose-load", choose);
+ }, []);
 
  useEffect(()=>{
   const context=(document as Document & {modelContext?:ModelContext}).modelContext;
@@ -90,7 +103,7 @@ export function BookingForm(){
    if(!response.ok)throw new Error(data&&typeof data==="object"&&"error" in data&&typeof data.error==="string"?data.error:"We couldn’t save your request. Please try again.");
    const confirmed=receiptSchema.safeParse(data);
    if(!confirmed.success)throw new Error("We couldn’t verify the response. Please try again; your request won’t be duplicated.");
-   localStorage.setItem("dropcart-access-"+confirmed.data.reference,confirmed.data.accessToken);setReceipt(confirmed.data);requestAnimationFrame(()=>document.getElementById("confirmation-title")?.focus());
+   localStorage.setItem("dropcart-access-"+confirmed.data.reference,confirmed.data.accessToken);localStorage.setItem("dropcart-last-reference",confirmed.data.reference);setReceipt(confirmed.data);requestAnimationFrame(()=>document.getElementById("confirmation-title")?.focus());
   } catch(caught){setError(caught instanceof Error&&caught.name!=="TimeoutError"?caught.message:"The connection took too long. Try again; your request won’t be duplicated.");}
   finally{submitting.current=false;setSaving(false);}
  }
@@ -169,6 +182,10 @@ export function BookingForm(){
     <motion.div className="booking-progress-indicator" initial={false} animate={{scaleX:(step+1)/3}} transition={quickSpring}/>
    </div>
 
+   {step===0 && selectedFromPricing && <div className="dc-selected-load" role="status">
+    <span><ShoppingBag size={15} aria-hidden="true" /> {LOADS.find(load => load.value===draft.load)?.title} selected</span>
+    <strong>{formatPrice(getUnloadPrice(draft.load,false))}</strong>
+   </div>}
    <form onSubmit={submit} noValidate>
     <fieldset disabled={saving} className="min-w-0 space-y-4">
      <AnimatePresence mode="popLayout" custom={direction} initial={false}>
