@@ -314,3 +314,11 @@ body:has(.hero) .dc-pricing-cta {display:inline-flex;align-items:center;gap:7px;
 @media(prefers-reduced-motion:reduce){
   body:has(.hero) .dc-hero-action:hover,body:has(.hero) .pricing-card:not(.featured):hover {transform:none;}
 }
+
+body:has(.hero) .dc-selected-load {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 15px;border:1px solid #d6e8c8;border-radius:11px;
+  margin:0 0 18px;background:#eaf8e1;color:#244a2d;font-size:.83rem;
+}
+body:has(.hero) .dc-selected-load>span {display:inline-flex;align-items:center;gap:8px;font-weight:700;}
+body:has(.hero) .dc-selected-load>strong {font-size:1.06rem;white-space:nowrap;letter-spacing:-.025em;}
