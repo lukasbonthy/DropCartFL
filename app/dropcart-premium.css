@@ -239,3 +239,28 @@ main { overflow: clip; }
 @media (prefers-reduced-transparency: reduce) {
   .topbar.shell::after, .quote-summary::after, .booking-card::after { display: none; }
 }
+
+/* One-hand mobile access: Swifly-style floating glass dock, no navigation trap. */
+.mobile-glass-dock { display: none; }
+@media (max-width: 760px) {
+  .mobile-glass-dock {
+    position: fixed; z-index: 65; inset: auto 14px calc(12px + env(safe-area-inset-bottom)) 14px;
+    display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 3px;
+    max-width: 460px; padding: 6px; margin-inline: auto;
+    border: 1px solid #ffffffde; border-radius: 23px;
+    background: linear-gradient(130deg, #ffffffd9, #e9f4e6b8 60%, #ffffffd9);
+    -webkit-backdrop-filter: blur(26px) saturate(1.7);
+    backdrop-filter: blur(26px) saturate(1.7);
+    box-shadow: inset 0 1px 0 #fff, 0 12px 35px #19382735, 0 3px 8px #1735240b;
+  }
+  .mobile-glass-dock::before { content: ""; position: absolute; inset: 0; border: 1px solid #ffffff9c; border-radius: inherit; pointer-events: none; }
+  .mobile-glass-dock a { display: grid; align-content: center; justify-items: center; gap: 4px; min-height: 51px; border-radius: 17px; color: #4c6a54; font-size: .68rem; font-weight: 800; text-decoration: none; }
+  .mobile-glass-dock a:hover, .mobile-glass-dock a:focus-visible { background: #ffffffd9; color: #173f2d; box-shadow: inset 0 1px 0 white; }
+  .mobile-glass-dock a:active { background: #d9efcc; }
+  .mobile-glass-dock a:first-child { background: linear-gradient(135deg,#245a3a,#153c2d); color: #f4fff0; }
+  .mobile-glass-dock a:first-child:hover { background: #28623f; }
+  .footer { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .mobile-glass-dock { -webkit-backdrop-filter: none; backdrop-filter: none; background: #fff; }
+}
