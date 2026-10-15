@@ -90,17 +90,9 @@ export default function TrackBookingPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    // Prefer an explicit secure tracking reference, otherwise resume the last
-    // booking on this device. The private access token never enters the URL.
-    const fromUrl = String(params.get("ref") || "").trim().toUpperCase();
-    const storedRef = localStorage.getItem("dropcart-last-reference") || "";
-    const recentRef = storedRef || Object.keys(localStorage).filter(key => key.startsWith("dropcart-access-")).map(key => key.slice("dropcart-access-".length)).at(-1) || "";
-    const ref = fromUrl || recentRef;
+    const ref = String(params.get("ref") || "").trim().toUpperCase();
     setReference(ref);
-    if (ref) {
-      setToken(localStorage.getItem("dropcart-access-" + ref) || "");
-      if (!fromUrl) window.history.replaceState(null, "", "/track?ref=" + encodeURIComponent(ref));
-    }
+    if (ref) setToken(localStorage.getItem("dropcart-access-" + ref) || "");
   }, []);
 
   async function load(showSpinner = false) {
