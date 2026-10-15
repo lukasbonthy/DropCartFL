@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ARRIVAL_TIMES, LOADS, bookingSchema, detailsSchema, locationSchema, stageSchema, receiptSchema } from "@/lib/booking-data";
 import { formatPrice, getUnloadPrice, type GroceryLoad } from "@/lib/pricing";
+import { LOAD_SELECTION_EVENT, type BookingSelection } from "@/components/quote-builder";
 
 type Draft = { address:string; city:string; zip:string; eta:number; load:GroceryLoad; name:string; phone:string; stairs:boolean; notes:string; codeWord:string; consent:boolean; website:string };
 const initial:Draft={address:"",city:"Inverness",zip:"",eta:30,load:"medium",name:"",phone:"",stairs:false,notes:"",codeWord:"",consent:false,website:""};
@@ -45,6 +46,21 @@ export function BookingForm(){
  const smoothTiltX=useSpring(tiltX,{stiffness:190,damping:34,mass:.72});
  const smoothTiltY=useSpring(tiltY,{stiffness:190,damping:34,mass:.72});
  const field=(key:keyof Draft,value:string|number|boolean)=>{setDraft(prev=>({...prev,[key]:value}));setErrors(prev=>({...prev,[key]:""}));};
+ useEffect(()=>{
+  const onSelection=(event:Event)=>{
+   const value=(event as CustomEvent<BookingSelection>).detail;
+   if(!value || !["small","medium","large"].includes(value.load) || typeof value.stairs!=="boolean")return;
+   setDraft(prev=>({...prev,load:value.load,stairs:value.stairs}));
+   setReceipt(null);
+   setDirection(-1);
+   setStep(0);
+   setErrors({});
+   setError("");
+   requestId.current="";
+  };
+  window.addEventListener(LOAD_SELECTION_EVENT,onSelection);
+  return ()=>window.removeEventListener(LOAD_SELECTION_EVENT,onSelection);
+ },[]);
 
  useEffect(()=>{
   const context=(document as Document & {modelContext?:ModelContext}).modelContext;
@@ -90,7 +106,7 @@ export function BookingForm(){
    if(!response.ok)throw new Error(data&&typeof data==="object"&&"error" in data&&typeof data.error==="string"?data.error:"We couldn’t save your request. Please try again.");
    const confirmed=receiptSchema.safeParse(data);
    if(!confirmed.success)throw new Error("We couldn’t verify the response. Please try again; your request won’t be duplicated.");
-   localStorage.setItem("dropcart-access-"+confirmed.data.reference,confirmed.data.accessToken);setReceipt(confirmed.data);requestAnimationFrame(()=>document.getElementById("confirmation-title")?.focus());
+   localStorage.setItem("dropcart-access-"+confirmed.data.reference,confirmed.data.accessToken);localStorage.setItem("dropcart-last-reference",confirmed.data.reference);setReceipt(confirmed.data);requestAnimationFrame(()=>document.getElementById("confirmation-title")?.focus());
   } catch(caught){setError(caught instanceof Error&&caught.name!=="TimeoutError"?caught.message:"The connection took too long. Try again; your request won’t be duplicated.");}
   finally{submitting.current=false;setSaving(false);}
  }
@@ -178,6 +194,7 @@ export function BookingForm(){
         <div><label className="form-label" htmlFor="address">Where are we unloading?</label><div className="relative"><MapPin size={18} className="pointer-events-none absolute left-4 top-[17px] z-[2] text-[#82927d]"/><Input {...inputProps("address")} className="form-input pl-11" placeholder="Your home address" autoComplete="street-address" maxLength={180}/></div>{errorFor("address")}</div>
         <div className="grid grid-cols-[minmax(0,1fr)_110px] gap-3"><div><label className="form-label" htmlFor="city">City</label><Input {...inputProps("city")} autoComplete="address-level2" maxLength={80}/>{errorFor("city")}</div><div><label className="form-label" htmlFor="zip">ZIP code</label><Input {...inputProps("zip")} placeholder="34450" autoComplete="postal-code" inputMode="numeric" maxLength={5}/>{errorFor("zip")}</div></div>
         <motion.div initial={reduceMotion?false:{opacity:0,y:4}} animate={{opacity:1,y:0}} transition={{...quickSpring,delay:.04}} className="service-note"><House size={17} className="mt-0.5 shrink-0"/><span>Inverness & nearby. We’ll confirm your address is in our service area.</span></motion.div>
+        <div className="booking-mini-summary" aria-live="polite"><span><ShoppingBag size={15} aria-hidden="true"/> Your selected load · {draft.load === "small" ? "1–5 bags" : draft.load === "medium" ? "6–15 bags" : "16+ bags"}{draft.stairs ? " + stairs" : ""}</span><strong>{formatPrice(totalPrice)}</strong></div>
        </>}
        {step===1&&<>
         <div><label id="load-label" className="form-label">How much are we carrying?</label><RadioGroup aria-labelledby="load-label" value={draft.load} onValueChange={v=>field("load",v)} className="grid grid-cols-3 gap-2">{LOADS.map(load=><motion.label whileHover={reduceMotion?undefined:{y:-1,scale:1.004}} whileTap={reduceMotion?undefined:{scale:.985}} transition={quickSpring} key={load.value} className="choice-card load-choice-card flex-col gap-1 px-1 text-center" data-selected={draft.load===load.value} htmlFor={`load-${load.value}`}>{draft.load===load.value&&<motion.span layoutId="load-choice" className="choice-selection-surface" transition={quickSpring}/>}<RadioGroupItem id={`load-${load.value}`} value={load.value} className="sr-only"/><ShoppingBag size={18} className="mb-1"/><span className="text-sm font-medium">{load.title}</span><span className="text-xs text-muted-foreground">{load.detail}</span><span className="load-choice-price">{formatPrice(getUnloadPrice(load.value,false))}</span></motion.label>)}</RadioGroup></div>
