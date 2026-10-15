@@ -119,7 +119,7 @@ export default function Home() {
                 <p className="pricing-bags">{tier.bags}</p>
                 <div className="pricing-price"><strong>{tier.price}</strong><span>/ unload</span></div>
                 <p className="pricing-note-copy">{tier.note}</p>
-                <a className="pricing-book" href="#book" onClick={() => selectBookingLoad({ load: (["small", "medium", "large"] as const)[index], stairs: false })}>Choose this load <ArrowUpRight size={15} aria-hidden="true" /></a>
+                <a className="pricing-book" href="#book" onClick={event => { event.preventDefault(); selectBookingLoad({ load: (["small", "medium", "large"] as const)[index], stairs: false }); }}>Choose this load <ArrowUpRight size={15} aria-hidden="true" /></a>
               </motion.article>
             ))}
           </div>
