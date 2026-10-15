@@ -57,6 +57,15 @@ if (!page.includes('<QuoteBuilder />')) {
   const anchor = '<motion.div className="stairs-price-note"';
   if (page.includes(anchor)) page = page.replace(anchor, '<QuoteBuilder />\n          ' + anchor);
 }
+if (!page.includes('mobile-glass-dock')) {
+  const mobileDock = source("app/page.tsx");
+  const first = mobileDock.indexOf('<nav className="mobile-glass-dock"');
+  const after = mobileDock.indexOf('</nav>', first);
+  if (first < 0 || after < 0) throw new Error("Dropcart premium mobile dock source missing");
+  const dock = mobileDock.slice(first, after + '</nav>'.length);
+  if (!page.includes('</motion.header>')) throw new Error("Dropcart premium runtime header missing");
+  page = page.replace('</motion.header>', '</motion.header>\n      ' + dock);
+}
 writeFileSync(pagePath, page);
 
 const formPath = join(components, "booking-form.tsx");
