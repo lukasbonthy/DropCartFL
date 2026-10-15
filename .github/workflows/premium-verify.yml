@@ -31,7 +31,7 @@ jobs:
           unzip -q dropcart-v26-render-ready.zip -d .runtime
           node render-overlay/patch-v26-hero.mjs
           grep -q 'dropcart-premium.css' .runtime/app/globals.css
-          grep -q '<QuoteBuilder />' .runtime/app/page.tsx
+          grep -q '<QuoteBuilder />' .runtime/components/home-page.tsx
           grep -q 'window.addEventListener(LOAD_SELECTION_EVENT' .runtime/components/booking-form.tsx
       - name: Install runtime dependencies
         run: |
