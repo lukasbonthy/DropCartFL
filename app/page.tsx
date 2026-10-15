@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check, HeartHandshake, House, MapPin, ShoppingBag, ShoppingBasket, Smartphone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, HeartHandshake, House, MapPin, ShieldCheck, ShoppingBag, ShoppingBasket, Smartphone } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { BookingForm } from "@/components/booking-form";
 import { Faq } from "@/components/faq";
@@ -38,6 +38,12 @@ export default function Home() {
     shown: { opacity: 1, y: 0, transition: spring },
   };
 
+  const selectLoad = (index: number) => {
+    const load = (["small", "medium", "large"] as const)[index];
+    window.dispatchEvent(new CustomEvent("dropcart:choose-load", { detail: { load } }));
+    document.getElementById("book")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  };
+
   return (
     <>
       <motion.header className="topbar shell" initial={reduceMotion ? false : { opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
@@ -47,6 +53,7 @@ export default function Home() {
           <a className="nav-link" href="#pricing">Pricing</a>
           <a className="nav-link" href="#why-dropcart">Why Dropcart</a>
           <a className="nav-link" href="#questions">FAQs</a>
+          <a className="nav-link" href="/track">Track booking</a>
         </nav>
         <motion.a href="#book" className="pill-button" whileHover={reduceMotion ? undefined : { y: -1, scale: 1.004 }} whileTap={reduceMotion ? undefined : { scale: 0.988 }} transition={spring}>
           Book an unload <ArrowUpRight size={16} aria-hidden="true" />
@@ -58,7 +65,15 @@ export default function Home() {
           <motion.div className="hero-copy" variants={heroParent} initial="hidden" animate="shown">
             <motion.div variants={heroChild} className="eyebrow"><MapPin size={14} aria-hidden="true" /> A local hand in Inverness, FL</motion.div>
             <motion.h1 variants={heroChild} className="hero-title">Less lifting.<br /><span>More living.</span></motion.h1>
-            <motion.p variants={heroChild} className="hero-description"><strong>You shop. We’ll bring it inside.</strong><br />Book a helping hand before you leave the store.<br className="hidden xl:block" /> We’ll take your groceries from trunk to kitchen.</motion.p>
+            <motion.p variants={heroChild} className="hero-description"><strong>You shop. We'll bring it inside.</strong><br />A local person to help with the last part of your grocery trip. Book ahead, head home, and leave the heavy bags to us.</motion.p>
+            <motion.div variants={heroChild} className="dc-hero-actions">
+              <a href="#book" className="dc-hero-action">Book an unload <ArrowUpRight size={15} aria-hidden="true" /></a>
+              <a href="/track" className="dc-hero-action">Track a booking <ArrowRight size={15} aria-hidden="true" /></a>
+            </motion.div>
+            <motion.div variants={heroChild} className="dc-trust-line">
+              <span><Check size={14} aria-hidden="true" /> Prices shown upfront</span>
+              <span><ShieldCheck size={14} aria-hidden="true" /> Personally confirmed</span>
+            </motion.div>
           </motion.div>
 
           <BookingForm />
@@ -116,7 +131,7 @@ export default function Home() {
                 <p className="pricing-bags">{tier.bags}</p>
                 <div className="pricing-price"><strong>{tier.price}</strong><span>/ unload</span></div>
                 <p className="pricing-note-copy">{tier.note}</p>
-                <a className="pricing-book" href="#book">Choose this load <ArrowUpRight size={15} aria-hidden="true" /></a>
+                <button type="button" className="pricing-book" onClick={() => selectLoad(index)}>Select this load <ArrowUpRight size={15} aria-hidden="true" /></button>
               </motion.article>
             ))}
           </div>
