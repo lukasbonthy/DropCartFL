@@ -35,8 +35,7 @@ jobs:
           grep -q 'window.addEventListener(LOAD_SELECTION_EVENT' .runtime/components/booking-form.tsx
       - name: Install runtime dependencies
         run: |
-          corepack enable
-          corepack prepare pnpm@11.25.0 --activate
+          npm install --global pnpm@11.25.0
           cd .runtime
           pnpm install --frozen-lockfile=false
       - name: Build actual Render runtime
