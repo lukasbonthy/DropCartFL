@@ -220,3 +220,22 @@ main { overflow: clip; }
 @media (prefers-reduced-motion: reduce) {
   .topbar.shell, .quote-cta, .quote-stepper button, .nav-utility, .pricing-book { transition: none !important; }
 }
+
+/* Optical edge lighting: rim glints stay independent of backdrop support. */
+.topbar.shell::after, .quote-summary::after, .booking-card::after {
+  content: ""; position: absolute; z-index: 2; inset: 0; padding: 1px;
+  border-radius: inherit; pointer-events: none;
+  background: conic-gradient(from 210deg at 50% 50%, #ffffff00 2%, #ffffffd9 17%, #ffffff12 38%, #efffd65e 57%, #ffffffd9 78%, #ffffff00 99%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: .8;
+}
+.quote-summary { position: relative; isolation: isolate; }
+.quote-summary::after { opacity: .63; }
+.booking-card::after { opacity: .42; }
+.topbar.shell::after { opacity: .68; }
+@media (prefers-reduced-transparency: reduce) {
+  .topbar.shell::after, .quote-summary::after, .booking-card::after { display: none; }
+}
