@@ -15,7 +15,7 @@ export function loadForBagCount(bags: number): GroceryLoad {
 export function selectBookingLoad(selection: BookingSelection) {
   window.dispatchEvent(new CustomEvent<BookingSelection>(LOAD_SELECTION_EVENT, { detail: selection }));
   const booking = document.getElementById("book");
-  booking?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
+  booking?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
 }
 
 const labels: Record<GroceryLoad, string> = {
